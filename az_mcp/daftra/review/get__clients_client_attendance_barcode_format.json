@@ -1,0 +1,83 @@
+{
+  "path": "/clients/client_attendance_barcode{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Client Attendance By Barcode",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Resolves a client by `barcode` for attendance scanning and returns the matched client record. The barcode is supplied in the `q` query parameter; there is no request body. When the barcode does not resolve to a client, a `message` of `Client Not Found` is returned.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "q",
+        "in": "query",
+        "description": "The client's barcode. Resolved to a client via barcode lookup.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The barcode resolved to a client.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "client": {
+                  "type": "object",
+                  "description": "The client record resolved from the barcode.",
+                  "additionalProperties": true,
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__clients_client_attendance_barcode_format"
+  },
+  "blockers": []
+}

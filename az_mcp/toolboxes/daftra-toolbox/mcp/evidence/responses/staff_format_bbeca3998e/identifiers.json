@@ -1,0 +1,31 @@
+{
+  "data[].Staff.id": [
+    "3",
+    "2",
+    "6",
+    "5",
+    "4"
+  ],
+  "data[].Staff.role_id": [
+    "1",
+    "-1"
+  ],
+  "data[].Staff.branch_id": [
+    "1"
+  ],
+  "data[].Staff.attendance_restriction_id": [
+    "4"
+  ],
+  "data[].Staff.auth_id": [
+    "5",
+    "12",
+    "1",
+    "4"
+  ],
+  "data[].Staff.global_user_id": [
+    "1490697",
+    "1490696",
+    "1490699",
+    "1490698"
+  ]
+}

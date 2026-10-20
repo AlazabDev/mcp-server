@@ -1,0 +1,49 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": [
+    {
+      "Store": {
+        "id": "1",
+        "name": "Alazab (Smart Lights)",
+        "shipping_address": "st 507 Maadi Cairo",
+        "primary": "1",
+        "active": "1",
+        "created": "2018-02-04 08:36:52",
+        "modified": "2024-08-14 00:24:26",
+        "branch_id": "1"
+      }
+    },
+    {
+      "Store": {
+        "id": "3",
+        "name": "Alazab Reserve",
+        "shipping_address": "Al-Basatin, Cairo",
+        "primary": "0",
+        "active": "1",
+        "created": "2026-10-09 01:06:27",
+        "modified": "2026-10-09 01:06:27",
+        "branch_id": "1"
+      }
+    },
+    {
+      "Store": {
+        "id": "2",
+        "name": "Alazab Storega",
+        "shipping_address": "ST 306 Maadi Cairo",
+        "primary": "0",
+        "active": "1",
+        "created": "2025-02-05 02:55:09",
+        "modified": "2025-02-05 02:55:09",
+        "branch_id": "1"
+      }
+    }
+  ],
+  "pagination": {
+    "prev": null,
+    "next": null,
+    "page": 1,
+    "page_count": 1,
+    "total_results": 3
+  }
+}

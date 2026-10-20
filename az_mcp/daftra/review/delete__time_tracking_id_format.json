@@ -1,0 +1,174 @@
+{
+  "path": "/time_tracking/{id}{format}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Time Tracking",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a time-tracking entry by id. Requires an API key with the `time_tracking.write` scope. Callers without the *Edit all timesheets* permission can only delete their own entries. If the entry's date falls inside a closed accounting period, the deletion is rejected and the response body is `{\"error\": true, \"errors\": {\"date\": \"<reason>\"}}`.",
+    "tags": [
+      "Endpoints/Time Tracking",
+      "Time Tracking"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK — the entry was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — no entry id was supplied.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not Found — no entry matches the id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Internal Server Error — the entry could not be deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__time_tracking_id_format"
+  },
+  "blockers": []
+}

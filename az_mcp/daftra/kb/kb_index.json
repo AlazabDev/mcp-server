@@ -1,0 +1,66 @@
+{
+  "system_name": "Daftra ERP Knowledge Base",
+  "generated_at": "2026-08-29T07:09:47.724Z",
+  "documents": [
+    {
+      "file": "01_business_overview.md",
+      "title": "Business Overview & High-level Statistics",
+      "topics": [
+        "overview",
+        "summary",
+        "total sales",
+        "total expenses",
+        "stats",
+        "net margin"
+      ]
+    },
+    {
+      "file": "02_products_catalog.md",
+      "title": "Products, Pricing & Stock Catalog",
+      "topics": [
+        "products",
+        "items",
+        "prices",
+        "stock",
+        "swedi cables",
+        "lighting",
+        "schneider"
+      ]
+    },
+    {
+      "file": "03_clients_directory.md",
+      "title": "Clients & Contracts Directory",
+      "topics": [
+        "clients",
+        "customers",
+        "contracts",
+        "apartments",
+        "units",
+        "phone numbers"
+      ]
+    },
+    {
+      "file": "04_financial_insights.md",
+      "title": "Financial Analysis, Invoices & Unpaid Debts",
+      "topics": [
+        "invoices",
+        "unpaid",
+        "debts",
+        "expenses breakdown",
+        "sales report",
+        "revenue"
+      ]
+    },
+    {
+      "file": "05_suppliers_procurement.md",
+      "title": "Suppliers & Purchase Orders Directory",
+      "topics": [
+        "suppliers",
+        "vendors",
+        "purchase orders",
+        "procurement",
+        "electrical tools"
+      ]
+    }
+  ]
+}

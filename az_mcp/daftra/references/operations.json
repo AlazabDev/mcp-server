@@ -1,0 +1,3085 @@
+[
+  {
+    "operationId": "post__v_oauth_token",
+    "method": "POST",
+    "path": "/v2/oauth/token",
+    "group": "authorization",
+    "summary": "Generate Access Token",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths",
+      "Request content type unsupported by Foundry OpenAPI tool"
+    ]
+  },
+  {
+    "operationId": "get__site_info_format",
+    "method": "GET",
+    "path": "/site_info{format}",
+    "group": "site",
+    "summary": "GET Site Info",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoices_format",
+    "method": "GET",
+    "path": "/invoices{format}",
+    "group": "sales",
+    "summary": "GET All Invoices",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices_format",
+    "method": "POST",
+    "path": "/invoices{format}",
+    "group": "sales",
+    "summary": "Add New Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoices_id_format",
+    "method": "GET",
+    "path": "/invoices/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Invoice",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__invoices_id_format",
+    "method": "PUT",
+    "path": "/invoices/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__invoices_id_format",
+    "method": "DELETE",
+    "path": "/invoices/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices_add_bulk_format",
+    "method": "POST",
+    "path": "/invoices/add_bulk{format}",
+    "group": "sales",
+    "summary": "Bulk Add Invoices",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoices_update_draft_id_draft_status_format",
+    "method": "GET",
+    "path": "/invoices/update_draft/{id}/{draft_status}{format}",
+    "group": "sales",
+    "summary": "Edit Invoice Draft Status",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "GET request body requires verified adapter or corrected upstream contract",
+      "Request content type unsupported by Foundry OpenAPI tool"
+    ]
+  },
+  {
+    "operationId": "post__invoices_assign_work_order_id_format",
+    "method": "POST",
+    "path": "/invoices/assign_work_order/{id}{format}",
+    "group": "sales",
+    "summary": "Assign Work Order to Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices_add_shipping_id_format",
+    "method": "POST",
+    "path": "/invoices/add_shipping/{id}{format}",
+    "group": "sales",
+    "summary": "Add Shipping to Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__sales_orders_convert_to_invoice_id_format",
+    "method": "POST",
+    "path": "/sales_orders/convert_to_invoice/{id}{format}",
+    "group": "sales",
+    "summary": "Convert Sales Order to Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__sales_orders_id_format",
+    "method": "DELETE",
+    "path": "/sales_orders/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Sales Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoices_subscription_format",
+    "method": "GET",
+    "path": "/invoices/subscription{format}",
+    "group": "sales",
+    "summary": "List Subscriptions",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoices_view_subscription_id_format",
+    "method": "GET",
+    "path": "/invoices/view_subscription/{id}{format}",
+    "group": "sales",
+    "summary": "View Subscription",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices_add_subscription_format",
+    "method": "POST",
+    "path": "/invoices/add_subscription{format}",
+    "group": "sales",
+    "summary": "Create Subscription",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__invoices_edit_subscription_id_format",
+    "method": "PUT",
+    "path": "/invoices/edit_subscription/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Subscription",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__invoices_delete_subscription_id_format",
+    "method": "DELETE",
+    "path": "/invoices/delete_subscription/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Subscription",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__estimates_format",
+    "method": "GET",
+    "path": "/estimates{format}",
+    "group": "sales",
+    "summary": "GET All Estimates",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__estimates_format",
+    "method": "POST",
+    "path": "/estimates{format}",
+    "group": "sales",
+    "summary": "Add New Estimate",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__estimates_id_format",
+    "method": "GET",
+    "path": "/estimates/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Estimate",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__estimates_id_format",
+    "method": "PUT",
+    "path": "/estimates/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Estimate",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__estimates_id_format",
+    "method": "DELETE",
+    "path": "/estimates/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Estimate",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_notes_format",
+    "method": "GET",
+    "path": "/credit_notes{format}",
+    "group": "sales",
+    "summary": "GET All Credit Notes",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__credit_notes_format",
+    "method": "POST",
+    "path": "/credit_notes{format}",
+    "group": "sales",
+    "summary": "Add New Credit Note",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_notes_id_format",
+    "method": "GET",
+    "path": "/credit_notes/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Credit Note",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__credit_notes_id_format",
+    "method": "PUT",
+    "path": "/credit_notes/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Credit Notes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__credit_notes_id_format",
+    "method": "DELETE",
+    "path": "/credit_notes/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Credit Notes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__refund_receipts_format",
+    "method": "GET",
+    "path": "/refund_receipts{format}",
+    "group": "sales",
+    "summary": "GET All Refund Receipts",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__refund_receipts_format",
+    "method": "POST",
+    "path": "/refund_receipts{format}",
+    "group": "sales",
+    "summary": "Add New Refund Receipt",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__refund_receipts_id_format",
+    "method": "GET",
+    "path": "/refund_receipts/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Refund Receipt",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__refund_receipts_id_format",
+    "method": "PUT",
+    "path": "/refund_receipts/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Refund Receipts",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__refund_receipts_id_format",
+    "method": "DELETE",
+    "path": "/refund_receipts/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Refund Receipts",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices_add_bulk_refund_receipts_format",
+    "method": "POST",
+    "path": "/invoices/add_bulk_refund_receipts{format}",
+    "group": "sales",
+    "summary": "Bulk Add Refund Receipts",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_payments_format",
+    "method": "GET",
+    "path": "/invoice_payments{format}",
+    "group": "sales",
+    "summary": "GET All Invoice Payments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoice_payments_format",
+    "method": "POST",
+    "path": "/invoice_payments{format}",
+    "group": "sales",
+    "summary": "Add New Invoice Payment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_payments_id_format",
+    "method": "GET",
+    "path": "/invoice_payments/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Invoice Payment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__invoice_payments_id_format",
+    "method": "PUT",
+    "path": "/invoice_payments/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Invoice Payments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__invoice_payments_id_format",
+    "method": "DELETE",
+    "path": "/invoice_payments/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Invoice Payments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__follow_up_statuses_type_format",
+    "method": "GET",
+    "path": "/follow_up_statuses/{type}{format}",
+    "group": "sales",
+    "summary": "Get All Follow-Up Statuses by type",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "get__follow_up_statuses_id_format",
+    "method": "GET",
+    "path": "/follow_up_statuses/{id}{format}",
+    "group": "sales",
+    "summary": "Get Single Follow-Up Status",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "delete__follow_up_statuses_id_format",
+    "method": "DELETE",
+    "path": "/follow_up_statuses/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Follow-Up Status",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "get__follow_up_status_list",
+    "method": "GET",
+    "path": "/follow_up_status/list/1",
+    "group": "sales",
+    "summary": "Get All Follow-Up Statuses",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__follow_up_status",
+    "method": "POST",
+    "path": "/follow_up_status",
+    "group": "follow_up_statuses",
+    "summary": "Add New Follow-Up Status",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_appointments_format",
+    "method": "GET",
+    "path": "/invoice_appointments{format}",
+    "group": "sales",
+    "summary": "GET All Invoice Appointments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoice_appointments_format",
+    "method": "POST",
+    "path": "/invoice_appointments{format}",
+    "group": "sales",
+    "summary": "Add New Invoice Appointment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_appointments_id_format",
+    "method": "GET",
+    "path": "/invoice_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Invoice Appointment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__invoice_appointments_id_format",
+    "method": "PUT",
+    "path": "/invoice_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Invoice Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__invoice_appointments_id_format",
+    "method": "DELETE",
+    "path": "/invoice_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Invoice Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__estimate_appointments_format",
+    "method": "GET",
+    "path": "/estimate_appointments{format}",
+    "group": "sales",
+    "summary": "GET All Estimate Appointments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__estimate_appointments_format",
+    "method": "POST",
+    "path": "/estimate_appointments{format}",
+    "group": "sales",
+    "summary": "Add New Estimate Appointment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__estimate_appointments_id_format",
+    "method": "GET",
+    "path": "/estimate_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "GET Single Estimate Appointment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__estimate_appointments_id_format",
+    "method": "PUT",
+    "path": "/estimate_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "Edit Estimate Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__estimate_appointments_id_format",
+    "method": "DELETE",
+    "path": "/estimate_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "Delete Estimate Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__estimate_appointments_id_format",
+    "method": "POST",
+    "path": "/estimate_appointments/{id}{format}",
+    "group": "sales",
+    "summary": "Update Estimate Appointment (POST alias)",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_list",
+    "method": "GET",
+    "path": "/invoice/list/1",
+    "group": "sales",
+    "summary": "GET All Advance payment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__invoice_ID",
+    "method": "GET",
+    "path": "/invoice/{ID}/1",
+    "group": "sales",
+    "summary": "GET Single Advance payment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__invoices",
+    "method": "POST",
+    "path": "/invoices",
+    "group": "sales",
+    "summary": "Add Advance Payment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__shipping_options_format",
+    "method": "GET",
+    "path": "/shipping_options{format}",
+    "group": "sales",
+    "summary": "List Shipping Options",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__pos_shifts_format",
+    "method": "GET",
+    "path": "/pos_shifts{format}",
+    "group": "sales",
+    "summary": "Get POS Shift Session",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__clients_format",
+    "method": "GET",
+    "path": "/clients{format}",
+    "group": "clients",
+    "summary": "GET All Clients",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__clients_format",
+    "method": "POST",
+    "path": "/clients{format}",
+    "group": "clients",
+    "summary": "Add New Client",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__clients_id_format",
+    "method": "GET",
+    "path": "/clients/{id}{format}",
+    "group": "clients",
+    "summary": "GET Single Client",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__clients_id_format",
+    "method": "PUT",
+    "path": "/clients/{id}{format}",
+    "group": "clients",
+    "summary": "Edit Clients",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__clients_id_format",
+    "method": "DELETE",
+    "path": "/clients/{id}{format}",
+    "group": "clients",
+    "summary": "Delete Clients",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__clients_assign_staff_id_format",
+    "method": "POST",
+    "path": "/clients/assign_staff/{id}{format}",
+    "group": "clients",
+    "summary": "Assign Staff To Client",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__clients_loyalty-points_id_format",
+    "method": "GET",
+    "path": "/clients/loyalty-points/{id}{format}",
+    "group": "clients",
+    "summary": "Client Loyalty Points",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__clients_add_bulk_format",
+    "method": "POST",
+    "path": "/clients/add_bulk{format}",
+    "group": "clients",
+    "summary": "Bulk Add Clients",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__clients_client_has_membership_format",
+    "method": "GET",
+    "path": "/clients/client_has_membership{format}",
+    "group": "clients",
+    "summary": "Client Has Membership",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__clients_client_attendance_barcode_format",
+    "method": "GET",
+    "path": "/clients/client_attendance_barcode{format}",
+    "group": "clients",
+    "summary": "Client Attendance By Barcode",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_appointments_format",
+    "method": "GET",
+    "path": "/client_appointments{format}",
+    "group": "clients",
+    "summary": "GET All Client Appointments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__client_appointments_format",
+    "method": "POST",
+    "path": "/client_appointments{format}",
+    "group": "clients",
+    "summary": "Add New Client Appointment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_appointments_id_format",
+    "method": "GET",
+    "path": "/client_appointments/{id}{format}",
+    "group": "clients",
+    "summary": "GET Single Client Appointment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__client_appointments_id_format",
+    "method": "PUT",
+    "path": "/client_appointments/{id}{format}",
+    "group": "clients",
+    "summary": "Edit Client Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__client_appointments_id_format",
+    "method": "DELETE",
+    "path": "/client_appointments/{id}{format}",
+    "group": "clients",
+    "summary": "Delete Client Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_payments_format",
+    "method": "GET",
+    "path": "/client_payments{format}",
+    "group": "clients",
+    "summary": "GET All Client Payments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__client_payments_format",
+    "method": "POST",
+    "path": "/client_payments{format}",
+    "group": "clients",
+    "summary": "Add New Client Payment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_payments_id_format",
+    "method": "GET",
+    "path": "/client_payments/{id}{format}",
+    "group": "clients",
+    "summary": "GET Single Client Payment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__client_payments_id_format",
+    "method": "PUT",
+    "path": "/client_payments/{id}{format}",
+    "group": "clients",
+    "summary": "Edit Client Payments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__client_payments_id_format",
+    "method": "DELETE",
+    "path": "/client_payments/{id}{format}",
+    "group": "clients",
+    "summary": "Delete Client Payments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_attendance_log_list",
+    "method": "GET",
+    "path": "/client_attendance_log/list/1",
+    "group": "clients",
+    "summary": "Get All Client Attendance Logs",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__client_attendance_log_id",
+    "method": "GET",
+    "path": "/client_attendance_log/{id}/1",
+    "group": "clients",
+    "summary": "Get Single Client Attendance Log",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__client_attendance_log",
+    "method": "POST",
+    "path": "/client_attendance_log",
+    "group": "clients",
+    "summary": "Edit Client Attendance Log",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_client_attendance_log",
+    "method": "DELETE",
+    "path": "/delete/client_attendance_log/1",
+    "group": "clients",
+    "summary": "Delete Client Attendance Log",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__follow_up_actions_type_format",
+    "method": "GET",
+    "path": "/follow_up_actions/{type}{format}",
+    "group": "clients",
+    "summary": "Get All Follow-Up Actions",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "get__follow_up_actions_id_format",
+    "method": "GET",
+    "path": "/follow_up_actions/{id}{format}",
+    "group": "clients",
+    "summary": "Get Single Follow-Up Action",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "delete__follow_up_actions_id_format",
+    "method": "DELETE",
+    "path": "/follow_up_actions/{id}{format}",
+    "group": "clients",
+    "summary": "Delete Follow-Up Action",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Equivalent path templates in source; endpoint semantics need resolution"
+    ]
+  },
+  {
+    "operationId": "get__notes_format",
+    "method": "GET",
+    "path": "/notes{format}",
+    "group": "clients",
+    "summary": "GET All Notes",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__notes_id_format",
+    "method": "GET",
+    "path": "/notes/{id}{format}",
+    "group": "clients",
+    "summary": "GET Single Note",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__notes_id_format",
+    "method": "PUT",
+    "path": "/notes/{id}{format}",
+    "group": "clients",
+    "summary": "Edit Notes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__notes_id_format",
+    "method": "DELETE",
+    "path": "/notes/{id}{format}",
+    "group": "clients",
+    "summary": "Delete Notes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__notes_type_id_format",
+    "method": "POST",
+    "path": "/notes/{type}/{id}{format}",
+    "group": "clients",
+    "summary": "Add New Note",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__booking_list",
+    "method": "GET",
+    "path": "/booking/list/1",
+    "group": "bookings",
+    "summary": "Get All Bookings",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__booking_bookingId",
+    "method": "GET",
+    "path": "/booking/{bookingId}/1",
+    "group": "bookings",
+    "summary": "Get Single Booking",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__bookings_add",
+    "method": "POST",
+    "path": "/bookings/add",
+    "group": "bookings",
+    "summary": "Add new Booking",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__bookings_bookingId",
+    "method": "DELETE",
+    "path": "/bookings/{bookingId}",
+    "group": "bookings",
+    "summary": "Delete booking",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__bookings_change_status_bookingId_bookingStatus",
+    "method": "GET",
+    "path": "/bookings/change_status/{bookingId}/{bookingStatus}",
+    "group": "bookings",
+    "summary": "Change Booking Status",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__bookings_convert_to_invoice_bookingId",
+    "method": "GET",
+    "path": "/bookings/convert_to_invoice/{bookingId}",
+    "group": "bookings",
+    "summary": "Convert booking to Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__v_api_bookings",
+    "method": "POST",
+    "path": "/v2/api/bookings",
+    "group": "bookings",
+    "summary": "Add new Booking",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "delete__v_api_bookings_BookingID",
+    "method": "DELETE",
+    "path": "/v2/api/bookings/{BookingID}",
+    "group": "bookings",
+    "summary": "Delete booking",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__v_api_bookings_BookingID_status",
+    "method": "GET",
+    "path": "/v2/api/bookings/{BookingID}/status",
+    "group": "bookings",
+    "summary": "Change Booking Status",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths",
+      "GET request body requires verified adapter or corrected upstream contract"
+    ]
+  },
+  {
+    "operationId": "get__work_orders_format",
+    "method": "GET",
+    "path": "/work_orders{format}",
+    "group": "work_orders",
+    "summary": "GET All Work Orders",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__work_orders_format",
+    "method": "POST",
+    "path": "/work_orders{format}",
+    "group": "work_orders",
+    "summary": "Add New Work Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__work_orders_id_format",
+    "method": "GET",
+    "path": "/work_orders/{id}{format}",
+    "group": "work_orders",
+    "summary": "GET Single Work Order",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__work_orders_id_format",
+    "method": "PUT",
+    "path": "/work_orders/{id}{format}",
+    "group": "work_orders",
+    "summary": "Edit Work Orders",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__work_orders_id_format",
+    "method": "DELETE",
+    "path": "/work_orders/{id}{format}",
+    "group": "work_orders",
+    "summary": "Delete Work Orders",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__work_order_appointments_format",
+    "method": "GET",
+    "path": "/work_order_appointments{format}",
+    "group": "work_orders",
+    "summary": "GET All Work Order Appointments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__work_order_appointments_format",
+    "method": "POST",
+    "path": "/work_order_appointments{format}",
+    "group": "work_orders",
+    "summary": "Add New Work Order Appointment",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__work_order_appointments_id_format",
+    "method": "GET",
+    "path": "/work_order_appointments/{id}{format}",
+    "group": "work_orders",
+    "summary": "GET Single Work Order Appointment",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__work_order_appointments_id_format",
+    "method": "PUT",
+    "path": "/work_order_appointments/{id}{format}",
+    "group": "work_orders",
+    "summary": "Edit Work Order Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__work_order_appointments_id_format",
+    "method": "DELETE",
+    "path": "/work_order_appointments/{id}{format}",
+    "group": "work_orders",
+    "summary": "Delete Work Order Appointments",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__work_order_appointments_id_format",
+    "method": "POST",
+    "path": "/work_order_appointments/{id}{format}",
+    "group": "work_orders",
+    "summary": "Update Work Order Appointment (POST alias)",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__product_bundle",
+    "method": "POST",
+    "path": "/product_bundle",
+    "group": "inventory",
+    "summary": "Add Product bundle",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__products_format",
+    "method": "GET",
+    "path": "/products{format}",
+    "group": "inventory",
+    "summary": "GET All Products",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__products_format",
+    "method": "POST",
+    "path": "/products{format}",
+    "group": "inventory",
+    "summary": "Add New Product",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__products_id_format",
+    "method": "GET",
+    "path": "/products/{id}{format}",
+    "group": "inventory",
+    "summary": "GET Single Product",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__products_id_format",
+    "method": "PUT",
+    "path": "/products/{id}{format}",
+    "group": "inventory",
+    "summary": "Edit Products",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__products_id_format",
+    "method": "DELETE",
+    "path": "/products/{id}{format}",
+    "group": "inventory",
+    "summary": "Delete Products",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__products_brands_format",
+    "method": "GET",
+    "path": "/products/brands{format}",
+    "group": "inventory",
+    "summary": "List Brands",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__requisitions",
+    "method": "GET",
+    "path": "/requisitions",
+    "group": "inventory",
+    "summary": "GET All Requisitions ",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__requisitions",
+    "method": "POST",
+    "path": "/requisitions",
+    "group": "inventory",
+    "summary": "Add New Requisition",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__requisitions_id",
+    "method": "GET",
+    "path": "/requisitions/{id}",
+    "group": "inventory",
+    "summary": "GET single Requisition",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__requisitions_id",
+    "method": "PUT",
+    "path": "/requisitions/{id}",
+    "group": "inventory",
+    "summary": "Edit Requisitions",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__requisitions_id",
+    "method": "DELETE",
+    "path": "/requisitions/{id}",
+    "group": "inventory",
+    "summary": "Delete Requisitions",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__requisitions_trigger_update_id",
+    "method": "GET",
+    "path": "/requisitions/trigger_update/{id}",
+    "group": "inventory",
+    "summary": "Trigger Requisition Update",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__product_categories_format",
+    "method": "GET",
+    "path": "/product_categories{format}",
+    "group": "inventory",
+    "summary": "GET All Product Categories",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__product_categories_format",
+    "method": "POST",
+    "path": "/product_categories{format}",
+    "group": "inventory",
+    "summary": "Add New Product Category",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__product_categories_id_format",
+    "method": "GET",
+    "path": "/product_categories/{id}{format}",
+    "group": "inventory",
+    "summary": "GET Single Product Category",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__product_categories_id_format",
+    "method": "PUT",
+    "path": "/product_categories/{id}{format}",
+    "group": "inventory",
+    "summary": "Edit Product Category",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__product_categories_type_id_format",
+    "method": "DELETE",
+    "path": "/product_categories/{type}/{id}{format}",
+    "group": "inventory",
+    "summary": "Delete Product Category",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__categories_update_display_order_type_format",
+    "method": "POST",
+    "path": "/categories/update_display_order/{type}{format}",
+    "group": "inventory",
+    "summary": "Update Category Display Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__categories_update_category_items_type_format",
+    "method": "POST",
+    "path": "/categories/update_category_items/{type}{format}",
+    "group": "inventory",
+    "summary": "Update Category Items",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__stores_format",
+    "method": "GET",
+    "path": "/stores{format}",
+    "group": "inventory",
+    "summary": "GET All Stores",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__stores_format",
+    "method": "POST",
+    "path": "/stores{format}",
+    "group": "inventory",
+    "summary": "Add New Store",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__stores_id_format",
+    "method": "GET",
+    "path": "/stores/{id}{format}",
+    "group": "inventory",
+    "summary": "GET Single Store",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__stores_id_format",
+    "method": "PUT",
+    "path": "/stores/{id}{format}",
+    "group": "inventory",
+    "summary": "Edit Stores",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__stores_id_format",
+    "method": "DELETE",
+    "path": "/stores/{id}{format}",
+    "group": "inventory",
+    "summary": "Delete Stores",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__brand_list",
+    "method": "GET",
+    "path": "/brand/list",
+    "group": "inventory",
+    "summary": "Get All Brands",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__brand_id",
+    "method": "GET",
+    "path": "/brand/{id}",
+    "group": "inventory",
+    "summary": "Get Single Brand",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__brand_id",
+    "method": "PUT",
+    "path": "/brand/{id}",
+    "group": "inventory",
+    "summary": "Edit brand",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__brand",
+    "method": "POST",
+    "path": "/brand",
+    "group": "inventory",
+    "summary": "Add New Brand",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_brand_id",
+    "method": "DELETE",
+    "path": "/delete/brand/{id}",
+    "group": "inventory",
+    "summary": "Delete brand",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__unit_template_list",
+    "method": "GET",
+    "path": "/unit_template/list",
+    "group": "inventory",
+    "summary": "Get All Unit Templates",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__unit_template_id",
+    "method": "GET",
+    "path": "/unit_template/{id}",
+    "group": "inventory",
+    "summary": "Get Single Unit Template",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__unit_template_id",
+    "method": "PUT",
+    "path": "/unit_template/{id}",
+    "group": "inventory",
+    "summary": "Edit Unit Template",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__unit_template",
+    "method": "POST",
+    "path": "/unit_template",
+    "group": "inventory",
+    "summary": "Add Unit Template",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__stock_transactions_format",
+    "method": "GET",
+    "path": "/stock_transactions{format}",
+    "group": "inventory",
+    "summary": "GET All Stock Transactions",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__stock_transactions_format",
+    "method": "POST",
+    "path": "/stock_transactions{format}",
+    "group": "inventory",
+    "summary": "Add New Stock Transaction",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__stock_transactions_id_format",
+    "method": "GET",
+    "path": "/stock_transactions/{id}{format}",
+    "group": "inventory",
+    "summary": "GET Single Stock Transaction",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__stock_transactions_id_format",
+    "method": "PUT",
+    "path": "/stock_transactions/{id}{format}",
+    "group": "inventory",
+    "summary": "Edit Stock Transactions",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__stock_transactions_id_format",
+    "method": "DELETE",
+    "path": "/stock_transactions/{id}{format}",
+    "group": "inventory",
+    "summary": "Delete Stock Transactions",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__journals_id_format",
+    "method": "DELETE",
+    "path": "/journals/{id}{format}",
+    "group": "accounting",
+    "summary": "Delete Journals",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__journals_id_format",
+    "method": "PUT",
+    "path": "/journals/{id}{format}",
+    "group": "accounting",
+    "summary": "Edit Journals",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journals_id_format",
+    "method": "GET",
+    "path": "/journals/{id}{format}",
+    "group": "accounting",
+    "summary": "GET Single Journal",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journals_format",
+    "method": "GET",
+    "path": "/journals{format}",
+    "group": "accounting",
+    "summary": "GET All Journals",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__journals_format",
+    "method": "POST",
+    "path": "/journals{format}",
+    "group": "accounting",
+    "summary": "Add New Journal",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journal_accounts_format",
+    "method": "GET",
+    "path": "/journal_accounts{format}",
+    "group": "accounting",
+    "summary": "GET All Journal Accounts",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__journal_accounts_format",
+    "method": "POST",
+    "path": "/journal_accounts{format}",
+    "group": "accounting",
+    "summary": "Add New Journal Account",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journal_accounts_id_format",
+    "method": "GET",
+    "path": "/journal_accounts/{id}{format}",
+    "group": "accounting",
+    "summary": "GET Single Journal Account",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__journal_accounts_id_format",
+    "method": "PUT",
+    "path": "/journal_accounts/{id}{format}",
+    "group": "accounting",
+    "summary": "Edit Journal Accounts",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__journal_accounts_id_format",
+    "method": "DELETE",
+    "path": "/journal_accounts/{id}{format}",
+    "group": "accounting",
+    "summary": "Delete Journal Accounts",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journal_cats_format",
+    "method": "GET",
+    "path": "/journal_cats{format}",
+    "group": "accounting",
+    "summary": "GET All Journal Cats",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__journal_cats_format",
+    "method": "POST",
+    "path": "/journal_cats{format}",
+    "group": "accounting",
+    "summary": "Add New Journal Cat",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__journal_cats_id_format",
+    "method": "GET",
+    "path": "/journal_cats/{id}{format}",
+    "group": "accounting",
+    "summary": "GET Single Journal Cat",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__journal_cats_id_format",
+    "method": "DELETE",
+    "path": "/journal_cats/{id}{format}",
+    "group": "accounting",
+    "summary": "Delete Journal Cats",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__journal_cats_id_format",
+    "method": "PUT",
+    "path": "/journal_cats/{id}{format}",
+    "group": "accounting",
+    "summary": "Edit Journal Cats",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__cost_center_list",
+    "method": "GET",
+    "path": "/cost_center/list/1",
+    "group": "accounting",
+    "summary": "Get All Cost Centers",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__cost_center_ID",
+    "method": "GET",
+    "path": "/cost_center/{ID}/1",
+    "group": "accounting",
+    "summary": "Get Single Cost Center",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__cost_center",
+    "method": "POST",
+    "path": "/cost_center",
+    "group": "accounting",
+    "summary": "Add New Cost Center",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__cost_center_ID",
+    "method": "PUT",
+    "path": "/cost_center/{ID}",
+    "group": "accounting",
+    "summary": "Edit Cost Center",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_cost_center_ID",
+    "method": "DELETE",
+    "path": "/delete/cost_center/{ID}",
+    "group": "accounting",
+    "summary": "Delete Cost Center",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__incomes_format",
+    "method": "GET",
+    "path": "/incomes{format}",
+    "group": "finance",
+    "summary": "GET All Incomes",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__incomes_format",
+    "method": "POST",
+    "path": "/incomes{format}",
+    "group": "finance",
+    "summary": "Add New Income",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__incomes_id_format",
+    "method": "GET",
+    "path": "/incomes/{id}{format}",
+    "group": "finance",
+    "summary": "GET Single Income",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__incomes_id_format",
+    "method": "PUT",
+    "path": "/incomes/{id}{format}",
+    "group": "finance",
+    "summary": "Edit Incomes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__incomes_id_format",
+    "method": "DELETE",
+    "path": "/incomes/{id}{format}",
+    "group": "finance",
+    "summary": "Delete Incomes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__treasuries_format",
+    "method": "GET",
+    "path": "/treasuries{format}",
+    "group": "finance",
+    "summary": "GET All Treasuries",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__treasuries_format",
+    "method": "POST",
+    "path": "/treasuries{format}",
+    "group": "finance",
+    "summary": "Add New Treasury",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__treasuries_id_format",
+    "method": "GET",
+    "path": "/treasuries/{id}{format}",
+    "group": "finance",
+    "summary": "GET Single Treasury",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__treasuries_id_format",
+    "method": "PUT",
+    "path": "/treasuries/{id}{format}",
+    "group": "finance",
+    "summary": "Edit Treasuries",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__treasuries_id_format",
+    "method": "DELETE",
+    "path": "/treasuries/{id}{format}",
+    "group": "finance",
+    "summary": "Delete Treasuries",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__expenses_format",
+    "method": "GET",
+    "path": "/expenses{format}",
+    "group": "finance",
+    "summary": "GET All Expenses",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__expenses_format",
+    "method": "POST",
+    "path": "/expenses{format}",
+    "group": "finance",
+    "summary": "Add New Expens",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__expenses_id_format",
+    "method": "GET",
+    "path": "/expenses/{id}{format}",
+    "group": "finance",
+    "summary": "GET Single Expens",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__expenses_id_format",
+    "method": "PUT",
+    "path": "/expenses/{id}{format}",
+    "group": "finance",
+    "summary": "Edit Expenses",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__expenses_id_format",
+    "method": "DELETE",
+    "path": "/expenses/{id}{format}",
+    "group": "finance",
+    "summary": "Delete Expenses",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__leave_application_list",
+    "method": "GET",
+    "path": "/leave_application/list/1",
+    "group": "hr",
+    "summary": "Get All Leave Applications",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__leave_application_ID",
+    "method": "GET",
+    "path": "/leave_application/{ID}/1",
+    "group": "hr",
+    "summary": "Get Single Leave Applications ",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__leave_application",
+    "method": "POST",
+    "path": "/leave_application",
+    "group": "hr",
+    "summary": "Add Leave Application",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__leave_application_ID",
+    "method": "PUT",
+    "path": "/leave_application/{ID}",
+    "group": "hr",
+    "summary": "Edit Leave Application",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__attendance_log_list",
+    "method": "GET",
+    "path": "/attendance_log/list/1",
+    "group": "hr",
+    "summary": "Get All Attendance Logs",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__attendance_log_id",
+    "method": "GET",
+    "path": "/attendance_log/{id}/1",
+    "group": "hr",
+    "summary": "Get Single Attendance Log",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__attendance_log",
+    "method": "POST",
+    "path": "/attendance_log",
+    "group": "hr",
+    "summary": "Add Attendance Log",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__asset_type_list",
+    "method": "GET",
+    "path": "/asset_type/list/1",
+    "group": "hr",
+    "summary": "Get All Types",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__asset_type_id",
+    "method": "GET",
+    "path": "/asset_type/id/1",
+    "group": "hr",
+    "summary": "Get Single Type",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__asset_type",
+    "method": "POST",
+    "path": "/asset_type",
+    "group": "hr",
+    "summary": "Add New Type",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__asset_type_id",
+    "method": "PUT",
+    "path": "/asset_type/id",
+    "group": "hr",
+    "summary": "Edit Type",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__asset_location_list",
+    "method": "GET",
+    "path": "/asset_location/list/1",
+    "group": "hr",
+    "summary": "Get All Locations",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__asset_location_id",
+    "method": "GET",
+    "path": "/asset_location/id/1",
+    "group": "hr",
+    "summary": "Get Single Location",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__asset_location",
+    "method": "POST",
+    "path": "/asset_location",
+    "group": "hr",
+    "summary": "Add New Location",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__asset_location_id",
+    "method": "PUT",
+    "path": "/asset_location/id",
+    "group": "hr",
+    "summary": "Edit Location",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__storage_list",
+    "method": "GET",
+    "path": "/storage/list/1",
+    "group": "hr",
+    "summary": "Get All Storages",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__storage_id",
+    "method": "GET",
+    "path": "/storage/id/1",
+    "group": "hr",
+    "summary": "Get Single Storage",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__storage",
+    "method": "POST",
+    "path": "/storage",
+    "group": "hr",
+    "summary": "Add New Storage",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__storage_id",
+    "method": "PUT",
+    "path": "/storage/id",
+    "group": "hr",
+    "summary": "Edit Storage",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__employee_asset_list",
+    "method": "GET",
+    "path": "/employee_asset/list/2",
+    "group": "hr",
+    "summary": "Get All Assets",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__employee_asset_id",
+    "method": "GET",
+    "path": "/employee_asset/id/1",
+    "group": "hr",
+    "summary": "Get Single Asset",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__employee_asset",
+    "method": "POST",
+    "path": "/employee_asset",
+    "group": "hr",
+    "summary": "Add New Asset",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__employee_asset_id",
+    "method": "PUT",
+    "path": "/employee_asset/id",
+    "group": "hr",
+    "summary": "Edit Asset",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__designation_list",
+    "method": "GET",
+    "path": "/designation/list/1",
+    "group": "hr",
+    "summary": "Get All Designations",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__designation_id",
+    "method": "GET",
+    "path": "/designation/id/1",
+    "group": "hr",
+    "summary": "Get Single Designation",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__designation",
+    "method": "POST",
+    "path": "/designation",
+    "group": "hr",
+    "summary": "Add New Designation",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__designation_id",
+    "method": "PUT",
+    "path": "/designation/id",
+    "group": "hr",
+    "summary": "Edit Designation",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__department_list",
+    "method": "GET",
+    "path": "/department/list/1",
+    "group": "hr",
+    "summary": "Get All Departments",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__department_id",
+    "method": "GET",
+    "path": "/department/id/1",
+    "group": "hr",
+    "summary": "Get Single Department",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__department",
+    "method": "POST",
+    "path": "/department",
+    "group": "hr",
+    "summary": "Add New Department",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__department_id",
+    "method": "PUT",
+    "path": "/department/id",
+    "group": "hr",
+    "summary": "Edit Department",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__employment_type_list",
+    "method": "GET",
+    "path": "/employment_type/list/1",
+    "group": "hr",
+    "summary": "Get All Employment Types",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__employment_type_id",
+    "method": "GET",
+    "path": "/employment_type/id/1",
+    "group": "hr",
+    "summary": "Get Single Employment Type",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__employment_type",
+    "method": "POST",
+    "path": "/employment_type",
+    "group": "hr",
+    "summary": "Add New Employment Type",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__employment_type_id",
+    "method": "PUT",
+    "path": "/employment_type/id",
+    "group": "hr",
+    "summary": "Edit Employment Type",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "get__branch_list",
+    "method": "GET",
+    "path": "/branch/list/1",
+    "group": "branches",
+    "summary": "Get All Branches",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__branch_id",
+    "method": "GET",
+    "path": "/branch/id/1",
+    "group": "branches",
+    "summary": "Get Single Branch",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Literal /id in source; confirm actual route and identifier parameter"
+    ]
+  },
+  {
+    "operationId": "post__branch",
+    "method": "POST",
+    "path": "/branch",
+    "group": "branches",
+    "summary": "Edit Branch",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_branch_id",
+    "method": "DELETE",
+    "path": "/delete/branch/{id}",
+    "group": "branches",
+    "summary": "Delete Branch",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__taxes_format",
+    "method": "GET",
+    "path": "/taxes{format}",
+    "group": "taxes",
+    "summary": "GET All Taxes",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__taxes_format",
+    "method": "POST",
+    "path": "/taxes{format}",
+    "group": "taxes",
+    "summary": "Add New Taxe",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__taxes_id_format",
+    "method": "GET",
+    "path": "/taxes/{id}{format}",
+    "group": "taxes",
+    "summary": "GET Single Taxe",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__taxes_id_format",
+    "method": "PUT",
+    "path": "/taxes/{id}{format}",
+    "group": "taxes",
+    "summary": "Edit Taxes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__taxes_id_format",
+    "method": "DELETE",
+    "path": "/taxes/{id}{format}",
+    "group": "taxes",
+    "summary": "Delete Taxes",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_debit_note_list_dataLevel",
+    "method": "GET",
+    "path": "/purchase_debit_note/list/{dataLevel}",
+    "group": "purchases",
+    "summary": "Purchase Debit Note",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__purchase_debit_note",
+    "method": "POST",
+    "path": "/purchase_debit_note",
+    "group": "purchases",
+    "summary": "Purchase Debit Note",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_refunds_format",
+    "method": "GET",
+    "path": "/purchase_refunds{format}",
+    "group": "purchases",
+    "summary": "GET All Purchase Refunds",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__purchase_refunds_format",
+    "method": "POST",
+    "path": "/purchase_refunds{format}",
+    "group": "purchases",
+    "summary": "Add New Purchase Refund",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_refunds_id_format",
+    "method": "GET",
+    "path": "/purchase_refunds/{id}{format}",
+    "group": "purchases",
+    "summary": "GET Single Purchase Refund",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__purchase_refunds_id_format",
+    "method": "PUT",
+    "path": "/purchase_refunds/{id}{format}",
+    "group": "purchases",
+    "summary": "Edit Purchase Refunds",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__purchase_refunds_id_format",
+    "method": "DELETE",
+    "path": "/purchase_refunds/{id}{format}",
+    "group": "purchases",
+    "summary": "Delete Purchase Refunds",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_invoices_format",
+    "method": "GET",
+    "path": "/purchase_invoices{format}",
+    "group": "purchases",
+    "summary": "GET All Purchase Invoices",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__purchase_invoices_format",
+    "method": "POST",
+    "path": "/purchase_invoices{format}",
+    "group": "purchases",
+    "summary": "Add New Purchase Invoice",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_invoices_id_format",
+    "method": "GET",
+    "path": "/purchase_invoices/{id}{format}",
+    "group": "purchases",
+    "summary": "GET Single Purchase Invoice",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__purchase_invoices_id_format",
+    "method": "PUT",
+    "path": "/purchase_invoices/{id}{format}",
+    "group": "purchases",
+    "summary": "Edit Purchase Invoices",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__purchase_invoices_id_format",
+    "method": "DELETE",
+    "path": "/purchase_invoices/{id}{format}",
+    "group": "purchases",
+    "summary": "Delete Purchase Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_orders_format",
+    "method": "GET",
+    "path": "/purchase_orders{format}",
+    "group": "purchases",
+    "summary": "GET All Purchase Orders",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__purchase_orders_format",
+    "method": "POST",
+    "path": "/purchase_orders{format}",
+    "group": "purchases",
+    "summary": "Add New Purchase Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__purchase_orders_id_format",
+    "method": "GET",
+    "path": "/purchase_orders/{id}{format}",
+    "group": "purchases",
+    "summary": "GET Single Purchase Order",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__purchase_orders_id_format",
+    "method": "PUT",
+    "path": "/purchase_orders/{id}{format}",
+    "group": "purchases",
+    "summary": "Edit Purchase Order",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__listing_model_format",
+    "method": "GET",
+    "path": "/listing/{model}{format}",
+    "group": "general_listing",
+    "summary": "GET General Listing",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__site_payment_gateway_list",
+    "method": "GET",
+    "path": "/site_payment_gateway/list/1",
+    "group": "payment_gateways",
+    "summary": "Get All Payment Methods",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__site_payment_gateway_ID",
+    "method": "GET",
+    "path": "/site_payment_gateway/{ID}/1",
+    "group": "payment_gateways",
+    "summary": "Get Single Payment Method",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__site_payment_gateway",
+    "method": "POST",
+    "path": "/site_payment_gateway",
+    "group": "payment_gateways",
+    "summary": "Add Payment Method",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_site_payment_gateway_ID",
+    "method": "DELETE",
+    "path": "/delete/site_payment_gateway/{ID}",
+    "group": "payment_gateways",
+    "summary": "Add Payment Method Copy",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_type_package_list",
+    "method": "GET",
+    "path": "/credit_type_package/list/1",
+    "group": "points_credits",
+    "summary": "Get All Package Credit Types",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_type_package_id",
+    "method": "GET",
+    "path": "/credit_type_package/{id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Package Credit Type",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__credit_type_package",
+    "method": "POST",
+    "path": "/credit_type_package",
+    "group": "points_credits",
+    "summary": "Edit Package Credit Type",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_charge_list",
+    "method": "GET",
+    "path": "/credit_charge/list/1",
+    "group": "points_credits",
+    "summary": "Get All Credit Charges",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_charge_id",
+    "method": "GET",
+    "path": "/credit_charge/{id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Credit Charge",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__credit_charge",
+    "method": "POST",
+    "path": "/credit_charge",
+    "group": "points_credits",
+    "summary": "Edit Credit Charge",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_usage_list",
+    "method": "GET",
+    "path": "/credit_usage/list/1",
+    "group": "points_credits",
+    "summary": "Get All Credit Usage",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_usage_id",
+    "method": "GET",
+    "path": "/credit_usage/{id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Credit Usage ",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__credit_usage",
+    "method": "POST",
+    "path": "/credit_usage",
+    "group": "points_credits",
+    "summary": "Edit Credit Usage",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__charge_usage_list",
+    "method": "GET",
+    "path": "/charge_usage/list/1",
+    "group": "points_credits",
+    "summary": "Get All Credit Usage Amount",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__charge_usage_id",
+    "method": "GET",
+    "path": "/charge_usage/{id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Credit Usage Amount",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__charge_usage",
+    "method": "POST",
+    "path": "/charge_usage",
+    "group": "points_credits",
+    "summary": "Edit Credit Usage Amount",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_type_list",
+    "method": "GET",
+    "path": "/credit_type/list/1",
+    "group": "points_credits",
+    "summary": "Get All Credit types",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__credit_type_Id",
+    "method": "GET",
+    "path": "/credit_type/{Id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Credit type ",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__credit_type",
+    "method": "POST",
+    "path": "/credit_type",
+    "group": "points_credits",
+    "summary": "Edit Credit type",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__package_list",
+    "method": "GET",
+    "path": "/package/list/1",
+    "group": "points_credits",
+    "summary": "Get All Packages",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__package_id",
+    "method": "GET",
+    "path": "/package/{id}/1",
+    "group": "points_credits",
+    "summary": "Get Single Package",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__package",
+    "method": "POST",
+    "path": "/package",
+    "group": "points_credits",
+    "summary": "Edit Package",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__le_workflow-type-entity-_workflow_id_list_format",
+    "method": "GET",
+    "path": "/le_workflow-type-entity-{workflow_id}/list/{format}",
+    "group": "workflow",
+    "summary": "Get All Records",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__le_workflow-type-entity-_workflow_id_record_id_format",
+    "method": "GET",
+    "path": "/le_workflow-type-entity-{workflow_id}/{record_id}/{format}",
+    "group": "workflow",
+    "summary": "Get Single Record",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__le_workflow-type-entity-_workflow_id",
+    "method": "POST",
+    "path": "/le_workflow-type-entity-{workflow_id}",
+    "group": "workflow",
+    "summary": "Add New Record",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__le_workflow-type-entity-_workflow_id_record_id",
+    "method": "PUT",
+    "path": "/le_workflow-type-entity-{workflow_id}/{record_id}",
+    "group": "workflow",
+    "summary": "Edit Record",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__v_api_multi-entity",
+    "method": "POST",
+    "path": "/v2/api/multi-entity",
+    "group": "multi_entity_request",
+    "summary": "Multi Entity Request",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__suppliers_format",
+    "method": "GET",
+    "path": "/suppliers{format}",
+    "group": "suppliers",
+    "summary": "GET All Suppliers",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__suppliers_format",
+    "method": "POST",
+    "path": "/suppliers{format}",
+    "group": "suppliers",
+    "summary": "Add New Supplier",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__suppliers_id_format",
+    "method": "GET",
+    "path": "/suppliers/{id}{format}",
+    "group": "suppliers",
+    "summary": "GET Single Supplier",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__suppliers_id_format",
+    "method": "PUT",
+    "path": "/suppliers/{id}{format}",
+    "group": "suppliers",
+    "summary": "Edit Suppliers",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__suppliers_id_format",
+    "method": "DELETE",
+    "path": "/suppliers/{id}{format}",
+    "group": "suppliers",
+    "summary": "Delete Suppliers",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__staff_format",
+    "method": "GET",
+    "path": "/staff{format}",
+    "group": "staff",
+    "summary": "GET All Staff",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__staff_format",
+    "method": "POST",
+    "path": "/staff{format}",
+    "group": "staff",
+    "summary": "Add New Staff",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__staff_id_format",
+    "method": "GET",
+    "path": "/staff/{id}{format}",
+    "group": "staff",
+    "summary": "GET Single Staff",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__staff_id_format",
+    "method": "DELETE",
+    "path": "/staff/{id}{format}",
+    "group": "staff",
+    "summary": "DELETE Staff",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__staff_send_login_details_id_format",
+    "method": "GET",
+    "path": "/staff/send_login_details/{id}{format}",
+    "group": "staff",
+    "summary": "GET Send Staff Login Details",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__time_tracking_format",
+    "method": "GET",
+    "path": "/time_tracking{format}",
+    "group": "time_tracking",
+    "summary": "GET All Time Tracking",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "post__time_tracking_format",
+    "method": "POST",
+    "path": "/time_tracking{format}",
+    "group": "time_tracking",
+    "summary": "Add New Time Tracking",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__time_tracking_id_format",
+    "method": "GET",
+    "path": "/time_tracking/{id}{format}",
+    "group": "time_tracking",
+    "summary": "GET Single Time Tracking",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "put__time_tracking_id_format",
+    "method": "PUT",
+    "path": "/time_tracking/{id}{format}",
+    "group": "time_tracking",
+    "summary": "Edit Time Tracking",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__time_tracking_id_format",
+    "method": "DELETE",
+    "path": "/time_tracking/{id}{format}",
+    "group": "time_tracking",
+    "summary": "Delete Time Tracking",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__follow_up_status_list_dataLevel",
+    "method": "GET",
+    "path": "/follow_up_status/list/{dataLevel}",
+    "group": "follow_up_statuses",
+    "summary": "Get All Follow-Up Statuses",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__follow_up_status_id",
+    "method": "GET",
+    "path": "/follow_up_status/{id}",
+    "group": "follow_up_statuses",
+    "summary": "Get Single Follow-Up Status",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "delete__delete_follow_up_status_id",
+    "method": "DELETE",
+    "path": "/delete/follow_up_status/{id}",
+    "group": "follow_up_statuses",
+    "summary": "Delete Follow-Up Status",
+    "effect": "write",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__v_api_entity_entityKey_list_dataLevel",
+    "method": "GET",
+    "path": "/v2/api/entity/{entityKey}/list/{dataLevel}",
+    "group": "entities",
+    "summary": "List entity records",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__v_api_entity_entityKey_id_dataLevel",
+    "method": "GET",
+    "path": "/v2/api/entity/{entityKey}/{id}/{dataLevel}",
+    "group": "entities",
+    "summary": "View entity record",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "post__v_api_entity_entityKey",
+    "method": "POST",
+    "path": "/v2/api/entity/{entityKey}",
+    "group": "entities",
+    "summary": "Create entity record",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "put__v_api_entity_entityKey_id",
+    "method": "PUT",
+    "path": "/v2/api/entity/{entityKey}/{id}",
+    "group": "entities",
+    "summary": "Update entity record",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "delete__v_api_entity_delete_entityKey_id",
+    "method": "DELETE",
+    "path": "/v2/api/entity/delete/{entityKey}/{id}",
+    "group": "entities",
+    "summary": "Delete entity record",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__entity_list",
+    "method": "GET",
+    "path": "/{entity}/list/1",
+    "group": "using_api_v",
+    "summary": "Data Fetching — Filtered",
+    "effect": "read",
+    "status": "candidate",
+    "reasons": []
+  },
+  {
+    "operationId": "get__v_api_app-manager_activate_id_status",
+    "method": "GET",
+    "path": "/v2/api/app-manager/activate/{id}/{status}",
+    "group": "developers_portal_endpoints",
+    "summary": "Activate / Deactivate App",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__v_api_apps-manager_appId_entityKey_entityId_lock",
+    "method": "GET",
+    "path": "/v2/api/apps-manager/{appId}/{entityKey}/{entityId}/{lock}",
+    "group": "developers_portal_endpoints",
+    "summary": "Lock / Unlock Entity Record",
+    "effect": "write",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  },
+  {
+    "operationId": "get__v_api_app-manager_is_active_id",
+    "method": "GET",
+    "path": "/v2/api/app-manager/is_active/{id}",
+    "group": "developers_portal_endpoints",
+    "summary": "Check App Status",
+    "effect": "read",
+    "status": "blocked",
+    "reasons": [
+      "Confirm v2 server base; source applies /api2 globally to v2 paths"
+    ]
+  }
+]

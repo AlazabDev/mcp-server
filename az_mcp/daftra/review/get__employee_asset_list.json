@@ -1,0 +1,239 @@
+{
+  "path": "/employee_asset/list/2",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Assets",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Employee Asset/Asset"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "barcode": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "serial_number": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "used_by": {
+                            "type": "string"
+                          },
+                          "employee": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "storage": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "photo": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "name": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "size": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "mime_type": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "path": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "size",
+                              "mime_type",
+                              "path"
+                            ]
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "can_update": {
+                            "type": "boolean"
+                          },
+                          "can_delete": {
+                            "type": "boolean"
+                          },
+                          "asset_type": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          },
+                          "has_linked_asset": {
+                            "type": "boolean"
+                          },
+                          "location": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          },
+                          "assigned_date": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer"
+                        },
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "has_more_pages": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "total",
+                        "current_page",
+                        "per_page",
+                        "has_more_pages"
+                      ]
+                    },
+                    "permissions": {
+                      "type": "object",
+                      "properties": {
+                        "can_add": {
+                          "type": "boolean"
+                        },
+                        "can_link": {
+                          "type": "boolean"
+                        },
+                        "can_delete_all": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "can_add",
+                        "can_link",
+                        "can_delete_all"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "pagination",
+                    "permissions"
+                  ]
+                },
+                "version": {
+                  "type": "string"
+                },
+                "message": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "payload",
+                "version",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__employee_asset_list"
+  },
+  "blockers": []
+}

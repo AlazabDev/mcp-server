@@ -1,0 +1,153 @@
+{
+  "path": "/client_appointments/{id}{format}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Client Appointments",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Permanently deletes a client appointment by id. This is a hard delete and cannot be undone. If the appointment belongs to a recurring series and was its last remaining occurrence, the recurring series is removed as well. Requires permission to edit/delete appointments. The appointment is identified by the `id` path parameter; there is no request body.",
+    "tags": [
+      "Endpoints/Clients /Client Appointments",
+      "Client Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The client appointment's identifier.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The appointment was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Human-readable confirmation message."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "No appointment matches the supplied id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The caller lacks permission to delete this appointment.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The appointment could not be deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__client_appointments_id_format"
+  },
+  "blockers": []
+}

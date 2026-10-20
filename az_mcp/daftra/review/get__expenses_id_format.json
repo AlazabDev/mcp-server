@@ -1,0 +1,308 @@
+{
+  "path": "/expenses/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Expens",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Retrieve a single expense by id.\n\nReturns the expense wrapped in an `Expense` object under `data`.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Expenses*, *Add New Expenses*, or *Edit/Delete His Own Expenses* permissions. Staff without *View All Expenses* or *Edit/Delete All Expenses* can only read expenses they recorded.",
+    "tags": [
+      "Endpoints/Finance/Expenses",
+      "Expenses"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Reference of the expense to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested expense.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Expense": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique expense identifier."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "description": "Expense amount (before taxes)."
+                        },
+                        "currency_code": {
+                          "type": "string",
+                          "description": "3-letter ISO 4217 currency code."
+                        },
+                        "vendor": {
+                          "type": "string",
+                          "description": "Vendor name. May be empty."
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Category name. May be empty."
+                        },
+                        "date": {
+                          "type": "string",
+                          "description": "Date of the expense (YYYY-MM-DD)."
+                        },
+                        "file": {
+                          "type": "string",
+                          "description": "Legacy single-file attachment reference. May be empty."
+                        },
+                        "note": {
+                          "type": "string",
+                          "description": "Free-text notes / description."
+                        },
+                        "client_id": {
+                          "type": "integer",
+                          "description": "Reference of the linked client, when applicable. May be null."
+                        },
+                        "supplier_id": {
+                          "type": "integer",
+                          "description": "Reference of the linked supplier, when applicable. May be null."
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "description": "Staff member who recorded the expense; `0` indicates the account owner."
+                        },
+                        "site_id": {
+                          "type": "integer",
+                          "description": "Internal account reference."
+                        },
+                        "recurring_expense_id": {
+                          "type": "integer",
+                          "description": "Reference of the recurring expense this record was generated from; `0` if none."
+                        },
+                        "created": {
+                          "type": "string",
+                          "description": "Time the expense was created."
+                        },
+                        "modified": {
+                          "type": "string",
+                          "description": "Time the expense was last updated."
+                        },
+                        "tax1_id": {
+                          "type": "integer",
+                          "description": "First tax reference. May be null."
+                        },
+                        "tax1_name": {
+                          "type": "string",
+                          "description": "First tax name."
+                        },
+                        "tax1_value": {
+                          "type": "number",
+                          "description": "First tax rate (percentage)."
+                        },
+                        "tax1_amount": {
+                          "type": "number",
+                          "description": "First tax amount."
+                        },
+                        "tax1_included": {
+                          "type": "integer",
+                          "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                        },
+                        "tax2_id": {
+                          "type": "integer",
+                          "description": "Second tax reference. May be null."
+                        },
+                        "tax2_name": {
+                          "type": "string",
+                          "description": "Second tax name."
+                        },
+                        "tax2_value": {
+                          "type": "number",
+                          "description": "Second tax rate (percentage)."
+                        },
+                        "tax2_amount": {
+                          "type": "number",
+                          "description": "Second tax amount."
+                        },
+                        "tax2_included": {
+                          "type": "integer",
+                          "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                        },
+                        "total": {
+                          "type": "number",
+                          "description": "Expense total including taxes."
+                        },
+                        "is_income": {
+                          "type": "integer",
+                          "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Expense |\n| 1 | Income |"
+                        },
+                        "treasury_id": {
+                          "type": "integer",
+                          "description": "Treasury the amount was withdrawn from."
+                        },
+                        "work_order_id": {
+                          "type": "integer",
+                          "description": "Reference of the linked work order, when applicable. May be null."
+                        },
+                        "source_id": {
+                          "type": "integer",
+                          "description": "Reference of the originating record, when generated from another entity. May be null."
+                        },
+                        "source_type": {
+                          "type": "string",
+                          "description": "Type of the originating record, when generated from another entity. May be null."
+                        },
+                        "expense_category_id": {
+                          "type": "integer",
+                          "description": "Reference of the expense category; `0` if uncategorised."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Journal (chart-of-accounts) account reference. May be null."
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "description": "Branch the expense belongs to."
+                        },
+                        "expense_number": {
+                          "type": "string",
+                          "description": "Expense number / reference code."
+                        },
+                        "accounts_data": {
+                          "type": "string",
+                          "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                        },
+                        "external_source": {
+                          "type": "string",
+                          "description": "Origin of the record (e.g. `web`, `mobile`)."
+                        },
+                        "last_update_external_source": {
+                          "type": "string",
+                          "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "draft",
+                            "issued"
+                          ],
+                          "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                        },
+                        "extra_details": {
+                          "type": "string",
+                          "description": "Additional processing metadata, as a JSON-encoded string."
+                        },
+                        "attachmnets": {
+                          "type": "array",
+                          "description": "List of attachment file URLs associated with the expense. Note: on this single-expense endpoint the key is spelled `attachmnets` (the list endpoint uses `attachments`).",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view this expense.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No expense with the given id exists (or it is outside the caller's access scope).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__expenses_id_format"
+  },
+  "blockers": []
+}

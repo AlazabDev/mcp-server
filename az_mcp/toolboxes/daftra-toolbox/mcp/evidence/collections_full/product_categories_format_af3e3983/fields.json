@@ -1,0 +1,65 @@
+{
+  "CategoriesCategory": [
+    "object"
+  ],
+  "CategoriesCategory.branch_id": [
+    "string"
+  ],
+  "CategoriesCategory.category_type": [
+    "string"
+  ],
+  "CategoriesCategory.classification_id1": [
+    "null"
+  ],
+  "CategoriesCategory.classification_id2": [
+    "null"
+  ],
+  "CategoriesCategory.classification_id3": [
+    "null"
+  ],
+  "CategoriesCategory.created": [
+    "string"
+  ],
+  "CategoriesCategory.description": [
+    "null",
+    "string"
+  ],
+  "CategoriesCategory.display_order": [
+    "null"
+  ],
+  "CategoriesCategory.id": [
+    "string"
+  ],
+  "CategoriesCategory.image": [
+    "null",
+    "string"
+  ],
+  "CategoriesCategory.image_full_path": [
+    "string"
+  ],
+  "CategoriesCategory.mac_address": [
+    "null"
+  ],
+  "CategoriesCategory.metadata1": [
+    "null"
+  ],
+  "CategoriesCategory.metadata2": [
+    "null"
+  ],
+  "CategoriesCategory.metadata3": [
+    "null"
+  ],
+  "CategoriesCategory.modified": [
+    "string"
+  ],
+  "CategoriesCategory.name": [
+    "string"
+  ],
+  "CategoriesCategory.parent_id": [
+    "null",
+    "string"
+  ],
+  "CategoriesCategory.status": [
+    "string"
+  ]
+}

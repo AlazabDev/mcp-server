@@ -1,0 +1,79 @@
+{
+  "path": "/delete/client_attendance_log/1",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Client Attendance Log",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a client attendance entry (v2 native-entity).\n\nServed from the `/v2/api/entity` base with a Bearer token. Note the delete path shape: `/delete/{entity}/{id}` (the `delete` segment comes before the entity key).",
+    "tags": [
+      "Endpoints/Clients /Client Attendance Log",
+      "Client Attendance Log"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "The attendance entry was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks delete permission, or the Client Attendance feature is not enabled.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__delete_client_attendance_log",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

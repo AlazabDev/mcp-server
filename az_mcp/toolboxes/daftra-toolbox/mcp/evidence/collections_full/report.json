@@ -1,0 +1,246 @@
+{
+  "timestamp_utc": "2026-10-09T00:21:22.046305+00:00",
+  "collections": [
+    {
+      "path": "/invoices{format}",
+      "complete": true,
+      "pages": 2,
+      "unique_records": 123,
+      "error": null,
+      "evidence": "evidence/collections_full/invoices_format_2761547d"
+    },
+    {
+      "path": "/invoices/subscription{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 0,
+      "error": null,
+      "evidence": "evidence/collections_full/invoices_subscription_format_6b1abef1"
+    },
+    {
+      "path": "/estimates{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 23,
+      "error": null,
+      "evidence": "evidence/collections_full/estimates_format_2005a9c4"
+    },
+    {
+      "path": "/invoice_payments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 60,
+      "error": null,
+      "evidence": "evidence/collections_full/invoice_payments_format_2af5cbdf"
+    },
+    {
+      "path": "/invoice_appointments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 1,
+      "error": null,
+      "evidence": "evidence/collections_full/invoice_appointments_format_76817775"
+    },
+    {
+      "path": "/estimate_appointments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 0,
+      "error": null,
+      "evidence": "evidence/collections_full/estimate_appointments_format_9e718cf2"
+    },
+    {
+      "path": "/shipping_options{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 2,
+      "error": null,
+      "evidence": "evidence/collections_full/shipping_options_format_6c0450a9"
+    },
+    {
+      "path": "/clients{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 64,
+      "error": null,
+      "evidence": "evidence/collections_full/clients_format_c70febc3"
+    },
+    {
+      "path": "/client_appointments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 0,
+      "error": null,
+      "evidence": "evidence/collections_full/client_appointments_format_2dd25d69"
+    },
+    {
+      "path": "/client_payments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 41,
+      "error": null,
+      "evidence": "evidence/collections_full/client_payments_format_8f0e13bd"
+    },
+    {
+      "path": "/notes{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 73,
+      "error": null,
+      "evidence": "evidence/collections_full/notes_format_bfd82e7b"
+    },
+    {
+      "path": "/work_orders{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 12,
+      "error": null,
+      "evidence": "evidence/collections_full/work_orders_format_304a9cc5"
+    },
+    {
+      "path": "/work_order_appointments{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 16,
+      "error": null,
+      "evidence": "evidence/collections_full/work_order_appointments_format_1977b3a3"
+    },
+    {
+      "path": "/products{format}",
+      "state": "EXISTING_PRODUCTS_FULL",
+      "location": "evidence/products_full/report.json"
+    },
+    {
+      "path": "/requisitions",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 47,
+      "error": null,
+      "evidence": "evidence/collections_full/requisitions_119cf687"
+    },
+    {
+      "path": "/product_categories{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 30,
+      "error": null,
+      "evidence": "evidence/collections_full/product_categories_format_af3e3983"
+    },
+    {
+      "path": "/stores{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 3,
+      "error": null,
+      "evidence": "evidence/collections_full/stores_format_2b983ad4"
+    },
+    {
+      "path": "/stock_transactions{format}",
+      "complete": true,
+      "pages": 5,
+      "unique_records": 496,
+      "error": null,
+      "evidence": "evidence/collections_full/stock_transactions_format_3f6fd404"
+    },
+    {
+      "path": "/journals{format}",
+      "complete": true,
+      "pages": 8,
+      "unique_records": 701,
+      "error": null,
+      "evidence": "evidence/collections_full/journals_format_5e4472e8"
+    },
+    {
+      "path": "/journal_accounts{format}",
+      "complete": true,
+      "pages": 2,
+      "unique_records": 188,
+      "error": null,
+      "evidence": "evidence/collections_full/journal_accounts_format_7d1e5e9d"
+    },
+    {
+      "path": "/journal_cats{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 43,
+      "error": null,
+      "evidence": "evidence/collections_full/journal_cats_format_ceb74578"
+    },
+    {
+      "path": "/incomes{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 13,
+      "error": null,
+      "evidence": "evidence/collections_full/incomes_format_af0aef50"
+    },
+    {
+      "path": "/treasuries{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 3,
+      "error": null,
+      "evidence": "evidence/collections_full/treasuries_format_24662fe9"
+    },
+    {
+      "path": "/expenses{format}",
+      "complete": true,
+      "pages": 3,
+      "unique_records": 242,
+      "error": null,
+      "evidence": "evidence/collections_full/expenses_format_9cae1338"
+    },
+    {
+      "path": "/taxes{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 2,
+      "error": null,
+      "evidence": "evidence/collections_full/taxes_format_435f74f5"
+    },
+    {
+      "path": "/purchase_invoices{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 62,
+      "error": null,
+      "evidence": "evidence/collections_full/purchase_invoices_format_d3cbc1a0"
+    },
+    {
+      "path": "/purchase_orders{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 0,
+      "error": null,
+      "evidence": "evidence/collections_full/purchase_orders_format_16f61438"
+    },
+    {
+      "path": "/suppliers{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 29,
+      "error": null,
+      "evidence": "evidence/collections_full/suppliers_format_103ad2f4"
+    },
+    {
+      "path": "/staff{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 5,
+      "error": null,
+      "evidence": "evidence/collections_full/staff_format_bbeca399"
+    },
+    {
+      "path": "/time_tracking{format}",
+      "complete": true,
+      "pages": 1,
+      "unique_records": 1,
+      "error": null,
+      "evidence": "evidence/collections_full/time_tracking_format_1e543976"
+    }
+  ],
+  "summary": {
+    "complete": 29,
+    "EXISTING_PRODUCTS_FULL": 1
+  }
+}

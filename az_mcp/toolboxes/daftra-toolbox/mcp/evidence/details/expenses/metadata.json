@@ -1,0 +1,8 @@
+{
+  "resource": "expenses",
+  "method": "GET",
+  "record_id": 1,
+  "url": "https://alazab-co.daftra.com/api2/expenses/1.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:55:01.015423+00:00"
+}

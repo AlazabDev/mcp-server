@@ -1,0 +1,344 @@
+{
+  "path": "/suppliers/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Supplier",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single supplier by its identifier.",
+    "tags": [
+      "Endpoints/Suppliers",
+      "Suppliers"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifier of the supplier to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Supplier": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Unique identifier of the supplier.",
+                          "readOnly": true
+                        },
+                        "is_offline": {
+                          "type": "boolean",
+                          "description": "Whether the supplier is offline (no portal login).\n\n| Value | Meaning |\n|---|---|\n| 0 | Online supplier — `email` is required |\n| 1 | Offline supplier — `email` is optional |"
+                        },
+                        "supplier_number": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Visual identifier for the supplier. Assigned automatically when omitted."
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Staff member who owns the supplier. `0` means the account owner. For non-owner callers it is set automatically to the caller.",
+                          "default": 0
+                        },
+                        "business_name": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Supplier's business name. Required."
+                        },
+                        "first_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Supplier's first name."
+                        },
+                        "last_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Supplier's last name."
+                        },
+                        "email": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Supplier's email. Required unless the supplier is offline (`is_offline = 1`). Must be a valid, unique email."
+                        },
+                        "password": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Supplier portal password (write-only). Optional; minimum 4 characters.",
+                          "writeOnly": true
+                        },
+                        "confirm_password": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Confirmation of `password` (write-only). Required to match `password` whenever a password is supplied.",
+                          "writeOnly": true
+                        },
+                        "address1": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Address line 1."
+                        },
+                        "address2": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Address line 2."
+                        },
+                        "city": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "City."
+                        },
+                        "state": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "State."
+                        },
+                        "postal_code": {
+                          "type": "string",
+                          "maxLength": 20,
+                          "description": "Postal code."
+                        },
+                        "phone1": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Phone number."
+                        },
+                        "phone2": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Mobile number."
+                        },
+                        "country_code": {
+                          "type": "string",
+                          "maxLength": 3,
+                          "description": "Country ISO ALPHA-2 code."
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Free-text notes for the supplier."
+                        },
+                        "active_secondary_address": {
+                          "type": "boolean",
+                          "description": "0/1 — whether the secondary address is active."
+                        },
+                        "secondary_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary contact name."
+                        },
+                        "secondary_address1": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary address line 1."
+                        },
+                        "secondary_address2": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary address line 2."
+                        },
+                        "secondary_city": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Secondary city."
+                        },
+                        "secondary_state": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Secondary state."
+                        },
+                        "secondary_postal_code": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Secondary postal code."
+                        },
+                        "secondary_country_code": {
+                          "type": "string",
+                          "maxLength": 10,
+                          "description": "Secondary country ISO ALPHA-2 code."
+                        },
+                        "language_code": {
+                          "type": "string",
+                          "description": "Default language code. Obtain valid values from the General Listing API using the `languageCodes` model."
+                        },
+                        "default_currency_code": {
+                          "type": "string",
+                          "maxLength": 5,
+                          "description": "3-letter currency code following the ISO 4217 standard."
+                        },
+                        "attachment": {
+                          "type": "string",
+                          "description": "Comma-separated list of attachment references. Must be a string — a JSON array is rejected.",
+                          "writeOnly": true
+                        },
+                        "last_login": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time of the supplier's last successful portal login.",
+                          "readOnly": true
+                        },
+                        "suspend": {
+                          "type": "boolean",
+                          "description": "0/1 — whether the supplier account is suspended.",
+                          "readOnly": true
+                        },
+                        "last_ip": {
+                          "type": "string",
+                          "description": "Last IP address the supplier logged in from.",
+                          "readOnly": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time the supplier was created.",
+                          "readOnly": true
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time the supplier was last updated.",
+                          "readOnly": true
+                        },
+                        "follow_up_status": {
+                          "type": "integer",
+                          "description": "Follow-up status id. Obtain valid values from the Follow-up statuses listing with the `supplier` model.",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "bn1": {
+                          "type": "string",
+                          "description": "Value for business number 1."
+                        },
+                        "bn1_label": {
+                          "type": "string",
+                          "description": "Label for business number 1 (depends on country, e.g. Tax ID number)."
+                        },
+                        "bn2_label": {
+                          "type": "string",
+                          "description": "Label for business number 2 (depends on country)."
+                        },
+                        "bn2": {
+                          "type": "string",
+                          "description": "Value for business number 2."
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "description": "Branch id. Obtain valid values from the General Listing API with the `Branch` model."
+                        }
+                      },
+                      "required": [
+                        "business_name"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Record Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__suppliers_id_format"
+  },
+  "blockers": []
+}

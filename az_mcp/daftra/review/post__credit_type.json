@@ -1,0 +1,140 @@
+{
+  "path": "/credit_type",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Credit type",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **credit type**.\n\nThe record to update is identified by the **`id` field in the request body** (not by a path segment). Include `id` and POST to `/v2/api/entity/credit_type` — the same path as create; supplying `id` switches the operation from insert to update.\n\n**This is a full-row overwrite.** Any writable field omitted from the body is reset to its column default or null (`status`→`1`, `allow_decimal`→`0`, `unit`/`description`→null), so always resend every field you want to keep. `name` is required and must stay **unique**.\n\nNote: a request that puts the id in the path instead (`/credit_type/{id}`) does **not** update — it creates a new record. Always send `id` in the body.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Types"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Required. Id of the credit type to update."
+              },
+              "name": {
+                "type": "string",
+                "description": "Required (full-row overwrite). Name of the credit type. Must be unique across your credit types."
+              },
+              "allow_decimal": {
+                "type": "integer",
+                "description": "Optional. Whether fractional amounts are allowed. If omitted it resets to `0` (No).\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+              },
+              "status": {
+                "type": "integer",
+                "description": "Optional. Whether the credit type is active. If omitted it resets to `1` (Active).\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+              },
+              "unit": {
+                "type": "string",
+                "description": "Optional. Unit label shown for the credit. If omitted it resets to null."
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional. Free-text description. If omitted it resets to null."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The credit type was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized message (may read \"added\" even on update)."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the updated credit type."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record could not be saved. This occurs when `name` is omitted (a full-row overwrite would write null) or duplicates another credit type name (names are unique) — the endpoint has no field-level validation, so the underlying database error is returned.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Raw database error context (error info array, connection name, read/write type).",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Database error detail explaining why the row could not be saved."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks update permission for this entity also receives a `401` with a message stating access is not allowed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__credit_type",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

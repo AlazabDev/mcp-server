@@ -1,0 +1,112 @@
+{
+  "data[].Estimate.id": [
+    "331",
+    "300",
+    "295",
+    "293",
+    "292",
+    "289",
+    "287",
+    "280",
+    "279",
+    "267",
+    "266",
+    "257",
+    "247",
+    "246",
+    "242",
+    "237",
+    "230",
+    "202",
+    "197",
+    "194"
+  ],
+  "data[].Estimate.site_id": [
+    "3428849"
+  ],
+  "data[].Estimate.staff_id": [
+    "6",
+    "0"
+  ],
+  "data[].Estimate.store_id": [
+    "1"
+  ],
+  "data[].Estimate.client_id": [
+    "11",
+    "60",
+    "59",
+    "13",
+    "52",
+    "51",
+    "36",
+    "45"
+  ],
+  "data[].Estimate.address_id": [
+    "0"
+  ],
+  "data[].Estimate.language_id": [
+    "7"
+  ],
+  "data[].Estimate.invoice_layout_id": [
+    "18",
+    "19",
+    "5",
+    "14"
+  ],
+  "data[].Estimate.work_order_id": [
+    "19",
+    "15",
+    "12",
+    "13"
+  ],
+  "data[].Estimate.sales_person_id": [
+    "6",
+    "2"
+  ],
+  "data[].Estimate.group_price_id": [
+    "1"
+  ],
+  "data[].Estimate.branch_id": [
+    "1"
+  ],
+  "data[].Estimate.order_source_id": [
+    "2",
+    "1",
+    "3"
+  ],
+  "data[].Estimate.client_national_id": [
+    ""
+  ],
+  "data[].Estimate.Client.id": [
+    "11",
+    "60",
+    "59",
+    "13",
+    "52",
+    "51",
+    "36",
+    "45"
+  ],
+  "data[].Estimate.Client.site_id": [
+    "3428849"
+  ],
+  "data[].Estimate.Client.staff_id": [
+    "6",
+    "0",
+    "-3"
+  ],
+  "data[].Estimate.Client.group_price_id": [
+    "1"
+  ],
+  "data[].Estimate.Client.national_id": [
+    ""
+  ],
+  "data[].Estimate.Client.branch_id": [
+    "1"
+  ],
+  "data[].Estimate.Client.category_id": [
+    "40",
+    "5",
+    "17"
+  ]
+}

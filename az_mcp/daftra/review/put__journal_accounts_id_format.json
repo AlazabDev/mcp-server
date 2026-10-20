@@ -1,0 +1,222 @@
+{
+  "path": "/journal_accounts/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Journal Accounts",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal account. Requires the **Manage Journal Accounts** permission. `journal_cat_id`, `code` and `name` must be provided; `code` must be numeric and unique across all accounts and categories.",
+    "tags": [
+      "Endpoints/Accounting/Journal Accounts",
+      "Journal Accounts"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "ID of the journal account to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "JournalAccount": {
+                "type": "object",
+                "properties": {
+                  "journal_cat_id": {
+                    "type": "integer",
+                    "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to. Get it from the Journal Categories API."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Account code. Digits only. Must be unique across all journal accounts and categories."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Account name."
+                  },
+                  "type": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                  },
+                  "entity_type": {
+                    "type": "string",
+                    "description": "Optional. Links the account to a system entity type (e.g. a client, supplier, treasury, tax or category account). Leave empty for an ordinary manual account."
+                  },
+                  "entity_id": {
+                    "type": "string",
+                    "description": "Optional. Identifier of the linked entity item, required only when `entity_type` is set."
+                  },
+                  "disabled": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Optional. `1` to create the account disabled. Defaults to `0`."
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "description": "Optional. ID of the staff member the account is attributed to. Defaults to the current owner/staff."
+                  }
+                },
+                "required": [
+                  "journal_cat_id",
+                  "code",
+                  "name"
+                ]
+              }
+            },
+            "required": [
+              "JournalAccount"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — validation failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__journal_accounts_id_format"
+  },
+  "blockers": []
+}

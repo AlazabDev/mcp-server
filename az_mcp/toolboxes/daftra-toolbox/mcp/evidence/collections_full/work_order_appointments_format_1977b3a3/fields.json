@@ -1,0 +1,85 @@
+{
+  "WorkOrderAppointment": [
+    "object"
+  ],
+  "WorkOrderAppointment.AssignedStaff": [
+    "array"
+  ],
+  "WorkOrderAppointment.AssignedStaff[]": [
+    "string"
+  ],
+  "WorkOrderAppointment.action_id": [
+    "null",
+    "string"
+  ],
+  "WorkOrderAppointment.body": [
+    "string"
+  ],
+  "WorkOrderAppointment.branch_id": [
+    "string"
+  ],
+  "WorkOrderAppointment.created": [
+    "string"
+  ],
+  "WorkOrderAppointment.date": [
+    "string"
+  ],
+  "WorkOrderAppointment.duration": [
+    "string"
+  ],
+  "WorkOrderAppointment.end_date": [
+    "string"
+  ],
+  "WorkOrderAppointment.end_date2": [
+    "string"
+  ],
+  "WorkOrderAppointment.end_time": [
+    "string"
+  ],
+  "WorkOrderAppointment.id": [
+    "string"
+  ],
+  "WorkOrderAppointment.is_waiting": [
+    "string"
+  ],
+  "WorkOrderAppointment.item_id": [
+    "string"
+  ],
+  "WorkOrderAppointment.item_type": [
+    "string"
+  ],
+  "WorkOrderAppointment.modified": [
+    "string"
+  ],
+  "WorkOrderAppointment.partner_id": [
+    "string"
+  ],
+  "WorkOrderAppointment.partner_type": [
+    "string"
+  ],
+  "WorkOrderAppointment.post_id": [
+    "string"
+  ],
+  "WorkOrderAppointment.recurring_appointment_id": [
+    "null"
+  ],
+  "WorkOrderAppointment.share_with_partner": [
+    "null",
+    "string"
+  ],
+  "WorkOrderAppointment.staff_id": [
+    "string"
+  ],
+  "WorkOrderAppointment.start_date": [
+    "string"
+  ],
+  "WorkOrderAppointment.start_time": [
+    "string"
+  ],
+  "WorkOrderAppointment.status": [
+    "string"
+  ],
+  "WorkOrderAppointment.status_date": [
+    "null"
+  ]
+}

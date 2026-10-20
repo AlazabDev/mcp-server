@@ -1,0 +1,82 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].ShippingOption": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].ShippingOption.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.fees": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.tax_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ShippingOption.display_order": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.description": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ShippingOption.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ShippingOption.deleted_at": {
+    "observed_types": [
+      "null"
+    ]
+  }
+}

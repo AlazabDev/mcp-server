@@ -1,0 +1,189 @@
+{
+  "path": "/client_payments{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Client Payment",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Record a payment for a client (an on-account / client payment).\n\nSend the payment under a `ClientPayment` object. **Required:** `client_id`, `amount`, and `payment_method`. `payment_method` should be one of the account's configured payment methods (e.g. `cash`, `bank`, `cheque`, or an enabled online gateway key).\n\nSeveral fields are set automatically and cannot be supplied by the caller: the recording staff, the payer contact details (name/address are copied from the client record), the payment reference code, and the deposit treasury (chosen from the method or your default). Any such fields included in the request are ignored. If the amount matches an outstanding invoice for the client, the payment may be applied to that invoice automatically.\n\nOn success the endpoint responds with `202 Accepted` and the new payment `id`.\n\n**Access:** requires the *Add Payments to All* permission.",
+    "tags": [
+      "Endpoints/Clients /Client Payments",
+      "Client Payments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ClientPayment": {
+                "type": "object",
+                "description": "The client payment to create.",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Reference of the client to record the payment for. Get it from the Clients API."
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Amount paid. Must be numeric."
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "description": "Payment method (e.g. `cash`, `bank`, `cheque`, or an enabled online gateway key). Required."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Payment date, in the account's date format. Defaults to today when omitted."
+                  },
+                  "status": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ],
+                    "description": "Payment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not completed |\n| 1 | Completed |\n| 2 | Pending |\n| 3 | Failed |\n| 4 | Overpaid |\n| 5 | Draft |"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "3-letter ISO 4217 currency code. Defaults to the client's or account currency when omitted."
+                  },
+                  "treasury_id": {
+                    "type": "integer",
+                    "description": "Optional treasury to deposit into. Chosen automatically from the payment method or your default treasury when omitted."
+                  },
+                  "transaction_id": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Optional external / gateway transaction reference."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": "Optional note on the payment (max 500 characters)."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Optional comma-separated attachment ids to link to the payment."
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "amount",
+                  "payment_method"
+                ]
+              }
+            },
+            "required": [
+              "ClientPayment"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "The client payment was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "Reference of the created client payment."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The request could not be completed: a field failed validation (e.g. missing/invalid `amount` or `payment_method`), the client was not found, or the caller lacks the required permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Per-field error messages keyed by the attribute that failed.",
+                  "properties": {
+                    "amount": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__client_payments_format"
+  },
+  "blockers": []
+}

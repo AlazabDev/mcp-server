@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/time_tracking{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1027,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:18:56.994287+00:00"
+}

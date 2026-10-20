@@ -1,0 +1,262 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Expense": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Expense.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.vendor": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.category": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.file": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.note": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.client_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.supplier_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.recurring_expense_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.tax1_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax1_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax1_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax1_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax1_included": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax2_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax2_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax2_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax2_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.tax2_included": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.total": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.is_income": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.treasury_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.source_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.expense_category_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.journal_account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.expense_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.accounts_data": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.external_source": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.last_update_external_source": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Expense.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Expense.attachments": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

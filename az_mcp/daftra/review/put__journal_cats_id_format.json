@@ -1,0 +1,234 @@
+{
+  "path": "/journal_cats/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Journal Cats",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal category identified by `id`. Requires the **Manage Journal Accounts** permission. A category cannot be set as its own parent, and none of its own descendant categories can be chosen as its parent. The `code` must remain numeric and unique across all journal categories and accounts.",
+    "tags": [
+      "Endpoints/Accounting/Journal Cats",
+      "Journal Cats"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The journal category ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "JournalCat": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "Category code. Digits only. Must be unique across all journal categories and accounts."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Category name."
+                  },
+                  "journal_cat_id": {
+                    "type": "integer",
+                    "description": "ID of the parent journal category. Omit or send `-1` to create a top-level (main) category."
+                  },
+                  "type": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Optional. The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Optional. ID of the branch the category belongs to. Defaults to the current branch."
+                  },
+                  "entity_type": {
+                    "type": "string",
+                    "description": "Optional. Links the category to a system entity type. Leave empty for an ordinary category."
+                  },
+                  "entity_id": {
+                    "type": "string",
+                    "description": "Optional. Identifier of the linked entity item, used only when `entity_type` is set."
+                  },
+                  "disabled": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Optional. `1` to create the category disabled. Defaults to `0`."
+                  },
+                  "is_hidden": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Optional. `1` to hide the category from the chart of accounts. Defaults to `0`."
+                  },
+                  "color": {
+                    "type": "string",
+                    "deprecated": true,
+                    "description": "Deprecated and no longer used."
+                  }
+                },
+                "required": [
+                  "code",
+                  "name"
+                ]
+              }
+            },
+            "required": [
+              "JournalCat"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__journal_cats_id_format"
+  },
+  "blockers": []
+}

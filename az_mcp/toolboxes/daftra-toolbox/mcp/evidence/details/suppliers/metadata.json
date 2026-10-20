@@ -1,0 +1,8 @@
+{
+  "resource": "suppliers",
+  "method": "GET",
+  "record_id": 13,
+  "url": "https://alazab-co.daftra.com/api2/suppliers/13.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:57.971988+00:00"
+}

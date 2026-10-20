@@ -1,0 +1,222 @@
+{
+  "path": "/product_categories{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Product Categories",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of product categories.\n\nEach item is wrapped in a `ProductCategory` object and includes its resolved parent category. Requires a permission that grants access to viewing products.",
+    "tags": [
+      "Endpoints/Inventory /Product Categories",
+      "Product Categories"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of categories per page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "parent_id",
+        "in": "query",
+        "description": "Filter to the subcategories of a given parent category ID.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "id",
+        "in": "query",
+        "description": "Filter to a specific category by its ID.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Paginated list of product categories.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ProductCategory": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique category identifier."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Category name."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description."
+                          },
+                          "category_type": {
+                            "type": "integer",
+                            "enum": [
+                              1
+                            ],
+                            "description": "Category type. Always `1` (Products' Category) for this endpoint.\n\n| Value | Meaning |\n|---|---|\n| 1 | Products' Category |\n| 2 | POS Shifts |\n| 3 | POS Devices |"
+                          },
+                          "parent_id": {
+                            "type": "integer",
+                            "description": "Parent category ID. `0` for a top-level category."
+                          },
+                          "parent_category": {
+                            "type": "object",
+                            "description": "The resolved parent category record, or null for a top-level category.",
+                            "properties": {},
+                            "nullable": true
+                          },
+                          "image": {
+                            "type": "string",
+                            "description": "Image file name of the category."
+                          },
+                          "image_full_path": {
+                            "type": "string",
+                            "description": "Full resolved URL of the category image."
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modified timestamp."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer",
+                      "description": "Current page number."
+                    },
+                    "page_count": {
+                      "type": "integer",
+                      "description": "Total number of pages."
+                    },
+                    "total_results": {
+                      "type": "integer",
+                      "description": "Total number of matching categories."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Returned when the authenticated user lacks permission to view products, or the category type is invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__product_categories_format"
+  },
+  "blockers": []
+}

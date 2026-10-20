@@ -1,0 +1,95 @@
+{
+  "path": "/clients/loyalty-points/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Client Loyalty Points",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a client's loyalty-points summary: current `points`, the points-to-currency `factor`, the configured `creditType`, and the account's loyalty-points limit check. The client is identified by the `id` path parameter; there is no request body. Requires the **Client Loyalty** plugin to be enabled — when it is not, the endpoint responds with an empty object `{}`.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The client's identifier.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Loyalty-points summary for the client. When the Client Loyalty plugin is not enabled on the account, an empty object `{}` is returned instead.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "number",
+                  "description": "The client's accrued loyalty points as of today."
+                },
+                "factor": {
+                  "type": "number",
+                  "description": "Points-to-currency conversion factor. `null` when no factor is configured.",
+                  "nullable": true
+                },
+                "creditType": {
+                  "type": "object",
+                  "description": "The configured loyalty credit-type record.",
+                  "additionalProperties": true,
+                  "properties": {}
+                },
+                "checkSiteLimitLoyaltyPts": {
+                  "description": "Result of the account plan's loyalty-points limit check. `true` when within limit; otherwise an object describing the limit."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__clients_loyalty-points_id_format"
+  },
+  "blockers": []
+}

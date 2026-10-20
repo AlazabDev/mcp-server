@@ -1,0 +1,137 @@
+{
+  "path": "/cost_center",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Cost Center",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Adds a cost center. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe request body is a flat JSON object. The account layer applies **no field validation** here, so the only hard requirements are the two fields the database cannot default: `cost_center_id` and `cost_center_ids`. Omitting either fails with a `400`.\n\nIn practice you should always send `name` and `code` as well — if omitted they are silently stored as an empty name and an empty/`0` code, which is rarely useful. `code` must be **unique** across the account; a duplicate `code` fails with a `400`.\n\n`is_primary` marks a cost center as primary (root) or secondary (child):\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child); defaults to `0` when omitted |\n\n`cost_center_id` is the id of the parent cost center — send `0` for a primary/root cost center, or the parent's id for a child. `cost_center_ids` is the comma-separated ancestor path of parent ids; it **must be non-empty** (an empty string is rejected), and it is not maintained automatically, so the caller supplies it.\n\n`branch_id`, `status`, `id`, `created` and `modified` are assigned by the server and are not settable through this endpoint.\n\nOn success the response is `{ \"message\": \"...\", \"id\": <new id> }`. The message is localized to the caller's language (for example `Cost center Added Successfully` in English).",
+    "tags": [
+      "Endpoints/Accounting/Cost Centers"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "cost_center_id": {
+                "type": "integer",
+                "description": "Required. Id of the parent cost center. Send `0` for a primary/root cost center, or the parent's id for a child."
+              },
+              "cost_center_ids": {
+                "type": "string",
+                "description": "Required, must be non-empty. Comma-separated ancestor path of parent cost-center ids (an empty string is rejected)."
+              },
+              "name": {
+                "type": "string",
+                "description": "Cost center name. Strongly recommended — stored as an empty string if omitted."
+              },
+              "code": {
+                "type": "string",
+                "description": "Cost center code. Strongly recommended and must be unique across the account (a duplicate is rejected); stored as `0`/empty if omitted."
+              },
+              "is_primary": {
+                "type": "integer",
+                "description": "Whether this is a primary (root) cost center. Defaults to `0` when omitted.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                "enum": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "required": [
+              "cost_center_id",
+              "cost_center_ids"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The cost center was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created cost center."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The cost center could not be saved — for example `cost_center_id` or `cost_center_ids` was missing, `cost_center_ids` was empty, or the `code` duplicates an existing one.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "description": "Error detail object (present for database-level failures)."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Reason the record could not be saved — for example a required field (`cost_center_id` / `cost_center_ids`) was missing, `cost_center_ids` was empty, or the `code` already exists."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__cost_center",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

@@ -1,0 +1,162 @@
+{
+  "path": "/product_categories/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Product Category",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single product category by its ID.\n\nThe category is returned inside the `data` object, wrapped in a `Category` object together with its `Attachments`. Requires a permission that grants access to viewing products.",
+    "tags": [
+      "Endpoints/Inventory /Product Categories",
+      "Product Categories"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Unique identifier of the product category to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested product category.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique category identifier."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Category name."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description."
+                        },
+                        "category_type": {
+                          "type": "integer",
+                          "enum": [
+                            1
+                          ],
+                          "description": "Category type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Products' Category |\n| 2 | POS Shifts |\n| 3 | POS Devices |"
+                        },
+                        "parent_id": {
+                          "type": "integer",
+                          "description": "Parent category ID. `0` for a top-level category."
+                        },
+                        "image": {
+                          "type": "string",
+                          "description": "Image file name of the category."
+                        },
+                        "display_order": {
+                          "type": "integer",
+                          "description": "Display order of the category."
+                        },
+                        "created": {
+                          "type": "string",
+                          "description": "Creation timestamp."
+                        },
+                        "modified": {
+                          "type": "string",
+                          "description": "Last-modified timestamp."
+                        }
+                      }
+                    },
+                    "Attachments": {
+                      "type": "array",
+                      "description": "Files attached to the category.",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No category matches the given ID.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__product_categories_id_format"
+  },
+  "blockers": []
+}

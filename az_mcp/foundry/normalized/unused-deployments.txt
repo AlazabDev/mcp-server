@@ -1,0 +1,6 @@
+az-model-gemma
+az-model-mini
+az-model-sora
+az-models-text
+gpt-4o
+gpt-5.1

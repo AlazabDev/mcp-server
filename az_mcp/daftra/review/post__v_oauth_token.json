@@ -1,0 +1,174 @@
+{
+  "path": "/v2/oauth/token",
+  "method": "post",
+  "operation": {
+    "summary": "Generate Access Token",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Issues an OAuth 2.0 access token for the Daftra API. The returned token is bound to the account (tenant) identified by the request subdomain.\n\nThe primary flow is the **password grant**: submit the account owner's email (or a staff member's email) as `username` together with their `password`, plus the API application's `client_id` and `client_secret`. Both account owners and staff users can authenticate through this endpoint.\n\nOn success you receive a long-lived `Bearer` access token and a `refresh_token`. Send the access token in the `Authorization: Bearer <access_token>` header on subsequent API calls.\n\nThis endpoint is public and does not itself require authentication. Request bodies may be sent as `multipart/form-data` or `application/x-www-form-urlencoded`.",
+    "tags": [
+      "Authorization"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "grant_type": {
+                "description": "The OAuth 2.0 grant type. Use `password` for interactive email/password login.\n\n| Value | Meaning |\n|---|---|\n| password | Authenticate with `username` + `password` (account owner or staff email). |\n| refresh_token | Exchange a `refresh_token` for a new access token. |\n| client_credentials | Machine-to-machine token for the application itself. |\n| authorization_code | Authorization-code (redirect-based) flow. |",
+                "type": "string"
+              },
+              "client_id": {
+                "description": "The API application's client identifier.",
+                "type": "string"
+              },
+              "client_secret": {
+                "description": "The API application's client secret.",
+                "type": "string"
+              },
+              "username": {
+                "description": "The account owner's email or a staff member's email. Case-insensitive. Required for the `password` grant.",
+                "type": "string"
+              },
+              "password": {
+                "description": "The account owner or staff member's password. Required for the `password` grant.",
+                "type": "string"
+              },
+              "scope": {
+                "description": "Optional. Space-separated list of scopes to request. Defaults to the application's default scope when omitted.",
+                "type": "string"
+              },
+              "refresh_token": {
+                "description": "The refresh token to exchange for a new access token. Required only when `grant_type` is `refresh_token`.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "grant_type",
+              "client_id",
+              "client_secret",
+              "username",
+              "password"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Access token issued successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token_type": {
+                  "type": "string",
+                  "description": "The token type. Always `Bearer`."
+                },
+                "expires_in": {
+                  "type": "integer",
+                  "description": "Number of seconds until the access token expires."
+                },
+                "access_token": {
+                  "type": "string",
+                  "description": "The signed JWT access token. Send it as `Authorization: Bearer <access_token>` on subsequent requests."
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "Token used to obtain a new access token via the `refresh_token` grant."
+                }
+              },
+              "required": [
+                "token_type",
+                "expires_in",
+                "access_token",
+                "refresh_token"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Invalid or missing request parameters, or failed user credentials (password grant).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Machine-readable error code.\n\n| `error` | Meaning |\n|---|---|\n| invalid_request | A required parameter (such as `username` or `password`) is missing or malformed. |\n| invalid_grant | The supplied user credentials are incorrect. |\n| invalid_scope | The requested scope is invalid or unknown. |\n| unsupported_grant_type | The `grant_type` is not supported. |"
+                },
+                "error_description": {
+                  "type": "string",
+                  "description": "Human-readable description of the error."
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Same text as `error_description`."
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "Optional additional hint about the error."
+                }
+              },
+              "required": [
+                "error",
+                "error_description",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The client credentials are invalid, or the account is not permitted to sign in.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Machine-readable error code.\n\n| `error` | Meaning |\n|---|---|\n| invalid_client | The `client_id` or `client_secret` is invalid. |\n| inactive_user | The staff user account has been deactivated. |\n| inactive_employee | The employee account has been deactivated. |\n| user_cannot_access_system | The user is not allowed to access the system. |"
+                },
+                "error_description": {
+                  "type": "string",
+                  "description": "Human-readable description of the error."
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Same text as `error_description`."
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "Optional additional hint about the error."
+                }
+              },
+              "required": [
+                "error",
+                "error_description",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__v_oauth_token"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths",
+    "Request content type unsupported by Foundry OpenAPI tool"
+  ]
+}

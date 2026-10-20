@@ -1,0 +1,833 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra bookings",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://tenant.invalid/api2"
+    }
+  ],
+  "paths": {
+    "/booking/list/1": {
+      "get": {
+        "summary": "Get All Bookings",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of bookings for the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. Pagination is controlled by the `page` and `per_page` query parameters.\n\nFiltering, sorting and field selection are supported via query parameters:\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field, e.g. `filter[client_id][equal]=2`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n| `search` | Free-text search. |\n\nThe response is a standard paginated envelope; each item in `data` is a booking record.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Beta version)"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of bookings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The bookings on this page. Each item is a booking record (its fields depend on the account's booking configuration — e.g. id, no, date, start/end time, client, staff, status, and totals).",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Booking id."
+                          },
+                          "no": {
+                            "type": "string",
+                            "description": "Booking number."
+                          },
+                          "date": {
+                            "type": "string",
+                            "description": "Booking date."
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "description": "Client id."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Assigned staff id."
+                          },
+                          "payment_status": {
+                            "type": "integer",
+                            "description": "Booking status code (0 Pending, 1 Confirmed, 2 Invoiced, 3 Cancelled, 4 Done)."
+                          }
+                        }
+                      }
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "from": {
+                      "type": "integer"
+                    },
+                    "to": {
+                      "type": "integer"
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "per_page",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The list could not be produced — for example the booking entity is unavailable for this account or the required plugin is inactive.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Reason the request failed (e.g. the booking entity is not available for the account, or the required plugin is not active)."
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The authenticated user lacks permission to view bookings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__booking_list",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/booking/{bookingId}/1": {
+      "get": {
+        "summary": "Get Single Booking",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single booking by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag.\n\nThe successful response is a **flat object** of the booking's fields (it is not wrapped in a `data` envelope) and may include related records and a `custom_data` object.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Beta version)"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "The id of the booking to fetch.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The booking record (flat object, plus any related records and custom_data).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "A single booking record, returned flat (not wrapped). Fields depend on the account's booking configuration.",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Booking id."
+                    },
+                    "no": {
+                      "type": "string",
+                      "description": "Booking number."
+                    },
+                    "date": {
+                      "type": "string",
+                      "description": "Booking date."
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "description": "Start time."
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "description": "End time (calculated from the services)."
+                    },
+                    "client_id": {
+                      "type": "integer",
+                      "description": "Client id."
+                    },
+                    "staff_id": {
+                      "type": "integer",
+                      "description": "Assigned staff id."
+                    },
+                    "payment_status": {
+                      "type": "integer",
+                      "description": "Booking status code (0 Pending, 1 Confirmed, 2 Invoiced, 3 Cancelled, 4 Done)."
+                    },
+                    "custom_data": {
+                      "type": "object",
+                      "description": "Custom-field values for the booking, when present.",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The authenticated user lacks permission to view bookings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Returned as plain text `error happened` when the record cannot be fetched — including when the id does not exist (a not-found case is not surfaced as 404).",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__booking_bookingId",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/bookings/add": {
+      "post": {
+        "summary": "Add new Booking",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new booking (an appointment-style record). Provide the client, the booking date, and one or more services to book.\n\nEach entry in `InvoiceItem` must reference an **active bookable service** — a product of type *Service* that has a duration configured and belongs to at least one category. A request whose services are not valid bookable services is rejected with `Please Enter Valid Service`.\n\nThe end time is calculated automatically from the services' durations, and the booking's staff and status are assigned automatically — you do not send them. Set `Invoice.convert` to `1` to immediately convert the new booking into an invoice within the same request; the response then also returns `invoice_id`.\n\nThe `.json` extension is optional and does not change the response.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Classic version)"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Invoice": {
+                    "type": "object",
+                    "properties": {
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Required. The id of an existing client the booking is for."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Required. The booking date in `dd/mm/yyyy` format."
+                      },
+                      "start_time": {
+                        "type": "string",
+                        "description": "Optional. Start time in 24-hour `HH:mm` format. Defaults to the start of the day when omitted."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Optional. Free-text note stored on the booking."
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "description": "Optional. The branch the booking belongs to. Defaults to the request's current branch."
+                      },
+                      "convert": {
+                        "type": "integer",
+                        "description": "Optional. Set to `1` to also convert the created booking into an invoice in the same request; the response then includes `invoice_id`. Defaults to `0`."
+                      }
+                    },
+                    "required": [
+                      "client_id",
+                      "date"
+                    ]
+                  },
+                  "InvoiceItem": {
+                    "type": "array",
+                    "description": "The services to book. At least one is required and each must reference an active bookable service product.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "integer",
+                          "description": "Required. The id of a bookable service product (type *Service*, with a duration and a category)."
+                        }
+                      },
+                      "required": [
+                        "product_id"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "Invoice",
+                  "InvoiceItem"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The booking was created. Note this endpoint returns a `{code, message, id, appointment_id}` object (not the standard result envelope). When `Invoice.convert` was `1`, `invoice_id` is also returned; if the conversion failed, an `error` message is returned instead of `invoice_id`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "Result code (`200`)."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Success message."
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The id of the created booking."
+                    },
+                    "appointment_id": {
+                      "type": "string",
+                      "description": "The id of the appointment created for the booking."
+                    },
+                    "invoice_id": {
+                      "type": "string",
+                      "description": "Only present when `Invoice.convert` was `1` and conversion succeeded — the id of the invoice created from the booking."
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "id",
+                    "appointment_id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The booking could not be created. Two cases: an invalid bookable service returns `{ code: 400, errors: \"Please Enter Valid Service\" }`; a save failure returns `{ code: 400, message: ... }`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "Result code (`400`)."
+                    },
+                    "errors": {
+                      "type": "string",
+                      "description": "Present when a booked service is not a valid bookable service."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Present when the booking itself could not be saved."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__bookings_add"
+      }
+    },
+    "/bookings/{bookingId}": {
+      "delete": {
+        "summary": "Delete booking",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a booking by its id. A booking can only be deleted when you have permission and it has **not** already been converted to an invoice — otherwise the request is rejected. Deleting a booking also removes its linked appointment.\n\nThe `.json` extension is optional.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Classic version)"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "The id of the booking to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The booking was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation including the booking number."
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The booking could not be deleted — you lack permission, or it has already been converted to an invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string"
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No booking exists with the given id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "extra_data": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__bookings_bookingId"
+      }
+    },
+    "/bookings/change_status/{bookingId}/{bookingStatus}": {
+      "get": {
+        "summary": "Change Booking Status",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Changes the status of a booking. Pass the booking id and the target status code in the path.\n\n| Value | Status |\n|---|---|\n| 0 | Pending |\n| 1 | Confirmed |\n| 2 | Invoiced (set automatically when the booking is converted to an invoice) |\n| 3 | Cancelled |\n| 4 | Done |\n\nTypically you set `1` (Confirmed), `3` (Cancelled), or `4` (Done). The request always responds with HTTP 200 carrying an `error` flag: `error` is `false` when the status was changed, and `true` when it was not (for example an unsupported status, or a booking already converted to an invoice). A booking id that does not exist returns 404.\n\nThe `.json` extension is optional.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Classic version)"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "The id of the booking whose status is being changed.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bookingStatus",
+            "in": "path",
+            "description": "Target status code. `0` Pending · `1` Confirmed · `2` Invoiced · `3` Cancelled · `4` Done.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Always returned (HTTP 200) whether or not the change applied — check the `error` flag. Success: `{\"message\":\"Status Changed Successfully\",\"error\":false}`. Not applied: `{\"message\":\"\",\"error\":true}`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Result message. Empty when the change was not applied."
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "description": "`false` when the status was changed; `true` when it was not applied (unsupported status, or booking already converted)."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No booking exists with the given id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "extra_data": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__bookings_change_status_bookingId_bookingStatus"
+      }
+    },
+    "/bookings/convert_to_invoice/{bookingId}": {
+      "get": {
+        "summary": "Convert booking to Invoice",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Converts a booking into an invoice. On success it returns the id of the newly created invoice and marks the booking as *Invoiced*.\n\nThe conversion is rejected when the booking is cancelled, already converted, or missing required data. A booking id that does not exist returns 404.\n\nThe `.json` extension is optional.",
+        "tags": [
+          "Endpoints/Bookings/Booking (Classic version)"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "The id of the booking to convert.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The booking was converted. Returns HTTP 202 with the new invoice id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The id of the invoice created from the booking."
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The booking could not be converted — it is cancelled, already converted, or missing required data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string"
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__bookings_convert_to_invoice_bookingId"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

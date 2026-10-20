@@ -1,0 +1,82 @@
+{
+  "path": "/v2/api/app-manager/is_active/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "Check App Status",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns the activation status of a marketplace app for the current site.\n\nAn app is reported active only when it is **installed and active** for the authenticated site. The response is always HTTP `200` with a `{ status, msg }` object — including when the app id does not exist, in which case `status` is `false` and `msg` is `App not found`. Use the `status` boolean (not the HTTP code) to branch.\n\n| `status` | `msg` | Meaning |\n|---|---|---|\n| `true` | App is active | The app is installed and active for the current site. |\n| `false` | App is deactivated | The app exists but is not active for the current site. |\n| `false` | App not found | No app matches the given id (or the app is unavailable). |\n\nThe `msg` text is localized to the account language.",
+    "tags": [
+      "Developers Portal/Developers Portal Endpoints"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The marketplace app id (the `id` of the app in the apps catalogue) whose activation status you want to check.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Activation status of the app for the current site. Example bodies:\n\nActive:\n```json\n{ \"status\": true, \"msg\": \"App is active\" }\n```\nDeactivated:\n```json\n{ \"status\": false, \"msg\": \"App is deactivated\" }\n```\nNot found (still HTTP 200):\n```json\n{ \"status\": false, \"msg\": \"App not found\" }\n```",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The activation status. Always returned with HTTP `200`, including for a not-found app — inspect `status`/`msg` to distinguish the outcomes.",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "`true` only when the app is installed and active for the current site; `false` when it is deactivated, or when no app matches the id."
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Human-readable, localized status message.\n\n| Value | Meaning |\n|---|---|\n| App is active | Installed and active for the current site. |\n| App is deactivated | Exists but not active for the current site. |\n| App not found | No app matches the id (or the app is unavailable). |"
+                }
+              },
+              "required": [
+                "status",
+                "msg"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed. Either `{ \"message\": \"Unauthenticated.\" }` (no/invalid credentials) or `{ \"error\": \"Not authorized.\" }` (API key lacks access to this endpoint).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "Authentication failed or was missing.",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when no valid token/API key is supplied."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Returned when an API key is valid but not authorized for this endpoint."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_app-manager_is_active_id"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

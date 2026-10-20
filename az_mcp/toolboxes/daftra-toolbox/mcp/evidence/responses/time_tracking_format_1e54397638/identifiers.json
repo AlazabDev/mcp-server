@@ -1,0 +1,23 @@
+{
+  "data[].TimeTracking.id": [
+    "1"
+  ],
+  "data[].TimeTracking.user_id": [
+    "0"
+  ],
+  "data[].TimeTracking.project_id": [
+    "3"
+  ],
+  "data[].TimeTracking.activity_id": [
+    "2"
+  ],
+  "data[].TimeTracking.staff_id": [
+    "0"
+  ],
+  "data[].TimeTracking.site_id": [
+    "3428849"
+  ],
+  "data[].TimeTracking.branch_id": [
+    "1"
+  ]
+}

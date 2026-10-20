@@ -1,0 +1,112 @@
+{
+  "path": "/delete/follow_up_status/{id}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Follow-Up Status",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a follow-up status by id (hard delete).\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. **Note the `/delete/` segment** — the delete verb lives at `/delete/follow_up_status/{id}`; sending `DELETE` to `/follow_up_status/{id}` returns `405`.",
+    "tags": [
+      "Endpoints/Follow-Up Statuses",
+      "Follow Up Statuses"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the follow-up status to delete.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The status was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The status could not be deleted because it is still in use.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "The reason the status could not be deleted (for example it is still referenced by other records)."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The deletion failed — this also covers a non-existent id (a missing record is reported as `500`, not `404`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__delete_follow_up_status_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

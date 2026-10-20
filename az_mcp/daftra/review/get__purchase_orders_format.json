@@ -1,0 +1,75 @@
+{
+  "path": "/purchase_orders{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Purchase Orders",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Legacy compatibility endpoint for listing purchase orders.\n\nThis endpoint does **not** return a JSON collection. It responds with an HTTP **302** redirect whose `Location` header points to the v2 entity listing for purchase orders (`/v2/owner/entity/purchase_order-13/list`). To retrieve the purchase-order collection — with pagination, search and filtering — call the v2 entity listing endpoint for the `purchase_order` entity. Use `GET /purchase_orders/{id}` to fetch a single purchase order as JSON.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Orders",
+      "Purchase Orders"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "302": {
+        "description": "The legacy list endpoint responds with an HTTP 302 redirect to the v2 entity listing for purchase orders. No JSON collection is returned by this endpoint itself.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "headers": {
+          "Location": {
+            "required": true,
+            "description": "The v2 entity listing URL for purchase orders that the request is redirected to.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Returned when the access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__purchase_orders_format"
+  },
+  "blockers": []
+}

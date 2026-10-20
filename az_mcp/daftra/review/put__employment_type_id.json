@@ -1,0 +1,87 @@
+{
+  "path": "/employment_type/id",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Employment Type",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+    "tags": [
+      "Endpoints/HR/Organizational Structure/Employment Type"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "active": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "default": 1
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "$ref": "#/components/responses/Record Not Found",
+        "description": ""
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__employment_type_id"
+  },
+  "blockers": [
+    "Literal /id in source; confirm actual route and identifier parameter"
+  ]
+}

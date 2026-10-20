@@ -1,0 +1,210 @@
+{
+  "path": "/sales_orders/convert_to_invoice/{id}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Convert Sales Order to Invoice",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Converts a sales order (identified by the `id` path parameter) into a new invoice.\n\nThe new invoice inherits the sales order's client, currency, shipping, discounts, adjustment, and a source link back to the sales order — these are taken from the sales order and **override** any values you send. Send `InvoiceItem` to choose which lines and quantities to convert (**partial conversion** is supported); you may also pass standard invoice fields such as `date`, `store_id`, or `draft`.\n\nIf the sales order has requisitions, conversion is limited to accepted/selected requisition lines — pass `requisition_ids[]` (query) to choose them when you hold the convert permission.\n\nOn success the invoice is created and returned with the standard creation envelope (HTTP `202` with the new invoice `id`). Requires the Sales Order module to be enabled and permission to create invoices / convert sales orders. The request is rejected with `404` when the sales order is missing, already invoiced, not permitted, or has no convertible items.",
+    "tags": [
+      "Endpoints/Sales /Invoices",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The sales order ID to convert.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "requisition_ids[]",
+        "in": "query",
+        "description": "When the sales order has requisitions, the ids of the requisitions to convert. Repeat the key for multiple ids. Only applies with the convert-sales-order permission.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "InvoiceItem": {
+                "type": "array",
+                "description": "The sales-order lines (and quantities) to convert. Supports partial conversion — send only the items/quantities you want invoiced. Same line shape as Add New Invoice.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "product_id": {
+                      "type": "integer"
+                    },
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "Invoice": {
+                "type": "object",
+                "description": "Optional invoice fields passed through to creation (for example `date`, `store_id`, `draft`). Note: client, currency, shipping, discounts, and the source link are copied from the sales order and override any value sent here.",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "description": "Invoice date (YYYY-MM-DD).",
+                    "format": "date"
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Store / warehouse for stock deduction. Defaults to the primary store."
+                  },
+                  "draft": {
+                    "type": "boolean",
+                    "description": "Create the invoice as a draft."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "The sales order was converted; a new invoice was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The new invoice id."
+                },
+                "invoice_number": {
+                  "type": "string",
+                  "description": "The generated invoice number."
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The resulting invoice failed validation and could not be saved.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when invoice validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Returned for several conditions: the sales order does not exist, the Sales Order module is disabled, the caller lacks permission to invoice this client, the sales order is already invoiced (or no convertible items were supplied), or its requisitions are not in a convertible state.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__sales_orders_convert_to_invoice_id_format"
+  },
+  "blockers": []
+}

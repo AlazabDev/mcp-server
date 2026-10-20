@@ -1,0 +1,282 @@
+{
+  "path": "/credit_charge/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Credit Charges",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of credit charges for the account. A credit charge is an amount of a given credit type granted to a client (e.g. loyalty points, prepaid credit, or a membership allowance) that is later consumed.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. `/credit_charge/list` and `/credit_charge/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter rows by a field's value, e.g. `filter[client_id][equal]=8` or `filter[status][equal]=available`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[amount]=desc`. |\n\n**Filterable fields.** The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `staff_id` | integer (staff) | `filter[staff_id][equal]=1` |\n| `client_id` | integer (client) | `filter[client_id][equal]=8` |\n| `credit_type_id` | integer (credit type) | `filter[credit_type_id][equal]=1` |\n| `status` | enum (`available`, `consumed`, `expired`, `suspended`) | `filter[status][equal]=available` |\n| `start_date` | date | `filter[start_date][greater_than_equal]=2025-01-01` |\n| `expiry_date` | date | `filter[expiry_date][less_than_equal]=2026-12-31` |\n| `amount` | number | `filter[amount][greater_than]=10` |\n\nThe list will in fact filter and sort on any existing column, not only the fields above. When no `sort` is given the default ordering is newest first (`id` descending).\n\nEach item in `data` is a flat credit-charge record. The `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `available` | Credit is available to consume |\n| `consumed` | Credit has been fully used |\n| `expired` | Credit passed its expiry date |\n| `suspended` | Credit is temporarily suspended |",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Charges"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Items per page. Defaults to `20`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "filter[<field>][<operator>]",
+        "in": "query",
+        "description": "Filter rows by a field's value, e.g. `filter[client_id][equal]=8`. Filterable fields: `staff_id`, `client_id`, `credit_type_id`, `status`, `start_date`, `expiry_date`, `amount` (the API also accepts any other existing column).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "sort[<field>]",
+        "in": "query",
+        "description": "Sort by a field, `asc` or `desc`, e.g. `sort[amount]=desc`. Default ordering is `id` descending.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of credit charges.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The credit charges on this page. Each item is a flat credit-charge record.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Credit charge id."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Id of the staff member who added the charge. May be null.",
+                        "nullable": true
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Id of the client the credit belongs to."
+                      },
+                      "credit_type_id": {
+                        "type": "integer",
+                        "description": "Id of the credit type."
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Credit charge status.\n\n| Value | Meaning |\n|---|---|\n| available | Credit is available to consume |\n| consumed | Credit has been fully used |\n| expired | Credit passed its expiry date |\n| suspended | Credit is temporarily suspended |",
+                        "enum": [
+                          "available",
+                          "consumed",
+                          "expired",
+                          "suspended"
+                        ]
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "description": "Start of the credit's validity window (`YYYY-MM-DD`)."
+                      },
+                      "expiry_date": {
+                        "type": "string",
+                        "description": "End of the validity window (`YYYY-MM-DD`), or null if it never expires.",
+                        "nullable": true
+                      },
+                      "amount": {
+                        "type": "number",
+                        "description": "Credit amount granted."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text note. May be null.",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                      },
+                      "modified": {
+                        "type": "string",
+                        "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "description": "Soft-delete timestamp, or null if not deleted.",
+                        "nullable": true
+                      },
+                      "renewal_id": {
+                        "type": "integer",
+                        "description": "Id of the membership renewal that produced this charge, or null.",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "staff_id",
+                      "client_id",
+                      "credit_type_id",
+                      "status",
+                      "start_date",
+                      "expiry_date",
+                      "amount",
+                      "description",
+                      "created",
+                      "modified",
+                      "deleted_at",
+                      "renewal_id"
+                    ]
+                  }
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "page": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "label",
+                      "page",
+                      "active"
+                    ]
+                  }
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "first_page_url",
+                "from",
+                "last_page",
+                "last_page_url",
+                "links",
+                "next_page_url",
+                "path",
+                "per_page",
+                "prev_page_url",
+                "to",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the Manage Credit Charges permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_charge_list",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

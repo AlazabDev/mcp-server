@@ -1,0 +1,111 @@
+{
+  "path": "/v2/api/entity/delete/{entityKey}/{id}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete entity record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Delete a record of any entity, addressed by its `entityKey` and primary key `id`.\n\nThis is a generic endpoint covering every entity type. Deletion is blocked when the record is still referenced by dependent records; in that case a `400` is returned with an explanatory message.\n\n**Authentication & authorization.** Requires an OAuth2 Bearer token and the entity's **delete** permission; otherwise the request is rejected with `401`.",
+    "tags": [
+      "Endpoints/Entities",
+      "Entities"
+    ],
+    "parameters": [
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key, e.g. `client`, `cost_center`, `work_order`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The record's primary key.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Record deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record cannot be deleted because it is referenced by dependent records, a business rule blocked it (`message`), or a custom delete rule rejected it (`error`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The caller does not hold the entity's delete permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "An unexpected error occurred while deleting the record.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__v_api_entity_delete_entityKey_id"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

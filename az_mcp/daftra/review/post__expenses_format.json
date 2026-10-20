@@ -1,0 +1,341 @@
+{
+  "path": "/expenses{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Expens",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create an expense.\n\nThe request body wraps the expense fields in an `Expense` object. Optionally include a `JournalTransaction` array to split the amount across chart-of-accounts accounts, a `CostCenterTransaction` array for cost-center allocation, and a `RecurringExpense` object to set up recurrence.\n\nOnly `amount` and `date` are required. Most other fields are optional and are defaulted automatically when omitted (see each field). Server-managed fields such as the record type, the recording staff member, and the status are set automatically and cannot be assigned from the request.\n\n**Idempotency:** pass a unique `unique_id` to safely retry. If a previous request with the same `unique_id` already created an expense, the response echoes that expense (`result` = `duplicated`) instead of creating a duplicate.\n\n**Access:** requires the account owner, or staff holding the *Add New Expenses* (or *Draft*) permission.",
+    "tags": [
+      "Endpoints/Finance/Expenses",
+      "Expenses"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Expense": {
+                "type": "object",
+                "description": "The expense fields.",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "**Required.** Expense amount. Must be non-zero. Treated as gross of any taxes supplied."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "**Required.** Expense date, in the account's date format (e.g. `YYYY-MM-DD`). Must fall within an open financial period."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "3-letter ISO 4217 currency code. Defaults to the account currency when omitted."
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "description": "Vendor name."
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                  },
+                  "expense_category_id": {
+                    "type": "integer",
+                    "description": "Existing expense-category reference (alternative to `category`)."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Free-text description / notes."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Linked client reference."
+                  },
+                  "supplier_id": {
+                    "type": "integer",
+                    "description": "Linked supplier reference. A suspended supplier is rejected."
+                  },
+                  "treasury_id": {
+                    "type": "integer",
+                    "description": "Treasury to withdraw from. Defaults to the primary treasury when omitted."
+                  },
+                  "journal_account_id": {
+                    "type": "integer",
+                    "description": "Journal (chart-of-accounts) account. Optional unless the account is configured to make account selection mandatory and no account is supplied via `JournalTransaction`."
+                  },
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "Linked work-order reference."
+                  },
+                  "unit_id": {
+                    "type": "integer",
+                    "description": "Rental-unit reference; sets the expense source to that unit."
+                  },
+                  "expense_number": {
+                    "type": "string",
+                    "description": "Expense number / reference code. Generated automatically when omitted."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Comma-separated list of previously uploaded file ids to attach. Must be a string; an array is rejected with 400."
+                  },
+                  "unique_id": {
+                    "type": "string",
+                    "description": "Client-supplied idempotency key. Reusing a key returns the original expense instead of creating a duplicate."
+                  },
+                  "tax1_id": {
+                    "type": "integer",
+                    "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                  },
+                  "tax1_value": {
+                    "type": "number",
+                    "description": "First tax rate (percentage). The tax amount is computed automatically."
+                  },
+                  "tax1_included": {
+                    "type": "integer",
+                    "description": "Whether the first tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                  },
+                  "tax2_id": {
+                    "type": "integer",
+                    "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                  },
+                  "tax2_value": {
+                    "type": "number",
+                    "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                  },
+                  "tax2_included": {
+                    "type": "integer",
+                    "description": "Whether the second tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                  },
+                  "file": {
+                    "type": "string",
+                    "description": "Legacy single-file attachment reference."
+                  },
+                  "clone_id": {
+                    "type": "integer",
+                    "description": "Reference of an existing expense to record this one as a clone of (for audit linkage)."
+                  }
+                },
+                "required": [
+                  "amount",
+                  "date"
+                ]
+              },
+              "JournalTransaction": {
+                "type": "array",
+                "description": "Optional. Splits the expense across chart-of-accounts accounts. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Expense.amount`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "number",
+                      "description": "Portion of the expense allocated to this account."
+                    },
+                    "journal_account_id": {
+                      "type": "integer",
+                      "description": "Target account. Alternatively identify the account by `entity_type` + `entity_id`."
+                    },
+                    "entity_type": {
+                      "type": "string",
+                      "description": "Resolve the account automatically from a related entity (used instead of `journal_account_id`)."
+                    },
+                    "entity_id": {
+                      "type": "integer",
+                      "description": "Reference of the entity named by `entity_type`."
+                    },
+                    "tax_id": {
+                      "type": "integer",
+                      "description": "Tax applied to this line."
+                    },
+                    "percent": {
+                      "type": "number",
+                      "description": "Tax rate (percentage) for this line."
+                    },
+                    "included": {
+                      "type": "integer",
+                      "description": "Whether the line tax is included in the line amount (0/1)."
+                    }
+                  }
+                }
+              },
+              "CostCenterTransaction": {
+                "type": "array",
+                "description": "Optional. Cost-center allocations for the expense. Each entry allocates part of the amount to a cost center.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cost_center_id": {
+                      "type": "integer",
+                      "description": "Target cost center."
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Amount allocated to this cost center."
+                    }
+                  }
+                }
+              },
+              "RecurringExpense": {
+                "type": "object",
+                "description": "Optional. Recurrence settings to repeat this expense on a schedule.",
+                "properties": {}
+              }
+            },
+            "required": [
+              "Expense"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "The expense was created. When an idempotency `unique_id` matches a previous request, `result` is `duplicated` and the fields identify the already-existing expense.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "successful",
+                    "duplicated"
+                  ],
+                  "description": "`successful` for a new expense, `duplicated` when an idempotent retry matched an existing one."
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Reference of the created (or existing) expense."
+                },
+                "expense_number": {
+                  "type": "string",
+                  "description": "Expense number / reference code."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed (e.g. missing `amount`/`date`, zero amount, date in a closed period, or a non-string `attachment`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Map of field name to error message.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to add expenses.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The request body was not valid JSON or the content type was not accepted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__expenses_format"
+  },
+  "blockers": []
+}

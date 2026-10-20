@@ -1,0 +1,157 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].TimeTracking": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].TimeTracking.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.user_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.project_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.activity_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.time": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.notes": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.cost": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.currency": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].TimeTracking.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].TimeTracking.time_formatted": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].TimeTracking.time_formatted.hours": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].TimeTracking.time_formatted.minutes": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].TimeTracking.time_formatted.seconds": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].TimeTracking.time_formatted.string": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

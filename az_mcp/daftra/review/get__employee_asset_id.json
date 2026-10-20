@@ -1,0 +1,211 @@
+{
+  "path": "/employee_asset/id/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Asset",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Employee Asset/Asset"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "barcode": {
+                          "type": "string"
+                        },
+                        "serial_number": {
+                          "type": "string"
+                        },
+                        "used_by": {
+                          "type": "string"
+                        },
+                        "employee": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "storage": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "photo": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "can_update": {
+                          "type": "boolean"
+                        },
+                        "can_delete": {
+                          "type": "boolean"
+                        },
+                        "asset_type": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "has_linked_asset": {
+                          "type": "boolean"
+                        },
+                        "location": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ]
+                        },
+                        "assigned_date": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "warranty_expiry_date": {
+                          "type": "string"
+                        },
+                        "expected_return_date": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "technical_specifications": {
+                          "type": "string"
+                        },
+                        "attachments": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "asset_unit": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "can_add_notes": {
+                          "type": "boolean"
+                        },
+                        "has_notes": {
+                          "type": "boolean"
+                        },
+                        "can_add_document": {
+                          "type": "boolean"
+                        },
+                        "can_view_documents": {
+                          "type": "boolean"
+                        },
+                        "has_chain_of_custody": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "code",
+                        "name",
+                        "barcode",
+                        "serial_number",
+                        "used_by",
+                        "employee",
+                        "storage",
+                        "photo",
+                        "status",
+                        "can_update",
+                        "can_delete",
+                        "asset_type",
+                        "has_linked_asset",
+                        "location",
+                        "assigned_date",
+                        "warranty_expiry_date",
+                        "expected_return_date",
+                        "description",
+                        "technical_specifications",
+                        "attachments",
+                        "asset_unit",
+                        "can_add_notes",
+                        "has_notes",
+                        "can_add_document",
+                        "can_view_documents",
+                        "has_chain_of_custody"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "version": {
+                  "type": "string"
+                },
+                "message": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "payload",
+                "version",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__employee_asset_id"
+  },
+  "blockers": [
+    "Literal /id in source; confirm actual route and identifier parameter"
+  ]
+}

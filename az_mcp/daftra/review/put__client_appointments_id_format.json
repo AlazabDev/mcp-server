@@ -1,0 +1,224 @@
+{
+  "path": "/client_appointments/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Client Appointments",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing client appointment by ID.\n\nThis is a partial update — send only the `ClientAppointment` fields you want to change. `date`, when provided, must be earlier than `end_date`. Set `recurring` to `1` with a `RecurringAppointment` object to make it recurring. Returns `404` if no appointment matches the ID. Requires a permission to edit clients' notes & appointments.",
+    "tags": [
+      "Endpoints/Clients /Client Appointments",
+      "Client Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ClientAppointment": {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "integer",
+                    "description": "Reference of the client the appointment is for."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date and time of the appointment."
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "End date and time. When provided, must be later than `date`."
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Free-text body / note (max 1500 characters)."
+                  },
+                  "action_id": {
+                    "type": "integer",
+                    "description": "Follow-up action to perform."
+                  },
+                  "staff_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of the staff members to assign. Each must be a valid staff ID."
+                  },
+                  "share_with_partner": {
+                    "type": "boolean",
+                    "description": "Share the appointment with the client. `0` / `1`."
+                  },
+                  "recurring": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether the appointment repeats. When `1`, supply a `RecurringAppointment` object.\n\n| Value | Meaning |\n|---|---|\n| 0 | One-off |\n| 1 | Recurring |"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Appointment duration. Defaults to `1` when omitted."
+                  }
+                }
+              },
+              "RecurringAppointment": {
+                "type": "object",
+                "description": "Recurrence settings. Only used when `ClientAppointment.recurring` is `1`.",
+                "additionalProperties": true,
+                "properties": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__client_appointments_id_format"
+  },
+  "blockers": []
+}

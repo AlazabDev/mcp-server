@@ -1,0 +1,199 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].WorkOrder": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].WorkOrder.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.client_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.title": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.start_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.delivery_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.delivery_appointment_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.follow_up_status_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].WorkOrder.budget": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].WorkOrder.budget_currency": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.client_data": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].WorkOrder.workflow_type_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.bid_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.parent_cost_center_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.cost_tracking_level": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.duration": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.duration_unit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.construction_cycle_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.is_draft": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].WorkOrder.cost_center_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

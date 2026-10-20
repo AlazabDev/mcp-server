@@ -1,0 +1,303 @@
+{
+  "path": "/client_appointments{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Client Appointments",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of client appointments.\n\nSupports filtering by status, client, follow-up action and more. **By default only Scheduled appointments are returned** (`status_id` defaults to `0`); pass `status_id` to change this. Each item is wrapped in a `ClientAppointment` object. Requires a permission that grants access to clients' notes & appointments.",
+    "tags": [
+      "Endpoints/Clients /Client Appointments",
+      "Client Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "status_id",
+        "in": "query",
+        "description": "Filter by status. **Defaults to `0` (Scheduled) when omitted.** `0` = Scheduled, `1` = Done, `2` = Dismissed.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "item_id",
+        "in": "query",
+        "description": "Filter to a specific client (the record the appointment is attached to).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "partner_id",
+        "in": "query",
+        "description": "Filter by appointment partner (client) id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "action_id",
+        "in": "query",
+        "description": "Filter by follow-up action id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "follow_up_status",
+        "in": "query",
+        "description": "Filter by the client's follow-up status id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "id",
+        "in": "query",
+        "description": "Return a specific appointment by id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "exclude_app_id",
+        "in": "query",
+        "description": "Exclude a specific appointment id from the results.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "assign_staff_id",
+        "in": "query",
+        "description": "Filter to appointments assigned to a staff member.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The collection items page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ClientAppointment": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique appointment identifier."
+                          },
+                          "item_type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2,
+                              3,
+                              8
+                            ],
+                            "description": "Type of record the appointment is attached to. Always `1` (Client) for this endpoint.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |\n| 2 | Invoice |\n| 3 | Estimate |\n| 8 | Work order |"
+                          },
+                          "item_id": {
+                            "type": "integer",
+                            "description": "Reference of the record the appointment belongs to (the client ID for client appointments)."
+                          },
+                          "partner_type": {
+                            "type": "integer",
+                            "enum": [
+                              1
+                            ],
+                            "description": "Type of the appointment partner.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |"
+                          },
+                          "partner_id": {
+                            "type": "integer",
+                            "description": "Reference of the appointment partner (e.g. the client ID)."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Staff member who created the appointment. `0` means the account owner / system."
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Date and time of the appointment."
+                          },
+                          "end_date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "End date and time of the appointment, when set.",
+                            "nullable": true
+                          },
+                          "body": {
+                            "type": "string",
+                            "description": "Free-text body / note for the appointment."
+                          },
+                          "action_id": {
+                            "type": "integer",
+                            "description": "Follow-up action to be performed."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1,
+                              2
+                            ],
+                            "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                          },
+                          "status_date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "When the status was last changed.",
+                            "nullable": true
+                          },
+                          "post_id": {
+                            "type": "integer",
+                            "description": "Linked note/post reference (`0` when none)."
+                          },
+                          "recurring_appointment_id": {
+                            "type": "integer",
+                            "description": "Reference of the recurring-appointment parent, when this appointment is part of a recurrence.",
+                            "nullable": true
+                          },
+                          "share_with_partner": {
+                            "type": "boolean",
+                            "description": "Whether the appointment is shared with the partner. `0` / `1`."
+                          },
+                          "is_waiting": {
+                            "type": "boolean",
+                            "description": "Whether the appointment is in the waiting state. `0` / `1`."
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Branch the appointment is scoped to."
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the appointment was created."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the appointment was last updated."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {}
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__client_appointments_format"
+  },
+  "blockers": []
+}

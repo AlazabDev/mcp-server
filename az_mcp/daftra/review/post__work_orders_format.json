@@ -1,0 +1,210 @@
+{
+  "path": "/work_orders{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Work Order",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new work order.\n\nRequires the `Add new work orders` permission. The request body must be wrapped in a `WorkOrder` object. Only `title` is required.\n\nSeveral fields are set automatically and cannot be controlled by the caller: the work order `number` is generated when omitted, `start_date` defaults to today when omitted, the creator is recorded as the authenticated user, and `status` is set to Open (or Draft when `is_draft` is sent). On success the new work order id is returned with HTTP 202.",
+    "tags": [
+      "Endpoints/Work Orders/Work Orders",
+      "Work Orders"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "WorkOrder": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Work order title."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Identifier of the client this work order belongs to. The client must not be suspended."
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Work order number. Auto-generated when omitted; may be overridden with a unique value."
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date (YYYY-MM-DD). Optional — defaults to today when omitted."
+                  },
+                  "delivery_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text description."
+                  },
+                  "budget": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Budget amount for this work order."
+                  },
+                  "budget_currency": {
+                    "type": "string",
+                    "description": "3-letter ISO 4217 currency code for the budget."
+                  },
+                  "follow_up_status_id": {
+                    "type": "integer",
+                    "description": "Follow-up status identifier."
+                  },
+                  "delivery_appointment_id": {
+                    "type": "integer",
+                    "description": "Linked appointment reference."
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "description": "Staff member to assign to this work order. The creator is recorded automatically as the authenticated user."
+                  },
+                  "is_draft": {
+                    "type": "integer",
+                    "description": "Set to `1` to save the work order as a Draft with relaxed validation. Defaults to `0`.",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              }
+            },
+            "required": [
+              "WorkOrder"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Identifier of the newly created work order."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field name → reason. Present when validation fails.",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__work_orders_format"
+  },
+  "blockers": []
+}

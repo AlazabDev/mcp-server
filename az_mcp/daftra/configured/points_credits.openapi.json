@@ -1,0 +1,3154 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra points_credits",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api2"
+    }
+  ],
+  "paths": {
+    "/credit_type_package/list/1": {
+      "get": {
+        "summary": "Get All Package Credit Types",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a **paginated** list of package credit types.\n\nA package credit type links a credit type to a package and carries the credit `amount` granted for that package. The response is a standard paginated envelope: the records are in `data[]` (each item is `id`, `credit_type_id`, `package_id`, `amount`), alongside pagination metadata (`current_page`, `per_page`, `total`, `last_page`, `from`, `to`, `links`, and the `*_page_url` fields).\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field (see Filterable fields below). |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>`:\n\n| Field | Type | Example |\n|---|---|---|\n| `credit_type_id` | integer (credit type) | `filter[credit_type_id][equal]=1` |\n| `package_id` | integer (package) | `filter[package_id][equal]=24` |\n| `amount` | number | `filter[amount][greater_than_equal]=1000` |\n\nIn practice the endpoint filters and sorts on any existing column. With no `sort`, results default to newest-first (by `id`).\n\nThe trailing path segment sets the data-detail level (e.g. `/credit_type_package/list/1`); it is optional for this entity and does not change the returned records — it is only echoed back into the pagination URLs.",
+        "tags": [
+          "Endpoints/Points & Credits/Packages Credit Types"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of package credit types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "credit_type_id": {
+                            "type": "integer",
+                            "description": "The linked credit type id."
+                          },
+                          "package_id": {
+                            "type": "integer",
+                            "description": "The linked package id."
+                          },
+                          "amount": {
+                            "type": "number",
+                            "description": "Credit amount granted for the package (decimal)."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "credit_type_id",
+                          "package_id",
+                          "amount"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks permission for this entity also receives a `401` with a message stating access is not allowed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_type_package_list"
+      }
+    },
+    "/credit_type_package/{id}/1": {
+      "get": {
+        "summary": "Get Single Package Credit Type",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **package credit type** by id.\n\nA package credit type links a credit type to a package and carries the credit `amount` granted for that package. The record id is supplied in the path; the response is the flat record (`id`, `credit_type_id`, `package_id`, `amount`) — not wrapped in an envelope.\n\nThe trailing path segment (e.g. `/credit_type_package/{id}/1`) sets the data-detail level; it is optional for this entity and does not change the returned record.\n\nIf the id does not exist, the endpoint currently responds with HTTP `500` and a plain-text `error happened` body (not JSON). Confirm the id exists (e.g. via the list endpoint) before fetching.",
+        "tags": [
+          "Endpoints/Points & Credits/Packages Credit Types"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The package credit type id to fetch.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested package credit type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "credit_type_id": {
+                      "type": "integer",
+                      "description": "The linked credit type id."
+                    },
+                    "package_id": {
+                      "type": "integer",
+                      "description": "The linked package id."
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Credit amount granted for the package (decimal)."
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "credit_type_id",
+                    "package_id",
+                    "amount"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks view permission for this entity also receives a `401` with a message stating access is not allowed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Currently returned when the id does not exist or cannot be loaded — a plain-text `error happened` body. Check the id exists (e.g. via the list endpoint) before fetching.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_type_package_id"
+      }
+    },
+    "/credit_type_package": {
+      "post": {
+        "summary": "Edit Package Credit Type",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+        "tags": [
+          "Endpoints/Points & Credits/Packages Credit Types"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "credit_type_id": {
+                    "type": "integer"
+                  },
+                  "package_id": {
+                    "type": "integer"
+                  },
+                  "amount": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "credit_type_id",
+                  "package_id",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__credit_type_package"
+      }
+    },
+    "/credit_charge/list/1": {
+      "get": {
+        "summary": "Get All Credit Charges",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of credit charges for the account. A credit charge is an amount of a given credit type granted to a client (e.g. loyalty points, prepaid credit, or a membership allowance) that is later consumed.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. `/credit_charge/list` and `/credit_charge/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter rows by a field's value, e.g. `filter[client_id][equal]=8` or `filter[status][equal]=available`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[amount]=desc`. |\n\n**Filterable fields.** The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `staff_id` | integer (staff) | `filter[staff_id][equal]=1` |\n| `client_id` | integer (client) | `filter[client_id][equal]=8` |\n| `credit_type_id` | integer (credit type) | `filter[credit_type_id][equal]=1` |\n| `status` | enum (`available`, `consumed`, `expired`, `suspended`) | `filter[status][equal]=available` |\n| `start_date` | date | `filter[start_date][greater_than_equal]=2025-01-01` |\n| `expiry_date` | date | `filter[expiry_date][less_than_equal]=2026-12-31` |\n| `amount` | number | `filter[amount][greater_than]=10` |\n\nThe list will in fact filter and sort on any existing column, not only the fields above. When no `sort` is given the default ordering is newest first (`id` descending).\n\nEach item in `data` is a flat credit-charge record. The `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `available` | Credit is available to consume |\n| `consumed` | Credit has been fully used |\n| `expired` | Credit passed its expiry date |\n| `suspended` | Credit is temporarily suspended |",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Charges"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to `20`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[<field>][<operator>]",
+            "in": "query",
+            "description": "Filter rows by a field's value, e.g. `filter[client_id][equal]=8`. Filterable fields: `staff_id`, `client_id`, `credit_type_id`, `status`, `start_date`, `expiry_date`, `amount` (the API also accepts any other existing column).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort[<field>]",
+            "in": "query",
+            "description": "Sort by a field, `asc` or `desc`, e.g. `sort[amount]=desc`. Default ordering is `id` descending.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of credit charges.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The credit charges on this page. Each item is a flat credit-charge record.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Credit charge id."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Id of the staff member who added the charge. May be null.",
+                            "nullable": true
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "description": "Id of the client the credit belongs to."
+                          },
+                          "credit_type_id": {
+                            "type": "integer",
+                            "description": "Id of the credit type."
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "Credit charge status.\n\n| Value | Meaning |\n|---|---|\n| available | Credit is available to consume |\n| consumed | Credit has been fully used |\n| expired | Credit passed its expiry date |\n| suspended | Credit is temporarily suspended |",
+                            "enum": [
+                              "available",
+                              "consumed",
+                              "expired",
+                              "suspended"
+                            ]
+                          },
+                          "start_date": {
+                            "type": "string",
+                            "description": "Start of the credit's validity window (`YYYY-MM-DD`)."
+                          },
+                          "expiry_date": {
+                            "type": "string",
+                            "description": "End of the validity window (`YYYY-MM-DD`), or null if it never expires.",
+                            "nullable": true
+                          },
+                          "amount": {
+                            "type": "number",
+                            "description": "Credit amount granted."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Free-text note. May be null.",
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "description": "Soft-delete timestamp, or null if not deleted.",
+                            "nullable": true
+                          },
+                          "renewal_id": {
+                            "type": "integer",
+                            "description": "Id of the membership renewal that produced this charge, or null.",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "staff_id",
+                          "client_id",
+                          "credit_type_id",
+                          "status",
+                          "start_date",
+                          "expiry_date",
+                          "amount",
+                          "description",
+                          "created",
+                          "modified",
+                          "deleted_at",
+                          "renewal_id"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the Manage Credit Charges permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_charge_list",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_charge/{id}/1": {
+      "get": {
+        "summary": "Get Single Credit Charge",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single credit charge by id. A credit charge is an amount of a given credit type granted to a client (e.g. loyalty points, prepaid credit, or a membership allowance) that is later consumed.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number; on this endpoint it has no visible effect. The response is a flat credit-charge record.\n\nThe `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `available` | Credit is available to consume |\n| `consumed` | Credit has been fully used |\n| `expired` | Credit passed its expiry date |\n| `suspended` | Credit is temporarily suspended |",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Charges"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The credit charge id.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The credit charge record.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Credit charge id."
+                    },
+                    "staff_id": {
+                      "type": "integer",
+                      "description": "Id of the staff member who added the charge. May be null.",
+                      "nullable": true
+                    },
+                    "client_id": {
+                      "type": "integer",
+                      "description": "Id of the client the credit belongs to."
+                    },
+                    "credit_type_id": {
+                      "type": "integer",
+                      "description": "Id of the credit type."
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Credit charge status.\n\n| Value | Meaning |\n|---|---|\n| available | Credit is available to consume |\n| consumed | Credit has been fully used |\n| expired | Credit passed its expiry date |\n| suspended | Credit is temporarily suspended |",
+                      "enum": [
+                        "available",
+                        "consumed",
+                        "expired",
+                        "suspended"
+                      ]
+                    },
+                    "start_date": {
+                      "type": "string",
+                      "description": "Start of the credit's validity window (`YYYY-MM-DD`)."
+                    },
+                    "expiry_date": {
+                      "type": "string",
+                      "description": "End of the validity window (`YYYY-MM-DD`), or null if it never expires.",
+                      "nullable": true
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Credit amount granted."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Free-text note. May be null.",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "modified": {
+                      "type": "string",
+                      "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "deleted_at": {
+                      "type": "string",
+                      "description": "Soft-delete timestamp, or null if not deleted.",
+                      "nullable": true
+                    },
+                    "renewal_id": {
+                      "type": "integer",
+                      "description": "Id of the membership renewal that produced this charge, or null.",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "staff_id",
+                    "client_id",
+                    "credit_type_id",
+                    "status",
+                    "start_date",
+                    "expiry_date",
+                    "amount",
+                    "description",
+                    "created",
+                    "modified",
+                    "deleted_at",
+                    "renewal_id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the Manage Credit Charges permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_charge_id",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_charge": {
+      "post": {
+        "summary": "Edit Credit Charge",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing credit charge. This posts to the same `/v2/api/entity/credit_charge` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new record is created instead.\n\n**Important — this is a destructive partial overwrite, not a merge.** The update always rewrites a fixed **core set** of columns — `staff_id`, `client_id`, `credit_type_id`, `renewal_id`, and `amount` — and sets any of them **that you omit to null**. Because `client_id`, `credit_type_id`, and `amount` are non-nullable, omitting them fails with a `400`; omitting `staff_id` or `renewal_id` silently clears them. **Always resend the whole core set on every update.** The remaining fields (`start_date`, `expiry_date`, `description`, `status`) are preserved if omitted.\n\nDate fields accept `YYYY-MM-DD` or `DD/MM/YYYY`. On success the response is `{ \"message\": <localized text>, \"id\": <id> }`.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Charges"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Id of the credit charge to update. Required — omitting it creates a new record instead."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Id of the client. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+                  },
+                  "credit_type_id": {
+                    "type": "integer",
+                    "description": "Id of the credit type. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Credit amount. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "description": "Id of the staff member. Part of the core overwrite set — resend it or it is silently cleared to null."
+                  },
+                  "renewal_id": {
+                    "type": "integer",
+                    "description": "Id of the membership renewal. Part of the core overwrite set — resend it or it is silently cleared to null."
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "description": "Start of the validity window. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+                  },
+                  "expiry_date": {
+                    "type": "string",
+                    "description": "End of the validity window. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text note. Optional; preserved if omitted."
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Credit charge status. Optional; preserved if omitted.\n\n| Value | Meaning |\n|---|---|\n| available | Credit is available to consume |\n| consumed | Credit has been fully used |\n| expired | Credit passed its expiry date |\n| suspended | Credit is temporarily suspended |",
+                    "enum": [
+                      "available",
+                      "consumed",
+                      "expired",
+                      "suspended"
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "client_id",
+                  "credit_type_id",
+                  "amount"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The credit charge was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated credit charge."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update could not be saved — most commonly because a core-set field (`client_id`, `credit_type_id`, or `amount`) was omitted and nulled a non-nullable column.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "type": "object",
+                      "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Human-readable failure reason (e.g. a core-set field was omitted and nulled a non-nullable column)."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the Manage Credit Charges permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__credit_charge",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_usage/list/1": {
+      "get": {
+        "summary": "Get All Credit Usage",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of credit usage records for the account. A credit usage records that a client consumed an amount of a given credit type (the counterpart of a credit charge).\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. `/credit_usage/list` and `/credit_usage/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter rows by a field's value, e.g. `filter[client_id][equal]=8`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[usage_date]=desc`. |\n\n**Filterable fields.** The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `client_id` | integer (client) | `filter[client_id][equal]=8` |\n| `credit_type_id` | integer (credit type) | `filter[credit_type_id][equal]=1` |\n| `usage_date` | date | `filter[usage_date][greater_than_equal]=2025-01-01` |\n\nThe list will in fact filter and sort on any existing column, not only the fields above. When no `sort` is given the default ordering is newest first (`id` descending).\n\nEach item in `data` is a flat credit-usage record.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to `20`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[<field>][<operator>]",
+            "in": "query",
+            "description": "Filter rows by a field's value, e.g. `filter[client_id][equal]=8`. Filterable fields: `client_id`, `credit_type_id`, `usage_date` (the API also accepts any other existing column).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort[<field>]",
+            "in": "query",
+            "description": "Sort by a field, `asc` or `desc`, e.g. `sort[id]=desc`. Default ordering is `id` descending.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The credit usage records on this page. Each item is a flat credit-usage record.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Credit usage id."
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "description": "Id of the client the usage belongs to."
+                          },
+                          "credit_type_id": {
+                            "type": "integer",
+                            "description": "Id of the credit type consumed."
+                          },
+                          "usage_date": {
+                            "type": "string",
+                            "description": "Date the credit was used (`YYYY-MM-DD`)."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Free-text note. May be null.",
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "description": "Soft-delete timestamp, or null if not deleted.",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "client_id",
+                          "credit_type_id",
+                          "usage_date",
+                          "description",
+                          "created",
+                          "modified",
+                          "deleted_at"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_usage_list",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_usage/{id}/1": {
+      "get": {
+        "summary": "Get Single Credit Usage ",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single credit usage record by id. A credit usage records that a client consumed an amount of a given credit type (the counterpart of a credit charge).\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number; on this endpoint it has no visible effect. The response is a flat credit-usage record.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The credit usage id.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The credit usage record.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Credit usage id."
+                    },
+                    "client_id": {
+                      "type": "integer",
+                      "description": "Id of the client the usage belongs to."
+                    },
+                    "credit_type_id": {
+                      "type": "integer",
+                      "description": "Id of the credit type consumed."
+                    },
+                    "usage_date": {
+                      "type": "string",
+                      "description": "Date the credit was used (`YYYY-MM-DD`)."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Free-text note. May be null.",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "modified": {
+                      "type": "string",
+                      "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "deleted_at": {
+                      "type": "string",
+                      "description": "Soft-delete timestamp, or null if not deleted.",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "client_id",
+                    "credit_type_id",
+                    "usage_date",
+                    "description",
+                    "created",
+                    "modified",
+                    "deleted_at"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_usage_id",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_usage": {
+      "post": {
+        "summary": "Edit Credit Usage",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing credit usage. This posts to the same `/v2/api/entity/credit_usage` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new record is created instead.\n\n**Important — this is a partial overwrite, not a full merge.** The update always rewrites the foreign-key columns `client_id` and `credit_type_id` and sets either of them **that you omit to null**. Because both are non-nullable, omitting one fails with a `400`. **Always resend `client_id` and `credit_type_id` on every update.** The other fields (`usage_date`, `description`) are preserved if omitted.\n\n`usage_date` accepts `YYYY-MM-DD` or `DD/MM/YYYY`. On success the response is `{ \"message\": <localized text>, \"id\": <id> }`.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Id of the credit usage to update. Required — omitting it creates a new record instead."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Id of the client. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+                  },
+                  "credit_type_id": {
+                    "type": "integer",
+                    "description": "Id of the credit type. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+                  },
+                  "usage_date": {
+                    "type": "string",
+                    "description": "Date the credit was used. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text note. Optional; preserved if omitted."
+                  }
+                },
+                "required": [
+                  "id",
+                  "client_id",
+                  "credit_type_id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The record was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated credit usage."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update could not be saved — most commonly because a core foreign key (`client_id` or `credit_type_id`) was omitted and nulled a non-nullable column.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "type": "object",
+                      "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Human-readable failure reason (e.g. a core-set foreign key was omitted and nulled a non-nullable column)."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to manage credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__credit_usage",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/charge_usage/list/1": {
+      "get": {
+        "summary": "Get All Credit Usage Amount",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of charge usage records. A charge usage links a credit charge to a credit usage and stores the amount consumed.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. `/charge_usage/list` and `/charge_usage/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter rows by a field's value, e.g. `filter[credit_usage_id][equal]=5`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[amount]=desc`. |\n\n**Filterable fields.** The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `credit_charge_id` | integer (credit charge) | `filter[credit_charge_id][equal]=12` |\n| `credit_usage_id` | integer (credit usage) | `filter[credit_usage_id][equal]=5` |\n| `amount` | number | `filter[amount][greater_than]=10` |\n\nThe list will in fact filter and sort on any existing column, not only the fields above. When no `sort` is given the default ordering is newest first (`id` descending).\n\nEach item in `data` is a flat charge-usage record.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to `20`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[<field>][<operator>]",
+            "in": "query",
+            "description": "Filter rows by a field's value, e.g. `filter[credit_usage_id][equal]=5`. Filterable fields: `credit_charge_id`, `credit_usage_id`, `amount` (the API also accepts any other existing column).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort[<field>]",
+            "in": "query",
+            "description": "Sort by a field, `asc` or `desc`, e.g. `sort[id]=desc`. Default ordering is `id` descending.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The charge usage records on this page. Each item is a flat charge-usage record.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Charge usage id."
+                          },
+                          "credit_charge_id": {
+                            "type": "integer",
+                            "description": "Id of the credit charge being consumed."
+                          },
+                          "credit_usage_id": {
+                            "type": "integer",
+                            "description": "Id of the credit usage record this amount applies to."
+                          },
+                          "amount": {
+                            "type": "number",
+                            "description": "Amount of credit consumed from the charge."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "credit_charge_id",
+                          "credit_usage_id",
+                          "amount"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__charge_usage_list",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/charge_usage/{id}/1": {
+      "get": {
+        "summary": "Get Single Credit Usage Amount",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single charge usage record by id. A charge usage links a credit charge to a credit usage and stores the amount consumed.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number; on this endpoint it has no visible effect. The response is a flat charge-usage record.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The charge usage id.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The charge usage record.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Charge usage id."
+                    },
+                    "credit_charge_id": {
+                      "type": "integer",
+                      "description": "Id of the credit charge being consumed."
+                    },
+                    "credit_usage_id": {
+                      "type": "integer",
+                      "description": "Id of the credit usage record this amount applies to."
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Amount of credit consumed from the charge."
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "credit_charge_id",
+                    "credit_usage_id",
+                    "amount"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__charge_usage_id",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/charge_usage": {
+      "post": {
+        "summary": "Edit Credit Usage Amount",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing charge usage. This posts to the same `/v2/api/entity/charge_usage` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new record is created instead.\n\n**Important — this is a partial overwrite, not a full merge.** The update always rewrites the foreign-key columns `credit_charge_id` and `credit_usage_id` and sets either of them **that you omit to null**. Because both are non-nullable, omitting one fails with a `400`. **Always resend `credit_charge_id` and `credit_usage_id` on every update.** `amount` is preserved if omitted.\n\nOn success the response is `{ \"message\": <localized text>, \"id\": <id> }`.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Usage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Id of the charge usage to update. Required — omitting it creates a new record instead."
+                  },
+                  "credit_charge_id": {
+                    "type": "integer",
+                    "description": "Id of the credit charge. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+                  },
+                  "credit_usage_id": {
+                    "type": "integer",
+                    "description": "Id of the credit usage. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Amount of credit consumed. Optional; preserved if omitted."
+                  }
+                },
+                "required": [
+                  "id",
+                  "credit_charge_id",
+                  "credit_usage_id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The record was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated charge usage."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update could not be saved — most commonly because a core foreign key (`credit_charge_id` or `credit_usage_id`) was omitted and nulled a non-nullable column.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "type": "object",
+                      "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Human-readable failure reason (e.g. a core-set foreign key was omitted and nulled a non-nullable column)."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to manage credit usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__charge_usage",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/credit_type/list/1": {
+      "get": {
+        "summary": "Get All Credit types",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a **paginated** list of credit types.\n\nA credit type defines a kind of credit/points balance (e.g. loyalty points). The response is a standard paginated envelope: the records are in `data[]` (each item is `id`, `name`, `allow_decimal`, `status`, `unit`, `description`, `created`, `modified`, `deleted_at`), alongside pagination metadata (`current_page`, `per_page`, `total`, `last_page`, `from`, `to`, `links`, and the `*_page_url` fields).\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field (see Filterable fields below). |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>`:\n\n| Field | Type | Example |\n|---|---|---|\n| `name` | string | `filter[name][like]=Loyalty` |\n| `status` | enum (`0` Inactive, `1` Active) | `filter[status][equal]=1` |\n\nIn practice the endpoint filters and sorts on any existing column. With no `sort`, results default to newest-first (by `id`).\n\nThe trailing path segment sets the data-detail level (e.g. `/credit_type/list/1`); it is optional for this entity and does not change the returned records — it is only echoed back into the pagination URLs.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Types"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of credit types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "allow_decimal": {
+                            "type": "integer",
+                            "description": "Whether fractional amounts are allowed.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "Whether the credit type is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                          },
+                          "unit": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "allow_decimal",
+                          "status",
+                          "unit",
+                          "description",
+                          "created",
+                          "modified",
+                          "deleted_at"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks access to this entity also receives a `401` with a message stating access is not allowed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_type_list"
+      }
+    },
+    "/credit_type/{Id}/1": {
+      "get": {
+        "summary": "Get Single Credit type ",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **credit type** by id.\n\nA credit type defines a kind of credit/points balance (e.g. loyalty points). The record id is supplied in the path; the response is the flat record (`id`, `name`, `allow_decimal`, `status`, `unit`, `description`, `created`, `modified`, `deleted_at`) — not wrapped in an envelope.\n\nThe trailing path segment (e.g. `/credit_type/{id}/1`) sets the data-detail level; it is optional for this entity and does not change the returned record.\n\nIf the id does not exist, the endpoint currently responds with HTTP `500` and a plain-text `error happened` body (not JSON). Confirm the id exists (e.g. via the list endpoint) before fetching.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Types"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested credit type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "allow_decimal": {
+                      "type": "integer",
+                      "description": "Whether fractional amounts are allowed.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "Whether the credit type is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "description": "Unit label for the credit; null when not set.",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Free-text description; null when not set.",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "description": "Creation timestamp."
+                    },
+                    "modified": {
+                      "type": "string",
+                      "description": "Last-modified timestamp."
+                    },
+                    "deleted_at": {
+                      "type": "string",
+                      "description": "Soft-delete timestamp; null when the record is active.",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "allow_decimal",
+                    "status",
+                    "unit",
+                    "description",
+                    "created",
+                    "modified",
+                    "deleted_at"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks view permission for this entity also receives a `401` with a message stating access is not allowed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Currently returned when the id does not exist or cannot be loaded — a plain-text `error happened` body. Check the id exists (e.g. via the list endpoint) before fetching.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__credit_type_Id"
+      }
+    },
+    "/credit_type": {
+      "post": {
+        "summary": "Edit Credit type",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **credit type**.\n\nThe record to update is identified by the **`id` field in the request body** (not by a path segment). Include `id` and POST to `/v2/api/entity/credit_type` — the same path as create; supplying `id` switches the operation from insert to update.\n\n**This is a full-row overwrite.** Any writable field omitted from the body is reset to its column default or null (`status`→`1`, `allow_decimal`→`0`, `unit`/`description`→null), so always resend every field you want to keep. `name` is required and must stay **unique**.\n\nNote: a request that puts the id in the path instead (`/credit_type/{id}`) does **not** update — it creates a new record. Always send `id` in the body.",
+        "tags": [
+          "Endpoints/Points & Credits/Credit Types"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Required. Id of the credit type to update."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Required (full-row overwrite). Name of the credit type. Must be unique across your credit types."
+                  },
+                  "allow_decimal": {
+                    "type": "integer",
+                    "description": "Optional. Whether fractional amounts are allowed. If omitted it resets to `0` (No).\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+                  },
+                  "status": {
+                    "type": "integer",
+                    "description": "Optional. Whether the credit type is active. If omitted it resets to `1` (Active).\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "description": "Optional. Unit label shown for the credit. If omitted it resets to null."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Optional. Free-text description. If omitted it resets to null."
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The credit type was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized message (may read \"added\" even on update)."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated credit type."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The record could not be saved. This occurs when `name` is omitted (a full-row overwrite would write null) or duplicates another credit type name (names are unique) — the endpoint has no field-level validation, so the underlying database error is returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "type": "object",
+                      "description": "Raw database error context (error info array, connection name, read/write type).",
+                      "properties": {}
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Database error detail explaining why the row could not be saved."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks update permission for this entity also receives a `401` with a message stating access is not allowed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__credit_type",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/package/list/1": {
+      "get": {
+        "summary": "Get All Packages",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of packages (membership and credit-charge packages) for the account.\n\n### Ordering\nNewest first — `id` descending — unless you pass a `sort` parameter.\n\n### Branch scoping\nWhen the Branches add-on is enabled, results are automatically limited to your current branch. To widen the scope:\n\n| Goal | How |\n|---|---|\n| A specific branch | `request_branch_id=<branch id>` |\n| Every branch you have access to | `filter[branch_id][equal]=-1` |\n\nPackages stored without a branch are not returned while branch scoping is in effect.\n\n### Deleted packages\nDeleted packages are excluded, so `deleted_at` is always `null` in this response. Fetch a deleted package directly by its id if you need it.\n\n### Filtering\nUse `filter[<field>][<operator>]=<value>`. Omitting the operator means `equal` — `filter[status]=1` is the same as `filter[status][equal]=1`.\n\n| Operator | Meaning |\n|---|---|\n| `equal` | equals (default) |\n| `not_equal` | not equal |\n| `in` / `not_in` | in / not in a list of values |\n| `like` | partial text match |\n| `gt` / `gte` / `from` | greater than / greater than or equal |\n| `lt` / `lte` / `to` | less than / less than or equal |\n| `is_null` / `is_not_null` | value is / is not empty |\n\nFields intended for filtering: `name`, `price`, `period_value`, `status`, `product_id`. Filtering on an unrecognised field returns `400`.\n\n### Sorting\nUse `sort[<field>]=asc` or `sort[<field>]=desc`, e.g. `sort[name]=asc`.\n\n### Notes\n- The trailing `1` in the path is an optional data-detail level. It has no effect for packages, which are always returned as flat records.\n- A `fields[]` parameter is not supported; the complete record is always returned.",
+        "tags": [
+          "Endpoints/Points & Credits/Packages"
+        ],
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Records per page. Defaults to `20` when omitted.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to return. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[status][equal]",
+            "in": "query",
+            "description": "Example filter. Any `filter[<field>][<operator>]` combination described above is accepted.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort[name]",
+            "in": "query",
+            "description": "Example sort. Any `sort[<field>]=asc|desc` combination is accepted.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "request_branch_id",
+            "in": "query",
+            "description": "Run the request against a specific branch instead of your current one.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of packages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer",
+                      "description": "The page that was returned."
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The packages on this page.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Package id."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Package name."
+                          },
+                          "price": {
+                            "type": "number",
+                            "description": "Package price. May contain decimals."
+                          },
+                          "period_value": {
+                            "type": "integer",
+                            "description": "How many `period_unit` intervals the package covers, e.g. `3` with `monthly` means three months."
+                          },
+                          "period_unit": {
+                            "type": "string",
+                            "description": "The unit the validity period is counted in.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                            "enum": [
+                              "daily",
+                              "weekly",
+                              "monthly",
+                              "yearly",
+                              "not-expired"
+                            ]
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "Whether the package can be sold.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "product_id": {
+                            "type": "integer",
+                            "description": "Id of the product this package is linked to, or `null` when it is not linked to one.",
+                            "nullable": true
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Free-text description, or `null`.",
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp, `YYYY-MM-DD HH:MM:SS`."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modification timestamp, `YYYY-MM-DD HH:MM:SS`."
+                          },
+                          "deleted_at": {
+                            "type": "string",
+                            "description": "Always `null` here — deleted packages are excluded from the list.",
+                            "nullable": true
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "What the package sells.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                            "enum": [
+                              "credit_charge",
+                              "membership"
+                            ]
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Branch the package belongs to, or `null` when it is not assigned to one.",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "price",
+                          "period_value",
+                          "period_unit",
+                          "status",
+                          "product_id",
+                          "description",
+                          "created",
+                          "modified",
+                          "deleted_at",
+                          "type",
+                          "branch_id"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string",
+                      "description": "URL of the first page."
+                    },
+                    "from": {
+                      "type": "integer",
+                      "description": "Index of the first record on this page, or `null` when the page is empty.",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer",
+                      "description": "Number of the last page."
+                    },
+                    "last_page_url": {
+                      "type": "string",
+                      "description": "URL of the last page."
+                    },
+                    "links": {
+                      "type": "array",
+                      "description": "Ready-made pagination links: a previous entry, one entry per page number, then a next entry.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "description": "Target URL, or `null` when there is no such page.",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string",
+                            "description": "Display label — a page number, or a previous/next label."
+                          },
+                          "page": {
+                            "type": "integer",
+                            "description": "Page number the entry points at, or `null`. Omitted on gap (`...`) entries.",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean",
+                            "description": "`true` for the page currently returned."
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "description": "URL of the next page, or `null` on the last page.",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "Base URL of the listing."
+                    },
+                    "per_page": {
+                      "type": "integer",
+                      "description": "Records per page that was applied."
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "description": "URL of the previous page, or `null` on the first page.",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "description": "Index of the last record on this page, or `null` when the page is empty.",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of matching packages."
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The listing could not be produced.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Why the listing could not be produced — for example the Points & Credits add-on is not active for the account, or a filter referenced an unknown field."
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication failed, or the caller may not view packages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Returned when the access token is missing, expired or invalid."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Returned instead of `message` when the account is authenticated but not permitted to view packages."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__package_list"
+      }
+    },
+    "/package/{id}/1": {
+      "get": {
+        "summary": "Get Single Package",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single package by its id, as a flat object (no wrapper).\n\n### Deleted packages\nA deleted package is still returned by this endpoint, with `deleted_at` set to the time it was deleted. The list endpoint hides such packages, so this is the only place a non-null `deleted_at` appears.\n\n### Branches\nNo branch restriction applies here — a package belonging to any branch can be fetched by its id.\n\n### Notes\n- The trailing `1` in the path is an optional data-detail level. It has no effect for packages, which are always returned as flat records; a non-numeric value is treated as `1`.\n- An unknown id does **not** return `404`. It returns `500` with the plain-text body `error happened`, so do not parse the failure body as JSON.",
+        "tags": [
+          "Endpoints/Points & Credits/Packages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the package to return.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested package.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Package id."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Package name."
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Package price. May contain decimals."
+                    },
+                    "period_value": {
+                      "type": "integer",
+                      "description": "How many `period_unit` intervals the package covers, e.g. `3` with `monthly` means three months."
+                    },
+                    "period_unit": {
+                      "type": "string",
+                      "description": "The unit the validity period is counted in.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                      "enum": [
+                        "daily",
+                        "weekly",
+                        "monthly",
+                        "yearly",
+                        "not-expired"
+                      ]
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "Whether the package can be sold.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                      "enum": [
+                        0,
+                        1
+                      ]
+                    },
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Id of the product this package is linked to, or `null` when it is not linked to one.",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Free-text description, or `null`.",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "description": "Creation timestamp, `YYYY-MM-DD HH:MM:SS`."
+                    },
+                    "modified": {
+                      "type": "string",
+                      "description": "Last-modification timestamp, `YYYY-MM-DD HH:MM:SS`."
+                    },
+                    "deleted_at": {
+                      "type": "string",
+                      "description": "When the package was deleted, `YYYY-MM-DD HH:MM:SS`, or `null` while it is active.",
+                      "nullable": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "What the package sells.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                      "enum": [
+                        "credit_charge",
+                        "membership"
+                      ]
+                    },
+                    "branch_id": {
+                      "type": "integer",
+                      "description": "Branch the package belongs to, or `null` when it is not assigned to one.",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "price",
+                    "period_value",
+                    "period_unit",
+                    "status",
+                    "product_id",
+                    "description",
+                    "created",
+                    "modified",
+                    "deleted_at",
+                    "type",
+                    "branch_id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication failed, or the caller may not view packages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Returned when the access token is missing, expired or invalid."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Returned instead of `message` when the account is authenticated but not permitted to view packages."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The package could not be loaded — most commonly because no package has that id. The body is the plain text `error happened`, not JSON.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Plain-text body. Returned when the id does not exist, or the package could not be loaded."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__package_id"
+      }
+    },
+    "/package": {
+      "post": {
+        "summary": "Edit Package",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing package. The package is identified by the **`id` in the request body** — this endpoint uses the same URL as *Add New Package*.\n\n### `id` selects the record\nA body **without** `id` creates a new package instead of updating one, and still replies with an \"Added Successfully\" message. Always send `id`.\n\n### Only the fields you send are changed — with two exceptions\nFields you leave out keep their current values. The exceptions are the two reference fields:\n\n| Field | Left out of the body |\n|---|---|\n| `branch_id` | **Set to `null`** — the package loses its branch and stops appearing in *Get All Packages* |\n| `product_id` | **Set to `null`** — the package is unlinked from its product |\n\nSo resend `branch_id` and `product_id` on every update, even when they are not changing.\n\n### Clearing a text value\nSending `null` for `name`, `description`, `price`, `period_value`, `period_unit`, `status` or `type` leaves the current value untouched. Send an empty string (`\"\"`) to clear a text field.\n\n### Send `Accept: application/json`\nThis endpoint answers with a redirect to a web page instead of JSON when the request does not ask for JSON. Always send `Accept: application/json`.\n\n### Other notes\n- A successful update replies `Package Added Successfully` — the same wording as a create. Do not read it as proof that a new package was inserted; check the `id` you sent.\n- An `id` that does not exist returns `400` with `\"error\": \"Record Not Found\"`, not `404`.\n- Body keys that are not package fields are ignored silently — a misspelled field name is not reported as an error.\n- `modified` is refreshed automatically; `created` and `deleted_at` should be omitted.\n- Values are not validated against the lists below before they reach the database, so an out-of-range value fails as a save error rather than a field-level validation error.",
+        "tags": [
+          "Endpoints/Points & Credits/Packages"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Id of the package to update. **Required** — without it a new package is created."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Package name. Optional — unchanged when omitted."
+                  },
+                  "period_value": {
+                    "type": "integer",
+                    "description": "How many `period_unit` intervals the package covers. Optional — unchanged when omitted."
+                  },
+                  "period_unit": {
+                    "type": "string",
+                    "description": "The unit the validity period is counted in. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                    "enum": [
+                      "daily",
+                      "weekly",
+                      "monthly",
+                      "yearly",
+                      "not-expired"
+                    ]
+                  },
+                  "price": {
+                    "type": "number",
+                    "description": "Package price; decimals are allowed. Optional — unchanged when omitted."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "What the package sells. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                    "enum": [
+                      "credit_charge",
+                      "membership"
+                    ]
+                  },
+                  "status": {
+                    "type": "integer",
+                    "description": "Whether the package can be sold. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text description. Optional — unchanged when omitted. Send `\"\"` to clear it.",
+                    "nullable": true
+                  },
+                  "product_id": {
+                    "type": "integer",
+                    "description": "Id of the product the package is linked to. **Resend on every update** — when omitted it is set to `null`.",
+                    "nullable": true
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Branch the package belongs to. **Resend on every update** — when omitted it is set to `null` and the package stops appearing in *Get All Packages*.",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The package was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation message. Uses the create wording even for an update."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the package that was updated — the value you sent."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The package was not updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "`Entity not saved` when the update could not be applied — the `id` does not exist, or a value fell outside an allowed list. `Plugin is not installed` when the Points & Credits add-on is not active for the account."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Reason for the failure — `Record Not Found` for an unknown `id`, otherwise the database-level reason. Present only on the save-failure variant."
+                    },
+                    "e": {
+                      "type": "object",
+                      "description": "Diagnostic detail about the failure. Present only on the save-failure variant; treat as opaque and do not depend on its shape.",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication failed, or the caller may not save packages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Returned when the access token is missing, expired or invalid."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Returned instead of `message` when the account is authenticated but not permitted to save packages."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__package"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

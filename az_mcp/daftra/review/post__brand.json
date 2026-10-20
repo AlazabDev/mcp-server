@@ -1,0 +1,149 @@
+{
+  "path": "/brand",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Brand",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new **brand**.\n\nThe request body is a flat object; `name` is the only writable field. The brand `name` is **required** and must be **unique** across the account — sending a blank or already-used name returns a validation error. The `id`, `created`, and `modified` fields are assigned automatically and cannot be set.\n\nOn success the new brand id is returned.",
+    "tags": [
+      "Endpoints/Inventory /Brands"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Required. The brand name. Must be unique across the account (a duplicate name is rejected)."
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The brand was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The id of the newly created brand."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record could not be saved due to an unexpected error while persisting it.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Diagnostic details about the failure. May be an empty array when no structured detail is available.",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable description of why the save failed."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "422": {
+        "description": "Validation failed — the `name` is missing/empty or already used by another brand.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Field-keyed validation messages. Each key maps to an array of human-readable messages.",
+                  "properties": {
+                    "name": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Validation messages for `name`, e.g. `This is a required field and could not be empty` (missing) or `This Field Already Exist` (duplicate)."
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__brand"
+  },
+  "blockers": []
+}

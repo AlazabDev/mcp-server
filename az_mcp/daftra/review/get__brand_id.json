@@ -1,0 +1,95 @@
+{
+  "path": "/brand/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Brand",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **brand** by id.\n\nThe brand id is supplied in the path. The response contains the brand's `id`, `name`, `created`, and `modified`.\n\nAn optional trailing path segment sets the data-detail level (e.g. `/brand/{id}/1`); it can be omitted for the default detail level.",
+    "tags": [
+      "Endpoints/Inventory /Brands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The brand id to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested brand.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "created",
+                "modified"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Currently returned when the brand id does not exist or cannot be loaded — a plain-text `error happened` body. Check the id exists (e.g. via the list endpoint) before fetching.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__brand_id"
+  },
+  "blockers": []
+}

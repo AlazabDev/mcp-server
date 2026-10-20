@@ -1,0 +1,12 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": [],
+  "pagination": {
+    "prev": null,
+    "next": null,
+    "page": 0,
+    "page_count": 0,
+    "total_results": 0
+  }
+}

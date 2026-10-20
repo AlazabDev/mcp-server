@@ -1,0 +1,140 @@
+{
+  "ClientPayment": [
+    "object"
+  ],
+  "ClientPayment.added_by": [
+    "string"
+  ],
+  "ClientPayment.address1": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.address2": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.amount": [
+    "string"
+  ],
+  "ClientPayment.attachment": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.branch_id": [
+    "string"
+  ],
+  "ClientPayment.city": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.client_id": [
+    "string"
+  ],
+  "ClientPayment.code": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.country_code": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.created": [
+    "string"
+  ],
+  "ClientPayment.currency_code": [
+    "string"
+  ],
+  "ClientPayment.date": [
+    "string"
+  ],
+  "ClientPayment.email": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.extra_details": [
+    "string"
+  ],
+  "ClientPayment.first_name": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.id": [
+    "string"
+  ],
+  "ClientPayment.invoice_id": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.ip": [
+    "string"
+  ],
+  "ClientPayment.last_name": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.modified": [
+    "string"
+  ],
+  "ClientPayment.notes": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.payment_method": [
+    "string"
+  ],
+  "ClientPayment.payment_work_order_id": [
+    "null"
+  ],
+  "ClientPayment.phone1": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.phone2": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.pos_shift_id": [
+    "null"
+  ],
+  "ClientPayment.postal_code": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.processed": [
+    "null"
+  ],
+  "ClientPayment.receipt_notes": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.response_code": [
+    "null"
+  ],
+  "ClientPayment.response_message": [
+    "null"
+  ],
+  "ClientPayment.source": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.staff_id": [
+    "string"
+  ],
+  "ClientPayment.state": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.status": [
+    "string"
+  ],
+  "ClientPayment.transaction_id": [
+    "null",
+    "string"
+  ],
+  "ClientPayment.transaction_type": [
+    "string"
+  ],
+  "ClientPayment.treasury_id": [
+    "string"
+  ]
+}

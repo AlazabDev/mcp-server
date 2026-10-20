@@ -1,0 +1,185 @@
+{
+  "business": {
+    "id": "314437023701205",
+    "name": "Mohamed Azab",
+    "verification_status": "verified"
+  },
+  "application": "AzWA",
+  "scopes": [
+    "business_management",
+    "whatsapp_business_management",
+    "whatsapp_business_messaging",
+    "read_audience_network_insights",
+    "manage_app_solution",
+    "whatsapp_business_manage_events",
+    "public_profile"
+  ],
+  "wabas": [
+    {
+      "id": "2154838801923462",
+      "name": "Alazab",
+      "phones": [
+        {
+          "id": "1011864912017679",
+          "display_phone_number": "+20 10 92750351",
+          "verified_name": "Alazab",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 0
+    },
+    {
+      "id": "988016530965587",
+      "name": "Alazab Construction",
+      "phones": [
+        {
+          "id": "1251829341344414",
+          "display_phone_number": "+20 10 04006620",
+          "verified_name": "Alazab Construction",
+          "quality_rating": "GREEN",
+          "status": "DISCONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 0
+    },
+    {
+      "id": "1043601941996370",
+      "name": "Test WhatsApp Business Account",
+      "phones": [
+        {
+          "id": "1261899767013302",
+          "display_phone_number": "+1 555-678-2228",
+          "verified_name": "Test Number",
+          "quality_rating": "UNKNOWN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 1
+    },
+    {
+      "id": "922964860845619",
+      "name": "Alazab CFO",
+      "phones": [
+        {
+          "id": "1328521857002632",
+          "display_phone_number": "+20 11 15723930",
+          "verified_name": "Alazab CFO",
+          "quality_rating": "UNKNOWN",
+          "status": "DISCONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 0
+    },
+    {
+      "id": "1973205670048166",
+      "name": "Mohamed Azab",
+      "phones": [
+        {
+          "id": "1310221185507897",
+          "display_phone_number": "+1 203-204-7240",
+          "verified_name": "Mohamed Azab",
+          "quality_rating": "UNKNOWN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 0
+    },
+    {
+      "id": "1527103499063250",
+      "name": "Alazab Projects",
+      "phones": [
+        {
+          "id": "1197837903405393",
+          "display_phone_number": "+20 11 46395966",
+          "verified_name": "Alazab Arc",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 9
+    },
+    {
+      "id": "1303965001665007",
+      "name": "Alazab",
+      "phones": [
+        {
+          "id": "1061490140383829",
+          "display_phone_number": "+20 11 46397010",
+          "verified_name": "Alazab",
+          "quality_rating": "UNKNOWN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 6
+    },
+    {
+      "id": "2144651456337012",
+      "name": "Mohamed Azab",
+      "phones": [
+        {
+          "id": "1020054711186921",
+          "display_phone_number": "+1 205-460-5650",
+          "verified_name": "Mohamed Azab",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 22
+    },
+    {
+      "id": "1458856398934130",
+      "name": "Azab",
+      "phones": [
+        {
+          "id": "1032441389943808",
+          "display_phone_number": "+1 206-479-5608",
+          "verified_name": "Mohamed Azab",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        },
+        {
+          "id": "952530191273396",
+          "display_phone_number": "+1 208-379-9564",
+          "verified_name": "Mohamed Azab",
+          "quality_rating": "UNKNOWN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 20
+    },
+    {
+      "id": "459851797218855",
+      "name": "UberFix ",
+      "phones": [
+        {
+          "id": "644995285354639",
+          "display_phone_number": "+1 555-728-5727",
+          "verified_name": "alazabfix‎",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        },
+        {
+          "id": "527697617099639",
+          "display_phone_number": "+1 555-724-5001",
+          "verified_name": "alazab",
+          "quality_rating": "GREEN",
+          "status": "CONNECTED",
+          "account_mode": "LIVE"
+        }
+      ],
+      "template_count": 41
+    }
+  ]
+}

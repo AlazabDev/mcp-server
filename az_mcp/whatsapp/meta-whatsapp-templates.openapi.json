@@ -1,0 +1,237 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Alazab Meta WhatsApp — Templates",
+    "version": "1.0.0",
+    "description": "WhatsApp Business Management API operations for message templates."
+  },
+  "servers": [
+    {
+      "url": "https://graph.facebook.com"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/{graph_version}/{waba_id}/message_templates": {
+      "get": {
+        "operationId": "listWhatsAppMessageTemplates",
+        "summary": "List message templates for a WABA",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/WabaId"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Templates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createWhatsAppMessageTemplate",
+        "summary": "Create a message template",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/WabaId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Creation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteWhatsAppMessageTemplate",
+        "summary": "Delete a message template by name",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/WabaId"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Meta Access Token",
+        "description": "Meta Graph API access token. Do not embed tokens in the OpenAPI document."
+      }
+    },
+    "parameters": {
+      "GraphVersion": {
+        "name": "graph_version",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        }
+      },
+      "WabaId": {
+        "name": "waba_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "WhatsApp Business Account ID."
+      }
+    },
+    "schemas": {
+      "TemplateCreateRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "language",
+          "category",
+          "components"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "UTILITY",
+              "MARKETING",
+              "AUTHENTICATION"
+            ]
+          },
+          "parameter_format": {
+            "type": "string",
+            "enum": [
+              "POSITIONAL",
+              "NAMED"
+            ]
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

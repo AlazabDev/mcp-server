@@ -1,0 +1,240 @@
+{
+  "path": "/stores/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Stores",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing store (warehouse) by its id. Requires the *General Settings* permission. The request body wraps the fields in a `Store` object; the id is taken from the path.\n\nSetting `primary` to `1` makes this the default store: it is forced to `active` and the primary flag is cleared on all other stores. Activating a store that was previously not active may be blocked by your plan's warehouse limit (see the `402` response).",
+    "tags": [
+      "Endpoints/Inventory /Stores",
+      "Stores"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the store to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Store": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Name of the store."
+                  },
+                  "shipping_address": {
+                    "type": "string",
+                    "description": "Shipping address of the store. Optional.",
+                    "nullable": true
+                  },
+                  "primary": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether this store is the primary (default) store.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |\n\nSetting `1` forces the store active and clears the primary flag on all other stores."
+                  },
+                  "active": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2
+                    ],
+                    "description": "Store status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |\n| 2 | Suspended |"
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Branch the store belongs to. Optional."
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            },
+            "required": [
+              "Store"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — validation failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "402": {
+        "description": "Payment Required — activating a previously-inactive store would exceed the plan's warehouse limit. This response uses a distinct envelope and does not include the `result` field.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "upgrade_url": {
+                  "type": "string",
+                  "description": "Link to upgrade the plan."
+                },
+                "upgrade_btn_title": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden — the user lacks the General Settings permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not Found — no store exists with the given id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__stores_id_format"
+  },
+  "blockers": []
+}

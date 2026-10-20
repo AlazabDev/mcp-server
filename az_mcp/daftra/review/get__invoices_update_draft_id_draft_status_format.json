@@ -1,0 +1,90 @@
+{
+  "path": "/invoices/update_draft/{id}/{draft_status}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Edit Invoice Draft Status",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an invoice's draft status.\n\nUse `draft_status = 0` to **issue** a draft invoice — this assigns the official sequential invoice number and posts the invoice's payment journal entries. Use `draft_status = 1` to move an issued invoice **back to draft**, which removes those payment journal entries.\n\nRequires permission to edit or issue invoices.\n\n| `draft_status` | Meaning |\n|---|---|\n| 0 | Issue the invoice (remove draft) |\n| 1 | Set the invoice as draft |\n\nThe request is rejected with `400` when the change is not allowed — for example the invoice is already issued, it has completed payments (so it cannot be set back to draft), it has been refunded, or its date falls within a closed financial period.",
+    "tags": [
+      "Endpoints/Sales /Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The invoice ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "draft_status",
+        "in": "path",
+        "description": "Target draft state: `0` to issue, `1` to set as draft.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "text/plain": {
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Optional human-readable message."
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoices_update_draft_id_draft_status_format"
+  },
+  "blockers": [
+    "GET request body requires verified adapter or corrected upstream contract",
+    "Request content type unsupported by Foundry OpenAPI tool"
+  ]
+}

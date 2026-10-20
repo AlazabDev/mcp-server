@@ -1,0 +1,204 @@
+{
+  "path": "/purchase_invoices{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Purchase Invoice",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a purchase invoice. The request must include a `PurchaseOrder` object and at least one `PurchaseOrderItem`. Required: `PurchaseOrder.supplier_id`; each item requires `item`, `unit_price`, and `quantity`. `currency_code`, the invoice number, store, branch, and totals are assigned automatically when omitted. Optional `Payment` entries and `PurchaseOrderCustomField` values may be sent. Send `?send=draft` to save as a draft.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Invoices",
+      "Purchase Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {},
+              {},
+              {
+                "type": "object",
+                "properties": {
+                  "Payment": {
+                    "type": "array",
+                    "description": "Optional payments to record against the invoice on creation.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Payment amount."
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Payment date (must fall in an open accounting period)."
+                        },
+                        "payment_method": {
+                          "type": "string",
+                          "description": "Payment method.\n\n| Value |\n|---|\n| cash |\n| bank |\n| credit |\n| cheque |\n| offline |\n| paypal |\n| stripe |\n| authorizenet |\n| 2checkout |\n| payumoney |\n| eway |\n| paymate |"
+                        },
+                        "treasury_id": {
+                          "type": "integer",
+                          "description": "Treasury to receive the payment. Defaults to the primary treasury when omitted."
+                        },
+                        "transaction_id": {
+                          "type": "string",
+                          "description": "External transaction reference."
+                        },
+                        "currency_code": {
+                          "type": "string",
+                          "description": "Payment currency. Inherited from the invoice when omitted."
+                        },
+                        "receipt_notes": {
+                          "type": "string",
+                          "description": "Free-text notes for the payment receipt."
+                        }
+                      }
+                    }
+                  },
+                  "PurchaseOrderCustomField": {
+                    "type": "array",
+                    "description": "Optional custom-field values.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Custom field id."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Custom field value."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Identifier of the newly created purchase invoice."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Set for business-rule failures (e.g. supplier suspended, source purchase order already invoiced, inactive product, quantity exceeds the purchase order balance, suspended warehouse). `validation_errors` is populated for field validation failures."
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__purchase_invoices_format"
+  },
+  "blockers": []
+}

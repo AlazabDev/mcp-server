@@ -1,0 +1,2737 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra workflow",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://tenant.invalid/api2"
+    }
+  ],
+  "paths": {
+    "/le_workflow-type-entity-{workflow_id}/list/{format}": {
+      "get": {
+        "summary": "Get All Records",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of records for a workflow-type entity. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nWorkflow-type entities are configurable record types (for example maintenance orders or service requests). The `workflow_id` path segment selects the workflow type, and the resource prefix plus that id form the entity key `le_workflow-type-entity-{workflow_id}`. Each record is a work-order-based row belonging to that type. The available fields — including any custom fields — are defined by the selected workflow type's configuration, so the record shape varies between workflow types; custom fields are returned under the `le_workflow-type-entity-{workflow_id}_custom_data` object.\n\nThe trailing path segment is the **data level** — how deeply related records are loaded — not a page number or a response-format extension. Pagination is controlled by the `page` and `per_page` query parameters; results can be narrowed with `filter[...]`, ordered with `sort[...]`, and trimmed with `fields`.\n\nFilter and sort act on the record's **own columns**. The fields below are an example for a maintenance-order workflow — the exact set is workflow-specific. Custom-data fields (returned under `le_workflow-type-entity-{workflow_id}_custom_data`) are **not** filterable or sortable through this endpoint.\n\n**Filterable fields (example).** `filter[<field>]=<value>` (exact) or `filter[<field>][<operator>]=<value>`:\n\n| Field | Type | Example |\n|---|---|---|\n| `number` | string | `filter[number][like]=000` |\n| `title` | string | `filter[title][like]=order` |\n| `start_date` | date | `filter[start_date][greater_than_equal]=2026-01-01` |\n| `client_id` | integer | `filter[client_id][equal]=5` |\n\n(`filter[status]` is currently ineffective for this entity, and a `search` query parameter has no effect — use `filter[...]`.)\n\n**Sorting.** Sort with `sort[<field>]=asc|desc` (e.g. `sort[number]=desc`) on the record's columns. The scalar `sort=field` / `sort=-field` form is not supported (HTTP 400), and no default order is guaranteed — always pass `sort[...]` for stable ordering.",
+        "tags": [
+          "Endpoints/Workflow"
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "description": "The id of the workflow type whose records to list. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of records per page. Defaults to `20`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter on the record's own columns, as `filter[<field>]=<value>` (exact) or `filter[<field>][<operator>]=<value>` (e.g. `filter[number][like]=000`). Only records matching all filters are returned. Custom-data fields are **not** filterable through this endpoint (see the endpoint description).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by a field using the bracket form `sort[<field>]=asc|desc` (e.g. `sort[number]=desc`). The scalar form `sort=field` / `sort=-field` is not supported and returns HTTP 400. No default ordering is guaranteed — pass `sort[...]` for a stable order.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-separated list of fields to include in each returned record.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Set to `2` to return each record through the display formatter — notably file/media fields (e.g. staff photos) come back as fully-qualified URLs. The response keys are otherwise unchanged.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of the workflow type's records.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "client_id": {
+                            "type": "integer"
+                          },
+                          "number": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "start_date": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "delivery_date": {
+                            "type": "string"
+                          },
+                          "delivery_appointment_id": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "follow_up_status_id": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "budget_currency": {
+                            "type": "string"
+                          },
+                          "budget": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          },
+                          "staff_id": {
+                            "type": "integer"
+                          },
+                          "client_data": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "extra_details": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "branch_id": {
+                            "type": "integer"
+                          },
+                          "workflow_type_id": {
+                            "type": "integer"
+                          },
+                          "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "reference_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "reference_id"
+                            ]
+                          },
+                          "workflow_type": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "integer"
+                              },
+                              "icon": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              },
+                              "singular_title": {
+                                "type": "string"
+                              },
+                              "entity_key": {
+                                "type": "string"
+                              },
+                              "app_related_data": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "record_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "record_id"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "status",
+                              "icon",
+                              "created",
+                              "modified",
+                              "singular_title",
+                              "entity_key",
+                              "app_related_data"
+                            ]
+                          },
+                          "staff": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "added_by": {
+                                "type": "integer"
+                              },
+                              "role_id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "middle_name": {
+                                "type": "string"
+                              },
+                              "last_name": {
+                                "type": "string"
+                              },
+                              "photo": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "can_access_system": {
+                                "type": "integer"
+                              },
+                              "home_phone": {
+                                "type": "string"
+                              },
+                              "business_Phone": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "mobile": {
+                                "type": "string"
+                              },
+                              "fax": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "country_code": {
+                                "type": "string"
+                              },
+                              "address1": {
+                                "type": "string"
+                              },
+                              "address2": {
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string"
+                              },
+                              "postal_code": {
+                                "type": "string"
+                              },
+                              "note": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "email_address": {
+                                "type": "string"
+                              },
+                              "last_login": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "integer"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "hourly_rate": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "hourly_rate_currency_code": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "default_store_id": {
+                                "type": "integer"
+                              },
+                              "default_treasury_id": {
+                                "type": "integer"
+                              },
+                              "maximum_general_discount": {
+                                "type": "integer"
+                              },
+                              "language_code": {
+                                "type": "integer"
+                              },
+                              "branch_id": {
+                                "type": "integer"
+                              },
+                              "full_name": {
+                                "type": "string"
+                              },
+                              "attendance_restriction_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "default_account_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "citizenship_status": {
+                                "type": "string"
+                              },
+                              "residence_expiry_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "nationality": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "official_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "staff_info": {
+                                "type": "object",
+                                "properties": {
+                                  "staff_id": {
+                                    "type": "integer"
+                                  },
+                                  "department_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "employment_level_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "employment_type_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "designation_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "birth_date": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "gender": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "personal_email": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "permanent_address1": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "permanent_address2": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "permanent_city": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "permanent_state": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "permanent_postal_code": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "created": {
+                                    "type": "string"
+                                  },
+                                  "modified": {
+                                    "type": "string"
+                                  },
+                                  "attendance_shift_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "leave_policy_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "has_secondary_shift": {
+                                    "type": "integer"
+                                  },
+                                  "secondary_shift_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "direct_manager_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "staff_id",
+                                  "department_id",
+                                  "employment_level_id",
+                                  "employment_type_id",
+                                  "designation_id",
+                                  "birth_date",
+                                  "gender",
+                                  "personal_email",
+                                  "permanent_address1",
+                                  "permanent_address2",
+                                  "permanent_city",
+                                  "permanent_state",
+                                  "permanent_postal_code",
+                                  "created",
+                                  "modified",
+                                  "attendance_shift_id",
+                                  "leave_policy_id",
+                                  "has_secondary_shift",
+                                  "secondary_shift_id",
+                                  "direct_manager_id"
+                                ]
+                              },
+                              "staff_job": {
+                                "type": "object",
+                                "properties": {
+                                  "staff_id": {
+                                    "type": "integer"
+                                  },
+                                  "join_date": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "probation_end_date": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "contract_duration": {
+                                    "type": "integer"
+                                  },
+                                  "contract_duration_period": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "exit_date": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "exit_reason": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "fiscal_type": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "fiscal_day": {
+                                    "type": "string"
+                                  },
+                                  "fiscal_month": {
+                                    "type": "string"
+                                  },
+                                  "created": {
+                                    "type": "string"
+                                  },
+                                  "modified": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "staff_id",
+                                  "join_date",
+                                  "probation_end_date",
+                                  "contract_duration",
+                                  "contract_duration_period",
+                                  "exit_date",
+                                  "exit_reason",
+                                  "fiscal_type",
+                                  "fiscal_day",
+                                  "fiscal_month",
+                                  "created",
+                                  "modified"
+                                ]
+                              },
+                              "staff_custom_data": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "allow_printing": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "reference_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "time": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "allow_printing",
+                                  "reference_id",
+                                  "time"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "added_by",
+                              "role_id",
+                              "name",
+                              "middle_name",
+                              "last_name",
+                              "photo",
+                              "can_access_system",
+                              "home_phone",
+                              "business_Phone",
+                              "mobile",
+                              "fax",
+                              "country_code",
+                              "address1",
+                              "address2",
+                              "city",
+                              "state",
+                              "postal_code",
+                              "note",
+                              "email_address",
+                              "last_login",
+                              "active",
+                              "created",
+                              "hourly_rate",
+                              "hourly_rate_currency_code",
+                              "default_store_id",
+                              "default_treasury_id",
+                              "maximum_general_discount",
+                              "language_code",
+                              "branch_id",
+                              "full_name",
+                              "attendance_restriction_id",
+                              "type",
+                              "default_account_id",
+                              "citizenship_status",
+                              "residence_expiry_date",
+                              "nationality",
+                              "code",
+                              "official_id",
+                              "staff_info",
+                              "staff_job",
+                              "staff_custom_data"
+                            ]
+                          },
+                          "work_order_client": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "group_price_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "is_offline": {
+                                "type": "integer"
+                              },
+                              "client_number": {
+                                "type": "string"
+                              },
+                              "staff_id": {
+                                "type": "integer"
+                              },
+                              "business_name": {
+                                "type": "string"
+                              },
+                              "first_name": {
+                                "type": "string"
+                              },
+                              "last_name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "address1": {
+                                "type": "string"
+                              },
+                              "address2": {
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string"
+                              },
+                              "postal_code": {
+                                "type": "string"
+                              },
+                              "phone1": {
+                                "type": "string"
+                              },
+                              "phone2": {
+                                "type": "string"
+                              },
+                              "country_code": {
+                                "type": "string"
+                              },
+                              "notes": {
+                                "type": "string"
+                              },
+                              "active_secondary_address": {
+                                "type": "integer"
+                              },
+                              "secondary_name": {
+                                "type": "string"
+                              },
+                              "secondary_address1": {
+                                "type": "string"
+                              },
+                              "secondary_address2": {
+                                "type": "string"
+                              },
+                              "secondary_city": {
+                                "type": "string"
+                              },
+                              "secondary_state": {
+                                "type": "string"
+                              },
+                              "secondary_postal_code": {
+                                "type": "string"
+                              },
+                              "secondary_country_code": {
+                                "type": "string"
+                              },
+                              "language_code": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "default_currency_code": {
+                                "type": "string"
+                              },
+                              "last_login": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "suspend": {
+                                "type": "integer"
+                              },
+                              "last_ip": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              },
+                              "follow_up_status": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "category": {
+                                "type": "string"
+                              },
+                              "bn1": {
+                                "type": "string"
+                              },
+                              "bn1_label": {
+                                "type": "string"
+                              },
+                              "bn2_label": {
+                                "type": "string"
+                              },
+                              "bn2": {
+                                "type": "string"
+                              },
+                              "starting_balance": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "photo": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "birth_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "gender": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "map_location": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "type": {
+                                "type": "integer"
+                              },
+                              "credit_limit": {
+                                "type": "integer"
+                              },
+                              "credit_period": {
+                                "type": "integer"
+                              },
+                              "branch_id": {
+                                "type": "integer"
+                              },
+                              "national_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "category_id": {
+                                "type": "integer"
+                              },
+                              "secondary_follow_up_status": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "timezone": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "client_photo_s3": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "entity_key": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "entity_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "file_id": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  },
+                                  "deleted_at": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "entity_key",
+                                  "entity_id",
+                                  "file_id",
+                                  "deleted_at"
+                                ]
+                              },
+                              "client_custom_data": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "building_no": {
+                                    "type": "string"
+                                  },
+                                  "reference_id": {
+                                    "type": "string"
+                                  },
+                                  "client_name_en": {
+                                    "type": "string"
+                                  },
+                                  "vat_category": {
+                                    "type": "string"
+                                  },
+                                  "customer_service_contact": {
+                                    "type": "string"
+                                  },
+                                  "customer_reference": {
+                                    "type": "string"
+                                  },
+                                  "custom_price_list": {
+                                    "nullable": true,
+                                    "enum": [
+                                      null
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "building_no",
+                                  "reference_id",
+                                  "client_name_en",
+                                  "vat_category",
+                                  "customer_service_contact",
+                                  "customer_reference",
+                                  "custom_price_list"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "group_price_id",
+                              "is_offline",
+                              "client_number",
+                              "staff_id",
+                              "business_name",
+                              "first_name",
+                              "last_name",
+                              "email",
+                              "address1",
+                              "address2",
+                              "city",
+                              "state",
+                              "postal_code",
+                              "phone1",
+                              "phone2",
+                              "country_code",
+                              "notes",
+                              "active_secondary_address",
+                              "secondary_name",
+                              "secondary_address1",
+                              "secondary_address2",
+                              "secondary_city",
+                              "secondary_state",
+                              "secondary_postal_code",
+                              "secondary_country_code",
+                              "language_code",
+                              "default_currency_code",
+                              "last_login",
+                              "suspend",
+                              "last_ip",
+                              "created",
+                              "modified",
+                              "follow_up_status",
+                              "category",
+                              "bn1",
+                              "bn1_label",
+                              "bn2_label",
+                              "bn2",
+                              "starting_balance",
+                              "photo",
+                              "birth_date",
+                              "gender",
+                              "map_location",
+                              "type",
+                              "credit_limit",
+                              "credit_period",
+                              "branch_id",
+                              "national_id",
+                              "category_id",
+                              "secondary_follow_up_status",
+                              "timezone",
+                              "client_photo_s3",
+                              "client_custom_data"
+                            ]
+                          },
+                          "branch": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "integer"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "status",
+                              "created",
+                              "modified"
+                            ]
+                          },
+                          "work_order_follow_up_status": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "item_type": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "name": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "color": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "status": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "staff_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "created": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "modified": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "deleted": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "entity_key": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "display_order": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "item_type",
+                              "name",
+                              "color",
+                              "status",
+                              "staff_id",
+                              "created",
+                              "modified",
+                              "deleted",
+                              "entity_key",
+                              "display_order"
+                            ]
+                          },
+                          "assigned_users": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "item_id": {
+                                "type": "integer"
+                              },
+                              "item_type": {
+                                "type": "integer"
+                              },
+                              "entity_key": {
+                                "type": "string"
+                              },
+                              "entity_field_key": {
+                                "type": "string"
+                              },
+                              "staff_id": {
+                                "type": "integer"
+                              },
+                              "group_id": {
+                                "type": "integer"
+                              },
+                              "assigned_by": {
+                                "type": "integer"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "item_id",
+                              "item_type",
+                              "entity_key",
+                              "entity_field_key",
+                              "staff_id",
+                              "group_id",
+                              "assigned_by",
+                              "created",
+                              "modified"
+                            ]
+                          },
+                          "tags": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "item_id": {
+                                "type": "integer"
+                              },
+                              "item_type": {
+                                "type": "integer"
+                              },
+                              "tag_id": {
+                                "type": "integer"
+                              },
+                              "branch_id": {
+                                "type": "integer"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              },
+                              "entity_key": {
+                                "type": "string"
+                              },
+                              "entity_field_key": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "item_id",
+                              "item_type",
+                              "tag_id",
+                              "branch_id",
+                              "created",
+                              "modified",
+                              "entity_key",
+                              "entity_field_key"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "to": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Returned when the request cannot be processed (invalid parameter, entity not found, or the Workflow plugin is not active for the account).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing or invalid. A permission denial (valid token, no access) instead returns `401` with an `error` field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__le_workflow-type-entity-_workflow_id_list_format",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/le_workflow-type-entity-{workflow_id}/{record_id}/{format}": {
+      "get": {
+        "summary": "Get Single Record",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single workflow-type-entity record by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`); `record_id` is the record to fetch. The successful response is a **flat object** of the record's fields — it is not wrapped in a `data` envelope. The available fields depend on the workflow type's configuration; custom fields are returned under both the `custom_data` alias and the `le_workflow-type-entity-{workflow_id}_custom_data` object.\n\nThe trailing path segment is the **data level** (how deeply related records are loaded); it is inert for a single-record fetch and is not a response-format extension.",
+        "tags": [
+          "Endpoints/Workflow"
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "description": "The id of the workflow type. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The workflow record as a flat object (not wrapped in a data envelope).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "client_id": {
+                      "type": "integer"
+                    },
+                    "number": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "start_date": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "delivery_date": {
+                      "type": "string"
+                    },
+                    "delivery_appointment_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "follow_up_status_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "budget": {
+                      "type": "integer"
+                    },
+                    "budget_currency": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    },
+                    "staff_id": {
+                      "type": "integer"
+                    },
+                    "client_data": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "extra_details": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "workflow_type_id": {
+                      "type": "integer"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "assigned_users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "item_id": {
+                            "type": "integer"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "item_type": {
+                            "type": "integer"
+                          },
+                          "entity_key": {
+                            "type": "string"
+                          },
+                          "entity_field_key": {
+                            "type": "string"
+                          },
+                          "staff_id": {
+                            "type": "integer"
+                          },
+                          "group_id": {
+                            "type": "integer"
+                          },
+                          "assigned_by": {
+                            "type": "integer"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "item_id",
+                          "id",
+                          "item_type",
+                          "entity_key",
+                          "entity_field_key",
+                          "staff_id",
+                          "group_id",
+                          "assigned_by",
+                          "created",
+                          "modified"
+                        ]
+                      }
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "item_id": {
+                            "type": "integer"
+                          },
+                          "item_type": {
+                            "type": "integer"
+                          },
+                          "tag_id": {
+                            "type": "integer"
+                          },
+                          "branch_id": {
+                            "type": "integer"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          },
+                          "entity_key": {
+                            "type": "string"
+                          },
+                          "entity_field_key": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "workflow_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "icon": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "created": {
+                          "type": "string"
+                        },
+                        "modified": {
+                          "type": "string"
+                        },
+                        "singular_title": {
+                          "type": "string"
+                        },
+                        "entity_key": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "status",
+                        "icon",
+                        "created",
+                        "modified",
+                        "singular_title",
+                        "entity_key"
+                      ]
+                    },
+                    "staff": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "added_by": {
+                          "type": "integer"
+                        },
+                        "role_id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "middle_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "photo": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "can_access_system": {
+                          "type": "integer"
+                        },
+                        "home_phone": {
+                          "type": "string"
+                        },
+                        "business_Phone": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "fax": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "country_code": {
+                          "type": "string"
+                        },
+                        "address1": {
+                          "type": "string"
+                        },
+                        "address2": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "postal_code": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "email_address": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "last_login": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "integer"
+                        },
+                        "created": {
+                          "type": "string"
+                        },
+                        "hourly_rate": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "hourly_rate_currency_code": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "default_store_id": {
+                          "type": "integer"
+                        },
+                        "default_treasury_id": {
+                          "type": "integer"
+                        },
+                        "maximum_general_discount": {
+                          "type": "integer"
+                        },
+                        "language_code": {
+                          "type": "integer"
+                        },
+                        "branch_id": {
+                          "type": "integer"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "attendance_restriction_id": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "default_account_id": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "citizenship_status": {
+                          "type": "string"
+                        },
+                        "residence_expiry_date": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "nationality": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "official_id": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "added_by",
+                        "role_id",
+                        "name",
+                        "middle_name",
+                        "last_name",
+                        "photo",
+                        "can_access_system",
+                        "home_phone",
+                        "business_Phone",
+                        "mobile",
+                        "fax",
+                        "country_code",
+                        "address1",
+                        "address2",
+                        "city",
+                        "state",
+                        "postal_code",
+                        "note",
+                        "email_address",
+                        "password",
+                        "last_login",
+                        "active",
+                        "created",
+                        "hourly_rate",
+                        "hourly_rate_currency_code",
+                        "default_store_id",
+                        "default_treasury_id",
+                        "maximum_general_discount",
+                        "language_code",
+                        "branch_id",
+                        "full_name",
+                        "attendance_restriction_id",
+                        "type",
+                        "default_account_id",
+                        "citizenship_status",
+                        "residence_expiry_date",
+                        "nationality",
+                        "code",
+                        "official_id"
+                      ]
+                    },
+                    "work_order_client": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "group_price_id": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "is_offline": {
+                          "type": "integer"
+                        },
+                        "client_number": {
+                          "type": "string"
+                        },
+                        "staff_id": {
+                          "type": "integer"
+                        },
+                        "business_name": {
+                          "type": "string"
+                        },
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "address1": {
+                          "type": "string"
+                        },
+                        "address2": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "postal_code": {
+                          "type": "string"
+                        },
+                        "phone1": {
+                          "type": "string"
+                        },
+                        "phone2": {
+                          "type": "string"
+                        },
+                        "country_code": {
+                          "type": "string"
+                        },
+                        "notes": {
+                          "type": "string"
+                        },
+                        "active_secondary_address": {
+                          "type": "integer"
+                        },
+                        "secondary_name": {
+                          "type": "string"
+                        },
+                        "secondary_address1": {
+                          "type": "string"
+                        },
+                        "secondary_address2": {
+                          "type": "string"
+                        },
+                        "secondary_city": {
+                          "type": "string"
+                        },
+                        "secondary_state": {
+                          "type": "string"
+                        },
+                        "secondary_postal_code": {
+                          "type": "string"
+                        },
+                        "secondary_country_code": {
+                          "type": "string"
+                        },
+                        "language_code": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "default_currency_code": {
+                          "type": "string"
+                        },
+                        "last_login": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "suspend": {
+                          "type": "integer"
+                        },
+                        "last_ip": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "created": {
+                          "type": "string"
+                        },
+                        "modified": {
+                          "type": "string"
+                        },
+                        "follow_up_status": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "bn1": {
+                          "type": "string"
+                        },
+                        "bn1_label": {
+                          "type": "string"
+                        },
+                        "bn2_label": {
+                          "type": "string"
+                        },
+                        "bn2": {
+                          "type": "string"
+                        },
+                        "starting_balance": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "photo": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "birth_date": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "gender": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "map_location": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "type": {
+                          "type": "integer"
+                        },
+                        "credit_limit": {
+                          "type": "integer"
+                        },
+                        "credit_period": {
+                          "type": "integer"
+                        },
+                        "branch_id": {
+                          "type": "integer"
+                        },
+                        "national_id": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "attachment": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "category_id": {
+                          "type": "integer"
+                        },
+                        "secondary_follow_up_status": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "timezone": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "tags": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        },
+                        "assigned_users": {
+                          "nullable": true,
+                          "enum": [
+                            null
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "group_price_id",
+                        "is_offline",
+                        "client_number",
+                        "staff_id",
+                        "business_name",
+                        "first_name",
+                        "last_name",
+                        "email",
+                        "password",
+                        "address1",
+                        "address2",
+                        "city",
+                        "state",
+                        "postal_code",
+                        "phone1",
+                        "phone2",
+                        "country_code",
+                        "notes",
+                        "active_secondary_address",
+                        "secondary_name",
+                        "secondary_address1",
+                        "secondary_address2",
+                        "secondary_city",
+                        "secondary_state",
+                        "secondary_postal_code",
+                        "secondary_country_code",
+                        "language_code",
+                        "default_currency_code",
+                        "last_login",
+                        "suspend",
+                        "last_ip",
+                        "created",
+                        "modified",
+                        "follow_up_status",
+                        "category",
+                        "bn1",
+                        "bn1_label",
+                        "bn2_label",
+                        "bn2",
+                        "starting_balance",
+                        "photo",
+                        "birth_date",
+                        "gender",
+                        "map_location",
+                        "type",
+                        "credit_limit",
+                        "credit_period",
+                        "branch_id",
+                        "national_id",
+                        "attachment",
+                        "category_id",
+                        "secondary_follow_up_status",
+                        "timezone",
+                        "tags",
+                        "assigned_users"
+                      ]
+                    },
+                    "branch": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "created": {
+                          "type": "string"
+                        },
+                        "modified": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "status",
+                        "created",
+                        "modified"
+                      ]
+                    },
+                    "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "reference_id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "reference_id"
+                      ]
+                    },
+                    "work_order_follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "custom_data": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "client_id",
+                    "number",
+                    "title",
+                    "start_date",
+                    "description",
+                    "delivery_date",
+                    "delivery_appointment_id",
+                    "follow_up_status_id",
+                    "budget",
+                    "budget_currency",
+                    "status",
+                    "created",
+                    "modified",
+                    "staff_id",
+                    "client_data",
+                    "extra_details",
+                    "branch_id",
+                    "workflow_type_id",
+                    "attachments",
+                    "assigned_users",
+                    "tags",
+                    "workflow_type",
+                    "staff",
+                    "work_order_client",
+                    "branch",
+                    "le_workflow-type-entity-{{workflow_id}}_custom_data",
+                    "work_order_follow_up_status",
+                    "custom_data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing or invalid. A permission denial (valid token, no access) instead returns `401` with an `error` field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Returned when the record cannot be loaded, including when the record id does not exist. The body is the plain text `error happened` (not JSON).",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__le_workflow-type-entity-_workflow_id_record_id_format",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/le_workflow-type-entity-{workflow_id}": {
+      "post": {
+        "summary": "Add New Record",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a record in a workflow-type entity. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`); the new record is a work-order-based row stamped with that type. The request body is a **flat object** whose keys are the workflow type's fields. The standard fields are listed below; custom fields for the workflow type are supplied under the `le_workflow-type-entity-{workflow_id}_custom_data` object.\n\n**Required fields are defined by the selected workflow type** and enforced server-side; when a required field is missing the response is `422` with an `errors` map naming each field. For example, workflow type 1 (Maintenance Orders) requires `number.code`, `start_date`, and `budget.currency`. The record number itself is assigned by the server (submit only `number.code`).\n\nOn success the `message` is localized to the workflow type's name, e.g. `\"<name> Added Successfully\"`.",
+        "tags": [
+          "Endpoints/Workflow"
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "description": "The id of the workflow type into which the record is created. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Record title."
+                  },
+                  "number": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "The numbering-scheme code."
+                      },
+                      "generated": {
+                        "description": "leave empty, the system will assign its value",
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      }
+                    },
+                    "description": "Auto-numbering fieldset. Provide `number.code` (the numbering-scheme code); the sequential number is assigned by the server, so leave `number.generated` empty. Whether this field is required depends on the workflow type's configuration."
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "description": "Start date."
+                  },
+                  "delivery_date": {
+                    "type": "string",
+                    "description": "Delivery date."
+                  },
+                  "client_id": {
+                    "type": "string",
+                    "description": "Related client id."
+                  },
+                  "assigned_users": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Ids of staff assigned to this record."
+                  },
+                  "budget": {
+                    "type": "object",
+                    "properties": {
+                      "number": {
+                        "type": "integer"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "Budget as a Currency fieldset: `number` (amount) and `currency` (ISO code). Whether `budget.currency` is required depends on the workflow type's configuration."
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Tag names to attach."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text description."
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Attachment references."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Branch id. Defaults to the request branch when omitted."
+                  },
+                  "staff_id": {
+                    "description": "the staff member who added this instance",
+                    "type": "integer"
+                  },
+                  "follow_up_status_id": {
+                    "description": "Follow-up status id.",
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "Per-workflow custom fields for this workflow type, keyed by field name. The available custom fields are defined by the workflow type's configuration."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Record created. `message` is localized to the workflow type's name; `id` is the new record id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The record could not be saved. Two cases: the Workflow plugin is not active for the account → `{\"message\":\"Plugin is not installed\"}`; or a save error → `{\"message\":\"Entity not saved\",\"error\":\"<detail>\"}`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "e": {
+                      "type": "object",
+                      "description": "Diagnostic details of the failure (present on save errors).",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "422": {
+            "description": "Validation failed. `errors` lists the fields the workflow type requires or rejects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "description": "Map of field name to an array of validation messages. Field names use dot notation for nested fieldsets (e.g. `number.code`, `budget.currency`).",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__le_workflow-type-entity-_workflow_id",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/le_workflow-type-entity-{workflow_id}/{record_id}": {
+      "put": {
+        "summary": "Edit Record",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates a record in a workflow-type entity. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. Both `PUT` and `POST` to this path are accepted.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`) and `record_id` identifies the record. The request body is a **flat object** whose keys are the workflow type's fields and **must include `id` matching `record_id`**. Custom fields are supplied under the `le_workflow-type-entity-{workflow_id}_custom_data` object (include its existing row `id` to update in place).\n\n**Required fields are defined by the selected workflow type** and enforced server-side; a missing required field returns `400` with an `errors` map (note: unlike create, which returns `422`). On success the `message` is localized to the workflow type's name, e.g. `\"<name> Updated Successfully\"`.",
+        "tags": [
+          "Endpoints/Workflow"
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "description": "The id of the workflow type. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "The id of the record to update. Must match the `record_id` in the URL."
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "Auto-numbering fieldset. Provide `number.code` (the numbering-scheme code) only if changing it. Required only when the workflow type requires it."
+                  },
+                  "start_date": {
+                    "type": "string"
+                  },
+                  "delivery_date": {
+                    "type": "string"
+                  },
+                  "client_id": {
+                    "type": "string"
+                  },
+                  "assigned_users": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "budget": {
+                    "type": "object",
+                    "properties": {
+                      "number": {
+                        "type": "integer"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "Budget as a Currency fieldset (`number`, `currency`). Required per the workflow type's configuration."
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "branch_id": {
+                    "type": "integer"
+                  },
+                  "staff_id": {
+                    "type": "integer"
+                  },
+                  "follow_up_status_id": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "description": "Per-workflow custom fields to update. Include the existing custom-data row `id` to update it in place; the available fields are defined by the workflow type."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Record updated. `message` is localized to the workflow type's name; `id` is the record id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update could not be completed. Cases: record not found → `{\"message\":\"Record not found\"}`; validation failure → `{\"message\":\"Entity not saved\",\"errors\":{...}}`; save error → `{\"message\":\"Entity not saved\",\"error\":\"<detail>\"}`; or a permission denial → `{\"message\":\"<reason>\"}`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "description": "Present on validation failure: map of field name to validation messages (dot notation for nested fieldsets).",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The access token is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "The record could not be loaded for update.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__le_workflow-type-entity-_workflow_id_record_id",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "path": "/{entity}/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Data Fetching — Filtered",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Generic, metadata-driven listing endpoint for the v2 API. It returns a **paginated, filtered, sorted** list of records for any supported entity, using a single consistent query grammar.\n\n`GET /v2/api/entity/{entity}/list/{level}`\n\n- **`{entity}`** — the entity key to list (e.g. `invoice`, `client`, `product`). The endpoint works for every listable entity; the enum on the `entity` path parameter is a representative sample, not the complete set.\n- **`{level}`** — the *data-detail level*: how deeply related records are loaded. It is **not** a page number. Higher levels return more nested relations.\n\n  | Level | What is returned |\n  |---|---|\n  | -1 | Base record fields only, no related records |\n  | 0 | Own fields + one-to-one related records |\n  | 1 | Own fields + one-to-one + belongs-to + one-to-many (one level deep) |\n  | 2 | Same as level 1 plus one extra level of nested relations (default) |\n  | 3 | Even deeper nesting |\n\n## Pagination\n\nPaging is controlled by the `page` and `per_page` query parameters, **not** by the URL. The response is a standard paginated envelope (`data` array + `current_page`, `per_page`, `total`, `last_page`, page-URL fields).\n\n## Filtering\n\nFilters use bracket syntax: `filter[<field>][<operator>]=<value>`. Combine conditions with `filter[and][...]` and `filter[or][...]` groups. See the `filter[<field>][<operator>]` parameter for the full list of operators.\n\n## Sorting\n\nSort with `sort[<field>]=<direction>`, where direction is `asc` or `desc`. Multiple sort keys are applied in order, e.g. `sort[created]=desc&sort[id]=asc`.\n\n## Field selection\n\nRestrict the returned columns with `fields[]=<column>` (repeat for each column). When omitted, all fields for the requested level are returned.\n\n## Authentication\n\nSend an OAuth Bearer access token in the `Authorization` header.",
+    "tags": [
+      "Advanced Filtering/Using API v2"
+    ],
+    "parameters": [
+      {
+        "name": "entity",
+        "in": "path",
+        "description": "The entity key to list. The listed values are a representative sample — the endpoint supports every listable entity (core and custom).",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "invoice",
+            "estimate",
+            "credit_note",
+            "refund_receipt",
+            "client",
+            "supplier",
+            "work_order",
+            "follow_up_reminder",
+            "invoice_payment",
+            "product",
+            "journal",
+            "journal_account",
+            "journal_cat",
+            "expense",
+            "tax",
+            "purchase_refund",
+            "store",
+            "treasury",
+            "product_category",
+            "staff",
+            "client_attendance_log",
+            "follow_up_action",
+            "follow_up_status",
+            "purchase_order",
+            "shift_day",
+            "contract",
+            "invoice_installment_agreement",
+            "installment",
+            "agreement_installment",
+            "payslip",
+            "invoice_item",
+            "post",
+            "product_bundle",
+            "tracking_number"
+          ]
+        }
+      },
+      {
+        "name": "mode",
+        "in": "query",
+        "description": "Response shape / listing mode. Defaults to `api` when omitted.\n\n| Value | Meaning |\n|---|---|\n| api | Paginated API response (default). Rows are reshaped so related records are nested objects. |\n| listing | Paginated response used by the web UI listing (v2 formatting). |\n| count | Returns only the total count of matching records. |\n| export | Returns data prepared for export. |\n| nav | Navigation mode; used with `current_id` to fetch neighbouring records. |",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "api",
+            "listing",
+            "count",
+            "export",
+            "nav"
+          ]
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Number of records per page. Defaults to `20`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "fields[]",
+        "in": "query",
+        "description": "Restrict the returned columns. Repeat for each column, e.g. `fields[]=id&fields[]=no`. When omitted, all fields for the requested level are returned.",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "sort[<field>]",
+        "in": "query",
+        "description": "Sort the results. Use `sort[<field>]=<direction>` where direction is `asc` or `desc`. Repeat for multiple keys; they are applied in the given order, e.g. `sort[created]=desc&sort[id]=asc`. When omitted, a saved sorting preference or the primary key is used.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      },
+      {
+        "name": "filter[<field>][<operator>]",
+        "in": "query",
+        "description": "Filter the results. Repeat the parameter for each condition.\n\n**Syntax:** `filter[<field>][<operator>]=<value>` (omitting the operator is equivalent to `equal`).\n\n**Operators**\n\n| Operator | Meaning |\n|---|---|\n| equal | Equals (`=`) — the default when no operator is given |\n| not_equal | Not equal (`!=`) |\n| gt | Greater than (`>`) |\n| lt | Less than (`<`) |\n| gte / from | Greater than or equal (`>=`) |\n| lte / to | Less than or equal (`<=`) |\n| like | Contains (`LIKE %value%`) |\n| in | In a list of values |\n| not_in | Not in a list of values |\n| is_null | Field is null |\n| is_not_null | Field is not null |\n\nOnly the operators above are recognized; any other keyword is treated as `equal`. Express a range with two conditions (`filter[amount][from]=10&filter[amount][to]=99`); there is no `between` operator.\n\n**AND / OR groups**\n\nWrap conditions in `filter[and][...]` or `filter[or][...]` to group them. The OR group is the usual way to run a keyword search across several fields, e.g. `filter[or][no][like]=INV&filter[or][client_business_name][like]=INV`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "version",
+        "in": "query",
+        "description": "Set to `2` to return records formatted with the v2 field formatters.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "image_size",
+        "in": "query",
+        "description": "Requested image size for record images. Only applies when `version=2`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "request_branch_id",
+        "in": "query",
+        "description": "Scope the results to a specific branch by its ID.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "lang",
+        "in": "header",
+        "description": "Response language. Accepts `ar` or `en`. The `Accept-Language` header is also honoured.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "en"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Paginated list of records.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer",
+                  "description": "Current page number."
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The matching records. Each row carries the entity's own fields at the top level plus nested objects for its related records (depth depends on `{level}`). The exact fields depend on the requested entity.",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                },
+                "first_page_url": {
+                  "type": "string",
+                  "description": "URL of the first page."
+                },
+                "from": {
+                  "type": "integer",
+                  "description": "Index of the first record on this page (null when empty)."
+                },
+                "last_page": {
+                  "type": "integer",
+                  "description": "Number of the last page."
+                },
+                "last_page_url": {
+                  "type": "string",
+                  "description": "URL of the last page."
+                },
+                "links": {
+                  "type": "array",
+                  "description": "Pagination link descriptors.",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "description": "URL of the next page (null on the last page)."
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Base path of the paginator."
+                },
+                "per_page": {
+                  "type": "integer",
+                  "description": "Records per page."
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "description": "URL of the previous page (null on the first page)."
+                },
+                "to": {
+                  "type": "integer",
+                  "description": "Index of the last record on this page (null when empty)."
+                },
+                "total": {
+                  "type": "integer",
+                  "description": "Total number of matching records."
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "per_page",
+                "total",
+                "last_page"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The entity does not exist, its plugin is not active, or the entity is not listable. Example messages: `Entity Not exists`, `Plugin not active`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable error message."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing/invalid, or the account lacks permission to view this entity. Example message: `You are not allowed to view this page`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable error message."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__entity_list",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

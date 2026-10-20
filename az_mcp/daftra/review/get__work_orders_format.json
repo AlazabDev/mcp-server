@@ -1,0 +1,251 @@
+{
+  "path": "/work_orders{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Work Orders",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of work orders for the authenticated account.\n\nRequires the `View his work orders` or `View all work orders` permission. Staff who only hold `View his work orders` see only the work orders they created or are assigned to. Workflow-type entities are excluded — only classic work orders are returned.\n\n**Default status filter:** when no `status` filter is supplied, the list returns only **Open** work orders. Pass `status=-1` to return every status, or a specific status value to filter.\n\nEach item is returned under a `WorkOrder` key; related records (client, staff, follow-up status) are not embedded.",
+    "tags": [
+      "Endpoints/Work Orders/Work Orders",
+      "Work Orders"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit (per page).",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The collection items page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "status",
+        "in": "query",
+        "description": "Filter by work order status. When omitted, only Open work orders are returned. Pass `-1` to return all statuses.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |\n| -1 | All statuses |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "WorkOrder": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique work order identifier.",
+                            "readOnly": true
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "ID of the staff member who created the work order. `0` indicates the account owner."
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "description": "Identifier of the client this work order belongs to.",
+                            "nullable": true
+                          },
+                          "number": {
+                            "type": "string",
+                            "description": "Work order number. Auto-generated when not supplied on creation."
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Work order title."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "Work order status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |",
+                            "enum": [
+                              1,
+                              2,
+                              3,
+                              4
+                            ]
+                          },
+                          "start_date": {
+                            "type": "string",
+                            "format": "date",
+                            "description": "Start date (YYYY-MM-DD)."
+                          },
+                          "delivery_date": {
+                            "type": "string",
+                            "format": "date",
+                            "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date.",
+                            "nullable": true
+                          },
+                          "delivery_appointment_id": {
+                            "type": "integer",
+                            "description": "Linked appointment reference.",
+                            "nullable": true
+                          },
+                          "follow_up_status_id": {
+                            "type": "integer",
+                            "description": "Follow-up status identifier.",
+                            "default": null,
+                            "nullable": true
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Free-text description.",
+                            "nullable": true
+                          },
+                          "budget": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Budget amount for this work order.",
+                            "nullable": true
+                          },
+                          "budget_currency": {
+                            "type": "string",
+                            "description": "3-letter ISO 4217 currency code for the budget.",
+                            "nullable": true
+                          },
+                          "client_data": {
+                            "type": "string",
+                            "description": "JSON snapshot of the client's details captured when the work order was saved.",
+                            "readOnly": true,
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Creation timestamp.",
+                            "readOnly": true
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Last-modified timestamp.",
+                            "readOnly": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__work_orders_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,238 @@
+{
+  "path": "/refund_receipts/{id}{format}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Refund Receipts",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a refund receipt identified by the `id` path parameter.\n\nRequires permission to delete invoices/refund receipts (a non-owner may delete only refund receipts they created unless they hold the delete-all permission). One refund receipt is deleted per call.\n\nA refund receipt **cannot be deleted** while it is blocked by a business rule — for example it belongs to a closed POS session, has an approved requisition, has linked documents, or has been submitted to a tax authority; these are rejected with HTTP `401` (see the response below). On success the response is `200` with a confirmation message.",
+    "tags": [
+      "Endpoints/Sales /Refund Receipts",
+      "Refund Receipts"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The refund receipt ID to delete.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The refund receipt was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "No refund receipt id was supplied, or a stock-balance check prevents the deletion.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The refund receipt cannot be deleted because of a business rule (closed POS session, approved requisition, linked documents, submitted to a tax authority, locked item, etc.).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to delete refund receipts.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No refund receipt matches the given ID (or it is not accessible to the authenticated user).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The deletion failed unexpectedly.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__refund_receipts_id_format"
+  },
+  "blockers": []
+}

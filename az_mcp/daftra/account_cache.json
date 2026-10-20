@@ -1,0 +1,1542 @@
+{
+  "subdomain": "alazab-co",
+  "last_synced": "2026-08-28T02:06:55.486Z",
+  "clients_count": 62,
+  "suppliers_count": 29,
+  "work_orders_count": 14,
+  "products_count": 200,
+  "cost_centers_count": 6,
+  "treasuries_count": 3,
+  "entities_summary": {
+    "clients": [
+      {
+        "id": 48,
+        "name": "Client 48",
+        "email": null
+      },
+      {
+        "id": 49,
+        "name": "Client 49",
+        "email": null
+      },
+      {
+        "id": 55,
+        "name": "Ehab Abdallahn  AbuAuf Makram Ebied",
+        "email": "ehab.abdallahn@abu-auf.com"
+      },
+      {
+        "id": 46,
+        "name": "Abo Linda",
+        "email": "mohamed.aboazab@alazab.online"
+      },
+      {
+        "id": 64,
+        "name": "AboKarma",
+        "email": "mohamed@alazab.com"
+      },
+      {
+        "id": 52,
+        "name": "Mrs Mayada Acciona",
+        "email": "Acciona@alazab.online"
+      },
+      {
+        "id": 57,
+        "name": "Ahmed mohamed Ibrahem",
+        "email": "4healthy@ptct.net"
+      },
+      {
+        "id": 60,
+        "name": "Mr: Fadi Al Masriah Al Lubnaniah",
+        "email": "Fady_elsebai@aucegypt.edu"
+      },
+      {
+        "id": 36,
+        "name": "Alazab",
+        "email": "alazab.contract@gmail.com"
+      },
+      {
+        "id": 11,
+        "name": "Abu Auf AUF Egypt",
+        "email": "mohamed.sami@abu-auf.com"
+      },
+      {
+        "id": 38,
+        "name": "Alazzab Construction AUF Maintenance",
+        "email": "support@alazzab.com"
+      },
+      {
+        "id": 70,
+        "name": "AZ Cloud",
+        "email": "admin@alazab.cloud"
+      },
+      {
+        "id": 42,
+        "name": "Azab Online",
+        "email": "mohamed@alazab.online"
+      },
+      {
+        "id": 71,
+        "name": "Azab2023",
+        "email": "mahamedazab2023@gmail.com"
+      },
+      {
+        "id": 14,
+        "name": "Captain / Ahmed   Allam C / Ahmed allam",
+        "email": "captallam85@yahoo.com"
+      },
+      {
+        "id": 19,
+        "name": "Cash customer",
+        "email": ""
+      },
+      {
+        "id": 62,
+        "name": "customer-meta",
+        "email": "meta@al-azab.co"
+      },
+      {
+        "id": 51,
+        "name": "Eslam Elhosiny Elhosiny Nuts",
+        "email": "Eslam-Elhosiny@gmail.com"
+      },
+      {
+        "id": 17,
+        "name": "Eng / Ahmed Maadi",
+        "email": ""
+      },
+      {
+        "id": 25,
+        "name": "Eng Magdy Mostafe",
+        "email": ""
+      },
+      {
+        "id": 18,
+        "name": "Eng/Amr Hussein",
+        "email": "amrhusseinn1995@gmail.com"
+      },
+      {
+        "id": 15,
+        "name": "Eng/Lamiaa Hassen",
+        "email": ""
+      },
+      {
+        "id": 23,
+        "name": "Eng/Lamiaa Hassen",
+        "email": ""
+      },
+      {
+        "id": 12,
+        "name": "Eng/Mohamed Ayman",
+        "email": ""
+      },
+      {
+        "id": 13,
+        "name": "Eng/Mohamed Sami",
+        "email": "Mohamed.sami.ibrahim@outlook.com"
+      },
+      {
+        "id": 50,
+        "name": "Fambam Mall",
+        "email": ""
+      },
+      {
+        "id": 24,
+        "name": "Fatma Ibrahim",
+        "email": "mahamed.azab2015@gmail.com"
+      },
+      {
+        "id": 16,
+        "name": "G / Khalud",
+        "email": ""
+      },
+      {
+        "id": 43,
+        "name": "Hossam Mohamed ",
+        "email": "Hossam.mohamed@abu-auf.com"
+      },
+      {
+        "id": 54,
+        "name": "Iman Abdeltef",
+        "email": "emanabdeltef92@icloud.com"
+      },
+      {
+        "id": 72,
+        "name": "Info Alazab",
+        "email": "info@alazab.com"
+      },
+      {
+        "id": 27,
+        "name": "Karma Mohamed ",
+        "email": "hand.mohamed244@outlook.com"
+      },
+      {
+        "id": 67,
+        "name": "labanalasfour",
+        "email": "labanalasfour@alazab.com"
+      },
+      {
+        "id": 47,
+        "name": "Maadi 50",
+        "email": "info@alazab.online"
+      },
+      {
+        "id": 34,
+        "name": "Maadi50 Branch",
+        "email": "Maadi@abu.auf.com"
+      },
+      {
+        "id": 33,
+        "name": "Magdy Azab",
+        "email": "Magdyabozazb@gmail.com"
+      },
+      {
+        "id": 59,
+        "name": "Alazab Maintenance Maintenance Az",
+        "email": "maintenance@alazab.com"
+      },
+      {
+        "id": 35,
+        "name": "Mall Almaza",
+        "email": "mohamed.hesham@abu-auf.com"
+      },
+      {
+        "id": 53,
+        "name": "John Doe Mock Business",
+        "email": "mock@example.com"
+      },
+      {
+        "id": 22,
+        "name": "Mohamed Auf End",
+        "email": "azab68320@gmail.com"
+      },
+      {
+        "id": 20,
+        "name": "Mohamed Hamada Auf",
+        "email": "mahamed.azab2018@gmail.com"
+      },
+      {
+        "id": 37,
+        "name": "Mohamed Hamo",
+        "email": "mohamed@alazzab.com"
+      },
+      {
+        "id": 28,
+        "name": "Mr / Ahmed Auf",
+        "email": "mahamedazab@outlook.com"
+      },
+      {
+        "id": 66,
+        "name": "MR Hazem Dwedar",
+        "email": "hazem.y.dwedar@gmail.com"
+      },
+      {
+        "id": 30,
+        "name": "Mr/ Mohamed Auf",
+        "email": "hello@smart-lights23.com"
+      },
+      {
+        "id": 65,
+        "name": "Mrs Hagar Hussein",
+        "email": "hager@alazab.com"
+      },
+      {
+        "id": 68,
+        "name": "pHqghUme",
+        "email": "sample@email.tst"
+      },
+      {
+        "id": 10,
+        "name": "POS Client POS Client",
+        "email": null
+      },
+      {
+        "id": 26,
+        "name": "Mohamed Auf Samo Truding",
+        "email": ""
+      },
+      {
+        "id": 45,
+        "name": "Eng/ Hamdy Seven Fortunes",
+        "email": "engineering@sevenfortunescoffee.com"
+      },
+      {
+        "id": 39,
+        "name": "Shopify Client",
+        "email": null
+      },
+      {
+        "id": 44,
+        "name": "Lights Smart SMART LIGHTS",
+        "email": "admin@alazab.online"
+      },
+      {
+        "id": 40,
+        "name": "Support of Brans",
+        "email": "support@alazab.store"
+      },
+      {
+        "id": 58,
+        "name": "TastClint",
+        "email": "azab.construction.eg@gmail.com"
+      },
+      {
+        "id": 61,
+        "name": "taster_alazab-co",
+        "email": "alazab.construction@gmail.com"
+      },
+      {
+        "id": 63,
+        "name": "UberFix.shop",
+        "email": "admin@uberfix.shop"
+      },
+      {
+        "id": 41,
+        "name": "آية محمد المنتصر بالله عبد الرحمن جميل",
+        "email": "am3595167@gmail.com"
+      },
+      {
+        "id": 21,
+        "name": "العزب",
+        "email": "hand.mohamed154@gmail.com"
+      },
+      {
+        "id": 56,
+        "name": "عطيه سالم لفروع طنطا",
+        "email": "attiasalem777@gmail.com"
+      },
+      {
+        "id": 9,
+        "name": "عميل",
+        "email": ""
+      },
+      {
+        "id": 69,
+        "name": "فادي نجاتي",
+        "email": "gcp@uberfix.shop"
+      },
+      {
+        "id": 31,
+        "name": "محمود سعد عبدالمجيد",
+        "email": "msd631707@gmail.com"
+      }
+    ],
+    "suppliers": [
+      {
+        "id": 13,
+        "name": "ahmed abd elaziz Ahmed Abd Elaziz ( Fitout Shop )"
+      },
+      {
+        "id": 1,
+        "name": "Mohamed Abas Al Zain Electrical Tools"
+      },
+      {
+        "id": 26,
+        "name": "Sales Manger Alrkebatrd"
+      },
+      {
+        "id": 30,
+        "name": "Mohamed Eid EidWood"
+      },
+      {
+        "id": 12,
+        "name": "Abd Elaziz Ellsallab Ellsallab"
+      },
+      {
+        "id": 27,
+        "name": "Mohamed Flower Flower Group"
+      },
+      {
+        "id": 3,
+        "name": "Ahmed Taha Gabson board"
+      },
+      {
+        "id": 28,
+        "name": "MR/ Mohamed Grand Led Polo"
+      },
+      {
+        "id": 17,
+        "name": "Taha Elblqasy HVAC Elblqasy"
+      },
+      {
+        "id": 9,
+        "name": "Daftra Erp IZAM.inc  "
+      },
+      {
+        "id": 23,
+        "name": "مروان غسالات Marwan Tonsy"
+      },
+      {
+        "id": 25,
+        "name": "Karim Elnewhy MEGA PaneL"
+      },
+      {
+        "id": 21,
+        "name": "Eng/Ahmed  Eng. Ahmed Seyam  Mobile:  PRIMRMEP"
+      },
+      {
+        "id": 4,
+        "name": "Eng Riad Qualkity Group"
+      },
+      {
+        "id": 15,
+        "name": "Nasir City Safa Lighting"
+      },
+      {
+        "id": 20,
+        "name": "Counter Elsharkawy SH King"
+      },
+      {
+        "id": 2,
+        "name": "Smart Lights smart lights"
+      },
+      {
+        "id": 10,
+        "name": ".Amazon eg Souq.com (340035072)"
+      },
+      {
+        "id": 5,
+        "name": "Mohamed Eiad Wooding Materials"
+      },
+      {
+        "id": 22,
+        "name": "New  Supply Zad Wood"
+      },
+      {
+        "id": 8,
+        "name": "اف واي دي  للمقاولات والتوريدات العامه اف واي دي "
+      },
+      {
+        "id": 19,
+        "name": "محمد  عبدالغني ال عمران"
+      },
+      {
+        "id": 29,
+        "name": "سعد شبرمنت الاسطي ابراهيم"
+      },
+      {
+        "id": 16,
+        "name": "فرع الازبكيه الشركه العالميه لتجاره والتوريدات"
+      },
+      {
+        "id": 6,
+        "name": "محمد حافظ الشريف الشريف للادوات الكهربائيه"
+      },
+      {
+        "id": 11,
+        "name": "عبدالهادي شخبة الصفا والمروه"
+      },
+      {
+        "id": 14,
+        "name": "م/احمد محمد  جمعه جينرال كول"
+      },
+      {
+        "id": 24,
+        "name": "محمد عبده ماربل جولد للرخام والجرانيت"
+      },
+      {
+        "id": 18,
+        "name": "محمود سعد محمود سعد عبدالمجيد"
+      }
+    ],
+    "work_orders": [
+      {
+        "id": 18,
+        "title": "فرع فيصل الهرم"
+      },
+      {
+        "id": 17,
+        "title": "Arabesque"
+      },
+      {
+        "id": 16,
+        "title": "Mansoura-1"
+      },
+      {
+        "id": 15,
+        "title": "AbuAuf Alex Loran"
+      },
+      {
+        "id": 14,
+        "title": "Mansoura-4"
+      },
+      {
+        "id": 13,
+        "title": "Abu Auf Banha-2"
+      },
+      {
+        "id": 12,
+        "title": "Tanta 3 AbuAuf"
+      },
+      {
+        "id": 11,
+        "title": "محمصات الحيسيني"
+      },
+      {
+        "id": 10,
+        "title": "شقة 281 (دار مصر الإندلس)"
+      },
+      {
+        "id": 9,
+        "title": "صيانات الفروع"
+      },
+      {
+        "id": 8,
+        "title": "Maintenane AUF"
+      },
+      {
+        "id": 6,
+        "title": "Abu Auf Arkan Plaza"
+      },
+      {
+        "id": 5,
+        "title": "Wadi Degla Oct 2"
+      },
+      {
+        "id": 1,
+        "title": "C/Ahmed Allam Project"
+      }
+    ],
+    "products": [
+      {
+        "id": 351,
+        "name": " اسبوت حربيه",
+        "code": "1119"
+      },
+      {
+        "id": 727,
+        "name": " اعمال الدهانات سافيتو",
+        "code": "AZ-ITM-1133"
+      },
+      {
+        "id": 731,
+        "name": " اعمال الكونتر الوحدات الخلفيه",
+        "code": "AZ-ITM-1137"
+      },
+      {
+        "id": 645,
+        "name": " تجهيزات المواقع الاوليه",
+        "code": "1172"
+      },
+      {
+        "id": 767,
+        "name": " ديكورية حائطية ورق شجر مضئ",
+        "code": "1197"
+      },
+      {
+        "id": 653,
+        "name": " رخام تيرازو فرز اول",
+        "code": "1180"
+      },
+      {
+        "id": 783,
+        "name": " مقبض باب معدني",
+        "code": "1213"
+      },
+      {
+        "id": 666,
+        "name": " وحدات الثلاجات الخشبيه",
+        "code": "1193"
+      },
+      {
+        "id": 13,
+        "name": " وحدة تخزين معدنيه  مع أرفف خشبية .",
+        "code": "11"
+      },
+      {
+        "id": 124,
+        "name": "2 cm black tape for wooden units",
+        "code": "EGS-577219804-0077"
+      },
+      {
+        "id": 91,
+        "name": "60*60 spotlight Elsewedy 40 watt",
+        "code": "1026"
+      },
+      {
+        "id": 90,
+        "name": "60*60 spotlight Elsewedy with 3-year warranty",
+        "code": "1025"
+      },
+      {
+        "id": 372,
+        "name": "A marble panel of the Galaxy curtain, 20 mm thick, a front mirror with a height of 200 mm, and an overhead panel for serving drinks.",
+        "code": ""
+      },
+      {
+        "id": 427,
+        "name": "A marble panel of the Galaxy curtain, 20 mm thick, a front mirror with a height of 200 mm, and an overhead panel for serving drinks.",
+        "code": null
+      },
+      {
+        "id": 248,
+        "name": "A marble panel of the Galaxy curtain, 20 mm thick, a front mirror with a height of 200 mm, and an overhead panel for serving drinks.",
+        "code": "1191"
+      },
+      {
+        "id": 2247,
+        "name": "Access Control نظام تحكم دخول",
+        "code": "AZ-ALM-01-25-2982"
+      },
+      {
+        "id": 2243,
+        "name": "Access Point شبكة لاسلكية",
+        "code": "AZ-ELH-01-25-2978"
+      },
+      {
+        "id": 173,
+        "name": "Air conditioning and refrigeration",
+        "code": "EGS-577219804-0126"
+      },
+      {
+        "id": 123,
+        "name": "Air curtain 1 meter, remote control",
+        "code": "1076"
+      },
+      {
+        "id": 102,
+        "name": "Altaqa LED Ceiling Light 5W",
+        "code": "1037"
+      },
+      {
+        "id": 146,
+        "name": "Aluminum jar unit ducts",
+        "code": "EGS-577219804-0099"
+      },
+      {
+        "id": 392,
+        "name": "As before - supplying, installing and testing a 2*3 mm cable outlet",
+        "code": null
+      },
+      {
+        "id": 447,
+        "name": "As before - supplying, installing and testing a 2*3 mm cable outlet",
+        "code": null
+      },
+      {
+        "id": 393,
+        "name": "As before - supplying, installing and testing a 2*4 mm cable power outlet",
+        "code": null
+      },
+      {
+        "id": 448,
+        "name": "As before - supplying, installing and testing a 2*4 mm cable power outlet",
+        "code": null
+      },
+      {
+        "id": 395,
+        "name": "As before - supplying, installing and testing power outlets for the brewer, barista, coffee grinding machine, cable and cashier 2*6 mm",
+        "code": null
+      },
+      {
+        "id": 450,
+        "name": "As before - supplying, installing and testing power outlets for the brewer, barista, coffee grinding machine, cable and cashier 2*6 mm",
+        "code": null
+      },
+      {
+        "id": 394,
+        "name": "As before - supplying, installing and testing the power outlet for air conditioners, cable 2*6 mm",
+        "code": null
+      },
+      {
+        "id": 449,
+        "name": "As before - supplying, installing and testing the power outlet for air conditioners, cable 2*6 mm",
+        "code": null
+      },
+      {
+        "id": 362,
+        "name": "As before, in linear meters, a light house for submersible lighting",
+        "code": null
+      },
+      {
+        "id": 417,
+        "name": "As before, in linear meters, a light house for submersible lighting",
+        "code": null
+      },
+      {
+        "id": 361,
+        "name": "As before, the work is supplying and installing a partition for the store’s gypsum wall according to the design approved",
+        "code": null
+      },
+      {
+        "id": 416,
+        "name": "As before, the work is supplying and installing a partition for the store’s gypsum wall according to the design approved",
+        "code": null
+      },
+      {
+        "id": 136,
+        "name": "Automatic closing machine for the branch’s glass door",
+        "code": "EGS-577219804-0089"
+      },
+      {
+        "id": 135,
+        "name": "Automatic closing machine for the Store door",
+        "code": "EGS-577219804-0088"
+      },
+      {
+        "id": 85,
+        "name": "Azz Arab Panel 18 watt",
+        "code": "1020"
+      },
+      {
+        "id": 75,
+        "name": "AzzAlarab Panel 22 watt",
+        "code": "1010"
+      },
+      {
+        "id": 2186,
+        "name": "Back Counter خلفي",
+        "code": "AZ-STG-01-25-2920"
+      },
+      {
+        "id": 141,
+        "name": "Base set for wooden units",
+        "code": "EGS-577219804-0094"
+      },
+      {
+        "id": 557,
+        "name": "Basic Package",
+        "code": "1164"
+      },
+      {
+        "id": 561,
+        "name": "Basic Package",
+        "code": "2075a42e-7d7a-4367-9afa-e64bc0ac88c0"
+      },
+      {
+        "id": 122,
+        "name": "Black Star Galaxy Marble",
+        "code": "EGS-577219804-0075"
+      },
+      {
+        "id": 155,
+        "name": "Bottom hinge for glass door",
+        "code": "EGS-577219804-0108"
+      },
+      {
+        "id": 245,
+        "name": "Bottom storage units made of countertop wood with black PVC veneer, and the bottom storage units are 90 cm.",
+        "code": "1188"
+      },
+      {
+        "id": 370,
+        "name": "Bottom storage units made of countertop wood with black PVC veneer, and the bottom storage units are made of countertop wood with black PVC veneer and attached with strips of Beach Pine. Height 90 cm.",
+        "code": null
+      },
+      {
+        "id": 425,
+        "name": "Bottom storage units made of countertop wood with black PVC veneer, and the bottom storage units are made of countertop wood with black PVC veneer and attached with strips of Beach Pine. Height 90 cm.",
+        "code": null
+      },
+      {
+        "id": 1536,
+        "name": "Building Products - Other - Building Products - Other",
+        "code": "AZ-GEN-01-25-1970"
+      },
+      {
+        "id": 540,
+        "name": "Butter & Honey",
+        "code": "506"
+      },
+      {
+        "id": 241,
+        "name": "By flat meter, installing porcelain floors",
+        "code": "1184"
+      },
+      {
+        "id": 242,
+        "name": "By square meter, supply and installation of Star Galaxy marble for the entrance staircase",
+        "code": "1185"
+      },
+      {
+        "id": 156,
+        "name": "C letter glass door handle",
+        "code": "EGS-577219804-0109"
+      },
+      {
+        "id": 88,
+        "name": "Cabl Termo black   2*1mm",
+        "code": "1023"
+      },
+      {
+        "id": 66,
+        "name": "Cable 1.5 mm Elsewedy",
+        "code": "1001"
+      },
+      {
+        "id": 71,
+        "name": "Cable 10 mm Elsewedy",
+        "code": "1006"
+      },
+      {
+        "id": 67,
+        "name": "Cable 2 mm Elsewedy",
+        "code": "1002"
+      },
+      {
+        "id": 68,
+        "name": "Cable 3 mm Elsewedy",
+        "code": "1003"
+      },
+      {
+        "id": 69,
+        "name": "Cable 4 mm Elsewedy",
+        "code": "1004"
+      },
+      {
+        "id": 70,
+        "name": "Cable 6 mm Elsewedy",
+        "code": "1005"
+      },
+      {
+        "id": 72,
+        "name": "Cat 6 Premium Line 305",
+        "code": "1007"
+      },
+      {
+        "id": 110,
+        "name": "Cleaning and sealing the sink with silicone",
+        "code": "EGS-577219804-0063"
+      },
+      {
+        "id": 2267,
+        "name": "Cleanout فتحة تسليك",
+        "code": "AZ-FIX-01-25-3002"
+      },
+      {
+        "id": 44,
+        "name": "Cob spotlight 5 watt",
+        "code": "1005"
+      },
+      {
+        "id": 45,
+        "name": "Cob spotlight 7 watt",
+        "code": "1006"
+      },
+      {
+        "id": 548,
+        "name": "COFFEE",
+        "code": "514"
+      },
+      {
+        "id": 538,
+        "name": "Coffee & Hot Drinks",
+        "code": "504"
+      },
+      {
+        "id": 130,
+        "name": "Compact flashlight 15 watt French worm",
+        "code": "EGS-577219804-0083"
+      },
+      {
+        "id": 131,
+        "name": "Compact flashlight 30 watt French worm",
+        "code": "EGS-577219804-0084"
+      },
+      {
+        "id": 40,
+        "name": "Compact spotlight 30 watt",
+        "code": "1001"
+      },
+      {
+        "id": 147,
+        "name": "Connecting adapter (power supply 20 amp)",
+        "code": "EGS-577219804-0100"
+      },
+      {
+        "id": 148,
+        "name": "Connecting adapter (power supply 30 amp)",
+        "code": "EGS-577219804-0101"
+      },
+      {
+        "id": 543,
+        "name": "Cooking Essentials",
+        "code": "509"
+      },
+      {
+        "id": 172,
+        "name": "Copier and printer maintenance services",
+        "code": "EGS-577219804-0125"
+      },
+      {
+        "id": 547,
+        "name": "DATES",
+        "code": "513"
+      },
+      {
+        "id": 536,
+        "name": "Dates & Dried Fruits",
+        "code": "502"
+      },
+      {
+        "id": 157,
+        "name": "Decorative pendant that includes an Edison bulb",
+        "code": "EGS-577219804-0110"
+      },
+      {
+        "id": 554,
+        "name": "Dedicated",
+        "code": "520"
+      },
+      {
+        "id": 231,
+        "name": "Demolition and crushing works for all previously executed works",
+        "code": "1172"
+      },
+      {
+        "id": 357,
+        "name": "demolition and crushing works for all previously executed works and modifications in accordance with the drawings and instructions of the consultant.",
+        "code": null
+      },
+      {
+        "id": 412,
+        "name": "demolition and crushing works for all previously executed works and modifications in accordance with the drawings and instructions of the consultant.",
+        "code": null
+      },
+      {
+        "id": 87,
+        "name": "Destination Floodlight  100 watt",
+        "code": "1022"
+      },
+      {
+        "id": 244,
+        "name": "Dismantling and installing the entire glass face and changing 1 of the closing machines + completely changing the F-angle",
+        "code": "1187"
+      },
+      {
+        "id": 127,
+        "name": "Door Accessories",
+        "code": "EGS-577219804-0080"
+      },
+      {
+        "id": 185,
+        "name": "Door Glass adjusting the closing machine",
+        "code": "EGS-577219804-0138"
+      },
+      {
+        "id": 126,
+        "name": "Door Kallon /handle",
+        "code": "EGS-577219804-0079"
+      },
+      {
+        "id": 339,
+        "name": "Double up-down LED wall panel",
+        "code": "1107"
+      },
+      {
+        "id": 113,
+        "name": "Drainage maintenance from abroad",
+        "code": "EGS-577219804-0066"
+      },
+      {
+        "id": 125,
+        "name": "Drainage, 3 inches",
+        "code": "EGS-577219804-0078"
+      },
+      {
+        "id": 142,
+        "name": "Drawer runner set for wooden units",
+        "code": "EGS-577219804-0095"
+      },
+      {
+        "id": 84,
+        "name": "Edison bulb 6 watt long",
+        "code": "1019"
+      },
+      {
+        "id": 83,
+        "name": "Edison bulb, 6 watt, circular",
+        "code": "1018"
+      },
+      {
+        "id": 145,
+        "name": "Edison decorative bulb 9 watt",
+        "code": "EGS-577219804-0098"
+      },
+      {
+        "id": 162,
+        "name": "Electrical maintenance services",
+        "code": "EGS-577219804-0115"
+      },
+      {
+        "id": 171,
+        "name": "Electrical maintenance services",
+        "code": "EGS-577219804-0124"
+      },
+      {
+        "id": 161,
+        "name": "Electricity and industrial control",
+        "code": "EGS-577219804-0114"
+      },
+      {
+        "id": 160,
+        "name": "Electricity generators",
+        "code": "EGS-577219804-0113"
+      },
+      {
+        "id": 177,
+        "name": "Elevators",
+        "code": "EGS-577219804-0130"
+      },
+      {
+        "id": 132,
+        "name": "Entrance and exit sign for the store",
+        "code": "EGS-577219804-0085"
+      },
+      {
+        "id": 114,
+        "name": "Fire alarm panel maintenance",
+        "code": "EGS-577219804-0067"
+      },
+      {
+        "id": 228,
+        "name": "Fire Extinguisher Carbon Dioxide 6 Kg Fredex - Weight : 6 K.G",
+        "code": "1105"
+      },
+      {
+        "id": 227,
+        "name": "Fire Fighting Extinguisher 6 KG",
+        "code": "1104"
+      },
+      {
+        "id": 169,
+        "name": "Fire systems",
+        "code": "EGS-577219804-0122"
+      },
+      {
+        "id": 170,
+        "name": "Fire systems maintenance services",
+        "code": "EGS-577219804-0123"
+      },
+      {
+        "id": 86,
+        "name": "Flexible M.M hose roll, 16 pcs",
+        "code": "1021"
+      },
+      {
+        "id": 215,
+        "name": "Floodlight 200 Watt SMD White, Philips",
+        "code": "1092"
+      },
+      {
+        "id": 2266,
+        "name": "Floor Drain بالوعة أرضية",
+        "code": "AZ-DOO-01-25-3001"
+      },
+      {
+        "id": 365,
+        "name": "For Ceilings",
+        "code": null
+      },
+      {
+        "id": 366,
+        "name": "For Walls",
+        "code": null
+      },
+      {
+        "id": 73,
+        "name": "French Compact Flashlight 30 watt",
+        "code": "1008"
+      },
+      {
+        "id": 246,
+        "name": "Front shelving units made of countertop wood, black paint, 1.20 cm, 5 shelves",
+        "code": "1189"
+      },
+      {
+        "id": 371,
+        "name": "Front shelving units made of wood, countertops, black paint, including mirrors made of beech wood sections, painted in the desired color of polyurethane after preparing with sealer, 1.20 cm, 5 shelves",
+        "code": ""
+      },
+      {
+        "id": 426,
+        "name": "Front shelving units made of wood, countertops, black paint, including mirrors made of beech wood sections, painted in the desired color of polyurethane after preparing with sealer, 1.20 cm, 5 shelves",
+        "code": null
+      },
+      {
+        "id": 247,
+        "name": "Front shelving units, 0.80 cm, 4 shelves",
+        "code": "1190"
+      },
+      {
+        "id": 2220,
+        "name": "Frosted Sticker ملصق زجاج مصنفر",
+        "code": "AZ-SGN-01-25-2955"
+      },
+      {
+        "id": 183,
+        "name": "Geometric designs",
+        "code": "EGS-577219804-0136"
+      },
+      {
+        "id": 542,
+        "name": "Gifting & Sharing",
+        "code": "508"
+      },
+      {
+        "id": 354,
+        "name": "Glass doors maintenance and change the necessary accessories",
+        "code": "1122"
+      },
+      {
+        "id": 218,
+        "name": "Hand Mixer Stainless Steel Water Filter Tap",
+        "code": "1095"
+      },
+      {
+        "id": 551,
+        "name": "HEALTHY LINE",
+        "code": "517"
+      },
+      {
+        "id": 138,
+        "name": "Helpers for storage unit doors",
+        "code": "EGS-577219804-0091"
+      },
+      {
+        "id": 545,
+        "name": "HOT BEVERAGES",
+        "code": "511"
+      },
+      {
+        "id": 2214,
+        "name": "HPL خارجي",
+        "code": "AZ-STR-01-25-2949"
+      },
+      {
+        "id": 327,
+        "name": "In Al-Maqtouiya - Electricity panels were maintained, a new meter was installed, organized, and all necessary actions were done.",
+        "code": "1271"
+      },
+      {
+        "id": 237,
+        "name": "In linear meters, a light house for submersible lighting",
+        "code": "1178"
+      },
+      {
+        "id": 411,
+        "name": "In Maqtouiya - the cost of the cleaning company for the branch before delivery",
+        "code": null
+      },
+      {
+        "id": 466,
+        "name": "In Maqtouiya - the cost of the cleaning company for the branch before delivery",
+        "code": null
+      },
+      {
+        "id": 363,
+        "name": "In numbers - Supply and installation of a 60*60 detection door for maintenance conditions",
+        "code": null
+      },
+      {
+        "id": 295,
+        "name": "In numbers - supply and installation of a custom SAS brand screw",
+        "code": "1239"
+      },
+      {
+        "id": 388,
+        "name": "In numbers - supplying and installing an air curtain above the entry door, size 1 meter, an approved brand, with a remote control unit",
+        "code": null
+      },
+      {
+        "id": 443,
+        "name": "In numbers - supplying and installing an air curtain above the entry door, size 1 meter, an approved brand, with a remote control unit",
+        "code": null
+      },
+      {
+        "id": 350,
+        "name": "indoor Surface Mounted Downlight  10W 3000K",
+        "code": "1118"
+      },
+      {
+        "id": 352,
+        "name": "Inground Uplights  2W. 3000K, IP67",
+        "code": "1120"
+      },
+      {
+        "id": 109,
+        "name": "Installing Marble Countertops",
+        "code": "EGS-577219804-0062"
+      },
+      {
+        "id": 367,
+        "name": "installing porcelain floors. The price includes pasting with ceramic adhesive and cement and sand mortar at a rate of 300 kg cement per cubic meter. The price includes cleaning, watering, raw materials, labor, transportation.",
+        "code": null
+      },
+      {
+        "id": 422,
+        "name": "installing porcelain floors. The price includes pasting with ceramic adhesive and cement and sand mortar at a rate of 300 kg cement per cubic meter. The price includes cleaning, watering, raw materials, labor, transportation.",
+        "code": null
+      },
+      {
+        "id": 2248,
+        "name": "Intercom إنتركم",
+        "code": "AZ-ALM-01-25-2983"
+      },
+      {
+        "id": 2189,
+        "name": "Island Display Unit وحدة عرض وسطية",
+        "code": "AZ-STG-01-25-2923"
+      },
+      {
+        "id": 106,
+        "name": "Island unit, black countertop + beach pine",
+        "code": "EGS-577219804-0059"
+      },
+      {
+        "id": 164,
+        "name": "IT maintenance services",
+        "code": "EGS-577219804-0117"
+      },
+      {
+        "id": 546,
+        "name": "KITCHEN",
+        "code": "512"
+      },
+      {
+        "id": 103,
+        "name": "Led 4 Watt E27 Decorative Bulb 001",
+        "code": "1038"
+      },
+      {
+        "id": 104,
+        "name": "Led 4 Watt E27 Decorative Bulb 002",
+        "code": "1039"
+      },
+      {
+        "id": 133,
+        "name": "LED bulb, 12 watt, white light",
+        "code": "EGS-577219804-0086"
+      },
+      {
+        "id": 134,
+        "name": "LED bulb, 9 watt, white light",
+        "code": "EGS-577219804-0087"
+      },
+      {
+        "id": 229,
+        "name": "LED Light 50W Outdoor White",
+        "code": "1106"
+      },
+      {
+        "id": 89,
+        "name": "Led profile 1.7 inside",
+        "code": "1024"
+      },
+      {
+        "id": 2233,
+        "name": "LED Strip",
+        "code": "AZ-LMP-01-25-2968"
+      },
+      {
+        "id": 348,
+        "name": "Lid Power Supply 100w / 48v",
+        "code": "1116"
+      },
+      {
+        "id": 93,
+        "name": "light led 12 watt jory",
+        "code": "1028"
+      },
+      {
+        "id": 92,
+        "name": "light led 50 watt life",
+        "code": "1027"
+      },
+      {
+        "id": 194,
+        "name": "Light Switches - Schwabe 16A",
+        "code": "43"
+      },
+      {
+        "id": 2216,
+        "name": "Lightbox لافتة مضيئة",
+        "code": "AZ-SGN-01-25-2951"
+      },
+      {
+        "id": 159,
+        "name": "Lighting the sign and cleaning the acrylic",
+        "code": "EGS-577219804-0112"
+      },
+      {
+        "id": 559,
+        "name": "Luxury Package",
+        "code": "1166"
+      },
+      {
+        "id": 564,
+        "name": "Luxury Package",
+        "code": "8815b738-c6e8-4fb7-9e33-1c6031480a54"
+      },
+      {
+        "id": 80,
+        "name": "M.M hose 16 mm",
+        "code": "1015"
+      },
+      {
+        "id": 347,
+        "name": "Magnetic Track Projector 10w 3000K ",
+        "code": "1115"
+      },
+      {
+        "id": 153,
+        "name": "Maintaining the glass door",
+        "code": "EGS-577219804-0106"
+      },
+      {
+        "id": 112,
+        "name": "Maintenance and installation of units in the Store",
+        "code": "EGS-577219804-0065"
+      },
+      {
+        "id": 334,
+        "name": "Maintenance and revision of the carpentry units were carried out on the entire deck",
+        "code": "1278"
+      },
+      {
+        "id": 115,
+        "name": "Maintenance of Carpentry dicor",
+        "code": "EGS-577219804-0068"
+      },
+      {
+        "id": 116,
+        "name": "Maintenance of Carpentry units",
+        "code": "EGS-577219804-0069"
+      },
+      {
+        "id": 343,
+        "name": "Maintenance Shater Door ",
+        "code": "1111"
+      },
+      {
+        "id": 328,
+        "name": "maintenance was carried out in the branch without changing the materials.",
+        "code": "1272"
+      },
+      {
+        "id": 332,
+        "name": "Maintenance was carried out on the branch’s external drainage system",
+        "code": "1276"
+      },
+      {
+        "id": 329,
+        "name": "maintenance was carried out on the roof of the warehouse",
+        "code": "1273"
+      },
+      {
+        "id": 333,
+        "name": "Maintenance was carried out on the wooden units under the sink",
+        "code": "1277"
+      },
+      {
+        "id": 158,
+        "name": "Maintenance work for wooden units",
+        "code": "EGS-577219804-0111"
+      },
+      {
+        "id": 291,
+        "name": "Maintenance work on the glass facade and installing the corner and hinges",
+        "code": "1235"
+      },
+      {
+        "id": 384,
+        "name": "Manufacturing, supplying a display unit. Made of shelves from the metal structure, section 30 * 30 mm, black paint, and static, and it includes Wooding shelves of beach pine boards treated against bacteria.",
+        "code": null
+      },
+      {
+        "id": 439,
+        "name": "Manufacturing, supplying a display unit. Made of shelves from the metal structure, section 30 * 30 mm, black paint, and static, and it includes Wooding shelves of beach pine boards treated against bacteria.",
+        "code": null
+      },
+      {
+        "id": 385,
+        "name": "Manufacturing, supplying a Storage unit. Made of shelves from the metal structure, section 50 * 50 mm, black paint, and static, and it includes Wooding shelves of beach pine boards treated against bacteria.",
+        "code": null
+      },
+      {
+        "id": 440,
+        "name": "Manufacturing, supplying a Storage unit. Made of shelves from the metal structure, section 50 * 50 mm, black paint, and static, and it includes Wooding shelves of beach pine boards treated against bacteria.",
+        "code": null
+      },
+      {
+        "id": 381,
+        "name": "Manufacturing, supplying and installing a warehouse door equipped with MDF panels with a beach veneer installed, polyurethane paint after preparation with sealer, installed on a wooden frame, and installing an automatic closing machine + a door color. The",
+        "code": null
+      },
+      {
+        "id": 436,
+        "name": "Manufacturing, supplying and installing a warehouse door equipped with MDF panels with a beach veneer installed, polyurethane paint after preparation with sealer, installed on a wooden frame, and installing an automatic closing machine + a door color. The",
+        "code": null
+      },
+      {
+        "id": 258,
+        "name": "Manufacturing, supplying and installing a warehouse door equipped with MDF panels with beach pine veneer installed",
+        "code": "1201"
+      },
+      {
+        "id": 224,
+        "name": "Marble works maintenance",
+        "code": "1101"
+      },
+      {
+        "id": 175,
+        "name": "Medical Equipment",
+        "code": "EGS-577219804-0128"
+      },
+      {
+        "id": 176,
+        "name": "Medical equipment maintenance services",
+        "code": "EGS-577219804-0129"
+      },
+      {
+        "id": 195,
+        "name": "Membership Alazab.co all",
+        "code": "1195"
+      },
+      {
+        "id": 190,
+        "name": "Membership Smart Lights",
+        "code": "ac46d96d-4c48-462c-9596-bd6e52899e2b"
+      },
+      {
+        "id": 2251,
+        "name": "Menu Screen شاشة منيو",
+        "code": "AZ-ELH-01-25-2986"
+      },
+      {
+        "id": 643,
+        "name": "Mock Product",
+        "code": "MP100"
+      },
+      {
+        "id": 79,
+        "name": "Mustafa Mahmoud hose 16 mm",
+        "code": "1014"
+      },
+      {
+        "id": 191,
+        "name": "Name",
+        "code": "Product Code"
+      },
+      {
+        "id": 165,
+        "name": "Network maintenance services",
+        "code": "EGS-577219804-0118"
+      },
+      {
+        "id": 2244,
+        "name": "Network Rack راك شبكة",
+        "code": "AZ-ELH-01-25-2979"
+      },
+      {
+        "id": 2246,
+        "name": "Network Switch",
+        "code": "AZ-ELH-01-25-2981"
+      },
+      {
+        "id": 537,
+        "name": "Nuts & Crackers",
+        "code": "503"
+      },
+      {
+        "id": 544,
+        "name": "Oats & Seeds",
+        "code": "510"
+      },
+      {
+        "id": 179,
+        "name": "Office Furniture",
+        "code": "EGS-577219804-0132"
+      },
+      {
+        "id": 180,
+        "name": "Office furniture maintenance services",
+        "code": "EGS-577219804-0133"
+      },
+      {
+        "id": 111,
+        "name": "Painting the Entire branch, and the destination.",
+        "code": "EGS-577219804-0064"
+      },
+      {
+        "id": 292,
+        "name": "Painting works in the entire branch and the destination is that I received putty + paint",
+        "code": "1236"
+      },
+      {
+        "id": 43,
+        "name": "Panel spotlight 18 watt",
+        "code": "1004"
+      },
+      {
+        "id": 42,
+        "name": "Panel spotlight 22 watt",
+        "code": "1003"
+      },
+      {
+        "id": 2245,
+        "name": "Patch Panel",
+        "code": "AZ-ELH-01-25-2980"
+      },
+      {
+        "id": 95,
+        "name": "Philips 3x 12W LED Bum Light Bulb E27 Threads 1140 Lumens - 25K Hours",
+        "code": "1030"
+      },
+      {
+        "id": 96,
+        "name": "Philips 3x 6W LED Bulb - Super High Efficiency - 25K Running Hours",
+        "code": "1031"
+      },
+      {
+        "id": 100,
+        "name": "Philips 59444 Meson Spot Light, 12 cm - 20 watt",
+        "code": "1035"
+      },
+      {
+        "id": 99,
+        "name": "Philips 59444 Meson Spot Light, 8 cm - 6 watt",
+        "code": "1034"
+      }
+    ],
+    "cost_centers": [
+      {
+        "id": 7,
+        "name": "Maintenance AUF"
+      },
+      {
+        "id": 6,
+        "name": "اعمال معماريه جديده"
+      },
+      {
+        "id": 5,
+        "name": "اعمال الصيانات"
+      },
+      {
+        "id": 4,
+        "name": "Abo Azab"
+      },
+      {
+        "id": 3,
+        "name": "Mohamed Azab"
+      },
+      {
+        "id": 2,
+        "name": "Magdy Azab"
+      }
+    ],
+    "treasuries": [
+      {
+        "id": 3,
+        "name": "CIB"
+      },
+      {
+        "id": 2,
+        "name": "QNB"
+      },
+      {
+        "id": 1,
+        "name": "Main"
+      }
+    ]
+  }
+}

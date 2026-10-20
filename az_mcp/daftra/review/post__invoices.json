@@ -1,0 +1,395 @@
+{
+  "path": "/invoices",
+  "method": "post",
+  "operation": {
+    "summary": "Add Advance Payment",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+    "tags": [
+      "Endpoints/Sales /Advance Payment Invoices"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "properties": {
+                  "subscription_id": {
+                    "type": "string"
+                  },
+                  "store_id": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "integer"
+                  },
+                  "po_number": {
+                    "type": "integer"
+                  },
+                  "client_id": {
+                    "type": "integer"
+                  },
+                  "client_email": {
+                    "type": "string"
+                  },
+                  "client_country_code": {
+                    "type": "string"
+                  },
+                  "draft": {
+                    "type": "string"
+                  },
+                  "follow_up_status": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "staff_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "is_offline": {
+                    "type": "integer"
+                  },
+                  "currency_code": {
+                    "type": "string"
+                  },
+                  "payment_status": {
+                    "type": "integer"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "discount": {
+                    "type": "integer"
+                  },
+                  "discount_amount": {
+                    "type": "integer"
+                  },
+                  "deposit": {
+                    "type": "integer"
+                  },
+                  "deposit_type": {
+                    "type": "integer"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "html_notes": {
+                    "type": "string"
+                  },
+                  "invoice_layout_id": {
+                    "type": "integer"
+                  },
+                  "estimate_id": {
+                    "type": "integer"
+                  },
+                  "shipping_options": {
+                    "type": "string"
+                  },
+                  "shipping_amount": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "requisition_delivery_status": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "pos_shift_id": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "branch_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "subscription_id",
+                  "store_id",
+                  "type",
+                  "po_number",
+                  "client_id",
+                  "client_email",
+                  "client_country_code",
+                  "draft",
+                  "follow_up_status",
+                  "staff_id",
+                  "name",
+                  "is_offline",
+                  "currency_code",
+                  "payment_status",
+                  "date",
+                  "discount",
+                  "discount_amount",
+                  "deposit",
+                  "deposit_type",
+                  "notes",
+                  "html_notes",
+                  "invoice_layout_id",
+                  "estimate_id",
+                  "shipping_options",
+                  "shipping_amount",
+                  "requisition_delivery_status",
+                  "pos_shift_id",
+                  "branch_id"
+                ]
+              },
+              "Payment": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "payment_method": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "transaction_id": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "status": {
+                    "type": "integer"
+                  },
+                  "notes": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "response_code": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "response_message": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "created": {
+                    "type": "string"
+                  },
+                  "currency_code": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "address1": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "address2": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  },
+                  "phone1": {
+                    "type": "string"
+                  },
+                  "phone2": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "attachment": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "staff_id": {
+                    "type": "integer"
+                  },
+                  "payment_work_order_id": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "treasury_id": {
+                    "type": "integer"
+                  },
+                  "pos_shift_id": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "receipt_notes": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "extra_details": {
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  },
+                  "branch_id": {
+                    "type": "integer"
+                  },
+                  "added_by": {
+                    "type": "integer"
+                  },
+                  "is_paid": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "payment_method",
+                  "amount",
+                  "transaction_id",
+                  "date",
+                  "email",
+                  "status",
+                  "notes",
+                  "response_code",
+                  "response_message",
+                  "created",
+                  "currency_code",
+                  "first_name",
+                  "last_name",
+                  "address1",
+                  "address2",
+                  "city",
+                  "state",
+                  "postal_code",
+                  "country_code",
+                  "phone1",
+                  "phone2",
+                  "attachment",
+                  "staff_id",
+                  "payment_work_order_id",
+                  "treasury_id",
+                  "pos_shift_id",
+                  "receipt_notes",
+                  "extra_details",
+                  "branch_id",
+                  "added_by",
+                  "is_paid"
+                ]
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "integer"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    },
+                    "col_3": {
+                      "type": "string"
+                    },
+                    "col_4": {
+                      "type": "string"
+                    },
+                    "tax1": {
+                      "type": "integer"
+                    },
+                    "tax2": {
+                      "type": "integer"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "InvoiceCustomField": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "Invoice",
+              "Payment",
+              "InvoiceItem",
+              "InvoiceCustomField"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__invoices"
+  },
+  "blockers": []
+}

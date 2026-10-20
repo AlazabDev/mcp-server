@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/asset_location/id/1",
+  "http_status": 404,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1119,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": false,
+  "timestamp_utc": "2026-10-08T20:18:27.379166+00:00"
+}

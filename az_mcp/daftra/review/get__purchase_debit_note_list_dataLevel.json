@@ -1,0 +1,317 @@
+{
+  "path": "/purchase_debit_note/list/{dataLevel}",
+  "method": "get",
+  "operation": {
+    "summary": "Purchase Debit Note",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of purchase debit notes for the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. It requires the **Inventory** plugin to be active.\n\nA purchase debit note is a purchase document that shares storage with purchase orders and is identified by its document type. This endpoint returns only debit-note records.\n\n### Data-level path segment\n\nThe trailing path segment (`-1`) is the **relation data level** — how deeply related records are eager-loaded — not a page number. Use `-1` (load base record with light relations only). Calling the list **without** a data level (`.../purchase_debit_note/list`) attempts to eager-load the full relation graph and fails with a `400` database error, so always include the segment.\n\n### Pagination & query parameters\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>]` | Filter by a field's value, e.g. `filter[no]=PDN-0001` or `filter[supplier_id]=1`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[date]=desc`. Default ordering is newest first (`id` descending). |\n| `version` | Set to `2` to run each row through the listing formatter (adds display-formatted values); the top-level envelope is unchanged. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>` (the operator is optional; `filter[<field>]=<value>` uses a default match). The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `no` | string | `filter[no]=PDN-0001` |\n| `supplier_id` | integer (supplier) | `filter[supplier_id]=1` |\n| `date` | date | `filter[date][greater_than_equal]=2026-01-01` |\n| `summary_total` | number | `filter[summary_total][greater_than_equal]=100` |\n| `tags` | string | `filter[tags]=urgent` |\n\n**Sortable fields.** Sort with `sort[<field>]=asc|desc`. The fields intended for sorting:\n\n| Field | Type | Example |\n|---|---|---|\n| `date` | date | `sort[date]=desc` |\n| `no` | string | `sort[no]=asc` |\n| `created` | datetime | `sort[created]=desc` |\n\nThe API will in fact filter and sort on any existing column of the record; the tables above list the fields the product surfaces for this entity. With no `sort`, results are ordered by `id` descending.\n\n### Response\n\nThe response is a standard paginated envelope (`current_page`, `data`, `per_page`, `total`, `last_page`, and the page-URL/link fields). Each item in `data` is a flat purchase debit note record.\n\n`payment_status` and `requisition_delivery_status` are returned as codes; their meanings are listed on those fields below.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Debit Note"
+    ],
+    "parameters": [
+      {
+        "name": "dataLevel",
+        "in": "path",
+        "description": "Relation eager-loading depth. Use `-1` (base record with light relations only). Omitting the segment entirely (`.../list`) attempts to load the full relation graph and fails with a `400` database error, so a value is required.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Items per page. Defaults to `20`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "filter[<field>]",
+        "in": "query",
+        "description": "Filter results by a field's value, e.g. `filter[no]=PDN-0001` or `filter[supplier_id]=1`. An operator can be added as `filter[<field>][<operator>]=<value>` (e.g. `filter[date][greater_than_equal]=2026-01-01`). Fields intended for filtering: `no`, `supplier_id`, `date`, `summary_total`, `tags`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "sort[<field>]",
+        "in": "query",
+        "description": "Sort by a field, `asc` or `desc`, e.g. `sort[date]=desc`. Fields intended for sorting: `date`, `no`, `created`. Default ordering is `id` descending.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "version",
+        "in": "query",
+        "description": "Set to `2` to run each row through the listing formatter (adds display-formatted values). The top-level envelope is unchanged.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of purchase debit notes. Each item in `data` is a flat record.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The purchase debit notes on this page. Each item is a flat record.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Purchase debit note id."
+                      },
+                      "no": {
+                        "type": "string",
+                        "description": "Debit note code/number.",
+                        "nullable": true
+                      },
+                      "type": {
+                        "type": "integer",
+                        "description": "Document type. Always `14` for a purchase debit note."
+                      },
+                      "supplier_id": {
+                        "type": "integer",
+                        "description": "Id of the supplier.",
+                        "nullable": true
+                      },
+                      "supplier_business_name": {
+                        "type": "string",
+                        "description": "Supplier business name.",
+                        "nullable": true
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Document date (`YYYY-MM-DD`).",
+                        "nullable": true
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "description": "Currency code of the document (e.g. `EGP`).",
+                        "nullable": true
+                      },
+                      "summary_total": {
+                        "type": "number",
+                        "description": "Net total of the document.",
+                        "nullable": true
+                      },
+                      "summary_subtotal": {
+                        "type": "number",
+                        "description": "Subtotal before tax/discount.",
+                        "nullable": true
+                      },
+                      "summary_paid": {
+                        "type": "number",
+                        "description": "Amount paid.",
+                        "nullable": true
+                      },
+                      "summary_unpaid": {
+                        "type": "number",
+                        "description": "Outstanding amount.",
+                        "nullable": true
+                      },
+                      "payment_status": {
+                        "type": "integer",
+                        "description": "Payment status code.\n\n| Value | Meaning |\n|---|---|\n| -1 | Draft |\n| 0 | Unpaid |\n| 1 | Partially Paid |\n| 2 | Paid |\n| 3 | Refunded |\n| 4 | Overpaid |\n| 5 | Partially Refunded |",
+                        "enum": [
+                          -1,
+                          0,
+                          1,
+                          2,
+                          3,
+                          4,
+                          5
+                        ],
+                        "nullable": true
+                      },
+                      "requisition_delivery_status": {
+                        "type": "integer",
+                        "description": "Requisition delivery status code.\n\n| Value | Meaning |\n|---|---|\n| 1 | Received |\n| 2 | Rejected |\n| 3 | Pending |\n| 4 | Partially Received |\n| 5 | Partially Rejected |",
+                        "enum": [
+                          1,
+                          2,
+                          3,
+                          4,
+                          5
+                        ],
+                        "nullable": true
+                      },
+                      "follow_up_status": {
+                        "type": "integer",
+                        "description": "Follow-up status.",
+                        "nullable": true
+                      },
+                      "draft": {
+                        "type": "integer",
+                        "description": "Whether the document is a draft (`1`) or finalized (`0`).",
+                        "nullable": true
+                      },
+                      "store_id": {
+                        "type": "integer",
+                        "description": "Id of the store.",
+                        "nullable": true
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Id of the linked work order, if any.",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`).",
+                        "nullable": true
+                      },
+                      "modified": {
+                        "type": "string",
+                        "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`).",
+                        "nullable": true
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "description": "Id of the branch the document belongs to.",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "description": "Tags assigned to the document.",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "type"
+                    ]
+                  }
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "from": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "per_page",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The list could not be produced — most commonly because the data-level path segment was omitted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Reason the list could not be produced. Calling the list without the data-level path segment (`.../purchase_debit_note/list`) returns a database error here because the full relation graph exceeds the join limit — always call `.../purchase_debit_note/list/-1`."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired (`{\"message\":\"Unauthenticated.\"}`), or the caller lacks permission to view purchase debit notes (`{\"error\":\"You are not allowed to view this page\"}`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Present when the caller is authenticated but not permitted to view this entity."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__purchase_debit_note_list_dataLevel",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

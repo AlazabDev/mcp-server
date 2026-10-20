@@ -1,0 +1,298 @@
+{
+  "path": "/requisitions/{id}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Requisitions",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing requisition (identified by its id) and its line items.\n\nThe body uses the nested-model convention: a `Requisition` object plus a `RequisitionItem` array, exactly like the create endpoint. On update no header field is strictly required — omitted fields such as `store_id`, `branch_id` and `number` keep / default from the existing record. Each line item still needs a `product_id` and a positive `quantity`.\n\nSome fields are server-managed: a requisition whose status is *Under Delivery* is promoted to *Accepted* on edit, and `number` is generated automatically when left empty.\n\n**Success response** is `{ \"status\": true, \"id\": <id> }` at HTTP `200` (add `extended` to also receive the saved record under `data`). A failure to save returns `{ \"status\": false, \"message\": \"Couldn't update Requisition\" }`, also at HTTP 200.\n\nEditing is rejected with `403` for POS / stocktaking requisitions, for a requisition that has expense distribution attached, or for a requisition belonging to another branch.",
+    "tags": [
+      "Endpoints/Inventory /Requsitions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The requisition id (digits only).",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "extended",
+        "in": "query",
+        "description": "When present, the success response also includes the saved record under `data`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Requisition": {
+                "type": "object",
+                "description": "The requisition header. On update, omitted fields keep / default from the existing record.",
+                "properties": {
+                  "type": {
+                    "type": "integer",
+                    "description": "Stock effect. `1` Inbound (adds stock), `2` Outbound (deducts stock), `3` Manual Transfer (no net effect)."
+                  },
+                  "order_type": {
+                    "type": "integer",
+                    "description": "Origin / nature of the requisition.\n\n| Value | Meaning |\n|---|---|\n| 1 | Manual Inbound |\n| 2 | Manual Outbound |\n| 3 | Invoice |\n| 4 | Refund Receipt |\n| 5 | Credit Note |\n| 6 | Purchase Invoice |\n| 7 | Purchase Refund |\n| 8 | Manual Transfer |\n| 11 | POS Inbound |\n| 12 | POS Outbound |\n| 13 | Stocktaking Out |\n| 14 | Stocktaking In |\n| 15 | Purchase Debit Note |\n| 16 | Manufacturing Order Returned Materials |\n| 18 | Manufacturing Order Materials Outbound |\n| 21 | Manufacturing Order Scrap Inbound |\n| 22 | Manufacturing Order Product Inbound |\n| 23 | Manual Import Inbound |\n| 24 | Manual Import Outbound |\n| 25 | Sales Order |"
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Source warehouse id. Defaults to the existing value when omitted."
+                  },
+                  "to_store_id": {
+                    "type": "integer",
+                    "description": "Destination warehouse id (transfer requisitions only). If supplied, must be active and different from `store_id`."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Requisition date (account date format). Must fall in an open accounting period when the requisition is not pending."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency code."
+                  },
+                  "journal_account_id": {
+                    "type": "integer",
+                    "description": "Optional journal account."
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Requisition number. Generated automatically when left empty."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free-text notes."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Comma-separated attachment file ids. Must be a string — sending an array is rejected with HTTP 400."
+                  },
+                  "draft": {
+                    "type": "integer",
+                    "description": "Set to `1` to save as a draft; cost-center validation is skipped for drafts."
+                  }
+                }
+              },
+              "RequisitionItem": {
+                "type": "array",
+                "description": "Line items. Send the full set of items the requisition should have after the update.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Existing line item id (omit for new lines)."
+                    },
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Product id."
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "Quantity. Must be greater than zero."
+                    },
+                    "unit_price": {
+                      "type": "number",
+                      "description": "Unit price."
+                    },
+                    "cost_center_id": {
+                      "type": "integer",
+                      "description": "Cost center id. Required per line when cost-center distribution is enabled and the requisition is not a draft."
+                    },
+                    "lot": {
+                      "type": "string",
+                      "description": "Lot / batch number (tracked products)."
+                    },
+                    "expiry_date": {
+                      "type": "string",
+                      "description": "Expiry date (tracked products)."
+                    },
+                    "serials": {
+                      "type": "array",
+                      "description": "Serial numbers (serial-tracked products).",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "product_id",
+                    "quantity"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "Requisition"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Requisition updated. Returns `{status:true, id}` (plus `data` when `extended` is sent). A failure to save returns `{status:false, message:\"Couldn't update Requisition\"}` with the same HTTP 200 status.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "Only present when the `extended` flag is sent. Contains the saved requisition and its line items.",
+                  "properties": {
+                    "Requisition": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "RequisitionItem": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "A line item has a quantity of zero or less, or `attachment` was sent as an array instead of a comma-separated string.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks `requisition modify` permission, or the requisition cannot be edited: it is a POS / stocktaking requisition, it has expense distribution attached, or it belongs to another branch.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No requisition with this id exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__requisitions_id"
+  },
+  "blockers": []
+}

@@ -1,0 +1,44 @@
+{
+  "path": "/invoice/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Advance payment",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/Sales /Advance Payment Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "filter[type]=19",
+        "in": "query",
+        "description": "",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoice_list"
+  },
+  "blockers": []
+}

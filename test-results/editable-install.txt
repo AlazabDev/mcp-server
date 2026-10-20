@@ -1,0 +1,7 @@
+Using Python 3.14.8 environment at: frappe-test-runtime
+Resolved 1 package in 5.30s
+   Building mcp-server @ file:///workspace/scratch/1352619e27df/frappe16-delivery/mcp_server
+      Built mcp-server @ file:///workspace/scratch/1352619e27df/frappe16-delivery/mcp_server
+Prepared 1 package in 77ms
+Installed 1 package in 0.49ms
+ + mcp-server==1.0.0 (from file:///workspace/scratch/1352619e27df/frappe16-delivery/mcp_server)

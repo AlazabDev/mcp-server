@@ -1,0 +1,867 @@
+{
+  "path": "/le_workflow-type-entity-{workflow_id}/{record_id}/{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Record",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single workflow-type-entity record by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`); `record_id` is the record to fetch. The successful response is a **flat object** of the record's fields — it is not wrapped in a `data` envelope. The available fields depend on the workflow type's configuration; custom fields are returned under both the `custom_data` alias and the `le_workflow-type-entity-{workflow_id}_custom_data` object.\n\nThe trailing path segment is the **data level** (how deeply related records are loaded); it is inert for a single-record fetch and is not a response-format extension.",
+    "tags": [
+      "Endpoints/Workflow"
+    ],
+    "parameters": [
+      {
+        "name": "workflow_id",
+        "in": "path",
+        "description": "The id of the workflow type. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "record_id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The workflow record as a flat object (not wrapped in a data envelope).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "client_id": {
+                  "type": "integer"
+                },
+                "number": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "start_date": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "delivery_date": {
+                  "type": "string"
+                },
+                "delivery_appointment_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "follow_up_status_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "budget": {
+                  "type": "integer"
+                },
+                "budget_currency": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "integer"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "staff_id": {
+                  "type": "integer"
+                },
+                "client_data": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "extra_details": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "branch_id": {
+                  "type": "integer"
+                },
+                "workflow_type_id": {
+                  "type": "integer"
+                },
+                "attachments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "assigned_users": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item_id": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "item_type": {
+                        "type": "integer"
+                      },
+                      "entity_key": {
+                        "type": "string"
+                      },
+                      "entity_field_key": {
+                        "type": "string"
+                      },
+                      "staff_id": {
+                        "type": "integer"
+                      },
+                      "group_id": {
+                        "type": "integer"
+                      },
+                      "assigned_by": {
+                        "type": "integer"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "item_id",
+                      "id",
+                      "item_type",
+                      "entity_key",
+                      "entity_field_key",
+                      "staff_id",
+                      "group_id",
+                      "assigned_by",
+                      "created",
+                      "modified"
+                    ]
+                  }
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "item_id": {
+                        "type": "integer"
+                      },
+                      "item_type": {
+                        "type": "integer"
+                      },
+                      "tag_id": {
+                        "type": "integer"
+                      },
+                      "branch_id": {
+                        "type": "integer"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "entity_key": {
+                        "type": "string"
+                      },
+                      "entity_field_key": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "workflow_type": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "icon": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    },
+                    "singular_title": {
+                      "type": "string"
+                    },
+                    "entity_key": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "status",
+                    "icon",
+                    "created",
+                    "modified",
+                    "singular_title",
+                    "entity_key"
+                  ]
+                },
+                "staff": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "added_by": {
+                      "type": "integer"
+                    },
+                    "role_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "middle_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "can_access_system": {
+                      "type": "integer"
+                    },
+                    "home_phone": {
+                      "type": "string"
+                    },
+                    "business_Phone": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "fax": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "country_code": {
+                      "type": "string"
+                    },
+                    "address1": {
+                      "type": "string"
+                    },
+                    "address2": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "type": "string"
+                    },
+                    "note": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "email_address": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_login": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "hourly_rate": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "hourly_rate_currency_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_store_id": {
+                      "type": "integer"
+                    },
+                    "default_treasury_id": {
+                      "type": "integer"
+                    },
+                    "maximum_general_discount": {
+                      "type": "integer"
+                    },
+                    "language_code": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "attendance_restriction_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "default_account_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "citizenship_status": {
+                      "type": "string"
+                    },
+                    "residence_expiry_date": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "nationality": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "official_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "added_by",
+                    "role_id",
+                    "name",
+                    "middle_name",
+                    "last_name",
+                    "photo",
+                    "can_access_system",
+                    "home_phone",
+                    "business_Phone",
+                    "mobile",
+                    "fax",
+                    "country_code",
+                    "address1",
+                    "address2",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "note",
+                    "email_address",
+                    "password",
+                    "last_login",
+                    "active",
+                    "created",
+                    "hourly_rate",
+                    "hourly_rate_currency_code",
+                    "default_store_id",
+                    "default_treasury_id",
+                    "maximum_general_discount",
+                    "language_code",
+                    "branch_id",
+                    "full_name",
+                    "attendance_restriction_id",
+                    "type",
+                    "default_account_id",
+                    "citizenship_status",
+                    "residence_expiry_date",
+                    "nationality",
+                    "code",
+                    "official_id"
+                  ]
+                },
+                "work_order_client": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "group_price_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "is_offline": {
+                      "type": "integer"
+                    },
+                    "client_number": {
+                      "type": "string"
+                    },
+                    "staff_id": {
+                      "type": "integer"
+                    },
+                    "business_name": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "address1": {
+                      "type": "string"
+                    },
+                    "address2": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "type": "string"
+                    },
+                    "phone1": {
+                      "type": "string"
+                    },
+                    "phone2": {
+                      "type": "string"
+                    },
+                    "country_code": {
+                      "type": "string"
+                    },
+                    "notes": {
+                      "type": "string"
+                    },
+                    "active_secondary_address": {
+                      "type": "integer"
+                    },
+                    "secondary_name": {
+                      "type": "string"
+                    },
+                    "secondary_address1": {
+                      "type": "string"
+                    },
+                    "secondary_address2": {
+                      "type": "string"
+                    },
+                    "secondary_city": {
+                      "type": "string"
+                    },
+                    "secondary_state": {
+                      "type": "string"
+                    },
+                    "secondary_postal_code": {
+                      "type": "string"
+                    },
+                    "secondary_country_code": {
+                      "type": "string"
+                    },
+                    "language_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_currency_code": {
+                      "type": "string"
+                    },
+                    "last_login": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "suspend": {
+                      "type": "integer"
+                    },
+                    "last_ip": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    },
+                    "follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "bn1": {
+                      "type": "string"
+                    },
+                    "bn1_label": {
+                      "type": "string"
+                    },
+                    "bn2_label": {
+                      "type": "string"
+                    },
+                    "bn2": {
+                      "type": "string"
+                    },
+                    "starting_balance": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "photo": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "birth_date": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "gender": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "map_location": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "type": {
+                      "type": "integer"
+                    },
+                    "credit_limit": {
+                      "type": "integer"
+                    },
+                    "credit_period": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "national_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "attachment": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category_id": {
+                      "type": "integer"
+                    },
+                    "secondary_follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "timezone": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "tags": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "assigned_users": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "group_price_id",
+                    "is_offline",
+                    "client_number",
+                    "staff_id",
+                    "business_name",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "password",
+                    "address1",
+                    "address2",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "phone1",
+                    "phone2",
+                    "country_code",
+                    "notes",
+                    "active_secondary_address",
+                    "secondary_name",
+                    "secondary_address1",
+                    "secondary_address2",
+                    "secondary_city",
+                    "secondary_state",
+                    "secondary_postal_code",
+                    "secondary_country_code",
+                    "language_code",
+                    "default_currency_code",
+                    "last_login",
+                    "suspend",
+                    "last_ip",
+                    "created",
+                    "modified",
+                    "follow_up_status",
+                    "category",
+                    "bn1",
+                    "bn1_label",
+                    "bn2_label",
+                    "bn2",
+                    "starting_balance",
+                    "photo",
+                    "birth_date",
+                    "gender",
+                    "map_location",
+                    "type",
+                    "credit_limit",
+                    "credit_period",
+                    "branch_id",
+                    "national_id",
+                    "attachment",
+                    "category_id",
+                    "secondary_follow_up_status",
+                    "timezone",
+                    "tags",
+                    "assigned_users"
+                  ]
+                },
+                "branch": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "status",
+                    "created",
+                    "modified"
+                  ]
+                },
+                "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "reference_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "reference_id"
+                  ]
+                },
+                "work_order_follow_up_status": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "custom_data": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "client_id",
+                "number",
+                "title",
+                "start_date",
+                "description",
+                "delivery_date",
+                "delivery_appointment_id",
+                "follow_up_status_id",
+                "budget",
+                "budget_currency",
+                "status",
+                "created",
+                "modified",
+                "staff_id",
+                "client_data",
+                "extra_details",
+                "branch_id",
+                "workflow_type_id",
+                "attachments",
+                "assigned_users",
+                "tags",
+                "workflow_type",
+                "staff",
+                "work_order_client",
+                "branch",
+                "le_workflow-type-entity-{{workflow_id}}_custom_data",
+                "work_order_follow_up_status",
+                "custom_data"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid. A permission denial (valid token, no access) instead returns `401` with an `error` field.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Returned when the record cannot be loaded, including when the record id does not exist. The body is the plain text `error happened` (not JSON).",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__le_workflow-type-entity-_workflow_id_record_id_format",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

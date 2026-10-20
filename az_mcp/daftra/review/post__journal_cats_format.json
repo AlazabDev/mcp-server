@@ -1,0 +1,481 @@
+{
+  "path": "/journal_cats{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Journal Cat",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create a journal category — a folder in the chart of accounts that groups other categories and posting accounts.\n\nThis endpoint creates **categories only**. To create a posting account that journal entries can be booked to, use *Add New Journal Account* instead; an `account_type` sent in this request is ignored.\n\n**Required:** `code` and `name`.\n\n`code` must be **numeric**, and it must not already be used by another category **or** by a journal account — codes are shared across both. Use *GET All Journal Cats* and *GET All Journal Accounts* to find a free code; by convention a child's code extends its parent's (a child of `5` is numbered `51`, `52`, …).\n\n> **A code that is already in use does not return an error.** The request answers with `302` and a `Location` header pointing at the chart-of-accounts page, and no JSON body — so check that the code is free before posting, and configure your client not to follow redirects for this call.\n\nOmit `journal_cat_id` to create a top-level category, or set it to the reference of the parent category to nest this one beneath it.\n\nOnly the `JournalCat` object is read from the request body; any other top-level object is ignored. `Content-Type` must be `application/json`; another content type, or a body that is not valid JSON, returns `500`.\n\n> **Do not send `id` when creating.** If it holds the reference of an existing category, that category is overwritten instead of a new one being created. Use the *Edit Journal Cats* endpoint to change an existing category.\n\nRequires the *Manage Journal Accounts* permission.\n\nOn success the endpoint responds with `202 Accepted` and the reference of the new category.",
+    "tags": [
+      "Endpoints/Accounting/Journal Cats",
+      "Journal Cats"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "JournalCat": {
+                "type": "object",
+                "description": "The journal category to create.",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Code of the category. **Numeric only.** Must not already be used by another category or by a journal account. By convention a child's code extends its parent's — a child of category `5` is numbered `51`, `52`, and so on. A code that is already in use makes the request answer with `302` rather than a validation error."
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Name of the category, as it appears in the chart of accounts."
+                  },
+                  "type": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "default": 0,
+                    "description": "The normal balance side of the category — which side increases it. Defaults to `0` (Credit) when omitted, so set it explicitly: asset and expense categories are Debit, while liability, income and equity categories are Credit.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                  },
+                  "journal_cat_id": {
+                    "type": "integer",
+                    "default": -1,
+                    "description": "Reference of the parent category. Omit, or send `-1`, to create a top-level category. Take the value from *GET All Journal Cats* — this is the parent's reference, not its `code`."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Branch the category belongs to. Defaults to your current branch when omitted. Must reference an active branch, otherwise the category is rejected. Only relevant when branches are enabled for your account."
+                  },
+                  "entity_type": {
+                    "type": "string",
+                    "enum": [
+                      "assets",
+                      "current_assets",
+                      "fixed_assets",
+                      "liabilities",
+                      "current_liabilities",
+                      "owner_equity",
+                      "capital_profit_loss",
+                      "incomes",
+                      "other_incomes",
+                      "expenses",
+                      "other_expenses",
+                      "treasuries",
+                      "banks",
+                      "stores",
+                      "clients",
+                      "suppliers",
+                      "petty_cash",
+                      "insurance_agents",
+                      "income_taxes",
+                      "payable_tax",
+                      "deprecation_types",
+                      "depreciation_expenses",
+                      "payment_fees",
+                      "advance_payments"
+                    ],
+                    "description": "Marks the category as one of the account tree's built-in categories. **Leave empty for a category you create yourself** — a category carrying this marker is treated as a system default and cannot be deleted. Values name the built-in groups of the chart of accounts (asset, liability, equity, income and expense groups, and the groups that hold treasuries, banks, stores, clients, suppliers, taxes and depreciation)."
+                  },
+                  "entity_id": {
+                    "type": "integer",
+                    "description": "Reference of the record identified by `entity_type`. Only meaningful when `entity_type` is also set."
+                  },
+                  "disabled": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "default": 0,
+                    "description": "Whether the category is disabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Active (default) |\n| 1 | Disabled |"
+                  },
+                  "color": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "No longer used. Stored empty.",
+                    "default": "",
+                    "deprecated": true
+                  },
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Reference of the category. **Omit when creating.** If you send the reference of an existing category, that category is overwritten instead of a new one being created. Returned in the response as `id`."
+                  },
+                  "parent_cat_ids": {
+                    "type": "string",
+                    "description": "Comma-separated references of every ancestor category, ending with the immediate parent. Derived from `journal_cat_id`; any value sent is overwritten.",
+                    "readOnly": true
+                  },
+                  "level": {
+                    "type": "integer",
+                    "description": "Depth of the category in the account tree. Recalculated automatically after the category is saved.",
+                    "readOnly": true,
+                    "nullable": true
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Staff member associated with the category. Not populated when a category is created through the API.",
+                    "readOnly": true,
+                    "nullable": true
+                  },
+                  "total_debit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Accumulated debit total of the category. Maintained automatically from the journal entries posted beneath it; any value sent is ignored.",
+                    "readOnly": true
+                  },
+                  "total_credit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Accumulated credit total of the category. Maintained automatically from the journal entries posted beneath it; any value sent is ignored.",
+                    "readOnly": true
+                  },
+                  "is_recalculated": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether the category's totals are up to date. Maintained automatically.",
+                    "readOnly": true
+                  },
+                  "last_transaction_update": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the category's totals were last recalculated. Maintained automatically.",
+                    "readOnly": true
+                  },
+                  "is_hidden": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "default": 0,
+                    "description": "Whether the category is hidden in the chart of accounts. Maintained automatically.\n\n| Value | Meaning |\n|---|---|\n| 0 | Visible |\n| 1 | Hidden |",
+                    "readOnly": true
+                  },
+                  "created": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the category was created.",
+                    "readOnly": true
+                  },
+                  "modified": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the category was last updated.",
+                    "readOnly": true
+                  }
+                },
+                "required": [
+                  "code",
+                  "name"
+                ]
+              }
+            },
+            "required": [
+              "JournalCat"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "The journal category was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Reference of the created category."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "302": {
+        "description": "The `code` you sent is already used by another category or journal account. The response carries no body — only a `Location` header pointing at the chart-of-accounts page. Check the code is free before posting, and do not follow redirects for this call.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "headers": {
+          "Location": {
+            "required": true,
+            "description": "The chart-of-accounts page the request was redirected to.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "The category was rejected. Common causes are a missing or non-numeric `code`, a missing `name`, a suspended `branch_id`, or — on accounts that require every category to be assigned to a branch — a missing branch selection. `message` is `null` on this path; the detail is in `validation_errors`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Empty unless the failure has a specific category.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Empty unless the failure supplies extra context.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Present only when at least one field-level error was produced, keyed by the field that failed.",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "`Required` when omitted, `Numbers Only` when not numeric."
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "branch_id": {
+                      "type": "string"
+                    },
+                    "group_id": {
+                      "type": "string",
+                      "description": "Returned when your account requires each category to be assigned to a branch."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Always present; `null` for this status.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Always present; `null` for this status.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the *Manage Journal Accounts* permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Always present; `null` for this status.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Always present; `null` for this status.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "The request did not match a known endpoint — check the path and the format suffix. Creating a category never returns a record-not-found error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Always present; `null` for this status.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Always present; `null` for this status.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "405": {
+        "description": "The credentials used are not permitted to call this endpoint.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Always present; `null` for this status.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Always present; `null` for this status.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The request could not be read: the body was not valid JSON (`Problem parsing JSON input`) or `Content-Type` was not `application/json` (`Invalid content type`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Empty unless the failure has a specific category.",
+                  "nullable": true
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional context about the failure. Empty unless the failure supplies extra context.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__journal_cats_format"
+  },
+  "blockers": []
+}

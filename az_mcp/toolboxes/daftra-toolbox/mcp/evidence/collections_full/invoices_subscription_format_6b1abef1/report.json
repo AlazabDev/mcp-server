@@ -1,0 +1,8 @@
+{
+  "path": "/invoices/subscription{format}",
+  "complete": true,
+  "pages": 1,
+  "unique_records": 0,
+  "error": null,
+  "evidence": "evidence/collections_full/invoices_subscription_format_6b1abef1"
+}

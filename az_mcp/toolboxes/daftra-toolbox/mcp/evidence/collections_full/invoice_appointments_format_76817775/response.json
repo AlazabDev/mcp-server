@@ -1,0 +1,30 @@
+[
+  {
+    "InvoiceAppointment": {
+      "id": "104",
+      "item_type": "2",
+      "item_id": "313",
+      "staff_id": "6",
+      "date": "2026-08-02 10:00:00",
+      "body": "<p data-start=\"0\" data-end=\"83\" class=\"PDq2pG_selectionAnchorContainer\">Dear Abu Auf Management Team,</p><p data-start=\"116\" data-end=\"126\">Greetings,</p><p data-start=\"128\" data-end=\"243\">Please find attached the final report for the maintenance works completed across Abu Auf branches during 2025/2026.</p><p data-start=\"245\" data-end=\"277\">The submitted documents include:</p><ul data-start=\"279\" data-end=\"585\">\r\n<li data-section-id=\"1kx2fm8\" data-start=\"279\" data-end=\"375\">\r\nA detailed schedule showing the branch, execution date, scope of work, quantities, and prices.\r\n</li>\r\n<li data-section-id=\"tjzfu0\" data-start=\"376\" data-end=\"423\">\r\nA summary of the total value of each receipt.\r\n</li>\r\n<li data-section-id=\"kixrfs\" data-start=\"424\" data-end=\"516\">\r\nSupporting receipt images linked to their corresponding receipt numbers within the report.\r\n</li>\r\n<li data-section-id=\"9toe5k\" data-start=\"517\" data-end=\"585\">\r\nFinancial review and measurement tools included in the Excel file.\r\n</li>\r\n</ul><p data-start=\"587\" data-end=\"737\">The total value of the completed works before Value Added Tax is <strong data-start=\"652\" data-end=\"670\">EGP 795,765.00</strong>, in accordance with the attached details and supporting documents.</p><p data-start=\"739\" data-end=\"836\">Kindly review and approve the submitted works and proceed with the required financial procedures.</p><p data-start=\"838\" data-end=\"869\">Thank you for your cooperation.</p><p data-start=\"871\" data-end=\"884\">Best regards,</p>",
+      "action_id": "59",
+      "status": "0",
+      "status_date": null,
+      "post_id": "0",
+      "recurring_appointment_id": null,
+      "created": "2026-07-31 22:06:44",
+      "modified": "2026-07-31 22:06:44",
+      "end_date": "2026-08-02 11:00:00",
+      "partner_type": "1",
+      "partner_id": "11",
+      "share_with_partner": "0",
+      "branch_id": "1",
+      "is_waiting": "0",
+      "start_date": "2026-08-02",
+      "start_time": "10:00:00",
+      "end_date2": "2026-08-02",
+      "end_time": "11:00:00",
+      "duration": "1:0"
+    }
+  }
+]

@@ -1,0 +1,1114 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].PurchaseOrder": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].PurchaseOrder.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.no": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.po_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.is_offline": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_first_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.draft": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.issued": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.discount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.deposit": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.deposit_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.due_after": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.issue_date": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.date_format": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.language_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.label_invoice_no": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_po_no": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_total": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_due_after": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_due_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_deposit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_paid_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_unpaid_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_subtotal": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_description": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_item": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_quantity": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_unit_price": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_item_total": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_from_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.label_to_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.summary_tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.summary_subtotal": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.summary_tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.summary_discount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.summary_total": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.adjustment_label": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.adjustment_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.summary_paid": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.summary_unpaid": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.summary_deposit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.notes": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.html_notes": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.required_terms": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.terms": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.terms_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.from": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.to": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.required_terms_file": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.invoice_layout_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.last_sent": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.subscription_notify": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.show_from_to": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.subscription_issue_before": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.shipping_options": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_active_secondary_address": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_country_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_address1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_address2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_city": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_state": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_secondary_postal_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.is_received": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.received_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.follow_up_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.discount_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.shipping_amount": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.payment_status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.store_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.work_order_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.summary_refund": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.subscription_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.inventory_request_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.item_columns": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.source_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.extra_details": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.requisition_delivery_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.approved_by": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.item_discount_amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.shipping_tax_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_bn1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_bn1_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_bn2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.supplier_bn2_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.deleted_at": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.due_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.is_offline": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.supplier_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.first_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.phone1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.phone2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.notes": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.active_secondary_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_address1": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_address2": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_city": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_state": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_postal_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.secondary_country_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.language_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.default_currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.last_login": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.suspend": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.last_ip": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.follow_up_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.bn1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.bn1_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.bn2_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.bn2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].PurchaseOrder.Supplier.unique_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.added_by": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.role_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.type": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.middle_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.last_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.full_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.photo": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.can_access_system": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.home_phone": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.business_Phone": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.mobile": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.fax": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.country_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.address1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.address2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.city": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.state": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.postal_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.note": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.email_address": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.last_login": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.active": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.deleted": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.created": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.follow_up_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.hourly_rate": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.hourly_rate_currency_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.default_store_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.default_treasury_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.maximum_general_discount": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.language_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.branch_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.default_account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.attendance_restriction_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.auth_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.citizenship_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.nationality": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.official_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.residence_expiry_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.deleted_at": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.modified": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.smtp_email_address_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.official_id_unique_check": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.global_user_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.is_synced": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].PurchaseOrder.Staff.last_synced_at": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

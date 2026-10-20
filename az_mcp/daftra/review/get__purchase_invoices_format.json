@@ -1,0 +1,196 @@
+{
+  "path": "/purchase_invoices{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Purchase Invoices",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of purchase invoices, most recent first. Supports free-text search and filtering by payment status, work order, source document, line items, and custom fields.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Invoices",
+      "Purchase Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The collection items page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "keywords",
+        "in": "query",
+        "description": "Free-text search across supplier business name, supplier first/last name, supplier email, supplier number, and the purchase invoice number.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "payment_status",
+        "in": "query",
+        "description": "Filter by payment status. Omit to return all non-draft invoices.\n\n| Value | Meaning |\n|---|---|\n| -1 | Draft invoices only |\n| 0 | Unpaid |\n| 1 | Partially paid |\n| 2 | Paid |\n| 4 | Over-paid |\nfilter with any payment status >= 0 will ignore drafts\nfilter with payment _status = -1 will get u only the drafts",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "work_order_id",
+        "in": "query",
+        "description": "Filter by the linked work order id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "source_type",
+        "in": "query",
+        "description": "Filter by the source document type the invoice was created from (used together with `source_id`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "source_id",
+        "in": "query",
+        "description": "Filter by the source document id the invoice was created from (used together with `source_type`).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "filter[item]",
+        "in": "query",
+        "description": "Search within the invoice line items (item name, description, and the additional columns).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[custom_field]",
+        "in": "query",
+        "description": "Search within the invoice custom-field values.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "PurchaseOrder": {
+                        "allOf": [
+                          {}
+                        ]
+                      }
+                    }
+                  }
+                },
+                "pagination": {}
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__purchase_invoices_format"
+  },
+  "blockers": []
+}

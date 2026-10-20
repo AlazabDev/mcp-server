@@ -1,0 +1,74 @@
+{
+  "Note": [
+    "object"
+  ],
+  "Note.NoteAttachment": [
+    "array"
+  ],
+  "Note.action_id": [
+    "null",
+    "string"
+  ],
+  "Note.body": [
+    "null",
+    "string"
+  ],
+  "Note.branch_id": [
+    "string"
+  ],
+  "Note.client_permissions": [
+    "null"
+  ],
+  "Note.created": [
+    "string"
+  ],
+  "Note.date": [
+    "string"
+  ],
+  "Note.follow_up_id": [
+    "null",
+    "string"
+  ],
+  "Note.id": [
+    "string"
+  ],
+  "Note.item_id": [
+    "string"
+  ],
+  "Note.item_type": [
+    "string"
+  ],
+  "Note.modified": [
+    "string"
+  ],
+  "Note.partner_id": [
+    "null",
+    "string"
+  ],
+  "Note.partner_type": [
+    "null",
+    "string"
+  ],
+  "Note.share_with_partner": [
+    "string"
+  ],
+  "Note.show_preview": [
+    "null"
+  ],
+  "Note.staff_id": [
+    "string"
+  ],
+  "Note.status_id": [
+    "null",
+    "string"
+  ],
+  "Note.type": [
+    "string"
+  ],
+  "Note.url": [
+    "null"
+  ],
+  "Note.user_permissions": [
+    "null"
+  ]
+}

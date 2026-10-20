@@ -1,0 +1,113 @@
+{
+  "path": "/designation/id/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Designation",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Organizational Structure/Designation"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "active": {
+                  "type": "integer"
+                },
+                "role_id": {
+                  "type": "integer"
+                },
+                "department_id": {
+                  "type": "integer"
+                },
+                "employment_type_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "employment_level_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "salary_structure_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "payroll_frequency": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "currency_code": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "description",
+                "active",
+                "role_id",
+                "department_id",
+                "employment_type_id",
+                "employment_level_id",
+                "salary_structure_id",
+                "payroll_frequency",
+                "currency_code",
+                "created",
+                "modified"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__designation_id"
+  },
+  "blockers": [
+    "Literal /id in source; confirm actual route and identifier parameter"
+  ]
+}

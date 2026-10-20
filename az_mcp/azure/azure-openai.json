@@ -1,0 +1,104 @@
+{
+  "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-azure-openai",
+  "name": "az-azure-openai",
+  "kind": "OpenAI",
+  "resourceGroup": "azab-rg-ai",
+  "subscriptionId": "1363114a-a1d7-4abb-8042-dcdebf91e2c9",
+  "isValid": true,
+  "location": "eastus2",
+  "provisioningState": "Succeeded",
+  "endpoint": "https://az-azure-openai.openai.azure.com/",
+  "endpoints": {
+    "OpenAI Language Model Instance API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Dall-E API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Whisper API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Model Scaleset API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Sora API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Moderations API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Realtime API": "https://az-azure-openai.openai.azure.com/",
+    "Token Service API": "https://az-azure-openai.openai.azure.com/",
+    "Azure OpenAI Legacy API - Latest moniker": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Response API on Websocket": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Realtime Translation WebSocket API": "https://az-azure-openai.openai.azure.com/",
+    "OpenAI Realtime Live WebSocket API": "https://az-azure-openai.openai.azure.com/"
+  },
+  "plan": "S0",
+  "internalId": "99d773109c144bdfa396746eef94f8a9",
+  "createdAt": "2026-08-06T11:53:46.9083008Z",
+  "createdBy": "admin@alazabgo.onmicrosoft.com",
+  "disableLocalAuth": false,
+  "tags": {
+    "az-criticality": "critical",
+    "az-domain": "ai-azab.co",
+    "az-owner": "azab",
+    "service": "ai",
+    "az-env": "prod"
+  },
+  "capabilities": [
+    {
+      "name": "VirtualNetworks"
+    },
+    {
+      "name": "CustomerManagedKey"
+    },
+    {
+      "name": "EnabledApimVnet",
+      "value": "true"
+    },
+    {
+      "name": "useEndpointRateLimiter",
+      "value": "Enabled"
+    },
+    {
+      "name": "MaxFineTuneCount",
+      "value": "500"
+    },
+    {
+      "name": "MaxRunningFineTuneCount",
+      "value": "1"
+    },
+    {
+      "name": "MaxUserFileCount",
+      "value": "100"
+    },
+    {
+      "name": "MaxTrainingFileSize",
+      "value": "512000000"
+    },
+    {
+      "name": "MaxUserFileImportDurationInHours",
+      "value": "1"
+    },
+    {
+      "name": "MaxFineTuneJobDurationInHours",
+      "value": "720"
+    },
+    {
+      "name": "MaxEvaluationRunDurationInHours",
+      "value": "5"
+    },
+    {
+      "name": "MaxRunningEvaluationCount",
+      "value": "5"
+    },
+    {
+      "name": "MaxRunningGlobalStandardFineTuneCount",
+      "value": "3"
+    },
+    {
+      "name": "TrustedServices",
+      "value": "Microsoft.CognitiveServices,Microsoft.MachineLearningServices,Microsoft.Search,Microsoft.VideoIndexer"
+    },
+    {
+      "name": "NetworkSecurityPerimeter"
+    },
+    {
+      "name": "RaiMonitor"
+    },
+    {
+      "name": "quotaRefundsEnabled",
+      "value": "false"
+    }
+  ],
+  "publicNetworkAccess": "Enabled"
+}

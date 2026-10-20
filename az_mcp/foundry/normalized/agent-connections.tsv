@@ -1,0 +1,16 @@
+az-agent-copilot	mcp	kb-az-knowledgebase-da-8blqr	kb-az-knowledgebase-da-8blqr
+az-agent-copilot	mcp	az-uberfix-mcp	az-uberfix-mcp
+az-agent-copilot	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr
+az-agent-bim	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr
+az-agent-maint	mcp	AzureSpeechMCPServer	AzureSpeechMCPServer
+az-agent-maint	mcp	kb-az-knowledgebase-da-8blqr	kb-az-knowledgebase-da-8blqr
+az-agent-maint	a2a_preview		/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/a2a-maint-to-prod
+az-agent-maint	mcp	UberFixMCP	UberFixMCP
+az-agent-project	mcp	az-uberfix-mcp	az-uberfix-mcp
+az-agent-core	mcp	kb-az-knowledgebase-da-8blqr	kb-az-knowledgebase-da-8blqr
+az-agent-azabot	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr
+az-agent-backend	mcp	AzureSpeechMCPServer	AzureSpeechMCPServer
+az-agent-backend	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr
+az-agent-auth	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr
+az-agent-prod	a2a_preview		/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/a2a-prod-to-maint
+az-agent-prod	mcp	kb-az-knowledge-8blqr	kb-az-knowledge-8blqr

@@ -1,0 +1,8 @@
+{
+  "path": "/stock_transactions{format}",
+  "complete": true,
+  "pages": 5,
+  "unique_records": 496,
+  "error": null,
+  "evidence": "evidence/collections_full/stock_transactions_format_3f6fd404"
+}

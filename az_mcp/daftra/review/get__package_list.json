@@ -1,0 +1,312 @@
+{
+  "path": "/package/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Packages",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of packages (membership and credit-charge packages) for the account.\n\n### Ordering\nNewest first — `id` descending — unless you pass a `sort` parameter.\n\n### Branch scoping\nWhen the Branches add-on is enabled, results are automatically limited to your current branch. To widen the scope:\n\n| Goal | How |\n|---|---|\n| A specific branch | `request_branch_id=<branch id>` |\n| Every branch you have access to | `filter[branch_id][equal]=-1` |\n\nPackages stored without a branch are not returned while branch scoping is in effect.\n\n### Deleted packages\nDeleted packages are excluded, so `deleted_at` is always `null` in this response. Fetch a deleted package directly by its id if you need it.\n\n### Filtering\nUse `filter[<field>][<operator>]=<value>`. Omitting the operator means `equal` — `filter[status]=1` is the same as `filter[status][equal]=1`.\n\n| Operator | Meaning |\n|---|---|\n| `equal` | equals (default) |\n| `not_equal` | not equal |\n| `in` / `not_in` | in / not in a list of values |\n| `like` | partial text match |\n| `gt` / `gte` / `from` | greater than / greater than or equal |\n| `lt` / `lte` / `to` | less than / less than or equal |\n| `is_null` / `is_not_null` | value is / is not empty |\n\nFields intended for filtering: `name`, `price`, `period_value`, `status`, `product_id`. Filtering on an unrecognised field returns `400`.\n\n### Sorting\nUse `sort[<field>]=asc` or `sort[<field>]=desc`, e.g. `sort[name]=asc`.\n\n### Notes\n- The trailing `1` in the path is an optional data-detail level. It has no effect for packages, which are always returned as flat records.\n- A `fields[]` parameter is not supported; the complete record is always returned.",
+    "tags": [
+      "Endpoints/Points & Credits/Packages"
+    ],
+    "parameters": [
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Records per page. Defaults to `20` when omitted.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "filter[status][equal]",
+        "in": "query",
+        "description": "Example filter. Any `filter[<field>][<operator>]` combination described above is accepted.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "sort[name]",
+        "in": "query",
+        "description": "Example sort. Any `sort[<field>]=asc|desc` combination is accepted.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "request_branch_id",
+        "in": "query",
+        "description": "Run the request against a specific branch instead of your current one.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A page of packages.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer",
+                  "description": "The page that was returned."
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The packages on this page.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Package id."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Package name."
+                      },
+                      "price": {
+                        "type": "number",
+                        "description": "Package price. May contain decimals."
+                      },
+                      "period_value": {
+                        "type": "integer",
+                        "description": "How many `period_unit` intervals the package covers, e.g. `3` with `monthly` means three months."
+                      },
+                      "period_unit": {
+                        "type": "string",
+                        "description": "The unit the validity period is counted in.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                        "enum": [
+                          "daily",
+                          "weekly",
+                          "monthly",
+                          "yearly",
+                          "not-expired"
+                        ]
+                      },
+                      "status": {
+                        "type": "integer",
+                        "description": "Whether the package can be sold.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                        "enum": [
+                          0,
+                          1
+                        ]
+                      },
+                      "product_id": {
+                        "type": "integer",
+                        "description": "Id of the product this package is linked to, or `null` when it is not linked to one.",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text description, or `null`.",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "description": "Creation timestamp, `YYYY-MM-DD HH:MM:SS`."
+                      },
+                      "modified": {
+                        "type": "string",
+                        "description": "Last-modification timestamp, `YYYY-MM-DD HH:MM:SS`."
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "description": "Always `null` here — deleted packages are excluded from the list.",
+                        "nullable": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "What the package sells.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                        "enum": [
+                          "credit_charge",
+                          "membership"
+                        ]
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "description": "Branch the package belongs to, or `null` when it is not assigned to one.",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "price",
+                      "period_value",
+                      "period_unit",
+                      "status",
+                      "product_id",
+                      "description",
+                      "created",
+                      "modified",
+                      "deleted_at",
+                      "type",
+                      "branch_id"
+                    ]
+                  }
+                },
+                "first_page_url": {
+                  "type": "string",
+                  "description": "URL of the first page."
+                },
+                "from": {
+                  "type": "integer",
+                  "description": "Index of the first record on this page, or `null` when the page is empty.",
+                  "nullable": true
+                },
+                "last_page": {
+                  "type": "integer",
+                  "description": "Number of the last page."
+                },
+                "last_page_url": {
+                  "type": "string",
+                  "description": "URL of the last page."
+                },
+                "links": {
+                  "type": "array",
+                  "description": "Ready-made pagination links: a previous entry, one entry per page number, then a next entry.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "Target URL, or `null` when there is no such page.",
+                        "nullable": true
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Display label — a page number, or a previous/next label."
+                      },
+                      "page": {
+                        "type": "integer",
+                        "description": "Page number the entry points at, or `null`. Omitted on gap (`...`) entries.",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "description": "`true` for the page currently returned."
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "label",
+                      "active"
+                    ]
+                  }
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "description": "URL of the next page, or `null` on the last page.",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Base URL of the listing."
+                },
+                "per_page": {
+                  "type": "integer",
+                  "description": "Records per page that was applied."
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "description": "URL of the previous page, or `null` on the first page.",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer",
+                  "description": "Index of the last record on this page, or `null` when the page is empty.",
+                  "nullable": true
+                },
+                "total": {
+                  "type": "integer",
+                  "description": "Total number of matching packages."
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "first_page_url",
+                "from",
+                "last_page",
+                "last_page_url",
+                "links",
+                "next_page_url",
+                "path",
+                "per_page",
+                "prev_page_url",
+                "to",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The listing could not be produced.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Why the listing could not be produced — for example the Points & Credits add-on is not active for the account, or a filter referenced an unknown field."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed, or the caller may not view packages.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when the access token is missing, expired or invalid."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Returned instead of `message` when the account is authenticated but not permitted to view packages."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__package_list"
+  },
+  "blockers": []
+}

@@ -1,0 +1,69 @@
+{
+  "JournalCat": [
+    "object"
+  ],
+  "JournalCat.branch_id": [
+    "string"
+  ],
+  "JournalCat.code": [
+    "string"
+  ],
+  "JournalCat.color": [
+    "string"
+  ],
+  "JournalCat.created": [
+    "string"
+  ],
+  "JournalCat.disabled": [
+    "string"
+  ],
+  "JournalCat.entity_id": [
+    "null",
+    "string"
+  ],
+  "JournalCat.entity_type": [
+    "string"
+  ],
+  "JournalCat.id": [
+    "string"
+  ],
+  "JournalCat.is_hidden": [
+    "string"
+  ],
+  "JournalCat.is_recalculated": [
+    "string"
+  ],
+  "JournalCat.is_suspended": [
+    "string"
+  ],
+  "JournalCat.journal_cat_id": [
+    "string"
+  ],
+  "JournalCat.last_transaction_update": [
+    "string"
+  ],
+  "JournalCat.level": [
+    "string"
+  ],
+  "JournalCat.modified": [
+    "string"
+  ],
+  "JournalCat.name": [
+    "string"
+  ],
+  "JournalCat.parent_cat_ids": [
+    "string"
+  ],
+  "JournalCat.staff_id": [
+    "null"
+  ],
+  "JournalCat.total_credit": [
+    "string"
+  ],
+  "JournalCat.total_debit": [
+    "string"
+  ],
+  "JournalCat.type": [
+    "string"
+  ]
+}

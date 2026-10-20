@@ -1,0 +1,318 @@
+{
+  "path": "/staff{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Staff",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new staff member.\n\nSend the request body as `application/json` with the staff fields wrapped in a top-level `Staff` object. `name`, `email_address`, and `role_id` are required; `email_address` must be unique. `password` is optional. The new member is created as active and assigned to the current branch automatically. Requires the **Add New Staff** permission.\n\nReturns `202` with the new staff member's `id`. Creating a staff member may be blocked by your subscription's staff limit, which returns `402`.",
+    "tags": [
+      "Endpoints/Staff",
+      "Staff"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Optional response-format suffix appended to the path, e.g. `.json`. Leave empty to receive the default JSON response.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Staff": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "The staff member's name. **Required.**"
+                  },
+                  "email_address": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 255,
+                    "description": "Login email address. **Required.** Must be unique across the account."
+                  },
+                  "role_id": {
+                    "type": "integer",
+                    "description": "Role assigned to the staff member. **Required.** Obtain valid ids from the general listing (send `Role` as the model)."
+                  },
+                  "password": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 4,
+                    "writeOnly": true,
+                    "description": "Login password (at least 4 characters). Optional — when omitted the staff member is created without a usable password and you can send login details later."
+                  },
+                  "code": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Optional staff reference code."
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "user",
+                      "employee"
+                    ],
+                    "description": "Staff record type. Defaults to `user` when omitted.\n\n| Value | Meaning |\n|---|---|\n| user | System user |\n| employee | Employee record |"
+                  },
+                  "middle_name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Middle name."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Last name."
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Mobile number."
+                  },
+                  "home_phone": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Home phone number."
+                  },
+                  "business_Phone": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Business phone number."
+                  },
+                  "fax": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Fax number."
+                  },
+                  "country_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Country ISO ALPHA-2 code."
+                  },
+                  "address1": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Address line 1."
+                  },
+                  "address2": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Address line 2."
+                  },
+                  "city": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "City."
+                  },
+                  "state": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "State / province."
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Postal code."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Free-text note about the staff member."
+                  },
+                  "hourly_rate": {
+                    "type": "number",
+                    "description": "Hourly rate for the staff member.",
+                    "nullable": true
+                  },
+                  "hourly_rate_currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Currency code (ISO 4217) for the hourly rate."
+                  },
+                  "default_store_id": {
+                    "type": "integer",
+                    "description": "Default store id for the staff member."
+                  },
+                  "default_treasury_id": {
+                    "type": "integer",
+                    "description": "Default treasury id for the staff member."
+                  },
+                  "language_code": {
+                    "type": "integer",
+                    "description": "Default interface language id for the staff member."
+                  },
+                  "maximum_general_discount": {
+                    "type": "number",
+                    "description": "Maximum discount amount this staff member may apply. Leave null for no limit.",
+                    "nullable": true
+                  },
+                  "follow_up_status": {
+                    "type": "integer",
+                    "description": "Follow-up status id.",
+                    "nullable": true
+                  },
+                  "nationality": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Nationality ISO code."
+                  },
+                  "official_id": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "National / official identification number."
+                  }
+                },
+                "required": [
+                  "name",
+                  "email_address",
+                  "role_id"
+                ]
+              }
+            },
+            "required": [
+              "Staff"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Staff member created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "The new staff member's identifier."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed. The `validation_errors` object maps each rejected field to its reason.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid credentials.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "402": {
+        "description": "The account's staff limit has been reached for the current subscription plan.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the required staff-management permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__staff_format"
+  },
+  "blockers": []
+}

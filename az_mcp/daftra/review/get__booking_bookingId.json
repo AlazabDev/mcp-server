@@ -1,0 +1,118 @@
+{
+  "path": "/booking/{bookingId}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Booking",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single booking by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag.\n\nThe successful response is a **flat object** of the booking's fields (it is not wrapped in a `data` envelope) and may include related records and a `custom_data` object.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+    "tags": [
+      "Endpoints/Bookings/Booking (Beta version)"
+    ],
+    "parameters": [
+      {
+        "name": "bookingId",
+        "in": "path",
+        "description": "The id of the booking to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The booking record (flat object, plus any related records and custom_data).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A single booking record, returned flat (not wrapped). Fields depend on the account's booking configuration.",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Booking id."
+                },
+                "no": {
+                  "type": "string",
+                  "description": "Booking number."
+                },
+                "date": {
+                  "type": "string",
+                  "description": "Booking date."
+                },
+                "start_time": {
+                  "type": "string",
+                  "description": "Start time."
+                },
+                "end_time": {
+                  "type": "string",
+                  "description": "End time (calculated from the services)."
+                },
+                "client_id": {
+                  "type": "integer",
+                  "description": "Client id."
+                },
+                "staff_id": {
+                  "type": "integer",
+                  "description": "Assigned staff id."
+                },
+                "payment_status": {
+                  "type": "integer",
+                  "description": "Booking status code (0 Pending, 1 Confirmed, 2 Invoiced, 3 Cancelled, 4 Done)."
+                },
+                "custom_data": {
+                  "type": "object",
+                  "description": "Custom-field values for the booking, when present.",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The authenticated user lacks permission to view bookings.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Returned as plain text `error happened` when the record cannot be fetched — including when the id does not exist (a not-found case is not surfaced as 404).",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__booking_bookingId",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

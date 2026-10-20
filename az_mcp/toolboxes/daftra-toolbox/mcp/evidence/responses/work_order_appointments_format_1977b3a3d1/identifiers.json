@@ -1,0 +1,54 @@
+{
+  "data[].WorkOrderAppointment.id": [
+    "84",
+    "76",
+    "77",
+    "88",
+    "73",
+    "90",
+    "75",
+    "91",
+    "92",
+    "93",
+    "94",
+    "63",
+    "95",
+    "78",
+    "97",
+    "99"
+  ],
+  "data[].WorkOrderAppointment.item_id": [
+    "13",
+    "12",
+    "14",
+    "15"
+  ],
+  "data[].WorkOrderAppointment.staff_id": [
+    "0",
+    "6"
+  ],
+  "data[].WorkOrderAppointment.action_id": [
+    "27",
+    "71",
+    "70",
+    "38",
+    "72",
+    "69",
+    "74",
+    "67",
+    "66",
+    "17",
+    "34",
+    "68",
+    "36"
+  ],
+  "data[].WorkOrderAppointment.post_id": [
+    "0"
+  ],
+  "data[].WorkOrderAppointment.partner_id": [
+    "11"
+  ],
+  "data[].WorkOrderAppointment.branch_id": [
+    "1"
+  ]
+}

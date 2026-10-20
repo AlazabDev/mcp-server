@@ -1,0 +1,86 @@
+{
+  "path": "/clients/client_has_membership{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Client Has Membership",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Resolves a client by `barcode` and reports whether they have an active membership. The barcode is supplied in the `q` query parameter; there is no request body. When the barcode resolves to a client with an active membership the response includes the `membership` record; otherwise it returns a `message` indicating no membership or that the client was not found.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "q",
+        "in": "query",
+        "description": "The client's barcode. Resolved to a client via barcode lookup.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The resolved client has an active membership.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "membership": {
+                  "type": "object",
+                  "description": "The client's active (non-deleted) membership record.",
+                  "additionalProperties": true,
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__clients_client_has_membership_format"
+  },
+  "blockers": []
+}

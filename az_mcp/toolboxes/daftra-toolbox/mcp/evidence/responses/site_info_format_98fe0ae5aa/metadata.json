@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/site_info{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1198,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:17:18.999905+00:00"
+}

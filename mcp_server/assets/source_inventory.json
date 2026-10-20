@@ -1,0 +1,14 @@
+{
+  "source_archive": "mcp-server.zip",
+  "source_sha256": "8a5a09ec4f39d118e7a1498765e0c2a362142e86a7933f89a1a55c4d663290a8",
+  "counts": {
+    "plugins": 13,
+    "connectors": 18,
+    "skills": 5,
+    "capabilities": 371
+  },
+  "notes": [
+    "Foundry skill inventory contains metadata only; not treated as executable instructions.",
+    "All source folders retained; runtime only imports canonical specifications."
+  ]
+}

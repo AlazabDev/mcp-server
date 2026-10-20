@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/products/brands{format}",
+  "http_status": 200,
+  "content_type": "application/json",
+  "elapsed_ms": 951,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:17:55.732326+00:00"
+}

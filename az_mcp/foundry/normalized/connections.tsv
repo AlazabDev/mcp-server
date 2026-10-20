@@ -1,0 +1,14 @@
+azairesourceappinsighb8blqr	AppInsights	/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/microsoft.insights/components/az-ai-resource-appinsights	
+FoundryMCPServerpreview	RemoteTool	https://mcp.ai.azure.com	
+AzureSpeechMCPServer	RemoteTool	https://az-ai-resource.cognitiveservices.azure.com/speech/mcp?api-version=2025-11-07-preview	
+aisearchazabrgai13631b8blqr	CognitiveSearch	https://aisearchazabrgai136311.search.windows.net/	
+UberFixMCPServer	RemoteTool	https://mcp.svc.cloud.microsoft/enterprise	
+az-uberfix-mcp	RemoteTool	https://az-ai-gateway.azure-api.net/tool-az-ai-gateway-alazab-com-mcp-uberfix-sse	
+kb-az-knowledgebase-da-8blqr	RemoteTool	https://aisearchazabrgai136311.search.windows.net/knowledgebases/az-knowledgebase-daftra/mcp?api-version=2026-05-01-preview	
+AzureDevOpsMCPServerpreview	RemoteTool	https://mcp.dev.azure.com/azab	
+a2a-prod-to-maint	RemoteA2A	https://az-ai-resource.services.ai.azure.com/api/projects/az-ai-gateway/agents/az-agent-maint/endpoint/protocols/a2a	
+a2a-maint-to-prod	RemoteA2A	https://az-ai-resource.services.ai.azure.com/api/projects/az-ai-gateway/agents/az-agent-prod/endpoint/protocols/a2a	
+kb-az-knowledge-8blqr	RemoteTool	https://aisearchazabrgai136311.search.windows.net/knowledgebases/az-knowledge/mcp?api-version=2026-08-01-preview	
+AzWorkIQ	RemoteTool	https://agent365.svc.cloud.microsoft/agents/servers/mcp_WordServer	
+FoundryMCPServerpreview2	RemoteTool	https://mcp.ai.azure.com	
+UberFixMCP	RemoteTool	https://az-ai-gateway.azure-api.net/tool-az-ai-gateway-zrrffsjbfkphridqyais-supabase-co-functions-v1-bot-gateway	

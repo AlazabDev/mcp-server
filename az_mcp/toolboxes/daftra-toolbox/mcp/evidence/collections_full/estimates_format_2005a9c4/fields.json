@@ -1,0 +1,651 @@
+{
+  "Estimate": [
+    "object"
+  ],
+  "Estimate.Client": [
+    "object"
+  ],
+  "Estimate.Client.active_secondary_address": [
+    "string"
+  ],
+  "Estimate.Client.address1": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.address2": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.birth_date": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.bn1": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.bn1_label": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.bn2": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.bn2_label": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.branch_id": [
+    "string"
+  ],
+  "Estimate.Client.business_name": [
+    "string"
+  ],
+  "Estimate.Client.category": [
+    "string"
+  ],
+  "Estimate.Client.category_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.city": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.client_number": [
+    "string"
+  ],
+  "Estimate.Client.country_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.created": [
+    "string"
+  ],
+  "Estimate.Client.credit_limit": [
+    "string"
+  ],
+  "Estimate.Client.credit_period": [
+    "string"
+  ],
+  "Estimate.Client.default_currency_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.email": [
+    "string"
+  ],
+  "Estimate.Client.extra_details": [
+    "null"
+  ],
+  "Estimate.Client.first_name": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.gender": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.group_price_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.id": [
+    "string"
+  ],
+  "Estimate.Client.is_government_entity": [
+    "integer"
+  ],
+  "Estimate.Client.is_offline": [
+    "string"
+  ],
+  "Estimate.Client.language_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.last_ip": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.last_login": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.last_name": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.link": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.map_location": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.modified": [
+    "string"
+  ],
+  "Estimate.Client.national_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.notes": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.original_site_id": [
+    "null"
+  ],
+  "Estimate.Client.phone1": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.phone2": [
+    "string"
+  ],
+  "Estimate.Client.photo": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.postal_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_address1": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_address2": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_city": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_name": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.secondary_state": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.site_id": [
+    "string"
+  ],
+  "Estimate.Client.staff_id": [
+    "string"
+  ],
+  "Estimate.Client.starting_balance": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.state": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.suspend": [
+    "string"
+  ],
+  "Estimate.Client.timezone": [
+    "null",
+    "string"
+  ],
+  "Estimate.Client.type": [
+    "null",
+    "string"
+  ],
+  "Estimate.active": [
+    "string"
+  ],
+  "Estimate.address_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.adjustment_label": [
+    "string"
+  ],
+  "Estimate.adjustment_value": [
+    "string"
+  ],
+  "Estimate.auto_payment": [
+    "null"
+  ],
+  "Estimate.branch_id": [
+    "string"
+  ],
+  "Estimate.client_active_secondary_address": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_address1": [
+    "string"
+  ],
+  "Estimate.client_address2": [
+    "string"
+  ],
+  "Estimate.client_bn1": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_bn1_label": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_bn2": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_bn2_label": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_business_name": [
+    "string"
+  ],
+  "Estimate.client_city": [
+    "string"
+  ],
+  "Estimate.client_country_code": [
+    "string"
+  ],
+  "Estimate.client_email": [
+    "string"
+  ],
+  "Estimate.client_first_name": [
+    "string"
+  ],
+  "Estimate.client_id": [
+    "string"
+  ],
+  "Estimate.client_is_government_entity": [
+    "integer"
+  ],
+  "Estimate.client_last_name": [
+    "string"
+  ],
+  "Estimate.client_national_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_phone1": [
+    "null",
+    "string"
+  ],
+  "Estimate.client_phone2": [
+    "string"
+  ],
+  "Estimate.client_postal_code": [
+    "string"
+  ],
+  "Estimate.client_secondary_address1": [
+    "string"
+  ],
+  "Estimate.client_secondary_address2": [
+    "string"
+  ],
+  "Estimate.client_secondary_city": [
+    "string"
+  ],
+  "Estimate.client_secondary_country_code": [
+    "string"
+  ],
+  "Estimate.client_secondary_name": [
+    "string"
+  ],
+  "Estimate.client_secondary_postal_code": [
+    "string"
+  ],
+  "Estimate.client_secondary_state": [
+    "string"
+  ],
+  "Estimate.client_state": [
+    "string"
+  ],
+  "Estimate.client_type": [
+    "null",
+    "string"
+  ],
+  "Estimate.created": [
+    "string"
+  ],
+  "Estimate.currency_code": [
+    "string"
+  ],
+  "Estimate.date": [
+    "string"
+  ],
+  "Estimate.date_format": [
+    "null"
+  ],
+  "Estimate.deleted_at": [
+    "null"
+  ],
+  "Estimate.deposit": [
+    "string"
+  ],
+  "Estimate.deposit_type": [
+    "string"
+  ],
+  "Estimate.discount": [
+    "null",
+    "string"
+  ],
+  "Estimate.discount_amount": [
+    "null"
+  ],
+  "Estimate.draft": [
+    "string"
+  ],
+  "Estimate.due_after": [
+    "string"
+  ],
+  "Estimate.due_date": [
+    "string"
+  ],
+  "Estimate.e_invoice_status": [
+    "string"
+  ],
+  "Estimate.estimate_id": [
+    "null"
+  ],
+  "Estimate.external_source": [
+    "null"
+  ],
+  "Estimate.extra_details": [
+    "string"
+  ],
+  "Estimate.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Estimate.from": [
+    "null"
+  ],
+  "Estimate.group_price_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.html_notes": [
+    "string"
+  ],
+  "Estimate.id": [
+    "string"
+  ],
+  "Estimate.income_id": [
+    "null"
+  ],
+  "Estimate.inventory_request_status": [
+    "null"
+  ],
+  "Estimate.invoice_html_url": [
+    "string"
+  ],
+  "Estimate.invoice_layout_id": [
+    "string"
+  ],
+  "Estimate.invoice_pdf_url": [
+    "string"
+  ],
+  "Estimate.is_offline": [
+    "string"
+  ],
+  "Estimate.is_received": [
+    "string"
+  ],
+  "Estimate.issue_date": [
+    "string"
+  ],
+  "Estimate.issued": [
+    "string"
+  ],
+  "Estimate.item_columns": [
+    "string"
+  ],
+  "Estimate.item_discount_amount": [
+    "string"
+  ],
+  "Estimate.label_date": [
+    "null"
+  ],
+  "Estimate.label_deposit": [
+    "null"
+  ],
+  "Estimate.label_description": [
+    "null"
+  ],
+  "Estimate.label_due_after": [
+    "null"
+  ],
+  "Estimate.label_due_date": [
+    "null"
+  ],
+  "Estimate.label_from_date": [
+    "null"
+  ],
+  "Estimate.label_invoice_no": [
+    "null"
+  ],
+  "Estimate.label_item": [
+    "null"
+  ],
+  "Estimate.label_item_total": [
+    "null"
+  ],
+  "Estimate.label_paid_amount": [
+    "null"
+  ],
+  "Estimate.label_po_no": [
+    "null"
+  ],
+  "Estimate.label_quantity": [
+    "null"
+  ],
+  "Estimate.label_status": [
+    "null"
+  ],
+  "Estimate.label_subtotal": [
+    "null"
+  ],
+  "Estimate.label_tax1": [
+    "null"
+  ],
+  "Estimate.label_tax2": [
+    "null"
+  ],
+  "Estimate.label_to_date": [
+    "null"
+  ],
+  "Estimate.label_total": [
+    "null"
+  ],
+  "Estimate.label_unit_price": [
+    "null"
+  ],
+  "Estimate.label_unpaid_amount": [
+    "null"
+  ],
+  "Estimate.language_id": [
+    "string"
+  ],
+  "Estimate.last_sent": [
+    "null",
+    "string"
+  ],
+  "Estimate.modified": [
+    "string"
+  ],
+  "Estimate.name": [
+    "null"
+  ],
+  "Estimate.no": [
+    "string"
+  ],
+  "Estimate.notes": [
+    "null"
+  ],
+  "Estimate.offer_id": [
+    "null"
+  ],
+  "Estimate.order_number": [
+    "null"
+  ],
+  "Estimate.order_source_id": [
+    "null",
+    "string"
+  ],
+  "Estimate.payment_status": [
+    "string"
+  ],
+  "Estimate.po_number": [
+    "null"
+  ],
+  "Estimate.pos_shift_id": [
+    "null"
+  ],
+  "Estimate.received_date": [
+    "null"
+  ],
+  "Estimate.required_terms": [
+    "string"
+  ],
+  "Estimate.required_terms_file": [
+    "string"
+  ],
+  "Estimate.requisition_delivery_status": [
+    "null"
+  ],
+  "Estimate.retention_value": [
+    "null"
+  ],
+  "Estimate.sales_person_id": [
+    "string"
+  ],
+  "Estimate.shipping_amount": [
+    "null"
+  ],
+  "Estimate.shipping_option_id": [
+    "null"
+  ],
+  "Estimate.shipping_options": [
+    "null",
+    "string"
+  ],
+  "Estimate.shipping_tax_id": [
+    "null"
+  ],
+  "Estimate.show_from_to": [
+    "null"
+  ],
+  "Estimate.site_id": [
+    "string"
+  ],
+  "Estimate.source_id": [
+    "null"
+  ],
+  "Estimate.source_type": [
+    "null"
+  ],
+  "Estimate.staff_id": [
+    "string"
+  ],
+  "Estimate.store_id": [
+    "string"
+  ],
+  "Estimate.stored_due_date": [
+    "string"
+  ],
+  "Estimate.submission_date": [
+    "null"
+  ],
+  "Estimate.subscription_id": [
+    "null"
+  ],
+  "Estimate.subscription_issue_before": [
+    "null"
+  ],
+  "Estimate.subscription_max_repeat": [
+    "null"
+  ],
+  "Estimate.subscription_notify": [
+    "null"
+  ],
+  "Estimate.subscription_period": [
+    "null"
+  ],
+  "Estimate.subscription_repeated": [
+    "null"
+  ],
+  "Estimate.subscription_unit": [
+    "null"
+  ],
+  "Estimate.summary_deposit": [
+    "string"
+  ],
+  "Estimate.summary_discount": [
+    "string"
+  ],
+  "Estimate.summary_paid": [
+    "string"
+  ],
+  "Estimate.summary_refund": [
+    "null",
+    "string"
+  ],
+  "Estimate.summary_subtotal": [
+    "string"
+  ],
+  "Estimate.summary_tax1": [
+    "null"
+  ],
+  "Estimate.summary_tax2": [
+    "null"
+  ],
+  "Estimate.summary_total": [
+    "string"
+  ],
+  "Estimate.summary_unpaid": [
+    "string"
+  ],
+  "Estimate.tax1": [
+    "null"
+  ],
+  "Estimate.tax2": [
+    "null"
+  ],
+  "Estimate.terms": [
+    "string"
+  ],
+  "Estimate.terms_id": [
+    "null"
+  ],
+  "Estimate.to": [
+    "null"
+  ],
+  "Estimate.type": [
+    "string"
+  ],
+  "Estimate.work_order_id": [
+    "null",
+    "string"
+  ]
+}

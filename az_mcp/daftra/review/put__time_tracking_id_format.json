@@ -1,0 +1,214 @@
+{
+  "path": "/time_tracking/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Time Tracking",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing time-tracking entry by id. Requires an API key with the `time_tracking.write` scope. Send the changed fields nested under a `TimeTracking` object; `date` and `project_id` must be valid. Callers without the *Edit all timesheets* permission can only update their own entries.",
+    "tags": [
+      "Endpoints/Time Tracking",
+      "Time Tracking"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "TimeTracking": {
+                "type": "object",
+                "properties": {
+                  "staff_id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Optional. The staff member the time is tracked for; `0` is the site owner. When omitted, the entry is tracked for the calling user. Users without the *Edit all timesheets* permission can only track their own time. Look staff up via the GET Staff endpoint."
+                  },
+                  "project_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Required. The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                  },
+                  "activity_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Optional. The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Required. The date the time is tracked on (`YYYY-MM-DD`). Must not fall inside a closed accounting period."
+                  },
+                  "time": {
+                    "type": "string",
+                    "pattern": "^\\d{1,}:\\d{2}$",
+                    "description": "Optional. Time worked as `hours:minutes` (e.g. `8:17`). Stored as decimal hours; defaults to `0` when omitted."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Optional. Free-text notes for the entry.",
+                    "default": ""
+                  },
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "Optional. The related work order; only accepted when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                    "default": null,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "date",
+                  "project_id"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — validation failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__time_tracking_id_format"
+  },
+  "blockers": []
+}

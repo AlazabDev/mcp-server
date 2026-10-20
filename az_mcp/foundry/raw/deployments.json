@@ -1,0 +1,180 @@
+{
+  "value": [
+    {
+      "name": "az-model-maint",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.1",
+      "modelVersion": "2025-11-13",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 250
+      }
+    },
+    {
+      "name": "az-model-finance",
+      "type": "ModelDeployment",
+      "modelName": "DeepSeek-V4-Pro",
+      "modelVersion": "2026-04-23",
+      "modelPublisher": "DeepSeek",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 250
+      }
+    },
+    {
+      "name": "az-model-core",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.5",
+      "modelVersion": "2026-04-24",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 500
+      }
+    },
+    {
+      "name": "az-models-text",
+      "type": "ModelDeployment",
+      "modelName": "text-embedding-3-small",
+      "modelVersion": "1",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "embeddings": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 532
+      }
+    },
+    {
+      "name": "az-model-gpt",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.6-luna",
+      "modelVersion": "2026-07-09",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 2000
+      }
+    },
+    {
+      "name": "az-model-mini",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.4-mini",
+      "modelVersion": "2026-03-17",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 250
+      }
+    },
+    {
+      "name": "az-model-sol",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.6-sol",
+      "modelVersion": "2026-07-09",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 2500
+      }
+    },
+    {
+      "name": "az-model-sora",
+      "type": "ModelDeployment",
+      "modelName": "sora-2",
+      "modelVersion": "2025-12-08",
+      "modelPublisher": "OpenAI",
+      "capabilities": {},
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 60
+      }
+    },
+    {
+      "name": "az-model-codex",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.3-codex",
+      "modelVersion": "2026-02-24",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "false"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 10000
+      }
+    },
+    {
+      "name": "gpt-4o",
+      "type": "ModelDeployment",
+      "modelName": "gpt-4o",
+      "modelVersion": "2024-11-20",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 250
+      }
+    },
+    {
+      "name": "gpt-5.1",
+      "type": "ModelDeployment",
+      "modelName": "gpt-5.1",
+      "modelVersion": "2025-11-13",
+      "modelPublisher": "OpenAI",
+      "capabilities": {
+        "chat_completion": "true"
+      },
+      "sku": {
+        "name": "GlobalStandard",
+        "capacity": 300
+      }
+    },
+    {
+      "name": "az-model-gemma",
+      "type": "ModelDeployment",
+      "modelName": "google--gemma-4-31b-it",
+      "modelVersion": "5",
+      "modelPublisher": "azure-huggingface",
+      "capabilities": {},
+      "sku": {
+        "name": "GlobalManagedCompute",
+        "capacity": 2
+      }
+    },
+    {
+      "name": "az-model-gemma",
+      "type": "ModelDeployment",
+      "modelName": "google--gemma-4-31b-it",
+      "modelVersion": "5",
+      "modelPublisher": "azure-huggingface",
+      "capabilities": {},
+      "sku": {
+        "name": "GlobalManagedCompute",
+        "capacity": 2
+      }
+    }
+  ]
+}

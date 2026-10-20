@@ -1,0 +1,313 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Staff": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Staff.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.added_by": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.role_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.middle_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.full_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.photo": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.can_access_system": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.home_phone": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.business_Phone": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.mobile": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.fax": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.address2": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Staff.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.note": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.email_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.last_login": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.deleted": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.follow_up_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.hourly_rate": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.hourly_rate_currency_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.default_store_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.default_treasury_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.maximum_general_discount": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Staff.language_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.default_account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.attendance_restriction_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.auth_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.citizenship_status": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.nationality": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.official_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.residence_expiry_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.deleted_at": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.smtp_email_address_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.official_id_unique_check": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Staff.global_user_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Staff.is_synced": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Staff.last_synced_at": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "path": "/unit_template",
+  "method": "post",
+  "operation": {
+    "summary": "Add Unit Template",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new **unit template** — a units-of-measure template with a base unit and one or more conversion factors (sub-units).\n\nReal path: `POST /v2/api/entity/unit_template`.\n\nThe request body is a flat object. **No field is enforced by the API** — an empty body returns `200` and stores a blank template — but a meaningful template should send `template_name`, `main_unit_name`, `unit_small_name`, and at least one `unit_templates_unit_factors` row. Omitted text fields are stored as empty string / `null`, and `active` defaults to `0`. `branch_id` and `staff_id` are assigned automatically (to the active branch and current staff) and normally should be omitted.\n\n**Sub-units (conversion factors):** send them under the `unit_templates_unit_factors` array. Each row defines a derived unit via `factor_name`, `small_name`, and the numeric `factor` (its multiplier relative to the base unit).\n\n> The sub-unit array key must be **`unit_templates_unit_factors`**. A body that sends the children under `unit_factors` is accepted (the parent still saves and returns `200`) but the sub-rows are **silently ignored**.\n\nOn success the new template id is returned.",
+    "tags": [
+      "Endpoints/Inventory /Unit Templates"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "template_name": {
+                "type": "string",
+                "description": "The template's display name. Not enforced, but should be sent — stored as an empty string when omitted."
+              },
+              "active": {
+                "type": "integer",
+                "description": "Whether the template is active. Defaults to `0` when omitted.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive (default) |\n| 1 | Active |"
+              },
+              "main_unit_name": {
+                "type": "string",
+                "description": "Name of the base unit (e.g. `gram`). Stored as an empty string when omitted."
+              },
+              "unit_small_name": {
+                "type": "string",
+                "description": "Short symbol for the base unit (e.g. `g`). Stored as `null` when omitted."
+              },
+              "branch_id": {
+                "type": "integer",
+                "description": "Optional. Assigned automatically to the active branch when omitted."
+              },
+              "staff_id": {
+                "type": "integer",
+                "description": "Optional. Assigned automatically to the current staff when omitted."
+              },
+              "unit_templates_unit_factors": {
+                "type": "array",
+                "description": "The sub-units (conversion factors). Each row defines one derived unit. Send `factor_name`, `small_name`, and the numeric `factor` per row (do not send `id` on create).",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "factor_name": {
+                      "type": "string",
+                      "description": "Name of the sub-unit (e.g. `Kilogram`)."
+                    },
+                    "factor": {
+                      "type": "number",
+                      "description": "Multiplier relative to the base unit (e.g. `1000`)."
+                    },
+                    "small_name": {
+                      "type": "string",
+                      "description": "Short symbol for the sub-unit (e.g. `kg`)."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The unit template was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The id of the newly created template."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record could not be saved — e.g. a `NOT NULL` column such as `template_name` was sent explicitly as `null`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Diagnostic details about the failure (may be an empty array when no structured detail is available).",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable description of why the save failed."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__unit_template",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

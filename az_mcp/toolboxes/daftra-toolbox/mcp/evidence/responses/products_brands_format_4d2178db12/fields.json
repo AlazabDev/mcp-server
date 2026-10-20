@@ -1,0 +1,12 @@
+{
+  "brands": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "brands[]": {
+    "observed_types": [
+      "string"
+    ]
+  }
+}

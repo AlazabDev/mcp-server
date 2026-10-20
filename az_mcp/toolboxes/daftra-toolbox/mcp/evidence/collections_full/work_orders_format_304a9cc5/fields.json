@@ -1,0 +1,91 @@
+{
+  "WorkOrder": [
+    "object"
+  ],
+  "WorkOrder.bid_id": [
+    "null"
+  ],
+  "WorkOrder.branch_id": [
+    "string"
+  ],
+  "WorkOrder.budget": [
+    "null",
+    "string"
+  ],
+  "WorkOrder.budget_currency": [
+    "string"
+  ],
+  "WorkOrder.client_data": [
+    "string"
+  ],
+  "WorkOrder.client_id": [
+    "string"
+  ],
+  "WorkOrder.construction_cycle_id": [
+    "null"
+  ],
+  "WorkOrder.cost_center_id": [
+    "null"
+  ],
+  "WorkOrder.cost_tracking_level": [
+    "null"
+  ],
+  "WorkOrder.created": [
+    "string"
+  ],
+  "WorkOrder.delivery_appointment_id": [
+    "string"
+  ],
+  "WorkOrder.delivery_date": [
+    "string"
+  ],
+  "WorkOrder.description": [
+    "string"
+  ],
+  "WorkOrder.duration": [
+    "null"
+  ],
+  "WorkOrder.duration_unit": [
+    "null"
+  ],
+  "WorkOrder.extra_details": [
+    "null"
+  ],
+  "WorkOrder.follow_up_status_id": [
+    "null",
+    "string"
+  ],
+  "WorkOrder.id": [
+    "string"
+  ],
+  "WorkOrder.is_draft": [
+    "null"
+  ],
+  "WorkOrder.modified": [
+    "string"
+  ],
+  "WorkOrder.number": [
+    "string"
+  ],
+  "WorkOrder.parent_cost_center_id": [
+    "null"
+  ],
+  "WorkOrder.staff_id": [
+    "string"
+  ],
+  "WorkOrder.start_date": [
+    "string"
+  ],
+  "WorkOrder.status": [
+    "string"
+  ],
+  "WorkOrder.title": [
+    "string"
+  ],
+  "WorkOrder.type": [
+    "null"
+  ],
+  "WorkOrder.workflow_type_id": [
+    "null"
+  ]
+}

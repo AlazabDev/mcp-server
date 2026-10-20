@@ -1,0 +1,157 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].JournalAccount": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].JournalAccount.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.journal_cat_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.level": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.staff_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].JournalAccount.total_credit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.total_debit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.entity_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.entity_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.is_recalculated": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.last_transaction_update": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.parent_cat_ids": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.is_hidden": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.is_suspended": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.disabled": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].JournalAccount.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

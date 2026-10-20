@@ -1,0 +1,125 @@
+{
+  "path": "/department",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Department",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+    "tags": [
+      "Endpoints/HR/Organizational Structure/Department"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "branch_id": {
+                "type": "integer",
+                "description": "[`GET /branches`](https://docs.daftara.dev/24700082e0)"
+              },
+              "active": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "default": 1
+              },
+              "description": {
+                "type": "string"
+              },
+              "abbr": {
+                "type": "string"
+              },
+              "managers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "[`GET /staff`](https://docs.daftara.dev/15115376e0)"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__department"
+  },
+  "blockers": []
+}

@@ -1,0 +1,466 @@
+{
+  "path": "/invoices{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Invoices",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of the account's invoices and debit notes (and advance payments when that feature is enabled), most recent first.\n\nThe list supports rich filtering and sorting through the query parameters below.\n\nBy default each item contains the invoice header and its client only. Pass `recursive=1` to also receive the nested line items, payments, taxes, documents and custom fields.\n\nResults are paginated (20 per page by default).",
+    "tags": [
+      "Endpoints/Sales /Invoices",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "1"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of records per page. Defaults to 20. No maximum is enforced — very large values return very large responses.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "recursive",
+        "in": "query",
+        "description": "Association depth. Defaults to 0.\n\n| Value | Meaning |\n|---|---|\n| -1 | Invoice header only |\n| 0 | Header + client (default) |\n| 1 | Also include line items, payments, taxes, documents and custom fields |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "keywords",
+        "in": "query",
+        "description": "Free-text search across client name, client number, email, invoice number and order number.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Filter by client id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "type",
+        "in": "query",
+        "description": "Filter by document type. This endpoint returns Invoices and Debit Notes (and Advance Payments when that feature is enabled); this value narrows within that set.\n\n| Value | Meaning |\n|---|---|\n| 0 | Invoice |\n| 16 | Debit Note |\n| 19 | Advance Payment |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "client_type",
+        "in": "query",
+        "description": "Filter by client type (individual or business).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "payment_status",
+        "in": "query",
+        "description": "Filter by payment status. In addition to the standard status ids, these special values are supported:\n\n| Value | Meaning |\n|---|---|\n| -1 | Draft |\n| -2 | Due |\n| -3 | Overdue |\n| 3 | Subscriptions |\n| 4 | Overpaid / credit |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "draft",
+        "in": "query",
+        "description": "Set to 1 to return only draft invoices.",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "follow_up_status",
+        "in": "query",
+        "description": "Filter by follow-up status id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "currency_code",
+        "in": "query",
+        "description": "Filter by currency code (for example, USD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "no",
+        "in": "query",
+        "description": "Filter by invoice or order number (partial match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "item",
+        "in": "query",
+        "description": "Return invoices that contain a matching item.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "tags",
+        "in": "query",
+        "description": "Filter by tag id(s).",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "po_number",
+        "in": "query",
+        "description": "Filter by purchase-order number. Available when PO numbers are enabled for the account.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "external_source",
+        "in": "query",
+        "description": "Filter by creation source (for example, api or salla).",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "custom_field",
+        "in": "query",
+        "description": "Filter by a custom-field value. Combine with custom_field_label to target a specific field.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "custom_field_label",
+        "in": "query",
+        "description": "Custom-field label to match together with custom_field.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "subscription_id",
+        "in": "query",
+        "description": "Filter by parent/subscription invoice id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "work_order_id",
+        "in": "query",
+        "description": "Filter by linked work-order id. Available with the Work Orders plugin.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "source_type",
+        "in": "query",
+        "description": "Filter by the source document type. Use together with source_id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "source_id",
+        "in": "query",
+        "description": "Filter by the source document id. Use together with source_type.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "order_source_id",
+        "in": "query",
+        "description": "Filter by order source id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "shipping_option_id",
+        "in": "query",
+        "description": "Filter by shipping option id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "summary_total_from",
+        "in": "query",
+        "description": "Return invoices whose total is at least this amount.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "summary_total_to",
+        "in": "query",
+        "description": "Return invoices whose total is at most this amount.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Invoice date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Invoice date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "due_date_from",
+        "in": "query",
+        "description": "Due-date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "due_date_to",
+        "in": "query",
+        "description": "Due-date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_from",
+        "in": "query",
+        "description": "Created-date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_to",
+        "in": "query",
+        "description": "Created-date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "einvoice_status",
+        "in": "query",
+        "description": "Filter by electronic-invoice status. Available when e-invoicing is enabled.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "requisition_delivery_status",
+        "in": "query",
+        "description": "Requisition delivery status.\n\n| Value | Meaning |\n|---|---|\n| 1 | RECEIVED|\n| 2 | REJECTED |\n| 3 | PENDING|\n| 4 | PARTIALLY RECEIVED|\n| 5 | PARTIALLY REJECTED|",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "staff_id",
+        "in": "query",
+        "description": "Filter by the staff member who created the invoice. Available with the Staff plugin and view-all permission.",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "pos_shift_id",
+        "in": "query",
+        "description": "Filter by POS shift id. Available with the POS plugin.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Field name to sort by. Defaults to invoice date.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "direction",
+        "in": "query",
+        "description": "Sort direction: ASC or DESC. Defaults to DESC.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Invoice": {
+                        "allOf": [
+                          {},
+                          {}
+                        ]
+                      }
+                    }
+                  }
+                },
+                "pagination": {}
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoices_format"
+  },
+  "blockers": []
+}

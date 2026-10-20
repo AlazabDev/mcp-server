@@ -1,0 +1,13 @@
+az-model-maint	ModelDeployment	gpt-5.1	2025-11-13	OpenAI	GlobalStandard	250	true
+az-model-finance	ModelDeployment	DeepSeek-V4-Pro	2026-04-23	DeepSeek	GlobalStandard	250	true
+az-model-core	ModelDeployment	gpt-5.5	2026-04-24	OpenAI	GlobalStandard	500	true
+az-models-text	ModelDeployment	text-embedding-3-small	1	OpenAI	GlobalStandard	532	
+az-model-gpt	ModelDeployment	gpt-5.6-luna	2026-07-09	OpenAI	GlobalStandard	2000	true
+az-model-mini	ModelDeployment	gpt-5.4-mini	2026-03-17	OpenAI	GlobalStandard	250	true
+az-model-sol	ModelDeployment	gpt-5.6-sol	2026-07-09	OpenAI	GlobalStandard	2500	true
+az-model-sora	ModelDeployment	sora-2	2025-12-08	OpenAI	GlobalStandard	60	
+az-model-codex	ModelDeployment	gpt-5.3-codex	2026-02-24	OpenAI	GlobalStandard	10000	false
+gpt-4o	ModelDeployment	gpt-4o	2024-11-20	OpenAI	GlobalStandard	250	true
+gpt-5.1	ModelDeployment	gpt-5.1	2025-11-13	OpenAI	GlobalStandard	300	true
+az-model-gemma	ModelDeployment	google--gemma-4-31b-it	5	azure-huggingface	GlobalManagedCompute	2	
+az-model-gemma	ModelDeployment	google--gemma-4-31b-it	5	azure-huggingface	GlobalManagedCompute	2	

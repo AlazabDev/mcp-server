@@ -1,0 +1,103 @@
+{
+  "path": "/v2/api/entity/{entityKey}/{id}/{dataLevel}",
+  "method": "get",
+  "operation": {
+    "summary": "View entity record",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Fetch a single record of any entity, addressed by its `entityKey` and primary key `id`.\n\nThis is a generic, metadata-driven endpoint: the returned record's columns are defined per entity, so the field set differs by `entityKey`. The record's own columns appear at the top level and related data is nested under the relation name.\n\nWhen the entity has custom fields, the matching custom-fields row is included under `custom_data`.\n\n**Authentication & authorization.** Requires an OAuth2 Bearer token and the entity's **view** permission; otherwise the request is rejected with `401`.",
+    "tags": [
+      "Endpoints/Entities",
+      "Entities"
+    ],
+    "parameters": [
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key, e.g. `client`, `product`, `cost_center`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The record's primary key.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "dataLevel",
+        "in": "path",
+        "description": "Depth of related/nested data to load. Optional; defaults to `1`. A non-numeric value is treated as `1`. For single-page-app entities a suitable level is chosen automatically when omitted.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Success. The single record: the entity's own columns at the top level, related data nested under relation names, and an optional `custom_data` object. The exact field set depends on the entity.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The record. Top-level keys are the entity's fields (entity-specific).",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "custom_data": {
+                  "type": "object",
+                  "description": "Custom-fields row for the record; present only when the entity defines custom fields.",
+                  "properties": {},
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The caller does not hold the entity's view permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Returned when the record cannot be loaded (including a non-existent `id`). The body is the plain text `error happened`.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_entity_entityKey_id_dataLevel"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

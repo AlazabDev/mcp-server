@@ -1,0 +1,371 @@
+{
+  "path": "/credit_notes{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Credit Notes",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of the account's **credit notes**, most recent first.\n\nThe list supports the same rich filtering as the invoices list (applied to credit-note documents) through the query parameters below. Each item is returned under a `CreditNote` member; see **GET Single Credit Note** for the full field reference.\n\nRequires permission to view invoices/credit notes. A non-owner without all-invoices access sees only credit notes they created.",
+    "tags": [
+      "Endpoints/Sales /Credit Notes",
+      "Credit Notes"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of records per page. Defaults to the list default (20).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Filter by client id.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_type",
+        "in": "query",
+        "description": "Filter by client type (individual or business).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "no",
+        "in": "query",
+        "description": "Filter by credit-note number (partial match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "item",
+        "in": "query",
+        "description": "Return credit notes that contain a matching item.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "currency_code",
+        "in": "query",
+        "description": "Filter by currency code (for example, USD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "payment_status",
+        "in": "query",
+        "description": "Filter by payment status. Pass `-1` to return only draft credit notes.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "tags",
+        "in": "query",
+        "description": "Filter by tag id(s).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "source_type",
+        "in": "query",
+        "description": "Filter by the source document type. Use together with source_id.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "source_id",
+        "in": "query",
+        "description": "Filter by the source document id. Use together with source_type.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "work_order_id",
+        "in": "query",
+        "description": "Filter by linked work-order id. Available with the Work Orders plugin.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "order_source_id",
+        "in": "query",
+        "description": "Filter by order source id.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "custom_field",
+        "in": "query",
+        "description": "Filter by a custom-field value. Combine with custom_field_label to target a specific field.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "custom_field_label",
+        "in": "query",
+        "description": "Custom-field label to match together with custom_field.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "staff_id",
+        "in": "query",
+        "description": "Filter by the staff member who created the credit note. Available with the Staff plugin and view-all permission.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "sales_person_id",
+        "in": "query",
+        "description": "Filter by sales person. Available with the Staff plugin and view-all permission.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary_total_from",
+        "in": "query",
+        "description": "Return credit notes whose total is at least this amount.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary_total_to",
+        "in": "query",
+        "description": "Return credit notes whose total is at most this amount.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Credit-note date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Credit-note date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_from",
+        "in": "query",
+        "description": "Created-date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_to",
+        "in": "query",
+        "description": "Created-date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of credit notes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "Credit notes, most recent first. Each item carries a `CreditNote` member with the credit-note header and its client.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "CreditNote": {
+                        "type": "object",
+                        "description": "Credit-note header. See GET Single Credit Note for the full field reference.",
+                        "properties": {}
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null on the first page.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null on the last page.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "data",
+                "pagination"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view credit notes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_notes_format"
+  },
+  "blockers": []
+}

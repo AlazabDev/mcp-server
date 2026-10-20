@@ -1,0 +1,35 @@
+{
+  "Tax": [
+    "object"
+  ],
+  "Tax.branch_id": [
+    "string"
+  ],
+  "Tax.created": [
+    "string"
+  ],
+  "Tax.description": [
+    "string"
+  ],
+  "Tax.id": [
+    "string"
+  ],
+  "Tax.included": [
+    "string"
+  ],
+  "Tax.is_active": [
+    "string"
+  ],
+  "Tax.modified": [
+    "string"
+  ],
+  "Tax.name": [
+    "string"
+  ],
+  "Tax.site_id": [
+    "string"
+  ],
+  "Tax.value": [
+    "string"
+  ]
+}

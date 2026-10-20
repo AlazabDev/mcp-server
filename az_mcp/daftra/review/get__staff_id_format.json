@@ -1,0 +1,286 @@
+{
+  "path": "/staff/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Staff",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Retrieves a single staff member by id. The staff record is returned under a `Staff` key inside `data`; the password is never included. Any configured custom staff fields appear under the nested `CustomModel` object.\n\nAuthenticate with a Bearer access token (or the legacy `apikey` header). A request without valid credentials returns `401`; a session user without staff-management permission returns `403`.",
+    "tags": [
+      "Endpoints/Staff",
+      "Staff"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The staff member's unique id.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Optional response-format suffix appended to the path, e.g. `.json`. Leave empty to receive the default JSON response.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Staff": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Primary Key",
+                          "readOnly": true
+                        },
+                        "added_by": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Staff ID who created the Staff get it from [GET STAFF API](/15115376e0) if it's `0` that means the site owner is the staff that created it",
+                          "default": 0
+                        },
+                        "role_id": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "the Staff Role get it from [GET General Listing by sending `Role` as Model](/15115384e0)",
+                          "readOnly": true
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Staff's first name"
+                        },
+                        "home_phone": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Staff's home number"
+                        },
+                        "business_Phone": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Staff's business number"
+                        },
+                        "mobile": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Staff's mobile number"
+                        },
+                        "fax": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Staff's fax number"
+                        },
+                        "country_code": {
+                          "type": "string",
+                          "maxLength": 3,
+                          "description": "Staff's country ISO \"ALPHA-2 Code"
+                        },
+                        "address1": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Staff's Address line 1"
+                        },
+                        "address2": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Staff's Address line 2"
+                        },
+                        "city": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Staff's City"
+                        },
+                        "state": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Staff's State"
+                        },
+                        "postal_code": {
+                          "type": "string",
+                          "maxLength": 20,
+                          "description": "Staff's postal code"
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Notes for the Staff"
+                        },
+                        "email_address": {
+                          "type": "string",
+                          "format": "email",
+                          "maxLength": 255,
+                          "description": "Staff's email"
+                        },
+                        "last_login": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time of the lsat successful login for the Staff",
+                          "readOnly": true
+                        },
+                        "active": {
+                          "type": "boolean",
+                          "description": "0/1 indicating if the account is active.",
+                          "readOnly": true
+                        },
+                        "deleted": {
+                          "type": "boolean",
+                          "description": "0/1 indicating if the account is deleted.",
+                          "readOnly": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time of creation for the Staff",
+                          "readOnly": true
+                        },
+                        "follow_up_status": {
+                          "type": "integer",
+                          "description": "Follow Up Status get it from [GET Follow up statuses with model staff](/15115383e0)",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "hourly_rate": {
+                          "type": "number",
+                          "description": "hour rate of the staff",
+                          "default": null,
+                          "nullable": true,
+                          "format": "double"
+                        },
+                        "hourly_rate_currency_code": {
+                          "type": "string",
+                          "maxLength": 5,
+                          "description": "3 Digit currency code following ISO 4217 standard"
+                        },
+                        "default_store_id": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Store Ref get it from [GET Treasuries](/15115366e0)"
+                        },
+                        "default_treasury_id": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Treasury Ref get it from [GET Treasuries](/15115371e0)"
+                        },
+                        "language_code": {
+                          "type": "string",
+                          "description": "default language code get it from [GET General Listing by sending `languageCodes` as Model](/15115384e0)"
+                        },
+                        "maximum_general_discount": {
+                          "type": "string",
+                          "description": "specify the discount limit this staff can make ```if null then this staff has no limit he can make amy discount amount```",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "CustomModel": {
+                          "type": "object",
+                          "description": "Custom staff fields, when any are configured for the account. Keys are the custom field names and values are the stored values. Omitted when the account defines no custom staff fields.",
+                          "additionalProperties": true,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Record Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__staff_id_format"
+  },
+  "blockers": []
+}

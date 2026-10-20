@@ -1,0 +1,175 @@
+{
+  "path": "/unit_template/{id}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Unit Template",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update an existing **Unit Template** (v2 native-entity API).\n\n`PUT https://{subdomain}.daftra.com/v2/api/entity/unit_template/{id}`\n\n## URL rules\n\n- **The record id goes in the path.** `/v2/api/entity/unit_template` without an id is the\n  *collection* path — it only accepts `POST` (create). A `PUT` there returns\n  `405 The PUT method is not supported for route api/entity/unit_template. Supported methods: POST.`\n- **No trailing slash.** A URL ending in `/` is answered with a `301` to the same URL without it,\n  and HTTP clients drop the request method **and body** when they follow a `301` — the call arrives\n  as a `GET` and you get a misleading \"The GET method is not supported\" error. Never combine\n  `curl --location` with `--request PUT`.\n\n## Authentication\n\n`Authorization: Bearer <access_token>` from the OAuth password grant. The `apikey` header belongs to\nthe v1 CakePHP `/api2` API and is ignored on this surface.\n\n## Body semantics\n\n- **`id` in the body is what makes this an update.** Omit it and the request **inserts a new record**\n  and returns the new id — the `{id}` in the URL does not prevent that. Always send `id`, matching the URL.\n- Fields you omit keep their stored value (partial merge)…\n- …**except `active`, which is a checkbox: omitting it stores `0`.** Send it on every update.\n- `branch_id` and `staff_id` are assigned by the server (auto-branch / auto-staff) and ignored if sent.\n- `created` / `modified` are read-only.\n\n## Unit factors\n\n- The array key is **`unit_templates_unit_factors`** (parent table + subform name). `unit_factors`\n  is silently ignored — the rows are dropped without an error.\n- The array **replaces the whole set**: a row **with** `id` is updated, a row **without** `id` is\n  inserted, and any existing row you leave out is **deleted**.\n- Omit the key entirely to leave the existing factors untouched.\n\n## Responses\n\n| Code | Body | When |\n| ---- | ---- | ---- |\n| 200 | `{message, id}` | Saved. `message` is localised to the site language — match on the status and `id`, not the text. |\n| 400 | `{message}` or `{message, errors}` | `Record not found` for an unknown id, or `Entity not saved` with per-field errors. |\n| 401 | `{error}` | Caller lacks the update permission for this entity. |\n| 405 | `{message}` | Wrong method for the path — usually a missing id or a followed trailing-slash redirect (see *URL rules*). |\n",
+    "tags": [
+      "Endpoints/Inventory /Unit Templates"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the Unit Template to update. Send the same value in the body `id`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the Unit Template to update. Must match the {id} in the URL. If omitted, a NEW record is created instead of updating."
+              },
+              "template_name": {
+                "type": "string",
+                "description": "Template name."
+              },
+              "active": {
+                "type": "integer",
+                "description": "1 = active, 0 = inactive. Checkbox field — if you omit it, it is stored as 0."
+              },
+              "main_unit_name": {
+                "type": "string",
+                "description": "Name of the main (base) unit, e.g. gram."
+              },
+              "unit_small_name": {
+                "type": "string",
+                "description": "Short name of the main unit, e.g. g."
+              },
+              "unit_templates_unit_factors": {
+                "type": "array",
+                "description": "Full set of unit factors after the update. A row with `id` is updated, a row without `id` is inserted, and any existing row omitted from this array is deleted. Omit the whole key to leave the existing factors untouched.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of an existing factor row to update. Omit to insert a new row."
+                    },
+                    "factor_name": {
+                      "type": "string",
+                      "description": "Factor (derived unit) name, e.g. Kilogram."
+                    },
+                    "factor": {
+                      "type": "integer",
+                      "description": "How many main units this factor equals, e.g. 1000."
+                    },
+                    "small_name": {
+                      "type": "string",
+                      "description": "Short name of the factor, e.g. kg."
+                    }
+                  },
+                  "required": [
+                    "factor_name",
+                    "factor",
+                    "small_name"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "template_name",
+              "active",
+              "main_unit_name",
+              "unit_small_name"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Saved. `message` is localised to the site language, so match on the status code and `id` rather than the text. A response whose `id` differs from the one you sent means the body `id` was missing and a new record was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localised success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the saved record."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Unknown id (`Record not found`) or a rejected payload (`Entity not saved`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "`Record not found` or `Entity not saved`."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Present for validation failures: field key → list of messages.",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The authenticated user lacks the update permission for this entity.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__unit_template_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

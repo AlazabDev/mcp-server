@@ -1,0 +1,213 @@
+{
+  "path": "/journals{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Journal",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a manual journal entry. Send the `Journal` header fields and the `JournalTransaction[]` double-entry lines. The total debit of the lines must equal the total credit, and at least one line is required. Amounts are supplied per line via `currency_debit` / `currency_credit` (in the journal currency); the base-currency `debit`/`credit` and the journal totals are calculated automatically. The journal `date` must fall within an open financial period.",
+    "tags": [
+      "Endpoints/Accounting/Journals",
+      "Journals"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Journal": {
+                "type": "object",
+                "description": "Journal header. All fields are optional.",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Journal date (`YYYY-MM-DD`). Defaults to today. Must fall within an open financial period."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Journal description."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Currency code. Defaults to the currency of the transaction lines, otherwise the account default currency."
+                  },
+                  "draft": {
+                    "type": "integer",
+                    "description": "Journal status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Issued |\n| 1 | Draft |",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "default": 0
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Journal number. Auto-generated when omitted."
+                  },
+                  "manual_currency_rate": {
+                    "type": "number",
+                    "description": "Manual conversion rate for a foreign-currency journal. Only applied when the account's \"update journal entries currency rates\" setting is enabled."
+                  }
+                }
+              },
+              "JournalTransaction": {
+                "type": "array",
+                "description": "The double-entry transaction lines. At least one line is required and the sum of `currency_debit` must equal the sum of `currency_credit`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "journal_account_id": {
+                      "type": "integer",
+                      "description": "Journal account for this line. A line that carries an amount must reference an account."
+                    },
+                    "currency_debit": {
+                      "type": "number",
+                      "description": "Debit amount in the journal currency. Use `0` for a credit line."
+                    },
+                    "currency_credit": {
+                      "type": "number",
+                      "description": "Credit amount in the journal currency. Use `0` for a debit line."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Optional line description."
+                    },
+                    "tax_id": {
+                      "type": "integer",
+                      "description": "Optional tax id; when set, matching tax lines are generated automatically."
+                    }
+                  },
+                  "required": [
+                    "journal_account_id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "JournalTransaction"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the created journal"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — unbalanced entry, empty transactions, closed period, or other validation failure.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__journals_format"
+  },
+  "blockers": []
+}

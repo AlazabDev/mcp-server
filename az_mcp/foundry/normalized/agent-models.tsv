@@ -1,0 +1,13 @@
+az-agent-codex	az-model-codex
+az-agent-copilot	az-model-maint
+az-agent-bim	az-model-sol
+az-agent-maint	az-model-maint
+az-agent-project	az-model-gpt
+az-agent-core	az-model-core
+az-agent-azabot	az-model-sol
+az-agent-backend	az-model-core
+az-agent-auth	az-model-maint
+az-agent-prod	az-model-sol
+az-agent-finance	az-model-finance
+az-agent-payments	az-model-finance
+az-agent-vision	az-model-core

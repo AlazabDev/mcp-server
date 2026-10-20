@@ -1,0 +1,134 @@
+{
+  "path": "/product_bundle",
+  "method": "post",
+  "operation": {
+    "summary": "Add Product bundle",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Adds a single **component (raw-material) line** to an existing bundle product by creating one product-bundle record.\n\n- `product_id` — the component product to add to the bundle.\n- `bundle_product_id` — the existing bundle product the component is attached to.\n- `quantity` — how many units of the component the bundle consumes.\n\nBoth `product_id` and `bundle_product_id` are required and must reference existing products.\n\n> To build a whole bundle product **and** its lines in one request, create the product entity instead and send the lines as a nested `product_bundles` array; this endpoint adds one line at a time.",
+    "tags": [
+      "Endpoints/Inventory /Product Bundles"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "integer",
+                "description": "Required. The component (raw-material) product to add to the bundle."
+              },
+              "bundle_product_id": {
+                "type": "integer",
+                "description": "Required. The existing bundle product the component is attached to."
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Quantity of the component consumed per bundle unit. Strongly recommended; defaults to `0` when omitted."
+              },
+              "unit_name": {
+                "type": "string",
+                "description": "Optional. Display name of the selected unit."
+              },
+              "unit_factor": {
+                "type": "number",
+                "description": "Optional. Conversion factor of the selected unit relative to the base unit."
+              },
+              "unit_small_name": {
+                "type": "string",
+                "description": "Optional. Display name of the base (small) unit."
+              },
+              "unit_factor_id": {
+                "type": "integer",
+                "description": "Optional. Identifier of the selected unit factor."
+              }
+            },
+            "required": [
+              "product_id",
+              "bundle_product_id"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "The component was added to the bundle.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The id of the newly created product-bundle record."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record could not be saved — typically a required field (product_id or bundle_product_id) is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Diagnostic details about the failure. May be an empty array when no structured detail is available.",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable description of why the save failed."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__product_bundle"
+  },
+  "blockers": []
+}

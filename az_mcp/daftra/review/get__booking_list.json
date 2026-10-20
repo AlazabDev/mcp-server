@@ -1,0 +1,179 @@
+{
+  "path": "/booking/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Bookings",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of bookings for the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. Pagination is controlled by the `page` and `per_page` query parameters.\n\nFiltering, sorting and field selection are supported via query parameters:\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field, e.g. `filter[client_id][equal]=2`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n| `search` | Free-text search. |\n\nThe response is a standard paginated envelope; each item in `data` is a booking record.",
+    "tags": [
+      "Endpoints/Bookings/Booking (Beta version)"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Items per page. Defaults to 20.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of bookings.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The bookings on this page. Each item is a booking record (its fields depend on the account's booking configuration — e.g. id, no, date, start/end time, client, staff, status, and totals).",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Booking id."
+                      },
+                      "no": {
+                        "type": "string",
+                        "description": "Booking number."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Booking date."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Client id."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Assigned staff id."
+                      },
+                      "payment_status": {
+                        "type": "integer",
+                        "description": "Booking status code (0 Pending, 1 Confirmed, 2 Invoiced, 3 Cancelled, 4 Done)."
+                      }
+                    }
+                  }
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "from": {
+                  "type": "integer"
+                },
+                "to": {
+                  "type": "integer"
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "per_page",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The list could not be produced — for example the booking entity is unavailable for this account or the required plugin is inactive.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Reason the request failed (e.g. the booking entity is not available for the account, or the required plugin is not active)."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The authenticated user lacks permission to view bookings.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__booking_list",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

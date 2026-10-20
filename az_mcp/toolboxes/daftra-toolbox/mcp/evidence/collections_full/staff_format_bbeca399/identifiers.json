@@ -1,0 +1,31 @@
+{
+  "Staff.attendance_restriction_id": [
+    "4"
+  ],
+  "Staff.auth_id": [
+    "1",
+    "12",
+    "4",
+    "5"
+  ],
+  "Staff.branch_id": [
+    "1"
+  ],
+  "Staff.global_user_id": [
+    "1490696",
+    "1490697",
+    "1490698",
+    "1490699"
+  ],
+  "Staff.id": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+  ],
+  "Staff.role_id": [
+    "-1",
+    "1"
+  ]
+}

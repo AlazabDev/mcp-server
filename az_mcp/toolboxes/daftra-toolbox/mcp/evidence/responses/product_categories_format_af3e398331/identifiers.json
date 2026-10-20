@@ -1,0 +1,32 @@
+{
+  "data[].CategoriesCategory.id": [
+    "6",
+    "10",
+    "12",
+    "13",
+    "14",
+    "15",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "33",
+    "35",
+    "36"
+  ],
+  "data[].CategoriesCategory.parent_id": [
+    "28",
+    "29",
+    "12"
+  ],
+  "data[].CategoriesCategory.branch_id": [
+    "1"
+  ]
+}

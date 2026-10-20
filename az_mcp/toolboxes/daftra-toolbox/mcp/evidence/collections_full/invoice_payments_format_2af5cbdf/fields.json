@@ -1,0 +1,140 @@
+{
+  "InvoicePayment": [
+    "object"
+  ],
+  "InvoicePayment.added_by": [
+    "string"
+  ],
+  "InvoicePayment.address1": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.address2": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.amount": [
+    "string"
+  ],
+  "InvoicePayment.attachment": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.branch_id": [
+    "string"
+  ],
+  "InvoicePayment.city": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.client_id": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.code": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.country_code": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.created": [
+    "string"
+  ],
+  "InvoicePayment.currency_code": [
+    "string"
+  ],
+  "InvoicePayment.date": [
+    "string"
+  ],
+  "InvoicePayment.email": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.extra_details": [
+    "string"
+  ],
+  "InvoicePayment.first_name": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.id": [
+    "string"
+  ],
+  "InvoicePayment.invoice_id": [
+    "string"
+  ],
+  "InvoicePayment.ip": [
+    "string"
+  ],
+  "InvoicePayment.last_name": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.modified": [
+    "string"
+  ],
+  "InvoicePayment.notes": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.payment_method": [
+    "string"
+  ],
+  "InvoicePayment.payment_work_order_id": [
+    "null"
+  ],
+  "InvoicePayment.phone1": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.phone2": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.pos_shift_id": [
+    "null"
+  ],
+  "InvoicePayment.postal_code": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.processed": [
+    "null"
+  ],
+  "InvoicePayment.receipt_notes": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.response_code": [
+    "null"
+  ],
+  "InvoicePayment.response_message": [
+    "null"
+  ],
+  "InvoicePayment.source": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.staff_id": [
+    "string"
+  ],
+  "InvoicePayment.state": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.status": [
+    "string"
+  ],
+  "InvoicePayment.transaction_id": [
+    "null",
+    "string"
+  ],
+  "InvoicePayment.transaction_type": [
+    "string"
+  ],
+  "InvoicePayment.treasury_id": [
+    "string"
+  ]
+}

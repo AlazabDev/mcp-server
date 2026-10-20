@@ -1,0 +1,253 @@
+{
+  "path": "/follow_up_statuses/{type}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Follow-Up Statuses by type",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns every follow-up status defined for a given item type — the stages a record (client, invoice, work order, …) can move through. Requires the **Edit Client Settings** permission. Statuses are returned in their configured display order.\n\nThe `{type}` path segment selects which item type's statuses to return and must be one of the supported values:\n\n| Value | Item type |\n|---|---|\n| `client` | Clients |\n| `invoice` | Invoices |\n| `estimate` | Estimates |\n| `purchase_order` | Purchase orders |\n| `staff` | Staff |\n| `supplier` | Suppliers |\n| `product` | Products |\n| `work_order` | Work orders |\n\nAny other value returns `404`.",
+    "tags": [
+      "Endpoints/Sales /Follow-Up Status",
+      "Follow Up Statuses"
+    ],
+    "parameters": [
+      {
+        "name": "type",
+        "in": "path",
+        "description": "The item type whose follow-up statuses to return.\n\n| Value | Item type |\n|---|---|\n| `client` | Clients |\n| `invoice` | Invoices |\n| `estimate` | Estimates |\n| `purchase_order` | Purchase orders |\n| `staff` | Staff |\n| `supplier` | Suppliers |\n| `product` | Products |\n| `work_order` | Work orders |",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number for the paginated result. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "FollowUpStatus": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "site_id": {
+                            "type": "integer"
+                          },
+                          "item_type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6,
+                              7,
+                              8
+                            ],
+                            "description": "The item type this status belongs to.\n\n| Value | Item type |\n|---|---|\n| 1 | Client |\n| 2 | Invoice |\n| 3 | Estimate |\n| 4 | Purchase order |\n| 5 | Staff |\n| 6 | Supplier |\n| 7 | Product |\n| 8 | Work order |"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "color": {
+                            "type": "string",
+                            "enum": [
+                              "white",
+                              "silver",
+                              "gray",
+                              "black",
+                              "navy",
+                              "blue",
+                              "teal",
+                              "aqua",
+                              "green",
+                              "lime",
+                              "chartreuse",
+                              "olive",
+                              "yellow",
+                              "gold",
+                              "orange",
+                              "red",
+                              "maroon",
+                              "fuchsia",
+                              "purple",
+                              "indigo"
+                            ],
+                            "description": "Display color for the status badge (one of the 20 palette keys)."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2
+                            ],
+                            "description": "Whether the status keeps the record open or closes it.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |"
+                          },
+                          "display_order": {
+                            "type": "integer"
+                          },
+                          "is_primary": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether this status is pinned (sticky) at the top of the list. `0` = no, `1` = yes."
+                          },
+                          "require_followup": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Client statuses only — whether a follow-up is required when a record enters this status. `0` = no, `1` = yes."
+                          },
+                          "followup_after": {
+                            "type": "integer",
+                            "description": "Client statuses only — number of days after which the follow-up becomes due. `null` when not set.",
+                            "nullable": true
+                          },
+                          "entity_key": {
+                            "type": "string",
+                            "description": "Generic-entity key the status is scoped to, when applicable. `null` for built-in types.",
+                            "nullable": true
+                          },
+                          "deleted": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Soft-delete flag. `0` = active, `1` = deleted."
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or `null`.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or `null`.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the Edit Client Settings permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__follow_up_statuses_type_format"
+  },
+  "blockers": [
+    "Equivalent path templates in source; endpoint semantics need resolution"
+  ]
+}

@@ -1,0 +1,29 @@
+NATIVE_INSTALL 16.52.0 ['frappe', 'mcp_server']
+COUNTS {'MCP Plugin': 13, 'MCP Connector': 18, 'MCP Skill': 5, 'MCP Capability': 371}
+test_ai_provider_payload_contracts (mcp_server.tests.test_api.TestMCPAPI.test_ai_provider_payload_contracts) ... ok
+test_auth_guest_denied (mcp_server.tests.test_api.TestMCPAPI.test_auth_guest_denied) ... ok
+test_capability_schema_rejects_extra_args (mcp_server.tests.test_api.TestMCPAPI.test_capability_schema_rejects_extra_args) ... ok
+test_connector_disable_blocks (mcp_server.tests.test_api.TestMCPAPI.test_connector_disable_blocks) ... ok
+test_disabled_skill_not_readable (mcp_server.tests.test_api.TestMCPAPI.test_disabled_skill_not_readable) ... ok
+test_explicit_read_only_post_connection_probe (mcp_server.tests.test_api.TestMCPAPI.test_explicit_read_only_post_connection_probe) ... ok
+test_failed_operation_rolls_back_partial_writes (mcp_server.tests.test_api.TestMCPAPI.test_failed_operation_rolls_back_partial_writes) ... ok
+test_get_doc_projects_read_fields (mcp_server.tests.test_api.TestMCPAPI.test_get_doc_projects_read_fields) ... ok
+test_invalid_filter_operator_rejected (mcp_server.tests.test_api.TestMCPAPI.test_invalid_filter_operator_rejected) ... ok
+test_invalid_pagination (mcp_server.tests.test_api.TestMCPAPI.test_invalid_pagination) ... ok
+test_json_rpc_envelope (mcp_server.tests.test_api.TestMCPAPI.test_json_rpc_envelope) ... ok
+test_local_connection_test (mcp_server.tests.test_api.TestMCPAPI.test_local_connection_test) ... ok
+test_native_document_permission_is_enforced (mcp_server.tests.test_api.TestMCPAPI.test_native_document_permission_is_enforced) ... ok
+test_native_ping_and_audit (mcp_server.tests.test_api.TestMCPAPI.test_native_ping_and_audit) ... ok
+test_plugin_details (mcp_server.tests.test_api.TestMCPAPI.test_plugin_details) ... ok
+test_plugin_disable_hides_and_blocks (mcp_server.tests.test_api.TestMCPAPI.test_plugin_disable_hides_and_blocks) ... ok
+test_rate_setting_is_enforced (mcp_server.tests.test_api.TestMCPAPI.test_rate_setting_is_enforced) ... ok
+test_resource_metadata (mcp_server.tests.test_api.TestMCPAPI.test_resource_metadata) ... ok
+test_role_restriction (mcp_server.tests.test_api.TestMCPAPI.test_role_restriction) ... ok
+test_seed_idempotent (mcp_server.tests.test_api.TestMCPAPI.test_seed_idempotent) ... ok
+test_skills_prompts_and_resources (mcp_server.tests.test_api.TestMCPAPI.test_skills_prompts_and_resources) ... ok
+test_upgrade_preserves_registry_changes (mcp_server.tests.test_api.TestMCPAPI.test_upgrade_preserves_registry_changes) ... ok
+test_write_default_is_hidden_and_blocked (mcp_server.tests.test_api.TestMCPAPI.test_write_default_is_hidden_and_blocked) ... ok
+test_write_explicitly_enabled (mcp_server.tests.test_api.TestMCPAPI.test_write_explicitly_enabled) ... ok
+Ran 24 tests in 1.337s
+OK
+NATIVE_HTTP_MCP_AND_OAUTH_PKCE: PASS (metadata, anonymous rejection, authorization-code S256, bearer identity, official MCP client, skills, backup data, write denial, remote MCP discovery/proxy, prompts, resources)

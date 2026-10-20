@@ -1,0 +1,187 @@
+{
+  "description": "Alazab whatsapp-toolbox verified read-only API tools",
+  "tools": [
+    {
+      "type": "openapi",
+      "name": "whatsapp-read",
+      "openapi": {
+        "name": "whatsapp-read",
+        "spec": {
+          "openapi": "3.0.3",
+          "info": {
+            "title": "WhatsApp Cloud API Read Only",
+            "version": "1.0.0"
+          },
+          "servers": [
+            {
+              "url": "https://graph.facebook.com/v24.0"
+            }
+          ],
+          "paths": {
+            "/me": {
+              "get": {
+                "operationId": "get_meta_identity",
+                "summary": "Check Meta token identity",
+                "parameters": [
+                  {
+                    "name": "fields",
+                    "in": "query",
+                    "schema": {
+                      "type": "string"
+                    },
+                    "description": "Example: id,name"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Meta Graph JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/{waba_id}/phone_numbers": {
+              "get": {
+                "operationId": "list_whatsapp_phone_numbers",
+                "summary": "List WhatsApp phone numbers for a WABA",
+                "parameters": [
+                  {
+                    "name": "waba_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "limit",
+                    "in": "query",
+                    "schema": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Meta Graph JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/{waba_id}/message_templates": {
+              "get": {
+                "operationId": "list_whatsapp_templates",
+                "summary": "List WhatsApp business message templates",
+                "parameters": [
+                  {
+                    "name": "waba_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "limit",
+                    "in": "query",
+                    "schema": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Meta Graph JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/{phone_number_id}": {
+              "get": {
+                "operationId": "get_whatsapp_phone_number",
+                "summary": "Get WhatsApp phone number information",
+                "parameters": [
+                  {
+                    "name": "phone_number_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "fields",
+                    "in": "query",
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Meta Graph JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "securitySchemes": {
+              "bearerHeader": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization"
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerHeader": []
+            }
+          ]
+        },
+        "auth": {
+          "type": "project_connection",
+          "security_scheme": {
+            "project_connection_id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/whatsapp-graph-connection"
+          }
+        }
+      }
+    }
+  ]
+}

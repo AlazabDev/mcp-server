@@ -1,0 +1,90 @@
+{
+  "description": "UberFix current REST gateway verified list_services read operation",
+  "tools": [
+    {
+      "type": "openapi",
+      "name": "uberfix-read",
+      "openapi": {
+        "name": "uberfix-read",
+        "spec": {
+          "components": {
+            "securitySchemes": {
+              "apiKey": {
+                "in": "header",
+                "name": "X-API-Key",
+                "type": "apiKey"
+              }
+            }
+          },
+          "info": {
+            "title": "UberFix Read Only API Gateway",
+            "version": "2.0.0"
+          },
+          "openapi": "3.0.3",
+          "paths": {
+            "/api/tools/list_services": {
+              "post": {
+                "operationId": "list_services",
+                "summary": "List UberFix available maintenance services, read-only",
+                "description": "Returns service catalog. This action does not create or modify data.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {}
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Service catalog",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "success": {
+                              "type": "boolean"
+                            },
+                            "data": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": true
+                              }
+                            }
+                          },
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "servers": [
+            {
+              "url": "https://zrrffsjbfkphridqyais.supabase.co/functions/v1"
+            }
+          ]
+        },
+        "auth": {
+          "type": "project_connection",
+          "security_scheme": {
+            "project_connection_id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/uberfix-gateway-connection"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "Requisition": [
+    "object"
+  ],
+  "Requisition.RequisitionItem": [
+    "array"
+  ],
+  "Requisition.RequisitionItem[]": [
+    "object"
+  ],
+  "Requisition.RequisitionItem[].account_id": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].cost_center_id": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].cost_centers": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].created": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].description": [
+    "null",
+    "string"
+  ],
+  "Requisition.RequisitionItem[].display_order": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].extra_details": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].id": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].item": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].modified": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].product_id": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].quantity": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].quantity2": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].requested_quantity": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].requisition_id": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].serials": [
+    "null"
+  ],
+  "Requisition.RequisitionItem[].subtotal": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].tracking_data": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].unit_factor": [
+    "null",
+    "string"
+  ],
+  "Requisition.RequisitionItem[].unit_factor_id": [
+    "null",
+    "string"
+  ],
+  "Requisition.RequisitionItem[].unit_name": [
+    "null",
+    "string"
+  ],
+  "Requisition.RequisitionItem[].unit_price": [
+    "string"
+  ],
+  "Requisition.RequisitionItem[].unit_small_name": [
+    "null",
+    "string"
+  ],
+  "Requisition.branch_id": [
+    "string"
+  ],
+  "Requisition.branch_name": [
+    "string"
+  ],
+  "Requisition.client_id": [
+    "null",
+    "string"
+  ],
+  "Requisition.created": [
+    "string"
+  ],
+  "Requisition.currency_code": [
+    "string"
+  ],
+  "Requisition.date": [
+    "string"
+  ],
+  "Requisition.id": [
+    "string"
+  ],
+  "Requisition.journal_account_id": [
+    "null",
+    "string"
+  ],
+  "Requisition.journal_account_name": [
+    "string"
+  ],
+  "Requisition.modified": [
+    "string"
+  ],
+  "Requisition.notes": [
+    "null",
+    "string"
+  ],
+  "Requisition.number": [
+    "string"
+  ],
+  "Requisition.order_id": [
+    "string"
+  ],
+  "Requisition.order_number": [
+    "string"
+  ],
+  "Requisition.order_type": [
+    "string"
+  ],
+  "Requisition.parent_requisition_id": [
+    "null",
+    "string"
+  ],
+  "Requisition.staff_id": [
+    "string"
+  ],
+  "Requisition.status": [
+    "string"
+  ],
+  "Requisition.store_id": [
+    "string"
+  ],
+  "Requisition.supplier_id": [
+    "null",
+    "string"
+  ],
+  "Requisition.to_store_id": [
+    "null"
+  ],
+  "Requisition.type": [
+    "string"
+  ],
+  "Requisition.work_order_id": [
+    "null",
+    "string"
+  ]
+}

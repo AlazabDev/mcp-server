@@ -1,0 +1,9 @@
+{
+  "api_host": "alazab-co.daftra.com",
+  "api_base_path": "/api2",
+  "authentication": "apikey",
+  "operations": 301,
+  "eligible_safe_get": 63,
+  "live_mode": true,
+  "timestamp_utc": "2026-10-08T20:17:17.798257+00:00"
+}

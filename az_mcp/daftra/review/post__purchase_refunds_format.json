@@ -1,0 +1,159 @@
+{
+  "path": "/purchase_refunds{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Purchase Refund",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a purchase refund (purchase debit note). The request must include a `PurchaseRefund` object and at least one `PurchaseOrderItem`. Required: `PurchaseRefund.supplier_id`; each item requires `item`, `unit_price`, and `quantity`. Set `PurchaseRefund.subscription_id` to the id of the purchase invoice being refunded to link the refund to its source invoice; omit it to create a standalone refund. `currency_code`, the refund number, store, branch, and totals are assigned automatically when omitted. Send `?send=draft` to save as a draft (otherwise the refund is marked received). Requires the Inventory plugin and the *Add New Purchase Orders* permission.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Refunds",
+      "Purchase Refunds"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "send",
+        "in": "query",
+        "description": "Set to `draft` to save the refund as a draft instead of a received refund.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "draft"
+          ]
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {},
+              {},
+              {
+                "type": "object",
+                "properties": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Identifier of the newly created purchase refund."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Set for business-rule failures (e.g. source purchase invoice not found, supplier suspended, insufficient stock when over-draft is disabled). `validation_errors` is populated for field validation failures."
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__purchase_refunds_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,228 @@
+{
+  "path": "/treasuries/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Treasuries",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing treasury or bank account by id. The request body is wrapped in a `Treasury` object; the id is taken from the path. Setting `active` to `0` also clears the primary flag, and a bank account's `currency_code` cannot be changed once it has transactions. Requires one of the treasury-related permissions or the *General Settings* / *Manage Journal Accounts* permission. (A `POST /treasuries/{id}` request is accepted as an alias for this update.)",
+    "tags": [
+      "Endpoints/Finance/Treasuries",
+      "Treasuries"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifier of the treasury to update.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Treasury": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Name of the treasury or bank account."
+                  },
+                  "type": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Kind of account.\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                  },
+                  "is_primary": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether this is the primary (default) treasury.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |\n\nSetting `1` also activates this treasury and clears the primary flag on all others."
+                  },
+                  "active": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether the treasury is active. Setting `0` also clears the primary flag.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                  },
+                  "type_name": {
+                    "type": "string",
+                    "description": "Bank/account label (bank accounts).",
+                    "nullable": true
+                  },
+                  "type_account_number": {
+                    "type": "string",
+                    "description": "Bank account number (bank accounts).",
+                    "nullable": true
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "ISO currency code (bank accounts). Cannot be changed once the bank has transactions.",
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text description."
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            },
+            "required": [
+              "Treasury"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK — the treasury was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized — missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "402": {
+        "description": "Payment Required — returned only when activating a previously-inactive treasury and the plan's treasury/bank limit has been reached. This response uses a distinct envelope and does not include the `result` field.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "upgrade_url": {
+                  "type": "string",
+                  "description": "Link to upgrade the plan."
+                },
+                "upgrade_btn_title": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden — the user lacks a treasury-related permission and General Settings / Manage Journal Accounts.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not found — no treasury with this id is accessible to the user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__treasuries_id_format"
+  },
+  "blockers": []
+}

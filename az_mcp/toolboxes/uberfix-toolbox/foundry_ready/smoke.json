@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "tool_configuration": {
+      "type": "openapi",
+      "name": "uberfix-read",
+      "openapi": {
+        "name": "uberfix-read",
+        "spec": {
+          "components": {
+            "securitySchemes": {
+              "apiKey": {
+                "in": "header",
+                "name": "X-API-Key",
+                "type": "apiKey"
+              }
+            }
+          },
+          "info": {
+            "title": "UberFix Read Only API Gateway",
+            "version": "1.0.0"
+          },
+          "openapi": "3.0.3",
+          "paths": {
+            "/maintenance-gateway/invoices": {
+              "get": {
+                "operationId": "list_uberfix_invoices",
+                "responses": {
+                  "200": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "description": "Successful JSON response"
+                  }
+                },
+                "summary": "List UberFix invoices"
+              }
+            },
+            "/maintenance-gateway/requests": {
+              "get": {
+                "operationId": "list_maintenance_requests",
+                "parameters": [
+                  {
+                    "in": "query",
+                    "name": "status",
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "in": "query",
+                    "name": "limit",
+                    "schema": {
+                      "maximum": 200,
+                      "minimum": 1,
+                      "type": "integer"
+                    }
+                  },
+                  {
+                    "in": "query",
+                    "name": "cursor",
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "description": "Successful JSON response"
+                  }
+                },
+                "summary": "List UberFix maintenance requests"
+              }
+            },
+            "/maintenance-gateway/requests/{id}": {
+              "get": {
+                "operationId": "get_maintenance_request",
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "description": "Successful JSON response"
+                  }
+                },
+                "summary": "Get a maintenance request"
+              }
+            },
+            "/maintenance-gateway/technicians": {
+              "get": {
+                "operationId": "list_technicians",
+                "parameters": [
+                  {
+                    "in": "query",
+                    "name": "specialty",
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "in": "query",
+                    "name": "available_only",
+                    "schema": {
+                      "type": "boolean"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "description": "Successful JSON response"
+                  }
+                },
+                "summary": "List technicians"
+              }
+            }
+          },
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "servers": [
+            {
+              "url": "https://zrrffsjbfkphridqyais.supabase.co/functions/v1"
+            }
+          ]
+        },
+        "auth": {
+          "type": "project_connection",
+          "security_scheme": {
+            "project_connection_id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/uberfix-gateway-connection"
+          }
+        }
+      }
+    }
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"name\": \"maintenance-gateway (deprecated shim)\",\n  \"message_ar\": \"هذا المسار مهجور. استخدم /functions/v1/api للتطبيقات و/functions/v1/mcp للوكلاء.\",\n  \"rest_api\": \"https://zrrffsjbfkphridqyais.supabase.co/functions/v1/api\",\n  \"mcp_server\": \"https://zrrffsjbfkphridqyais.supabase.co/functions/v1/mcp\"\n}",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structured_content": {
+    "name": "maintenance-gateway (deprecated shim)",
+    "message_ar": "هذا المسار مهجور. استخدم /functions/v1/api للتطبيقات و/functions/v1/mcp للوكلاء.",
+    "rest_api": "https://zrrffsjbfkphridqyais.supabase.co/functions/v1/api",
+    "mcp_server": "https://zrrffsjbfkphridqyais.supabase.co/functions/v1/mcp"
+  },
+  "is_error": false,
+  "result_type": "complete"
+}

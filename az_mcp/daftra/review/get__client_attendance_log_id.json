@@ -1,0 +1,106 @@
+{
+  "path": "/client_attendance_log/{id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Client Attendance Log",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single client attendance entry as a flat record (v2 native-entity).\n\nServed from the `/v2/api/entity` base with a Bearer token. The trailing path segment is the data level (how deeply related records are loaded); `1` is the usual value.",
+    "tags": [
+      "Endpoints/Clients /Client Attendance Log",
+      "Client Attendance Log"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The attendance entry id.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The attendance entry.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "client_id": {
+                  "type": "integer"
+                },
+                "added_by": {
+                  "type": "integer"
+                },
+                "time": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "description": "Null unless soft-deleted.",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks view permission, or the Client Attendance feature is not enabled.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__client_attendance_log_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

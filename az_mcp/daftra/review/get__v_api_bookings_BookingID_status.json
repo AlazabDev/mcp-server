@@ -1,0 +1,117 @@
+{
+  "path": "/v2/api/bookings/{BookingID}/status",
+  "method": "get",
+  "operation": {
+    "summary": "Change Booking Status",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Changes the status of a booking. Pass the booking id and the target status code in the path.\n\n| Value | Status |\n|---|---|\n| 0 | Pending |\n| 1 | Confirmed |\n| 2 | Invoiced (set automatically when the booking is converted to an invoice) |\n| 3 | Cancelled |\n| 4 | Done |\n\nTypically you set `1` (Confirmed), `3` (Cancelled), or `4` (Done). The request always responds with HTTP 200 carrying an `error` flag: `error` is `false` when the status was changed, and `true` when it was not (for example an unsupported status, or a booking already converted to an invoice). A booking id that does not exist returns 404.\n\nThe `.json` extension is optional.",
+    "tags": [
+      "Endpoints/Bookings/Booking (Beta version)"
+    ],
+    "parameters": [
+      {
+        "name": "BookingID",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Always returned (HTTP 200) whether or not the change applied — check the `error` flag. Success: `{\"message\":\"Status Changed Successfully\",\"error\":false}`. Not applied: `{\"message\":\"\",\"error\":true}`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Result message. Empty when the change was not applied."
+                },
+                "error": {
+                  "type": "boolean",
+                  "description": "`false` when the status was changed; `true` when it was not applied (unsupported status, or booking already converted)."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No booking exists with the given id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "extra_data": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_bookings_BookingID_status"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths",
+    "GET request body requires verified adapter or corrected upstream contract"
+  ]
+}

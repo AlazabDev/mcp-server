@@ -1,0 +1,202 @@
+{
+  "path": "/v2/api/multi-entity",
+  "method": "post",
+  "operation": {
+    "summary": "Multi Entity Request",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Fetches data for **multiple entities in a single request**. The request body is a JSON **array** of sub-requests; each sub-request independently reads one entity — either a single record (`show`) or a filtered list (`list`).\n\n`POST /v2/api/multi-entity`\n\nThe response is a **single JSON object** whose keys are each sub-request's `alias` (or its `key` when no alias is given). Each value holds that sub-request's result, so one call can return, for example, an invoice together with its related requisitions.\n\n## Sub-request fields\n\n| Field | Required | Description |\n|---|---|---|\n| key | Yes | The entity key to read (e.g. `invoice`, `requisition`, `follow_up_reminder`). |\n| action | Yes | `show` to fetch a single record, `list` to fetch a filtered list. Any other value returns `{ \"error\": \"Action not found\" }` under that alias. |\n| options | Yes | Depends on `action`. For `show`: the record **id**. For `list`: a **filters object** (see below). |\n| alias | No | The key under which this sub-request's result appears in the response. Defaults to `key`. Use it to disambiguate two sub-requests that read the same entity. |\n| level | No | Data-detail level — how deeply related records are loaded. Defaults to `1`. Higher levels return more nested relations. |\n\n### `options` by action\n\n- **`show`** — `options` is the record id, e.g. `\"options\": \"172185\"`.\n- **`list`** — `options` is an object of filter conditions merged into the listing query, e.g. `\"options\": { \"order_id\": \"172185\", \"order_type\": 3 }`. Any field the target entity supports may be used.\n\n## Response\n\nAlways returns **HTTP 200**. The body is an object keyed by each sub-request's `alias`:\n\n- A `show` sub-request → the record object (with a `custom_data` property holding the record's custom-field values, when the entity has any).\n- A `list` sub-request → a paginated envelope (`data` array plus `current_page`, `per_page`, `total`, `last_page`, and page-URL fields).\n- A failed sub-request → `{ \"error\": \"<message>\" }`.\n\nSub-requests are processed independently: a failure in one (unknown action, inactive plugin, no permission to view the record, or an otherwise invalid sub-request) is reported as an `error` object under that alias and never fails the whole call. The overall HTTP status is always `200`.\n\n> **Permissions:** a `show` sub-request requires permission to view the requested entity; without it that alias returns `{ \"error\": \"You are not allowed to view this page\" }`.\n\n## Authentication\n\nSend an OAuth Bearer access token in the `Authorization` header. Also send `Accept: application/json`.",
+    "tags": [
+      "Endpoints/Multi Entity Request"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "array",
+            "description": "Array of sub-requests. Each item reads one entity, as a single record (`show`) or a filtered list (`list`).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "The entity key to read, e.g. `invoice`, `requisition`, `follow_up_reminder`."
+                },
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "show",
+                    "list"
+                  ],
+                  "description": "What to fetch for this entity.\n\n| Value | Meaning |\n|---|---|\n| show | Fetch a single record; `options` is the record id. |\n| list | Fetch a filtered list; `options` is a filters object. |\n\nAny other value returns `{ \"error\": \"Action not found\" }` under this sub-request's alias."
+                },
+                "options": {
+                  "description": "Depends on `action`.\n\n- **`show`** — the record id (e.g. `\"172185\"`).\n- **`list`** — an object of filter conditions merged into the listing query (e.g. `{ \"order_id\": \"172185\", \"order_type\": 3 }`). Any field the target entity supports may be used.",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  ]
+                },
+                "alias": {
+                  "type": "string",
+                  "description": "The key under which this sub-request's result appears in the response. Optional; defaults to `key`."
+                },
+                "level": {
+                  "type": "integer",
+                  "description": "Data-detail level — how deeply related records are loaded. Optional; defaults to `1`. Higher levels return more nested relations."
+                }
+              },
+              "required": [
+                "key",
+                "action",
+                "options"
+              ]
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Always returned, even when individual sub-requests fail. The body is an object keyed by each sub-request's `alias`.\n\nExample body for the request example above (an invoice fetched by `show` and its requisitions fetched by `list`):\n\n```json\n{\n  \"invoice\": {\n    \"id\": 172185,\n    \"no\": \"INV-000123\",\n    \"custom_data\": null\n  },\n  \"requisition\": {\n    \"current_page\": 1,\n    \"data\": [ { \"id\": 991, \"order_id\": 172185, \"order_type\": 3 } ],\n    \"per_page\": 20,\n    \"total\": 1,\n    \"last_page\": 1\n  }\n}\n```\n\nA sub-request that fails appears as an error object under its alias, e.g. `{ \"requisition\": { \"error\": \"You are not allowed to view this page\" } }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "An object keyed by each sub-request's `alias` (or `key` when no alias was given). Each value is the result of one sub-request.",
+              "additionalProperties": {
+                "description": "Result for one sub-request — one of three shapes depending on the sub-request's `action` and whether it succeeded.",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "description": "`show` result — the requested record's fields, plus a `custom_data` object holding its custom-field values (present when the entity supports custom fields). The exact fields depend on the entity.",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "The record id."
+                      },
+                      "custom_data": {
+                        "type": "object",
+                        "description": "The record's custom-field values, or null when it has none."
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "description": "`list` result — a paginated envelope of matching records.",
+                    "properties": {
+                      "current_page": {
+                        "type": "integer",
+                        "description": "Current page number."
+                      },
+                      "data": {
+                        "type": "array",
+                        "description": "The matching records. Fields depend on the requested entity and `level`.",
+                        "items": {
+                          "type": "object"
+                        }
+                      },
+                      "first_page_url": {
+                        "type": "string",
+                        "description": "URL of the first page."
+                      },
+                      "from": {
+                        "type": "integer",
+                        "description": "Index of the first record on this page (null when empty)."
+                      },
+                      "last_page": {
+                        "type": "integer",
+                        "description": "Number of the last page."
+                      },
+                      "last_page_url": {
+                        "type": "string",
+                        "description": "URL of the last page."
+                      },
+                      "next_page_url": {
+                        "type": "string",
+                        "description": "URL of the next page (null on the last page)."
+                      },
+                      "path": {
+                        "type": "string",
+                        "description": "Base path of the paginator."
+                      },
+                      "per_page": {
+                        "type": "integer",
+                        "description": "Records per page."
+                      },
+                      "prev_page_url": {
+                        "type": "string",
+                        "description": "URL of the previous page (null on the first page)."
+                      },
+                      "to": {
+                        "type": "integer",
+                        "description": "Index of the last record on this page (null when empty)."
+                      },
+                      "total": {
+                        "type": "integer",
+                        "description": "Total number of matching records."
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "description": "Failure for this sub-request. The other sub-requests are unaffected and the overall status stays `200`.",
+                    "properties": {
+                      "error": {
+                        "type": "string",
+                        "description": "Human-readable reason, e.g. `Action not found`, `Plugin <name> not active`, or `You are not allowed to view this page`."
+                      }
+                    },
+                    "required": [
+                      "error"
+                    ]
+                  }
+                ]
+              },
+              "properties": {}
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The request has no valid OAuth Bearer access token. Send `Accept: application/json` to receive this JSON body; without it an HTML error page is returned instead.\n\nNote: this is the only case that fails the whole request. Per-sub-request problems (unknown action, inactive plugin, no view permission) are reported inside the `200` body, not as a `401`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Present when the request is unauthenticated (missing or invalid access token). Example: `Unauthenticated.`"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__v_api_multi-entity"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

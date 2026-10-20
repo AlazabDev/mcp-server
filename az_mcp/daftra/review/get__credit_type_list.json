@@ -1,0 +1,204 @@
+{
+  "path": "/credit_type/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Credit types",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a **paginated** list of credit types.\n\nA credit type defines a kind of credit/points balance (e.g. loyalty points). The response is a standard paginated envelope: the records are in `data[]` (each item is `id`, `name`, `allow_decimal`, `status`, `unit`, `description`, `created`, `modified`, `deleted_at`), alongside pagination metadata (`current_page`, `per_page`, `total`, `last_page`, `from`, `to`, `links`, and the `*_page_url` fields).\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field (see Filterable fields below). |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>`:\n\n| Field | Type | Example |\n|---|---|---|\n| `name` | string | `filter[name][like]=Loyalty` |\n| `status` | enum (`0` Inactive, `1` Active) | `filter[status][equal]=1` |\n\nIn practice the endpoint filters and sorts on any existing column. With no `sort`, results default to newest-first (by `id`).\n\nThe trailing path segment sets the data-detail level (e.g. `/credit_type/list/1`); it is optional for this entity and does not change the returned records — it is only echoed back into the pagination URLs.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Types"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Items per page. Defaults to 20.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of credit types.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "allow_decimal": {
+                        "type": "integer",
+                        "description": "Whether fractional amounts are allowed.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+                      },
+                      "status": {
+                        "type": "integer",
+                        "description": "Whether the credit type is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "allow_decimal",
+                      "status",
+                      "unit",
+                      "description",
+                      "created",
+                      "modified",
+                      "deleted_at"
+                    ]
+                  }
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "page": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "label",
+                      "page",
+                      "active"
+                    ]
+                  }
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "first_page_url",
+                "from",
+                "last_page",
+                "last_page_url",
+                "links",
+                "next_page_url",
+                "path",
+                "per_page",
+                "prev_page_url",
+                "to",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks access to this entity also receives a `401` with a message stating access is not allowed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_type_list"
+  },
+  "blockers": []
+}

@@ -1,0 +1,280 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].StockTransaction": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].StockTransaction.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.product_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.transaction_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.transaction_category_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.stock_transfer_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.source_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.order_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].StockTransaction.ref_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.received_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.quantity": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.quantity2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.currency_rate": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.price": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.price_without_tax": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.added_by": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.ignored": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.ignored_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.balance_to_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.notes": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.store_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.discount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.purchase_price": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.purchase_order_ids": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.journal_account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.unit_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.unit_small_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.unit_factor": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.unit_factor_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.fetch_from_raw": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].StockTransaction.serials": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.cost": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.tracking_number_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].StockTransaction.is_calculated": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].StockTransaction.avg": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.stock_after": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.store_avg": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].StockTransaction.store_stock_after": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

@@ -1,0 +1,696 @@
+{
+  "Invoice": [
+    "object"
+  ],
+  "Invoice.Client": [
+    "object"
+  ],
+  "Invoice.Client.active_secondary_address": [
+    "string"
+  ],
+  "Invoice.Client.address1": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.address2": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.birth_date": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.bn1": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.bn1_label": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.bn2": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.bn2_label": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.branch_id": [
+    "string"
+  ],
+  "Invoice.Client.business_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.category": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.category_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.city": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.client_number": [
+    "string"
+  ],
+  "Invoice.Client.country_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.created": [
+    "string"
+  ],
+  "Invoice.Client.credit_limit": [
+    "string"
+  ],
+  "Invoice.Client.credit_period": [
+    "string"
+  ],
+  "Invoice.Client.default_currency_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.email": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.extra_details": [
+    "null"
+  ],
+  "Invoice.Client.first_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.gender": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.group_price_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.id": [
+    "string"
+  ],
+  "Invoice.Client.is_government_entity": [
+    "integer"
+  ],
+  "Invoice.Client.is_offline": [
+    "string"
+  ],
+  "Invoice.Client.language_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.last_ip": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.last_login": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.last_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.link": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.map_location": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.modified": [
+    "string"
+  ],
+  "Invoice.Client.national_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.notes": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.original_site_id": [
+    "null"
+  ],
+  "Invoice.Client.phone1": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.phone2": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.photo": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.postal_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_address1": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_address2": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_city": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.secondary_state": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.site_id": [
+    "string"
+  ],
+  "Invoice.Client.staff_id": [
+    "string"
+  ],
+  "Invoice.Client.starting_balance": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.state": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.suspend": [
+    "string"
+  ],
+  "Invoice.Client.timezone": [
+    "null",
+    "string"
+  ],
+  "Invoice.Client.type": [
+    "null",
+    "string"
+  ],
+  "Invoice.active": [
+    "string"
+  ],
+  "Invoice.address_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.adjustment_label": [
+    "null",
+    "string"
+  ],
+  "Invoice.adjustment_value": [
+    "null",
+    "string"
+  ],
+  "Invoice.auto_payment": [
+    "null"
+  ],
+  "Invoice.branch_id": [
+    "string"
+  ],
+  "Invoice.client_active_secondary_address": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_address1": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_address2": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_bn1": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_bn1_label": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_bn2": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_bn2_label": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_business_name": [
+    "string"
+  ],
+  "Invoice.client_city": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_country_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_email": [
+    "string"
+  ],
+  "Invoice.client_first_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_id": [
+    "string"
+  ],
+  "Invoice.client_is_government_entity": [
+    "integer"
+  ],
+  "Invoice.client_last_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_national_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_phone1": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_phone2": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_postal_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_address1": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_address2": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_city": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_name": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_secondary_state": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_state": [
+    "null",
+    "string"
+  ],
+  "Invoice.client_type": [
+    "null",
+    "string"
+  ],
+  "Invoice.created": [
+    "string"
+  ],
+  "Invoice.currency_code": [
+    "string"
+  ],
+  "Invoice.date": [
+    "string"
+  ],
+  "Invoice.date_format": [
+    "null",
+    "string"
+  ],
+  "Invoice.deleted_at": [
+    "null"
+  ],
+  "Invoice.deposit": [
+    "null",
+    "string"
+  ],
+  "Invoice.deposit_type": [
+    "string"
+  ],
+  "Invoice.discount": [
+    "null",
+    "string"
+  ],
+  "Invoice.discount_amount": [
+    "null",
+    "string"
+  ],
+  "Invoice.draft": [
+    "string"
+  ],
+  "Invoice.due_after": [
+    "string"
+  ],
+  "Invoice.due_date": [
+    "string"
+  ],
+  "Invoice.e_invoice_status": [
+    "string"
+  ],
+  "Invoice.estimate_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.external_source": [
+    "null",
+    "string"
+  ],
+  "Invoice.extra_details": [
+    "string"
+  ],
+  "Invoice.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Invoice.from": [
+    "null",
+    "string"
+  ],
+  "Invoice.group_price_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.html_notes": [
+    "null",
+    "string"
+  ],
+  "Invoice.id": [
+    "string"
+  ],
+  "Invoice.income_id": [
+    "null"
+  ],
+  "Invoice.inventory_request_status": [
+    "null"
+  ],
+  "Invoice.invoice_html_url": [
+    "string"
+  ],
+  "Invoice.invoice_layout_id": [
+    "string"
+  ],
+  "Invoice.invoice_pdf_url": [
+    "string"
+  ],
+  "Invoice.is_offline": [
+    "string"
+  ],
+  "Invoice.is_received": [
+    "string"
+  ],
+  "Invoice.issue_date": [
+    "null",
+    "string"
+  ],
+  "Invoice.issued": [
+    "string"
+  ],
+  "Invoice.item_columns": [
+    "null",
+    "string"
+  ],
+  "Invoice.item_discount_amount": [
+    "string"
+  ],
+  "Invoice.label_date": [
+    "null"
+  ],
+  "Invoice.label_deposit": [
+    "null"
+  ],
+  "Invoice.label_description": [
+    "null"
+  ],
+  "Invoice.label_due_after": [
+    "null"
+  ],
+  "Invoice.label_due_date": [
+    "null"
+  ],
+  "Invoice.label_from_date": [
+    "null"
+  ],
+  "Invoice.label_invoice_no": [
+    "null"
+  ],
+  "Invoice.label_item": [
+    "null"
+  ],
+  "Invoice.label_item_total": [
+    "null"
+  ],
+  "Invoice.label_paid_amount": [
+    "null"
+  ],
+  "Invoice.label_po_no": [
+    "null"
+  ],
+  "Invoice.label_quantity": [
+    "null"
+  ],
+  "Invoice.label_status": [
+    "null"
+  ],
+  "Invoice.label_subtotal": [
+    "null"
+  ],
+  "Invoice.label_tax1": [
+    "null"
+  ],
+  "Invoice.label_tax2": [
+    "null"
+  ],
+  "Invoice.label_to_date": [
+    "null"
+  ],
+  "Invoice.label_total": [
+    "null"
+  ],
+  "Invoice.label_unit_price": [
+    "null"
+  ],
+  "Invoice.label_unpaid_amount": [
+    "null"
+  ],
+  "Invoice.language_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.last_sent": [
+    "null",
+    "string"
+  ],
+  "Invoice.modified": [
+    "string"
+  ],
+  "Invoice.name": [
+    "null",
+    "string"
+  ],
+  "Invoice.no": [
+    "string"
+  ],
+  "Invoice.notes": [
+    "null",
+    "string"
+  ],
+  "Invoice.offer_id": [
+    "null"
+  ],
+  "Invoice.order_number": [
+    "null"
+  ],
+  "Invoice.order_source_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.payment_status": [
+    "string"
+  ],
+  "Invoice.po_number": [
+    "null"
+  ],
+  "Invoice.pos_shift_id": [
+    "null"
+  ],
+  "Invoice.received_date": [
+    "null"
+  ],
+  "Invoice.required_terms": [
+    "null",
+    "string"
+  ],
+  "Invoice.required_terms_file": [
+    "string"
+  ],
+  "Invoice.requisition_delivery_status": [
+    "null",
+    "string"
+  ],
+  "Invoice.retention_value": [
+    "null"
+  ],
+  "Invoice.sales_person_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.shipping_amount": [
+    "null",
+    "string"
+  ],
+  "Invoice.shipping_option_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.shipping_options": [
+    "null",
+    "string"
+  ],
+  "Invoice.shipping_tax_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.show_from_to": [
+    "null"
+  ],
+  "Invoice.site_id": [
+    "string"
+  ],
+  "Invoice.source_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.source_type": [
+    "null",
+    "string"
+  ],
+  "Invoice.staff_id": [
+    "string"
+  ],
+  "Invoice.store_id": [
+    "string"
+  ],
+  "Invoice.stored_due_date": [
+    "string"
+  ],
+  "Invoice.submission_date": [
+    "null"
+  ],
+  "Invoice.subscription_id": [
+    "null"
+  ],
+  "Invoice.subscription_issue_before": [
+    "null"
+  ],
+  "Invoice.subscription_max_repeat": [
+    "null"
+  ],
+  "Invoice.subscription_notify": [
+    "null"
+  ],
+  "Invoice.subscription_period": [
+    "null"
+  ],
+  "Invoice.subscription_repeated": [
+    "null"
+  ],
+  "Invoice.subscription_unit": [
+    "null"
+  ],
+  "Invoice.summary_credit_note": [
+    "integer"
+  ],
+  "Invoice.summary_deposit": [
+    "string"
+  ],
+  "Invoice.summary_discount": [
+    "string"
+  ],
+  "Invoice.summary_paid": [
+    "string"
+  ],
+  "Invoice.summary_refund": [
+    "integer"
+  ],
+  "Invoice.summary_subtotal": [
+    "string"
+  ],
+  "Invoice.summary_tax1": [
+    "null"
+  ],
+  "Invoice.summary_tax2": [
+    "null"
+  ],
+  "Invoice.summary_total": [
+    "string"
+  ],
+  "Invoice.summary_unpaid": [
+    "string"
+  ],
+  "Invoice.tax1": [
+    "null"
+  ],
+  "Invoice.tax2": [
+    "null"
+  ],
+  "Invoice.terms": [
+    "string"
+  ],
+  "Invoice.terms_id": [
+    "null",
+    "string"
+  ],
+  "Invoice.to": [
+    "null"
+  ],
+  "Invoice.type": [
+    "string"
+  ],
+  "Invoice.work_order_id": [
+    "null",
+    "string"
+  ]
+}

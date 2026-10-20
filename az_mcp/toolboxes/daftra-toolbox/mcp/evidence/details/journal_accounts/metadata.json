@@ -1,0 +1,8 @@
+{
+  "resource": "journal_accounts",
+  "method": "GET",
+  "record_id": 381,
+  "url": "https://alazab-co.daftra.com/api2/journal_accounts/381.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:55:01.979503+00:00"
+}

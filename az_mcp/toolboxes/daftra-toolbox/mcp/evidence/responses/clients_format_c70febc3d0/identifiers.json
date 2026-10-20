@@ -1,0 +1,56 @@
+{
+  "data[].Client.id": [
+    "48",
+    "49",
+    "55",
+    "46",
+    "64",
+    "52",
+    "57",
+    "60",
+    "36",
+    "11",
+    "38",
+    "70",
+    "42",
+    "71",
+    "14",
+    "19",
+    "62",
+    "51",
+    "17",
+    "25"
+  ],
+  "data[].Client.site_id": [
+    "3428849"
+  ],
+  "data[].Client.staff_id": [
+    "-3",
+    "0",
+    "6"
+  ],
+  "data[].Client.group_price_id": [
+    "1"
+  ],
+  "data[].Client.branch_id": [
+    "1"
+  ],
+  "data[].Client.addresses[].id": [
+    0,
+    "9"
+  ],
+  "data[].Client.default_address.id": [
+    0
+  ],
+  "data[].Client.national_id": [
+    ""
+  ],
+  "data[].Client.category_id": [
+    "4",
+    "17",
+    "40"
+  ],
+  "data[].Client.addresses[].entity_id": [
+    "11"
+  ]
+}

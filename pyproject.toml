@@ -1,20 +1,17 @@
 [project]
 name = "mcp_server"
-authors = [
-    { name = "Me", email = "mcp@local.com"}
-]
-description = "MCP Server for Frappe"
-requires-python = ">=3.10"
-readme = "README.md"
+authors = [{name = "Alazab", email = "dev@alazab.com"}]
+description = "Frappe 16 central skills, plugins, connectors and MCP"
+requires-python = ">=3.14,<3.15"
+readme = "README_AR.md"
 dynamic = ["version"]
-dependencies = [
-    # "frappe~=15.0.0" # Installed and managed by bench.
-]
-
+dependencies = ["jsonschema>=4.23,<5", "httpx>=0.28,<1", "python-dotenv>=1,<2", "mcp==1.30.0"]
 [build-system]
-requires = ["flit_core >=3.4,<4"]
+requires = ["flit_core>=3.4,<4"]
 build-backend = "flit_core.buildapi"
+[tool.bench.frappe-dependencies]
+frappe = ">=16.0.0,<17.0.0"
 
-# These dependencies are only installed when developer mode is enabled
-[tool.bench.dev-dependencies]
-# package_name = "~=1.1.0"
+[tool.flit.sdist]
+include = ["az_mcp/", "tests/", "install_frappe16.sh", "README_AR.md"]
+exclude = ["**/__pycache__", "**/.env", "**/.env.*", "**/env.production", "**/node_modules", "**/.git"]

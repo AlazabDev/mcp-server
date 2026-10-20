@@ -1,0 +1,625 @@
+{
+  "path": "/asset_location/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Locations",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Employee Asset/Asset Location"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "is_active": {
+                        "type": "integer"
+                      },
+                      "description": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "staff_id": {
+                        "type": "integer"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "branch_id": {
+                        "type": "integer"
+                      },
+                      "asset_location_branch": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "status",
+                          "created",
+                          "modified"
+                        ]
+                      },
+                      "asset_location_staff": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "added_by": {
+                            "type": "integer"
+                          },
+                          "role_id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "middle_name": {
+                            "type": "string"
+                          },
+                          "last_name": {
+                            "type": "string"
+                          },
+                          "photo": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "can_access_system": {
+                            "type": "integer"
+                          },
+                          "home_phone": {
+                            "type": "string"
+                          },
+                          "business_Phone": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "mobile": {
+                            "type": "string"
+                          },
+                          "fax": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "country_code": {
+                            "type": "string"
+                          },
+                          "address1": {
+                            "type": "string"
+                          },
+                          "address2": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "postal_code": {
+                            "type": "string"
+                          },
+                          "note": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "email_address": {
+                            "type": "string"
+                          },
+                          "last_login": {
+                            "type": "string"
+                          },
+                          "active": {
+                            "type": "integer"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "hourly_rate": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "hourly_rate_currency_code": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "default_store_id": {
+                            "type": "integer"
+                          },
+                          "default_treasury_id": {
+                            "type": "integer"
+                          },
+                          "maximum_general_discount": {
+                            "type": "integer"
+                          },
+                          "language_code": {
+                            "type": "integer"
+                          },
+                          "branch_id": {
+                            "type": "integer"
+                          },
+                          "full_name": {
+                            "type": "string"
+                          },
+                          "attendance_restriction_id": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "default_account_id": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "citizenship_status": {
+                            "type": "string"
+                          },
+                          "residence_expiry_date": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "nationality": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "official_id": {
+                            "nullable": true,
+                            "enum": [
+                              null
+                            ]
+                          },
+                          "staff_info": {
+                            "type": "object",
+                            "properties": {
+                              "staff_id": {
+                                "type": "integer"
+                              },
+                              "department_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "employment_level_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "employment_type_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "designation_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "birth_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "gender": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "personal_email": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "permanent_address1": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "permanent_address2": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "permanent_city": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "permanent_state": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "permanent_postal_code": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              },
+                              "attendance_shift_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "leave_policy_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "has_secondary_shift": {
+                                "type": "integer"
+                              },
+                              "secondary_shift_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "direct_manager_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              }
+                            },
+                            "required": [
+                              "staff_id",
+                              "department_id",
+                              "employment_level_id",
+                              "employment_type_id",
+                              "designation_id",
+                              "birth_date",
+                              "gender",
+                              "personal_email",
+                              "permanent_address1",
+                              "permanent_address2",
+                              "permanent_city",
+                              "permanent_state",
+                              "permanent_postal_code",
+                              "created",
+                              "modified",
+                              "attendance_shift_id",
+                              "leave_policy_id",
+                              "has_secondary_shift",
+                              "secondary_shift_id",
+                              "direct_manager_id"
+                            ]
+                          },
+                          "staff_job": {
+                            "type": "object",
+                            "properties": {
+                              "staff_id": {
+                                "type": "integer"
+                              },
+                              "join_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "probation_end_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "contract_duration": {
+                                "type": "integer"
+                              },
+                              "contract_duration_period": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "exit_date": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "exit_reason": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "fiscal_type": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "fiscal_day": {
+                                "type": "string"
+                              },
+                              "fiscal_month": {
+                                "type": "string"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "modified": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "staff_id",
+                              "join_date",
+                              "probation_end_date",
+                              "contract_duration",
+                              "contract_duration_period",
+                              "exit_date",
+                              "exit_reason",
+                              "fiscal_type",
+                              "fiscal_day",
+                              "fiscal_month",
+                              "created",
+                              "modified"
+                            ]
+                          },
+                          "staff_custom_data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "allow_printing": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "reference_id": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              },
+                              "time": {
+                                "nullable": true,
+                                "enum": [
+                                  null
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "allow_printing",
+                              "reference_id",
+                              "time"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "added_by",
+                          "role_id",
+                          "name",
+                          "middle_name",
+                          "last_name",
+                          "photo",
+                          "can_access_system",
+                          "home_phone",
+                          "business_Phone",
+                          "mobile",
+                          "fax",
+                          "country_code",
+                          "address1",
+                          "address2",
+                          "city",
+                          "state",
+                          "postal_code",
+                          "note",
+                          "email_address",
+                          "last_login",
+                          "active",
+                          "created",
+                          "hourly_rate",
+                          "hourly_rate_currency_code",
+                          "default_store_id",
+                          "default_treasury_id",
+                          "maximum_general_discount",
+                          "language_code",
+                          "branch_id",
+                          "full_name",
+                          "attendance_restriction_id",
+                          "type",
+                          "default_account_id",
+                          "citizenship_status",
+                          "residence_expiry_date",
+                          "nationality",
+                          "code",
+                          "official_id",
+                          "staff_info",
+                          "staff_job",
+                          "staff_custom_data"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "page": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "label",
+                      "page",
+                      "active"
+                    ]
+                  }
+                },
+                "next_page_url": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "prev_page_url": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "to": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "first_page_url",
+                "from",
+                "last_page",
+                "last_page_url",
+                "links",
+                "next_page_url",
+                "path",
+                "per_page",
+                "prev_page_url",
+                "to",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__asset_location_list"
+  },
+  "blockers": []
+}

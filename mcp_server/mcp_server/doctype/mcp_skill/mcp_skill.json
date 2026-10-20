@@ -1,0 +1,102 @@
+{
+  "doctype": "DocType",
+  "name": "MCP Skill",
+  "module": "Mcp Server",
+  "engine": "InnoDB",
+  "autoname": "field:title",
+  "title_field": "title",
+  "field_order": [
+    "title",
+    "enabled",
+    "description",
+    "allowed_roles",
+    "plugin",
+    "skill_id",
+    "instructions",
+    "source_path",
+    "content_hash"
+  ],
+  "fields": [
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "الاسم",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "مفعّل",
+      "default": "0",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "الوصف"
+    },
+    {
+      "fieldname": "allowed_roles",
+      "fieldtype": "Small Text",
+      "label": "الأدوار المسموح لها",
+      "description": "أسماء الأدوار، كل دور في سطر. فارغ = أدوار MCP الافتراضية."
+    },
+    {
+      "fieldname": "plugin",
+      "fieldtype": "Link",
+      "label": "البلجن",
+      "options": "MCP Plugin",
+      "reqd": 1
+    },
+    {
+      "fieldname": "skill_id",
+      "fieldtype": "Data",
+      "label": "معرف المهارة",
+      "unique": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "instructions",
+      "fieldtype": "Code",
+      "label": "تعليمات المهارة",
+      "options": "Markdown",
+      "reqd": 1
+    },
+    {
+      "fieldname": "source_path",
+      "fieldtype": "Small Text",
+      "label": "مسار المصدر",
+      "read_only": 1
+    },
+    {
+      "fieldname": "content_hash",
+      "fieldtype": "Data",
+      "label": "بصمة التعليمات",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "MCP Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "MCP Operator",
+      "read": 1
+    }
+  ],
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

@@ -1,0 +1,107 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Tax": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Tax.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.value": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.included": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.is_active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Tax.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

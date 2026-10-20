@@ -1,0 +1,519 @@
+{
+  "path": "/client_payments{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Client Payments",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. List client payments, most recent first.\n\nReturns a paginated array under `data[]`, each entry wrapped in a `ClientPayment` object, plus a `pagination` summary. Only payments linked to a client are returned (payments not associated with a client are excluded).\n\nBy default, `client_credit` and opening-balance (`starting_balance`) payments are **excluded**. Pass `include_starting_balance=1` to include opening-balance payments, or set `payment_method` explicitly to target one of them.\n\nResults can be narrowed with the query filters below and ordered with `sort`/`direction` (default: newest first).\n\n**Access:** available to the account owner, or to staff holding any of the *View Invoice Details*, *View All Invoices*, *Add Invoice Payments*, or *Add Payments to All* permissions.",
+    "tags": [
+      "Endpoints/Clients /Client Payments",
+      "Client Payments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page (1–1000). Defaults to 20.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to retrieve. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Field to order by (e.g. `date`, `amount`, `id`). Defaults to `id`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "direction",
+        "in": "query",
+        "description": "Sort direction: `asc` or `desc`. Defaults to `desc`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "no",
+        "in": "query",
+        "description": "Filter by the number of the related invoice.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "code",
+        "in": "query",
+        "description": "Filter by payment reference code (partial match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Filter to a single client. Restricts results to payments belonging to this client.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "payment_method",
+        "in": "query",
+        "description": "Filter by payment method (e.g. `cash`, `bank`, `cheque`, an online gateway key, `client_credit`, or `starting_balance`). Setting this also lifts the default exclusion for the chosen method.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include_starting_balance",
+        "in": "query",
+        "description": "Set to `1` to include opening-balance (`starting_balance`) payments, which are excluded by default.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Start of the payment-date range (inclusive), in the account's date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "End of the payment-date range (inclusive), in the account's date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_from",
+        "in": "query",
+        "description": "Start of the created-date range (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_to",
+        "in": "query",
+        "description": "End of the created-date range (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "amount_from",
+        "in": "query",
+        "description": "Minimum amount (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "amount_to",
+        "in": "query",
+        "description": "Maximum amount (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "id",
+        "in": "query",
+        "description": "Filter by exact payment id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "transaction_id",
+        "in": "query",
+        "description": "Filter by exact gateway transaction reference.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "status",
+        "in": "query",
+        "description": "Filter by payment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not completed |\n| 1 | Completed |\n| 2 | Pending |\n| 3 | Failed |\n| 4 | Overpaid |\n| 5 | Draft |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "invoiced_by",
+        "in": "query",
+        "description": "Filter by the staff member who issued the invoice. Available only when the Staff plugin is enabled and the caller holds both the View All Invoices and View Invoice Details permissions; otherwise ignored.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "staff_id",
+        "in": "query",
+        "description": "Filter by the staff member who collected the payment. Available only when the Staff plugin is enabled and the caller holds both the View All Invoices and View Invoice Details permissions; otherwise ignored.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "pos_shift_id",
+        "in": "query",
+        "description": "Filter by point-of-sale shift reference. Available only when the POS plugin is enabled (and the caller has the relevant view permission); otherwise ignored.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of client payments.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ClientPayment": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "description": "Unique payment identifier."
+                          },
+                          "invoice_id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "description": "Reference of the invoice this payment is applied to, when applicable. May be null for payments not tied to a specific invoice."
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "description": "Reference of the client this payment belongs to. Always present for client payments."
+                          },
+                          "payment_method": {
+                            "type": "string",
+                            "maxLength": 100,
+                            "description": "Method used for the payment (e.g. `cash`, `bank`, `cheque`, `client_credit`, `starting_balance`, or an online gateway key)."
+                          },
+                          "amount": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Amount paid."
+                          },
+                          "transaction_id": {
+                            "type": "string",
+                            "maxLength": 100,
+                            "description": "External / gateway transaction reference."
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Date of the payment."
+                          },
+                          "email": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Payer email address (extra info)."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1,
+                              2,
+                              3,
+                              4,
+                              5
+                            ],
+                            "description": "Payment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not completed |\n| 1 | Completed |\n| 2 | Pending |\n| 3 | Failed |\n| 4 | Overpaid |\n| 5 | Draft |"
+                          },
+                          "notes": {
+                            "type": "string",
+                            "description": "Internal notes on the payment."
+                          },
+                          "response_code": {
+                            "type": "string",
+                            "description": "Gateway response code (online payments)."
+                          },
+                          "response_message": {
+                            "type": "string",
+                            "description": "Gateway response message (online payments)."
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the payment record was created."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the payment record was last updated."
+                          },
+                          "added_by": {
+                            "type": "integer",
+                            "description": "Indicates who recorded the payment.\n\n| Value | Meaning |\n|---|---|\n| 0 | Recorded by the client |\n| 1 | Recorded by an admin / staff member |"
+                          },
+                          "currency_code": {
+                            "type": "string",
+                            "maxLength": 3,
+                            "description": "3-letter ISO 4217 currency code."
+                          },
+                          "first_name": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Payer first name (extra info)."
+                          },
+                          "last_name": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Payer last name (extra info)."
+                          },
+                          "address1": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Address line 1 (extra info)."
+                          },
+                          "address2": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Address line 2 (extra info)."
+                          },
+                          "city": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "City (extra info)."
+                          },
+                          "state": {
+                            "type": "string",
+                            "maxLength": 100,
+                            "description": "State / province (extra info)."
+                          },
+                          "postal_code": {
+                            "type": "string",
+                            "maxLength": 10,
+                            "description": "Postal code (extra info)."
+                          },
+                          "country_code": {
+                            "type": "string",
+                            "maxLength": 3,
+                            "description": "Country code (extra info)."
+                          },
+                          "phone1": {
+                            "type": "string",
+                            "maxLength": 50,
+                            "description": "Phone number (extra info)."
+                          },
+                          "phone2": {
+                            "type": "string",
+                            "maxLength": 50,
+                            "description": "Mobile number (extra info)."
+                          },
+                          "ip": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "IP address recorded with the payment."
+                          },
+                          "transaction_type": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Transaction type metadata."
+                          },
+                          "processed": {
+                            "type": "boolean",
+                            "description": "Whether the payment has been processed (0/1)."
+                          },
+                          "attachment": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Link to an attached file, when present."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "Staff member who recorded the payment; `0` indicates the account owner."
+                          },
+                          "payment_work_order_id": {
+                            "type": "integer",
+                            "description": "Reference of the related work order, when applicable. May be null."
+                          },
+                          "receipt_notes": {
+                            "type": "string",
+                            "description": "Notes shown on the payment receipt."
+                          },
+                          "treasury_id": {
+                            "type": "integer",
+                            "description": "Treasury the payment was deposited into."
+                          },
+                          "pos_shift_id": {
+                            "type": "integer",
+                            "description": "Point-of-sale shift reference, for POS payments. May be null."
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Branch the payment belongs to."
+                          },
+                          "extra_details": {
+                            "type": "string",
+                            "description": "Additional gateway / processing metadata, as a JSON-encoded string."
+                          },
+                          "source": {
+                            "type": "string",
+                            "description": "Origin of the payment. May be null."
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Payment reference code."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null on the first page.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null on the last page.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer",
+                      "description": "Current page number."
+                    },
+                    "page_count": {
+                      "type": "integer",
+                      "description": "Total number of pages."
+                    },
+                    "total_results": {
+                      "type": "integer",
+                      "description": "Total number of matching payments."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view client payments.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__client_payments_format"
+  },
+  "blockers": []
+}

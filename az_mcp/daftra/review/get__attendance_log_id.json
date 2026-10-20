@@ -1,0 +1,167 @@
+{
+  "path": "/attendance_log/{id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Attendance Log",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single attendance log by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag. For this endpoint it has no visible effect, so `/attendance_log/{id}` and `/attendance_log/{id}/1` return the same result.\n\nThe successful response is a **flat object** of the attendance log's fields (it is not wrapped in a `data` envelope).\n\n`status` is one of:\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |\n\n`source_type`, when present, is one of `machine`, `supervisor`, `file`, `self`.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+    "tags": [
+      "Endpoints/HR/Attendance Logs"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The id of the attendance log to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The attendance log, returned as a flat object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A single attendance-log record, returned flat (not wrapped).",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Attendance log id."
+                },
+                "staff_id": {
+                  "type": "integer",
+                  "description": "Id of the employee the log belongs to."
+                },
+                "time": {
+                  "type": "string",
+                  "description": "Log timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "session_id": {
+                  "type": "integer",
+                  "description": "Id of the attendance session, when applicable.",
+                  "nullable": true
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Log status.\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |",
+                  "enum": [
+                    "draft",
+                    "sign_in",
+                    "sign_out",
+                    "repeated_sign_in",
+                    "repeated_sign_out",
+                    "invalid",
+                    "unknown_employee"
+                  ]
+                },
+                "source_id": {
+                  "type": "integer",
+                  "description": "Id of the source that produced the log, when applicable.",
+                  "nullable": true
+                },
+                "source_name": {
+                  "type": "string",
+                  "description": "Name of the source, when applicable.",
+                  "nullable": true
+                },
+                "source_type": {
+                  "type": "string",
+                  "description": "Source of the log.\n\n| Value | Meaning |\n|---|---|\n| machine | Machine |\n| supervisor | Supervisor |\n| file | File |\n| self | Self |",
+                  "enum": [
+                    "machine",
+                    "supervisor",
+                    "file",
+                    "self"
+                  ],
+                  "nullable": true
+                },
+                "source_method": {
+                  "type": "string",
+                  "description": "How the source recorded the log, when applicable.",
+                  "nullable": true
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "description": "Soft-delete timestamp, or null.",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp."
+                },
+                "invalidity_reason": {
+                  "type": "string",
+                  "description": "Why the log is invalid, when applicable.\n\n| Value | Meaning |\n|---|---|\n| weekend | Weekend |\n| on_leave | On Leave |\n| no_shift | No Shift Assigned |\n| out_of_shift_boundaries | Out of Shift Boundaries |",
+                  "enum": [
+                    "weekend",
+                    "on_leave",
+                    "no_shift",
+                    "out_of_shift_boundaries"
+                  ],
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "staff_id",
+                "time",
+                "status",
+                "created",
+                "modified"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication or authorization failed. A missing, invalid, or expired Bearer token returns a plain `401` (no JSON body). An authenticated caller who lacks permission to view attendance logs receives `{ \"error\": \"You are not allowed to view this page\" }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened`.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "description": "Plain-text body `error happened`. Currently returned when the requested id does not exist (rather than a 404)."
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__attendance_log_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

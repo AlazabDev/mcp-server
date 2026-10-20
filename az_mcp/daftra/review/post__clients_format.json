@@ -1,0 +1,437 @@
+{
+  "path": "/clients{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Client",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new client.\n\nThe request body wraps the client fields in a `Client` object. `business_name` is the only always-required field. `email` is required only when the client's invoicing method is email; when no email is supplied the client is created as offline. Optional `ClientDetail` and `le_custom_data_client` objects carry additional and custom-field data. Requires the **Add New Client** permission. Returns `202` with the new client's `id` and `client_number`.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "skip_email",
+        "in": "query",
+        "description": "When set, skips email and phone2 validation (useful for offline clients).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "verify_phone2",
+        "in": "query",
+        "description": "When set, enforces phone2 uniqueness validation (off by default for the API).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Client": {
+                "type": "object",
+                "properties": {
+                  "business_name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "The client's business (company) name. **Required.**"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "enum": [
+                      2,
+                      3
+                    ],
+                    "description": "Client type.\n\n| Value | Meaning |\n|---|---|\n| 2 | Individual |\n| 3 | Business |"
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Client's first name (individual clients)."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Client's last name (individual clients)."
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 255,
+                    "description": "Client's email address. Required when the client's invoicing method is set to email; otherwise optional. Must be unique and a valid address when provided."
+                  },
+                  "password": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 6,
+                    "writeOnly": true,
+                    "description": "Portal login password (min 6 characters). Optional unless the client website/portal is enabled, in which case it (and `confirm_password`) become required."
+                  },
+                  "confirm_password": {
+                    "type": "string",
+                    "writeOnly": true,
+                    "description": "Must match `password` when a password is supplied."
+                  },
+                  "phone1": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "Primary phone number."
+                  },
+                  "phone2": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "Secondary / mobile phone number. Checked for uniqueness only when the `verify_phone2` query flag is sent."
+                  },
+                  "address1": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Address line 1."
+                  },
+                  "address2": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Address line 2."
+                  },
+                  "city": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "City."
+                  },
+                  "state": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "State / province."
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "description": "Postal code."
+                  },
+                  "country_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Country ISO ALPHA-2 code. Validated when provided."
+                  },
+                  "national_id": {
+                    "type": "string",
+                    "description": "National ID number."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free-text notes about the client."
+                  },
+                  "default_currency_code": {
+                    "type": "string",
+                    "maxLength": 5,
+                    "description": "Default currency code (e.g. `USD`). Validated when provided."
+                  },
+                  "language_code": {
+                    "type": "integer",
+                    "description": "Preferred language ID. Validated when provided."
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Free-text client category label."
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "Client category identifier."
+                  },
+                  "group_price_id": {
+                    "type": "integer",
+                    "description": "Price group / list to assign."
+                  },
+                  "credit_limit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Maximum allowed outstanding balance."
+                  },
+                  "credit_period": {
+                    "type": "integer",
+                    "description": "Allowed credit period, in days."
+                  },
+                  "starting_balance": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Opening balance to record for the client."
+                  },
+                  "starting_balance_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date for the opening balance entry (required when `starting_balance` is set)."
+                  },
+                  "birth_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Client's date of birth."
+                  },
+                  "gender": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2
+                    ],
+                    "description": "Client gender.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not selected |\n| 1 | Male |\n| 2 | Female |"
+                  },
+                  "is_offline": {
+                    "type": "boolean",
+                    "description": "Marks the client as offline. Defaults to `1` automatically when no email is supplied. When `1`, password fields are ignored. `0` / `1`."
+                  },
+                  "suspend": {
+                    "type": "boolean",
+                    "description": "Whether to suspend (block portal login for) the client. `0` / `1`."
+                  },
+                  "send_notify": {
+                    "type": "boolean",
+                    "description": "Send the client a notification email after creation. `0` / `1`."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Branch to scope the client to."
+                  },
+                  "link": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Client website / external link. Validated as a URL when provided."
+                  },
+                  "client_number": {
+                    "type": "string",
+                    "description": "Optional client code. Auto-generated when omitted."
+                  },
+                  "active_secondary_address": {
+                    "type": "boolean",
+                    "description": "Enable the secondary address block. `0` / `1`."
+                  },
+                  "secondary_name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Secondary contact name."
+                  },
+                  "secondary_address1": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Secondary address line 1."
+                  },
+                  "secondary_address2": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": "Secondary address line 2."
+                  },
+                  "secondary_city": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Secondary city."
+                  },
+                  "secondary_state": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Secondary state / province."
+                  },
+                  "secondary_postal_code": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "Secondary postal code."
+                  },
+                  "secondary_country_code": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "description": "Secondary country code."
+                  },
+                  "bn1": {
+                    "type": "string",
+                    "description": "Business number 1 (e.g. VAT number)."
+                  },
+                  "bn1_label": {
+                    "type": "string",
+                    "description": "Label for business number 1."
+                  },
+                  "bn2": {
+                    "type": "string",
+                    "description": "Business number 2."
+                  },
+                  "bn2_label": {
+                    "type": "string",
+                    "description": "Label for business number 2."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Comma-separated list of uploaded attachment IDs to link to the client."
+                  }
+                },
+                "required": [
+                  "business_name"
+                ]
+              },
+              "ClientDetail": {
+                "type": "object",
+                "description": "Optional additional client-detail fields.",
+                "additionalProperties": true,
+                "properties": {}
+              },
+              "le_custom_data_client": {
+                "type": "object",
+                "description": "Optional custom-field values defined for clients on this account.",
+                "additionalProperties": true,
+                "properties": {}
+              }
+            },
+            "required": [
+              "Client"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "The new client's identifier."
+                },
+                "client_number": {
+                  "type": "string",
+                  "description": "The new client's auto-generated code."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "402": {
+        "description": "The account's client limit has been reached.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Explains the limit that was reached."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__clients_format"
+  },
+  "blockers": []
+}

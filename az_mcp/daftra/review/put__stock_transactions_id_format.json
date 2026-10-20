@@ -1,0 +1,209 @@
+{
+  "path": "/stock_transactions/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Stock Transactions",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Edits an existing stock transaction identified by `id`. The body is wrapped under a `StockTransaction` object.\n\nThe editable fields are`received_date`, and (optionally) `transaction_type`, `store_id`, and `price`. Identity fields are preserved from the stored record and cannot be changed: `source_type`, `order_id`, `product_id`, and `status`. For transactions that did not originate as a manual adjustment, the submitted values are merged over the existing record, so most fields stay at their stored values.\n\nThe transaction's date must fall within an open financial period. Authorization requires the **Adjust Product Inventory** permission **and** access to the transaction's warehouse (super-admins are exempt from the warehouse check).\n\nOn success the endpoint responds with **200** and `{result, code}`.",
+    "tags": [
+      "Endpoints/Inventory /Stock Transactions",
+      "Stock Transactions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The stock transaction id to edit.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "StockTransaction": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "number",
+                    "description": "Updated quantity (positive number)."
+                  },
+                  "received_date": {
+                    "type": "string",
+                    "description": "Updated transaction date (account date format). Must be within an open financial period."
+                  },
+                  "transaction_type": {
+                    "type": "integer",
+                    "description": "Direction of the adjustment.\n\n| Value | Meaning |\n|---|---|\n| 1 | Stock in (add) |\n| 2 | Stock out (remove) |",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Warehouse used for the recalculated balance check."
+                  },
+                  "price": {
+                    "type": "number",
+                    "description": "Updated unit price. Defaults to the product average / last purchase price when left empty."
+                  },
+                  "transaction_category_id": {
+                    "type": "array",
+                    "description": "Transaction category, sent as an array; the first element is used and resolved by id or created by name.",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "quantity",
+                  "received_date"
+                ]
+              }
+            },
+            "required": [
+              "StockTransaction"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "The stock transaction was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Insufficient stock for the resulting balance, or a validation failure (e.g. suspended warehouse/branch or a closed-period date).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field → list of error messages (present on validation failures).",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks the Adjust Product Inventory permission, or has no access to the transaction's warehouse.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No stock transaction exists with the given id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__stock_transactions_id_format"
+  },
+  "blockers": []
+}

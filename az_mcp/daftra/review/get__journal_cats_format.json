@@ -1,0 +1,273 @@
+{
+  "path": "/journal_cats{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Journal Cats",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of journal categories (the category nodes of the chart of accounts). Requires the **Manage Journal Accounts** permission. Each item is wrapped under a `JournalCat` key.",
+    "tags": [
+      "Endpoints/Accounting/Journal Cats",
+      "Journal Cats"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The collection items page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "JournalCat": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique identifier of the journal category."
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Category code. Digits only; unique across all journal categories and accounts."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Category name."
+                          },
+                          "type": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                          },
+                          "journal_cat_id": {
+                            "type": "integer",
+                            "description": "ID of the parent journal category. `-1` for a top-level (main) category."
+                          },
+                          "parent_cat_ids": {
+                            "type": "string",
+                            "description": "Comma-separated IDs of all ancestor categories. Maintained automatically.",
+                            "nullable": true
+                          },
+                          "level": {
+                            "type": "integer",
+                            "description": "Depth of the category within the chart-of-accounts tree. Maintained automatically.",
+                            "nullable": true
+                          },
+                          "entity_type": {
+                            "type": "string",
+                            "enum": [
+                              "client",
+                              "supplier",
+                              "income_tax",
+                              "outcome_tax",
+                              "treasury",
+                              "store",
+                              "income_category",
+                              "expense_category",
+                              "asset",
+                              "asset_deprecation",
+                              "asset_deprecation_expense",
+                              "staff_petty_cash",
+                              ""
+                            ],
+                            "description": "For system-generated categories, the business entity this category is linked to (e.g. `client`, `supplier`, `treasury`, `store`, tax or category accounts). Empty for ordinary user-created categories.",
+                            "nullable": true
+                          },
+                          "entity_id": {
+                            "type": "integer",
+                            "description": "Identifier of the linked entity item when `entity_type` is set.",
+                            "nullable": true
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "ID of the staff member who created the category. `0` means the account owner.",
+                            "nullable": true
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "ID of the branch the category belongs to.",
+                            "nullable": true
+                          },
+                          "total_debit": {
+                            "type": "number",
+                            "description": "Total debit accumulated under this category."
+                          },
+                          "total_credit": {
+                            "type": "number",
+                            "description": "Total credit accumulated under this category."
+                          },
+                          "is_recalculated": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether the category totals have been recalculated. `0` = no, `1` = yes."
+                          },
+                          "is_hidden": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether the category is hidden from the chart of accounts. `0` = visible, `1` = hidden."
+                          },
+                          "disabled": {
+                            "type": "integer",
+                            "description": "Whether the category is disabled. `0` = active, `1` = disabled.",
+                            "nullable": true
+                          },
+                          "color": {
+                            "type": "string",
+                            "deprecated": true,
+                            "description": "Display color. Deprecated and no longer used."
+                          },
+                          "last_transaction_update": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Timestamp of the last transaction affecting this category.",
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Creation timestamp."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Last update timestamp."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__journal_cats_format"
+  },
+  "blockers": []
+}

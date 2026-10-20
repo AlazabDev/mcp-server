@@ -1,0 +1,135 @@
+{
+  "path": "/brand/{id}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit brand",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **brand**.\n\nThe brand id is supplied both in the path **and** in the request body — send the same value in both. `name` is the only editable field; it is **required** and must remain **unique** across the account.\n\n> Always include `id` in the body. If the body omits `id`, the request does not update the record — it creates a new brand instead (while still reporting success).",
+    "tags": [
+      "Endpoints/Inventory /Brands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The brand id to update. Send the same value in the request body.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Required. The id of the brand to update; must match the id in the URL path."
+              },
+              "name": {
+                "type": "string",
+                "description": "Required. The new brand name. Must be unique across the account (a duplicate name is rejected)."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The brand was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The id of the updated brand."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed — the `name` is empty or already used by another brand.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Field-keyed validation messages. Each key maps to an array of human-readable messages.",
+                  "properties": {
+                    "name": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Validation messages for `name`, e.g. `This is a required field and could not be empty` (empty) or `This Field Already Exist` (duplicate)."
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__brand_id"
+  },
+  "blockers": []
+}

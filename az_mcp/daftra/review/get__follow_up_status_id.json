@@ -1,0 +1,124 @@
+{
+  "path": "/follow_up_status/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Follow-Up Status",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single follow-up status by id.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The record is returned as a flat object (no wrapper). A trailing `/{dataLevel}` segment is optionally accepted but not required.",
+    "tags": [
+      "Endpoints/Follow-Up Statuses",
+      "Follow Up Statuses"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the follow-up status.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested follow-up status.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Status id."
+                },
+                "item_type": {
+                  "type": "integer",
+                  "description": "Module/record type the status applies to (see the create endpoint)."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Status name."
+                },
+                "color": {
+                  "type": "string",
+                  "description": "Display color (hex), empty string if unset."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "Stage: `1` = Open, `2` = Closed."
+                },
+                "staff_id": {
+                  "type": "integer",
+                  "description": "Id of the owning staff member."
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp."
+                },
+                "deleted": {
+                  "type": "integer",
+                  "description": "Soft-delete flag (`0`/`1`)."
+                },
+                "entity_key": {
+                  "type": "string",
+                  "description": "Linked entity key, if any.",
+                  "nullable": true
+                },
+                "display_order": {
+                  "type": "integer",
+                  "description": "Display order.",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Returned on any error, including a non-existent id. The body is the plain text `error happened` (Content-Type `text/html`, not JSON), so do not parse it as JSON.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__follow_up_status_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

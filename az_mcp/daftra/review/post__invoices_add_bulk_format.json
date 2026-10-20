@@ -1,0 +1,674 @@
+{
+  "path": "/invoices/add_bulk{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Bulk Add Invoices",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates multiple invoices in a single request. The request body is a **JSON array**; each element has the exact same shape as the body of **Add New Invoice** (an object with an `Invoice` member plus optional `InvoiceItem`, `Payment`, etc.).\n\nInvoices are created **one by one and the operation is not atomic** — if one element fails validation the others are still created. The response is a **JSON array** with one result object per submitted invoice, in the same order as the request. A successful element carries the new invoice `id` and number; a failed element carries an error result with a message, so you must inspect each element to confirm it succeeded.\n\nPer-element fields and defaulting behaviour are identical to **Add New Invoice** — see that endpoint for the full field reference.",
+    "operationId": "post__invoices_add_bulk_format",
+    "tags": [
+      "Endpoints/Sales /Invoices",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, for example `.json` or `.xml`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "send",
+        "in": "query",
+        "description": "Post-save behaviour. `draft` saves the invoice as a draft. Other values (`direct`, `revised`, `print`, `add_new`) affect the web UI only and are ignored for API responses.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Optional client id; when present a suspended-client check runs before saving.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "terminal_id",
+        "in": "query",
+        "description": "POS terminal id; links the invoice to a POS shift.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "array",
+            "description": "Array of invoices to create. Each item matches the Add New Invoice request body.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Invoice": {
+                  "type": "object",
+                  "description": "Invoice header. `client_id` is the only required field; most other fields are optional and several are filled automatically when omitted (currency, language, date format, store).",
+                  "properties": {
+                    "client_id": {
+                      "type": "integer",
+                      "description": "The client this invoice belongs to. **Required.** Get the id from the Clients API.",
+                      "format": "int64"
+                    },
+                    "type": {
+                      "type": "integer",
+                      "description": "The invoice document type. Defaults to `0` (Invoice).\n\n| Value | Meaning |\n|---|---|\n| 0 | Invoice |\n| 1 | Template |\n| 2 | Subscription |\n| 3 | Estimate |\n| 5 | Credit Note |\n| 6 | Refund Receipt |\n| 7 | Resellers |\n| 8 | Booking |\n| 9 | Temp Invoice |\n| 10 | Insurance Invoice |\n| 11 | Insurance Refund |\n| 12 | Sales Order |\n| 13 | Temp Booking |\n| 14 | Reservation Order |\n| 15 | Shop Front |\n| 16 | Debit Note |\n| 17 | Contract Installment |\n| 18 | Lease Contract |\n| 19 | Advance Payment |",
+                      "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19
+                      ],
+                      "default": 0
+                    },
+                    "store_id": {
+                      "type": "integer",
+                      "description": "The store / warehouse used for stock deduction. Optional — when omitted, the primary store is used. A store can also be set per line item via `InvoiceItem.store_id`.",
+                      "format": "int64"
+                    },
+                    "staff_id": {
+                      "type": "integer",
+                      "description": "The staff member who created the invoice. `0` means the account owner.",
+                      "format": "int64",
+                      "default": 0
+                    },
+                    "subscription_id": {
+                      "type": "integer",
+                      "description": "The parent invoice this one follows (for example, the invoice being refunded). Leave null if the invoice has no parent.",
+                      "format": "int64",
+                      "nullable": true
+                    },
+                    "no": {
+                      "type": "string",
+                      "description": "Invoice number. Auto-generated when omitted, but can be overridden.",
+                      "maxLength": 255,
+                      "nullable": true
+                    },
+                    "po_number": {
+                      "type": "string",
+                      "description": "Purchase order number.",
+                      "maxLength": 255,
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Used for templates and subscriptions only.",
+                      "maxLength": 255,
+                      "nullable": true
+                    },
+                    "branch_id": {
+                      "type": "integer",
+                      "description": "The branch for this invoice. The branch must be active. Get the id from the General Listing API (Branch)."
+                    },
+                    "is_offline": {
+                      "type": "boolean",
+                      "description": "Whether the client is offline (0 or 1)."
+                    },
+                    "currency_code": {
+                      "type": "string",
+                      "description": "Currency code (for example, `USD`). Optional — defaults to the account currency.",
+                      "maxLength": 10
+                    },
+                    "client_currency_code": {
+                      "type": "string",
+                      "description": "Optional client-side currency code."
+                    },
+                    "date": {
+                      "type": "string",
+                      "description": "Invoice date (YYYY-MM-DD). Must fall within an open financial period.",
+                      "format": "date"
+                    },
+                    "issue_date": {
+                      "type": "string",
+                      "description": "Optional issue date (YYYY-MM-DD).",
+                      "format": "date"
+                    },
+                    "due_after": {
+                      "type": "integer",
+                      "description": "Number of days until the invoice is due (0 or more). Optional."
+                    },
+                    "draft": {
+                      "type": "boolean",
+                      "description": "`0` = final, `1` = draft."
+                    },
+                    "discount": {
+                      "type": "number",
+                      "description": "Percentage discount, from 0 to 100. Mutually exclusive with `discount_amount` (set the other to 0). Cannot exceed the account/staff maximum discount.",
+                      "format": "double",
+                      "default": 0
+                    },
+                    "discount_amount": {
+                      "type": "number",
+                      "description": "Fixed discount amount. Mutually exclusive with `discount` (set the other to 0). Cannot exceed the account/staff maximum discount.",
+                      "format": "double",
+                      "default": 0
+                    },
+                    "deposit": {
+                      "type": "number",
+                      "description": "Deposit amount.",
+                      "format": "double",
+                      "default": 0
+                    },
+                    "deposit_type": {
+                      "type": "integer",
+                      "description": "Deposit type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Unpaid |\n| 2 | Paid |\n\n`0` means not set.",
+                      "enum": [
+                        1,
+                        2
+                      ],
+                      "default": 0
+                    },
+                    "shipping_options": {
+                      "type": "integer",
+                      "description": "Controls how shipping / client details are shown.\n\n| Value | Meaning |\n|---|---|\n| (empty) | Auto |\n| 1 | Hide shipping options |\n| 2 | Show main client details |\n| 3 | Show secondary client details |"
+                    },
+                    "shipping_amount": {
+                      "type": "number",
+                      "description": "Shipping amount.",
+                      "format": "double",
+                      "nullable": true
+                    },
+                    "notes": {
+                      "type": "string",
+                      "description": "Notes shown to the client (up to 80000 characters).",
+                      "maxLength": 80000
+                    },
+                    "terms": {
+                      "type": "string",
+                      "description": "Terms and conditions text (up to 80000 characters).",
+                      "maxLength": 80000
+                    },
+                    "html_notes": {
+                      "type": "string",
+                      "description": "HTML notes for templates."
+                    },
+                    "invoice_layout_id": {
+                      "type": "integer",
+                      "description": "Layout used to render the invoice. The default layout is used when omitted.",
+                      "format": "int64",
+                      "nullable": true
+                    },
+                    "estimate_id": {
+                      "type": "integer",
+                      "description": "The estimate this invoice was created from.",
+                      "format": "int64",
+                      "nullable": true
+                    },
+                    "order_source_id": {
+                      "type": "integer",
+                      "description": "Order source. Required only when \"order source required\" is enabled in your settings.",
+                      "nullable": true
+                    },
+                    "language_id": {
+                      "type": "integer",
+                      "description": "Invoice language. Defaults to the account language."
+                    },
+                    "date_format": {
+                      "type": "string",
+                      "description": "Date format. Defaults to the account date format."
+                    },
+                    "cost_center_id": {
+                      "type": "integer",
+                      "description": "Cost center used for journal distribution.",
+                      "nullable": true
+                    },
+                    "sales_person_id": {
+                      "type": "integer",
+                      "description": "Sales person assigned to the invoice. Use `-2` to assign multiple sales persons.",
+                      "nullable": true
+                    },
+                    "terminal_id": {
+                      "type": "string",
+                      "description": "POS terminal id. Links the invoice to a POS shift."
+                    },
+                    "unique_id": {
+                      "type": "string",
+                      "description": "Optional client-supplied reference. When present, the server recalculates item offers and discounts."
+                    },
+                    "pos_shift_id": {
+                      "type": "integer",
+                      "description": "POS session id. When set, the store is taken from the POS session.",
+                      "nullable": true
+                    },
+                    "follow_up_status": {
+                      "type": "integer",
+                      "description": "Follow-up status id.",
+                      "nullable": true
+                    },
+                    "work_order_id": {
+                      "type": "integer",
+                      "description": "Linked work order id.",
+                      "nullable": true
+                    },
+                    "source_type": {
+                      "type": "integer",
+                      "description": "The source document that generated this invoice. Use together with `source_id` (the id of that source). Leave empty if there is no source.\n\n| Value | Meaning |\n|---|---|\n| 0 | Invoice |\n| 1 | Template |\n| 2 | Subscription |\n| 3 | Estimate |\n| 5 | Credit Note |\n| 6 | Refund Receipt |\n| 7 | Resellers |\n| 8 | Booking |\n| 9 | Temp Invoice |\n| 10 | Insurance Invoice |\n| 11 | Insurance Refund |\n| 12 | Sales Order |\n| 13 | Temp Booking |\n| 14 | Reservation Order |\n| 16 | Debit Note |\n| 17 | Contract Installment |\n| 18 | Lease Contract |\n| 19 | Advance Payment |",
+                      "nullable": true
+                    },
+                    "source_id": {
+                      "type": "integer",
+                      "description": "The id of the source document referenced by `source_type`.",
+                      "nullable": true
+                    },
+                    "client_business_name": {
+                      "type": "string",
+                      "description": "Client's business name.",
+                      "maxLength": 100
+                    },
+                    "client_first_name": {
+                      "type": "string",
+                      "description": "Client's first name.",
+                      "maxLength": 255
+                    },
+                    "client_last_name": {
+                      "type": "string",
+                      "description": "Client's last name.",
+                      "maxLength": 255
+                    },
+                    "client_email": {
+                      "type": "string",
+                      "description": "Client's email. Required only when the client's invoicing method is email; otherwise it must be a valid email when provided.",
+                      "format": "email",
+                      "maxLength": 255
+                    },
+                    "client_address1": {
+                      "type": "string",
+                      "description": "Client's address line 1.",
+                      "maxLength": 255
+                    },
+                    "client_address2": {
+                      "type": "string",
+                      "description": "Client's address line 2.",
+                      "maxLength": 255
+                    },
+                    "client_postal_code": {
+                      "type": "string",
+                      "description": "Client's postal code.",
+                      "maxLength": 20
+                    },
+                    "client_city": {
+                      "type": "string",
+                      "description": "Client's city.",
+                      "maxLength": 100
+                    },
+                    "client_state": {
+                      "type": "string",
+                      "description": "Client's state.",
+                      "maxLength": 100
+                    },
+                    "client_country_code": {
+                      "type": "string",
+                      "description": "Client's ISO ALPHA-2 country code.",
+                      "maxLength": 3
+                    },
+                    "client_active_secondary_address": {
+                      "type": "boolean",
+                      "description": "Whether the secondary address is active (0 or 1)."
+                    },
+                    "client_secondary_name": {
+                      "type": "string",
+                      "description": "Secondary contact name.",
+                      "maxLength": 255
+                    },
+                    "client_secondary_address1": {
+                      "type": "string",
+                      "description": "Secondary address line 1.",
+                      "maxLength": 255
+                    },
+                    "client_secondary_address2": {
+                      "type": "string",
+                      "description": "Secondary address line 2.",
+                      "maxLength": 255
+                    },
+                    "client_secondary_city": {
+                      "type": "string",
+                      "description": "Secondary city.",
+                      "maxLength": 100
+                    },
+                    "client_secondary_state": {
+                      "type": "string",
+                      "description": "Secondary state.",
+                      "maxLength": 100
+                    },
+                    "client_secondary_postal_code": {
+                      "type": "string",
+                      "description": "Secondary postal code.",
+                      "maxLength": 50
+                    },
+                    "client_secondary_country_code": {
+                      "type": "string",
+                      "description": "Secondary ISO ALPHA-2 country code.",
+                      "maxLength": 10
+                    }
+                  },
+                  "required": [
+                    "client_id"
+                  ]
+                },
+                "InvoiceItem": {
+                  "type": "array",
+                  "description": "Invoice line items. Normally provided when creating an invoice.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "string",
+                        "description": "Line label / name. Optional when creating via the API.",
+                        "maxLength": 100000
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Detailed line description.",
+                        "maxLength": 100000
+                      },
+                      "unit_price": {
+                        "type": "number",
+                        "description": "Unit price. Enter the number only, with no currency symbol."
+                      },
+                      "quantity": {
+                        "type": "number",
+                        "description": "Quantity. Decimal values are allowed."
+                      },
+                      "tax1": {
+                        "type": "integer",
+                        "description": "Primary tax id applied to the line.",
+                        "nullable": true
+                      },
+                      "tax2": {
+                        "type": "integer",
+                        "description": "Secondary (stacked) tax id applied to the line.",
+                        "nullable": true
+                      },
+                      "product_id": {
+                        "type": "integer",
+                        "description": "Product id. When branch management is enabled, the product must exist in the current branch."
+                      },
+                      "discount": {
+                        "type": "number",
+                        "description": "Line discount. Cannot exceed the maximum discount."
+                      },
+                      "discount_type": {
+                        "type": "integer",
+                        "description": "Discount type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Percentage |\n| 2 | Value |"
+                      },
+                      "store_id": {
+                        "type": "integer",
+                        "description": "Store / warehouse for this line's stock deduction."
+                      },
+                      "lot": {
+                        "type": "array",
+                        "description": "Lot / batch numbers for tracked products.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expiry_date": {
+                        "type": "array",
+                        "description": "Expiry dates matching `lot`, for tracked products.",
+                        "items": {
+                          "type": "string",
+                          "format": "date"
+                        }
+                      },
+                      "serials": {
+                        "type": "array",
+                        "description": "Serial numbers for serialized products.",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Payment": {
+                  "type": "array",
+                  "description": "Optional payments recorded together with the invoice.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "payment_method": {
+                        "type": "string",
+                        "description": "Payment method. **Required.** Must be one of your account's active payment methods."
+                      },
+                      "amount": {
+                        "type": "number",
+                        "description": "Payment amount."
+                      },
+                      "transaction_id": {
+                        "type": "string",
+                        "description": "External transaction reference."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Treasury that receives the payment. When omitted, a default treasury is chosen automatically."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Payment date. Defaults to today when omitted."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Staff member who recorded the payment. Defaults to `0` (owner)."
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Required only when `payment_method` is `paypal` or `stripe`.",
+                        "format": "email"
+                      }
+                    },
+                    "required": [
+                      "payment_method"
+                    ]
+                  }
+                },
+                "InvoiceCustomField": {
+                  "type": "object",
+                  "description": "Custom field values defined for invoices.",
+                  "properties": {}
+                },
+                "Deposit": {
+                  "type": "object",
+                  "description": "Deposit details.",
+                  "properties": {}
+                },
+                "InvoiceReminder": {
+                  "type": "object",
+                  "description": "Invoice reminder configuration.",
+                  "properties": {}
+                },
+                "Document": {
+                  "type": "object",
+                  "description": "Attachment(s) stored with the invoice.",
+                  "properties": {}
+                },
+                "DocumentTitle": {
+                  "type": "object",
+                  "description": "Attachment title(s).",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "Invoice"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "All elements processed. Inspect each element — a 200 does not guarantee every invoice was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "description": "One result object per submitted invoice, in request order. Successful items carry the created invoice id/number; failed items carry an error result.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "integer",
+                    "description": "The new invoice id."
+                  },
+                  "invoice_number": {
+                    "type": "string",
+                    "description": "The generated invoice number."
+                  },
+                  "invoice_pos_html": {
+                    "type": "string",
+                    "description": "Rendered POS receipt HTML. Returned only for POS contexts."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed. Some client-related errors may instead return a body containing an `error` field.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Empty when not set."
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional error context. Empty when not set.",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Empty when not set."
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional error context. Empty when not set.",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "You do not have permission to create invoices. Some access checks may instead return a body containing an `error` field.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string",
+                  "description": "Error category. Empty when not set."
+                },
+                "extra_data": {
+                  "type": "array",
+                  "description": "Additional error context. Empty when not set.",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ]
+  },
+  "blockers": []
+}

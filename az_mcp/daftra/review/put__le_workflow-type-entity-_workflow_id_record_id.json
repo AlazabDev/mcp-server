@@ -1,0 +1,221 @@
+{
+  "path": "/le_workflow-type-entity-{workflow_id}/{record_id}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates a record in a workflow-type entity. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. Both `PUT` and `POST` to this path are accepted.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`) and `record_id` identifies the record. The request body is a **flat object** whose keys are the workflow type's fields and **must include `id` matching `record_id`**. Custom fields are supplied under the `le_workflow-type-entity-{workflow_id}_custom_data` object (include its existing row `id` to update in place).\n\n**Required fields are defined by the selected workflow type** and enforced server-side; a missing required field returns `400` with an `errors` map (note: unlike create, which returns `422`). On success the `message` is localized to the workflow type's name, e.g. `\"<name> Updated Successfully\"`.",
+    "tags": [
+      "Endpoints/Workflow"
+    ],
+    "parameters": [
+      {
+        "name": "workflow_id",
+        "in": "path",
+        "description": "The id of the workflow type. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "record_id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "The id of the record to update. Must match the `record_id` in the URL."
+              },
+              "title": {
+                "type": "string"
+              },
+              "number": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "description": "Auto-numbering fieldset. Provide `number.code` (the numbering-scheme code) only if changing it. Required only when the workflow type requires it."
+              },
+              "start_date": {
+                "type": "string"
+              },
+              "delivery_date": {
+                "type": "string"
+              },
+              "client_id": {
+                "type": "string"
+              },
+              "assigned_users": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "budget": {
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "integer"
+                  },
+                  "currency": {
+                    "type": "string"
+                  }
+                },
+                "description": "Budget as a Currency fieldset (`number`, `currency`). Required per the workflow type's configuration."
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "description": {
+                "type": "string"
+              },
+              "attachments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "branch_id": {
+                "type": "integer"
+              },
+              "staff_id": {
+                "type": "integer"
+              },
+              "follow_up_status_id": {
+                "nullable": true,
+                "enum": [
+                  null
+                ]
+              },
+              "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "description": "Per-workflow custom fields to update. Include the existing custom-data row `id` to update it in place; the available fields are defined by the workflow type."
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Record updated. `message` is localized to the workflow type's name; `id` is the record id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update could not be completed. Cases: record not found → `{\"message\":\"Record not found\"}`; validation failure → `{\"message\":\"Entity not saved\",\"errors\":{...}}`; save error → `{\"message\":\"Entity not saved\",\"error\":\"<detail>\"}`; or a permission denial → `{\"message\":\"<reason>\"}`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Present on validation failure: map of field name to validation messages (dot notation for nested fieldsets).",
+                  "properties": {}
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "The record could not be loaded for update.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__le_workflow-type-entity-_workflow_id_record_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

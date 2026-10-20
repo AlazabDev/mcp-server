@@ -1,0 +1,153 @@
+{
+  "path": "/product_categories/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Product Category",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing product category.\n\nSend the fields to change wrapped in a `Category` object. No field is strictly required by the server. Setting `attachments` replaces the category image. On success the submitted category is echoed back.\n\nNote: the response body reports `code: 202`, but the HTTP status is `200`.",
+    "tags": [
+      "Endpoints/Inventory /Product Categories",
+      "Product Categories"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Unique identifier of the product category to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Category": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Category name."
+                  },
+                  "category_type": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Category type. Use `1` for a product category.\n\n| Value | Meaning |\n|---|---|\n| 1 | Products' Category |\n| 2 | POS Shifts |\n| 3 | POS Devices |"
+                  },
+                  "parent_id": {
+                    "type": "integer",
+                    "description": "Parent category ID. Use `0` for a top-level category."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Category description."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Image file name for the category."
+                  },
+                  "display_order": {
+                    "type": "integer",
+                    "description": "Display order."
+                  },
+                  "attachments": {
+                    "type": "string",
+                    "description": "Attachment reference(s) for the category image. Setting this clears the existing `image`."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Category updated (the response body reports code 202; HTTP status is 200).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer",
+                  "description": "Reported in the body; the actual HTTP status is 200."
+                },
+                "Category": {
+                  "type": "object",
+                  "description": "The submitted category data, with the `id` added.",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the updated category."
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category_type": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__product_categories_id_format"
+  },
+  "blockers": []
+}

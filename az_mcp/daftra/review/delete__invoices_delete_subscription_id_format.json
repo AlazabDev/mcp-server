@@ -1,0 +1,136 @@
+{
+  "path": "/invoices/delete_subscription/{id}{format}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Subscription",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a **subscription** (recurring invoice generator) identified by the `id` path parameter.\n\nThe id must reference a subscription document the caller may access; otherwise the request returns `404`. One subscription is deleted per call.\n\nRequires permission to delete subscriptions. A non-owner without all-invoices access can only delete subscriptions they own.",
+    "tags": [
+      "Endpoints/Sales /Subsciptions",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The subscription (recurring invoice generator) ID to delete.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The subscription was deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to delete subscriptions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No subscription matches the given ID — either it does not exist, is not a subscription document, or is not accessible to the authenticated user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__invoices_delete_subscription_id_format"
+  },
+  "blockers": []
+}

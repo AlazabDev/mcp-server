@@ -1,0 +1,244 @@
+{
+  "path": "/notes/{type}/{id}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Note",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a note against a record. The record is identified entirely by the URL: `{type}` selects the kind of record and `{id}` is that record's id — the note's `item_type` / `item_id` are derived from the path and any values sent in the body are ignored. The author is set to the authenticated user. Optionally attach files, share the note with the client, or schedule a follow-up appointment by including a `FollowUpReminder` object.\n\nThe request body is wrapped in a `Note` object.",
+    "tags": [
+      "Endpoints/Clients /Notes",
+      "Notes"
+    ],
+    "parameters": [
+      {
+        "name": "type",
+        "in": "path",
+        "description": "The kind of record the note is attached to.\n\n| Value | Attached to |\n|---|---|\n| client | Client |\n| invoice | Invoice |\n| estimate | Estimate |\n| purchase_order | Purchase invoice |\n| staff | Staff member |\n| supplier | Supplier |\n| product | Product |\n| work_order | Work order |",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Numeric id of the record (of the given `type`) the note belongs to.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Note": {
+                "type": "object",
+                "description": "The note to create.",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date of the note. Required."
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Note text. May contain HTML."
+                  },
+                  "status_id": {
+                    "type": "integer",
+                    "description": "Optional follow-up status to apply."
+                  },
+                  "action_id": {
+                    "type": "integer",
+                    "description": "Optional follow-up action."
+                  },
+                  "share_with_partner": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Share the note with the client.\n\n| Value | Meaning |\n|---|---|\n| 0 | Private |\n| 1 | Shared with client |"
+                  },
+                  "attachments": {
+                    "type": "string",
+                    "description": "Comma-separated list of previously uploaded file ids to attach to the note."
+                  },
+                  "follow_up_id": {
+                    "type": "integer",
+                    "description": "Id of an existing follow-up appointment to link this note to."
+                  }
+                },
+                "required": [
+                  "date"
+                ]
+              },
+              "FollowUpReminder": {
+                "type": "object",
+                "description": "Optional. Include to schedule a follow-up appointment alongside the note. Provide at least `date`.",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Appointment date/time."
+                  },
+                  "action_id": {
+                    "type": "integer",
+                    "description": "Follow-up action for the appointment."
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Appointment duration. Defaults to 1 when omitted."
+                  }
+                }
+              }
+            },
+            "required": [
+              "Note"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "Created — the note was saved.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created note."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request — the note failed validation, or the request type was invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level validation errors, when present.",
+                  "properties": {},
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized — missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden — the user lacks permission to add notes for this record type.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not Found — no record of the given type exists with the given id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__notes_type_id_format"
+  },
+  "blockers": []
+}

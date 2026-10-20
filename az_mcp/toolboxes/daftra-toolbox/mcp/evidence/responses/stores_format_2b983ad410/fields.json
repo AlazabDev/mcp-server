@@ -1,0 +1,97 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Store": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Store.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.shipping_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.primary": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Store.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

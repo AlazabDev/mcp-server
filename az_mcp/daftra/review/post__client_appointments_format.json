@@ -1,0 +1,225 @@
+{
+  "path": "/client_appointments{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Client Appointment",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a client appointment.\n\nThe request body wraps the appointment fields in a `ClientAppointment` object. `item_id` (the client) and `date` are required; `date` must be earlier than `end_date` when both are sent. `body` is limited to 1500 characters. `status`, `partner_type` and `partner_id` are set automatically. To create a recurring appointment, set `recurring` to `1` and include a `RecurringAppointment` object. Requires a permission to add clients' notes & appointments. Returns `202` with the new appointment's `id`.",
+    "tags": [
+      "Endpoints/Clients /Client Appointments",
+      "Client Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ClientAppointment": {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "integer",
+                    "description": "Reference of the client the appointment is for. **Required.** May instead be supplied in the URL."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date and time of the appointment. **Required.**"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "End date and time. When provided, must be later than `date`."
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Free-text body / note (max 1500 characters)."
+                  },
+                  "action_id": {
+                    "type": "integer",
+                    "description": "Follow-up action to perform."
+                  },
+                  "staff_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of the staff members to assign. Each must be a valid staff ID."
+                  },
+                  "share_with_partner": {
+                    "type": "boolean",
+                    "description": "Share the appointment with the client. `0` / `1`."
+                  },
+                  "recurring": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "description": "Whether the appointment repeats. When `1`, supply a `RecurringAppointment` object.\n\n| Value | Meaning |\n|---|---|\n| 0 | One-off |\n| 1 | Recurring |"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Appointment duration. Defaults to `1` when omitted."
+                  }
+                },
+                "required": [
+                  "item_id",
+                  "date"
+                ]
+              },
+              "RecurringAppointment": {
+                "type": "object",
+                "description": "Recurrence settings. Only used when `ClientAppointment.recurring` is `1`.",
+                "additionalProperties": true,
+                "properties": {}
+              }
+            },
+            "required": [
+              "ClientAppointment"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__client_appointments_format"
+  },
+  "blockers": []
+}

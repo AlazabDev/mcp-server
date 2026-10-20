@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/pos_shifts{format}",
+  "http_status": 400,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1004,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": false,
+  "timestamp_utc": "2026-10-08T20:17:35.597097+00:00"
+}

@@ -1,0 +1,1100 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Invoice": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Invoice.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.subscription_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.store_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.no": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.order_number": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.po_number": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.client_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.offer_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.address_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.is_offline": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_first_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_last_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_phone1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_phone2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.payment_status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.draft": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.issued": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.discount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.deposit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.deposit_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.due_after": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.issue_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.date_format": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.language_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.label_invoice_no": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_po_no": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_total": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_due_after": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_due_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_deposit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_paid_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_unpaid_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_subtotal": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_description": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_item": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_quantity": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_unit_price": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_item_total": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_from_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.label_to_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.summary_tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.summary_subtotal": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.summary_tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.summary_discount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.summary_total": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.adjustment_label": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.adjustment_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.summary_paid": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.summary_unpaid": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.summary_deposit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.notes": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.html_notes": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.required_terms": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.terms": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.terms_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.subscription_unit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.subscription_period": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.subscription_repeated": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.subscription_max_repeat": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.from": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.to": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.deleted_at": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.required_terms_file": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.invoice_layout_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.estimate_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.last_sent": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.subscription_notify": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.show_from_to": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.subscription_issue_before": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.shipping_options": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_active_secondary_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_secondary_name": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.client_secondary_address1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_secondary_address2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_secondary_city": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_secondary_state": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_secondary_postal_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_secondary_country_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.follow_up_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.auto_payment": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.discount_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.shipping_amount": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.shipping_option_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.shipping_tax_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.summary_refund": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].Invoice.item_columns": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.inventory_request_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.source_type": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.sales_person_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.extra_details": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.requisition_delivery_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.is_received": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.received_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.item_discount_amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.pos_shift_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.group_price_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.external_source": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.order_source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.stored_due_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.e_invoice_status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.submission_date": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.client_bn1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_bn1_label": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_bn2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_national_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_bn2_label": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.client_type": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.retention_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.income_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.invoice_html_url": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.invoice_pdf_url": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.client_is_government_entity": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].Invoice.due_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.summary_credit_note": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].Invoice.Client": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Invoice.Client.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.is_offline": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.client_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.first_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.last_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.phone1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.phone2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.notes": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.active_secondary_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.secondary_name": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.secondary_address1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_address2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_city": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_state": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_postal_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_country_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.language_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.default_currency_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.last_login": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.suspend": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.last_ip": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.follow_up_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.category": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.original_site_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.group_price_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.timezone": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.bn1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.bn1_label": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.bn2_label": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.bn2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.starting_balance": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.photo": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.birth_date": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.gender": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.map_location": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.type": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.credit_limit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.credit_period": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.national_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.category_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.link": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.secondary_follow_up_status": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Invoice.Client.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Invoice.Client.is_government_entity": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

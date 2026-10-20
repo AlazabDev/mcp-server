@@ -1,0 +1,310 @@
+{
+  "path": "/storage/id/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Storage",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Employee Asset/Asset Storage"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "integer"
+                },
+                "description": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "staff_id": {
+                  "type": "integer"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "branch_id": {
+                  "type": "integer"
+                },
+                "storage_branch": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "status",
+                    "created",
+                    "modified"
+                  ]
+                },
+                "storage_staff": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "added_by": {
+                      "type": "integer"
+                    },
+                    "role_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "middle_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "can_access_system": {
+                      "type": "integer"
+                    },
+                    "home_phone": {
+                      "type": "string"
+                    },
+                    "business_Phone": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "fax": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "country_code": {
+                      "type": "string"
+                    },
+                    "address1": {
+                      "type": "string"
+                    },
+                    "address2": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "type": "string"
+                    },
+                    "note": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "email_address": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_login": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "hourly_rate": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "hourly_rate_currency_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_store_id": {
+                      "type": "integer"
+                    },
+                    "default_treasury_id": {
+                      "type": "integer"
+                    },
+                    "maximum_general_discount": {
+                      "type": "integer"
+                    },
+                    "language_code": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "attendance_restriction_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "default_account_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "citizenship_status": {
+                      "type": "string"
+                    },
+                    "residence_expiry_date": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "nationality": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "official_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "added_by",
+                    "role_id",
+                    "name",
+                    "middle_name",
+                    "last_name",
+                    "photo",
+                    "can_access_system",
+                    "home_phone",
+                    "business_Phone",
+                    "mobile",
+                    "fax",
+                    "country_code",
+                    "address1",
+                    "address2",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "note",
+                    "email_address",
+                    "password",
+                    "last_login",
+                    "active",
+                    "created",
+                    "hourly_rate",
+                    "hourly_rate_currency_code",
+                    "default_store_id",
+                    "default_treasury_id",
+                    "maximum_general_discount",
+                    "language_code",
+                    "branch_id",
+                    "full_name",
+                    "attendance_restriction_id",
+                    "type",
+                    "default_account_id",
+                    "citizenship_status",
+                    "residence_expiry_date",
+                    "nationality",
+                    "code",
+                    "official_id"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "is_active",
+                "description",
+                "staff_id",
+                "created",
+                "modified",
+                "branch_id",
+                "storage_branch",
+                "storage_staff"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__storage_id"
+  },
+  "blockers": [
+    "Literal /id in source; confirm actual route and identifier parameter"
+  ]
+}

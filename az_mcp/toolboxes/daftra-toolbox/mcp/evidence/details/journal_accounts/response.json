@@ -1,0 +1,31 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": {
+    "JournalAccount": {
+      "id": "381",
+      "journal_cat_id": "17",
+      "level": "4",
+      "code": "111001",
+      "type": "1",
+      "staff_id": null,
+      "total_credit": 0,
+      "total_debit": "50000",
+      "entity_type": "asset",
+      "entity_id": "2",
+      "name": "Smart lights works",
+      "is_recalculated": "1",
+      "last_transaction_update": "0000-00-00 00:00:00",
+      "parent_cat_ids": "-1,15,16,17",
+      "is_hidden": "0",
+      "is_suspended": "0",
+      "disabled": "0",
+      "created": "2024-02-01 07:12:57",
+      "modified": "2024-09-13 02:06:14",
+      "branch_id": "1",
+      "net": 50000,
+      "can_be_hidden": false,
+      "deletable": false
+    }
+  }
+}

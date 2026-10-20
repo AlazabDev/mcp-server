@@ -1,0 +1,136 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Treasury": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Treasury.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.type_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Treasury.type_account_number": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Treasury.active": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.is_primary": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.currency_code": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Treasury.metainfo": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Treasury.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Treasury.balance": {
+    "observed_types": [
+      "integer",
+      "number"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

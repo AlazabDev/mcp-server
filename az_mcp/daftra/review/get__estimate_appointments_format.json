@@ -1,0 +1,306 @@
+{
+  "path": "/estimate_appointments{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Estimate Appointments",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of estimate appointments (follow-up appointments attached to estimates). Supports filtering by estimate, partner, action, status and appointment id. Requires permission to view appointments/notes.",
+    "tags": [
+      "Endpoints/Sales /Estimate Appointments",
+      "Estimate Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page (1–1000, default 20).",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number (default 1).",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "item_id",
+        "in": "query",
+        "description": "Filter by the related estimate id (matches `item_id` or `partner_id`).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "partner_id",
+        "in": "query",
+        "description": "Filter by the linked partner (client) id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "action_id",
+        "in": "query",
+        "description": "Filter by follow-up action id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "id",
+        "in": "query",
+        "description": "Filter by a specific appointment id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "status_id",
+        "in": "query",
+        "description": "Filter by status (0 Scheduled, 1 Done, 2 Dismissed). Defaults to `0` (Scheduled) when omitted.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of estimate appointments. Each item is returned under the `InvoiceAppointment` key (estimates are stored as invoice records).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "InvoiceAppointment": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique identifier. Server-assigned.",
+                            "readOnly": true
+                          },
+                          "item_type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6,
+                              7,
+                              8,
+                              9,
+                              10,
+                              11
+                            ],
+                            "readOnly": true,
+                            "description": "Type of record the appointment is attached to. For estimate appointments this is always `3`.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |\n| 2 | Invoice |\n| 3 | Estimate |\n| 4 | Purchase order |\n| 5 | Staff |\n| 6 | Supplier |\n| 7 | Product |\n| 8 | Work order |\n| 9 | Appointment |\n| 10 | Shift |\n| 11 | Booking |"
+                          },
+                          "item_id": {
+                            "type": "integer",
+                            "description": "Id of the related estimate."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Id of the staff member who created the appointment. `0` means the account owner."
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Appointment start date/time."
+                          },
+                          "end_date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Appointment end date/time.",
+                            "nullable": true
+                          },
+                          "body": {
+                            "type": "string",
+                            "description": "Free-text note for the appointment."
+                          },
+                          "action_id": {
+                            "type": "integer",
+                            "description": "Follow-up action id."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1,
+                              2
+                            ],
+                            "default": 0,
+                            "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                          },
+                          "status_date": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "When the status last changed.",
+                            "nullable": true
+                          },
+                          "post_id": {
+                            "type": "integer",
+                            "default": 0,
+                            "description": "Related note id; `0` when none."
+                          },
+                          "recurring_appointment_id": {
+                            "type": "integer",
+                            "description": "Id of the recurring series this appointment belongs to, if any.",
+                            "readOnly": true,
+                            "nullable": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Creation timestamp.",
+                            "readOnly": true
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Last-update timestamp.",
+                            "readOnly": true
+                          },
+                          "partner_type": {
+                            "type": "integer",
+                            "enum": [
+                              1
+                            ],
+                            "readOnly": true,
+                            "description": "Partner type. `1` = Client."
+                          },
+                          "partner_id": {
+                            "type": "integer",
+                            "readOnly": true,
+                            "description": "Id of the linked partner (the estimate's client)."
+                          },
+                          "share_with_partner": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "Whether the appointment is shared with the linked partner."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The caller lacks permission for this operation.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__estimate_appointments_format"
+  },
+  "blockers": []
+}

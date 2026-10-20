@@ -1,0 +1,132 @@
+{
+  "Supplier": [
+    "object"
+  ],
+  "Supplier.active_secondary_address": [
+    "string"
+  ],
+  "Supplier.address1": [
+    "string"
+  ],
+  "Supplier.address2": [
+    "string"
+  ],
+  "Supplier.bn1": [
+    "string"
+  ],
+  "Supplier.bn1_label": [
+    "string"
+  ],
+  "Supplier.bn2": [
+    "string"
+  ],
+  "Supplier.bn2_label": [
+    "string"
+  ],
+  "Supplier.branch_id": [
+    "string"
+  ],
+  "Supplier.business_name": [
+    "string"
+  ],
+  "Supplier.city": [
+    "string"
+  ],
+  "Supplier.country_code": [
+    "string"
+  ],
+  "Supplier.created": [
+    "string"
+  ],
+  "Supplier.default_currency_code": [
+    "string"
+  ],
+  "Supplier.email": [
+    "string"
+  ],
+  "Supplier.first_name": [
+    "string"
+  ],
+  "Supplier.follow_up_status": [
+    "null"
+  ],
+  "Supplier.id": [
+    "string"
+  ],
+  "Supplier.is_offline": [
+    "string"
+  ],
+  "Supplier.language_code": [
+    "null"
+  ],
+  "Supplier.last_ip": [
+    "null"
+  ],
+  "Supplier.last_login": [
+    "null"
+  ],
+  "Supplier.last_name": [
+    "string"
+  ],
+  "Supplier.modified": [
+    "string"
+  ],
+  "Supplier.notes": [
+    "null",
+    "string"
+  ],
+  "Supplier.phone1": [
+    "string"
+  ],
+  "Supplier.phone2": [
+    "string"
+  ],
+  "Supplier.postal_code": [
+    "string"
+  ],
+  "Supplier.secondary_address1": [
+    "null",
+    "string"
+  ],
+  "Supplier.secondary_address2": [
+    "null",
+    "string"
+  ],
+  "Supplier.secondary_city": [
+    "null",
+    "string"
+  ],
+  "Supplier.secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "Supplier.secondary_name": [
+    "null"
+  ],
+  "Supplier.secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "Supplier.secondary_state": [
+    "null",
+    "string"
+  ],
+  "Supplier.site_id": [
+    "string"
+  ],
+  "Supplier.staff_id": [
+    "string"
+  ],
+  "Supplier.state": [
+    "string"
+  ],
+  "Supplier.supplier_number": [
+    "string"
+  ],
+  "Supplier.suspend": [
+    "string"
+  ],
+  "Supplier.unique_id": [
+    "null"
+  ]
+}

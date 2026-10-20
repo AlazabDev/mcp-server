@@ -1,0 +1,255 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].ClientPayment": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].ClientPayment.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.invoice_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.client_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.payment_method": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.transaction_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.notes": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.response_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.response_message": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.added_by": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.first_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.phone1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].ClientPayment.phone2": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].ClientPayment.ip": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.transaction_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.processed": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.attachment": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.payment_work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.receipt_notes": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.treasury_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.pos_shift_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].ClientPayment.extra_details": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].ClientPayment.source": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].ClientPayment.code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

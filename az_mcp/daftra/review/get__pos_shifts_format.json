@@ -1,0 +1,248 @@
+{
+  "path": "/pos_shifts{format}",
+  "method": "get",
+  "operation": {
+    "summary": "Get POS Shift Session",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns the configuration for the **currently open POS shift session** — the data a point-of-sale client needs to bootstrap a session: the active language and default payment method, the session's branch and store, the cashier, cash-in/cash-out links, and a set of capability and feature flags derived from your permissions and account settings.\n\nThe session is identified by the open shift bound to your authenticated session, or by the `Posshift` request header carrying the POS shift session id when no session binding exists.\n\nReturns **200** only when the shift is open and you are allowed to access it (you opened it and may open your own sessions, or you may open all sessions). Some members of `Shift` appear only when the related feature is enabled — the embedded-barcode lengths when embedded barcodes are configured, and the insurance members when the Insurance feature is active.",
+    "tags": [
+      "Endpoints/Sales /POS",
+      "POS"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "Posshift",
+        "in": "header",
+        "description": "POS shift session id. Supply this when no open POS session is bound to your authenticated session.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The open POS shift session configuration.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "The POS shift session configuration, under a `Shift` member.",
+                  "properties": {
+                    "Shift": {
+                      "type": "object",
+                      "description": "Configuration and capability flags for the open POS shift session. Some members appear only when the related feature is enabled.",
+                      "properties": {
+                        "lang": {
+                          "type": "string",
+                          "description": "The active interface language code for the session."
+                        },
+                        "default_payment": {
+                          "type": "string",
+                          "description": "The default payment method configured for point of sale."
+                        },
+                        "multiple_addresses_enabled": {
+                          "type": "boolean",
+                          "description": "Whether clients may have multiple addresses."
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "description": "The branch the session belongs to."
+                        },
+                        "shift_id": {
+                          "type": "integer",
+                          "description": "The open POS shift session id."
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "description": "The authenticated cashier's staff id. `0` for the account owner."
+                        },
+                        "staff_name": {
+                          "type": "string",
+                          "description": "The authenticated cashier's display name."
+                        },
+                        "store_id": {
+                          "type": "integer",
+                          "description": "The store/warehouse the session sells from."
+                        },
+                        "cash_in_url": {
+                          "type": "string",
+                          "description": "Link to record a cash-in movement for this session."
+                        },
+                        "cash_out_url": {
+                          "type": "string",
+                          "description": "Link to record a cash-out movement for this session."
+                        },
+                        "can_edit_price": {
+                          "type": "boolean",
+                          "description": "Whether the cashier may edit product prices at point of sale."
+                        },
+                        "can_add_discount": {
+                          "type": "boolean",
+                          "description": "Whether the cashier may add a discount at point of sale."
+                        },
+                        "can_add_invoice_details": {
+                          "type": "boolean",
+                          "description": "Whether the cashier may add extra invoice details."
+                        },
+                        "check_offers": {
+                          "type": "boolean",
+                          "description": "Whether active offers exist and should be evaluated at point of sale."
+                        },
+                        "disable_shipping": {
+                          "type": "boolean",
+                          "description": "Whether shipping is disabled for sales."
+                        },
+                        "stop_selling_expired_items": {
+                          "type": "boolean",
+                          "description": "Whether selling expired tracked items is blocked."
+                        },
+                        "share_products": {
+                          "type": "boolean",
+                          "description": "Whether products are shared across branches."
+                        },
+                        "enable_log_rocket": {
+                          "type": "boolean",
+                          "description": "Whether LogRocket session recording is enabled for point of sale."
+                        },
+                        "show_tracking": {
+                          "type": "boolean",
+                          "description": "Whether product tracking numbers are shown at point of sale."
+                        },
+                        "disable_tracking_products": {
+                          "type": "boolean",
+                          "description": "Whether capturing tracking numbers for products is disabled for this session."
+                        },
+                        "embedded_barcode_length": {
+                          "type": "integer",
+                          "description": "Total length of the configured embedded barcode format. Present only when embedded barcodes are configured."
+                        },
+                        "embedded_product_barcode_length": {
+                          "type": "integer",
+                          "description": "Number of product-code digits within the embedded barcode format. Present only when embedded barcodes are configured."
+                        },
+                        "applyInsurance": {
+                          "type": "boolean",
+                          "description": "Whether insurance applies at point of sale. Present only when the Insurance feature is active."
+                        },
+                        "insuranceAgents": {
+                          "type": "object",
+                          "description": "Map of active insurance agent id to name. Present only when the Insurance feature is active.",
+                          "properties": {}
+                        },
+                        "insuranceAgentClasses": {
+                          "type": "object",
+                          "description": "Map of insurance agent class id to its details. Present only when the Insurance feature is active.",
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "data"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "No open POS shift session is available, or it cannot be accessed (the shift is not open, or it is not yours and you may not open all sessions).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user is not allowed to access POS shift sessions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__pos_shifts_format"
+  },
+  "blockers": []
+}

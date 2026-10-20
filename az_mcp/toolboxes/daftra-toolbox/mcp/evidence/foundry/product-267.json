@@ -1,0 +1,133 @@
+{
+  "is_error": false,
+  "structured_content": {
+    "result": "successful",
+    "code": 200,
+    "data": {
+      "Product": {
+        "id": "267",
+        "site_id": "3428849",
+        "staff_id": "0",
+        "name": "24 قاطع شنايدر مفرد + قاطع أرضي #AZ-ELE-00049",
+        "description": "بالمقطوعية - توريد وتركيب 24 قاطع مفرد شنايدر + قاطع عمومي (إيرث ليكج)، ويشمل السعر جميع الإكسسوارات اللازمة من قواطع وكويلات تجميع، طبقًا للرسومات الفنية المعتمدة.",
+        "unit_price": "10000",
+        "default_quantity": null,
+        "tax1": "1",
+        "tax2": null,
+        "purchasing_tax1": null,
+        "purchasing_tax2": null,
+        "supplier_id": null,
+        "brand": "Alazab",
+        "brand_id": "1",
+        "category": "Electricity",
+        "tags": "",
+        "buy_price": "7500",
+        "product_code": "AZ-ELE-00049",
+        "supplier_code": null,
+        "track_stock": "1",
+        "tracking_type": "quantity_only",
+        "stock_balance": null,
+        "low_stock_thershold": null,
+        "barcode": "EGS-577219804-0210",
+        "notes": null,
+        "deactivate": "0",
+        "status": "0",
+        "created": "2024-04-05 05:11:35",
+        "modified": "2026-10-02 13:38:45",
+        "follow_up_status": null,
+        "updated_price": "0",
+        "average_price": null,
+        "type": "1",
+        "raw_store_id": null,
+        "class": null,
+        "extra_details": null,
+        "minimum_price": null,
+        "profit_margin": null,
+        "discount": null,
+        "discout_type": null,
+        "duration_minutes": null,
+        "availabe_online": null,
+        "source_type": null,
+        "source_id": null,
+        "branch_id": "1",
+        "is_featured": "0",
+        "bundle_type": null,
+        "item_group_id": null,
+        "display_order": null,
+        "tax1_name": "14%VAT",
+        "tax2_name": "1%Ds/TAX",
+        "purchasing_tax1_name": null,
+        "purchasing_tax2_name": null,
+        "productPendingQTY": [],
+        "productAvailableQTY": [],
+        "ProductMasterImage": {
+          "id": null,
+          "product_id": null,
+          "default": null,
+          "file": null,
+          "created": null,
+          "modified": null
+        },
+        "CustomModel": {
+          "id": "149",
+          "product_id": "267",
+          "created": "2024-04-05 05:11:35",
+          "modified": "2024-04-05 05:11:35",
+          "staff_id": null,
+          "field_24": "EGS-577219804-0210",
+          "field_25": "EGS",
+          "field_47": null,
+          "field_48": null
+        },
+        "ProductImage": [],
+        "ProductCategory": [
+          {
+            "id": "6",
+            "name": "Accessories",
+            "description": "إكسسوارات ومكملات الأبواب والنوافذ والتجهيزات المعمارية.",
+            "category_type": "1",
+            "parent_id": "10",
+            "created": "2024-02-02 03:18:25",
+            "modified": "2026-10-09 02:16:27",
+            "image": "",
+            "mac_address": null,
+            "branch_id": "1",
+            "status": "1"
+          },
+          {
+            "id": "15",
+            "name": "Electricity",
+            "description": "تنفيذ وتوريد كافه الاعمال المعدنيه باعلي جوده ودهان حسب الرغبه",
+            "category_type": "1",
+            "parent_id": "48",
+            "created": "2024-03-14 23:48:58",
+            "modified": "2026-10-09 04:31:06",
+            "image": "",
+            "mac_address": null,
+            "branch_id": "1",
+            "status": "1"
+          }
+        ],
+        "ProductImageS3": [
+          {
+            "id": "154",
+            "product_id": "267",
+            "default": "1",
+            "file": "354047980_632149358974160_8628003475793477395_n.jpg",
+            "created": "2024-04-05 05:52:33",
+            "modified": "2024-04-05 05:52:33",
+            "file_full_path": "https://alazab-co.daftra.com/s3/files/bb25d175/product/412c188a-fd63-43e5-88cb-0bbd029c6163.jpg"
+          }
+        ]
+      }
+    }
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"result\": \"successful\",\n  \"code\": 200,\n  \"data\": {\n    \"Product\": {\n      \"id\": \"267\",\n      \"site_id\": \"3428849\",\n      \"staff_id\": \"0\",\n      \"name\": \"24 قاطع شنايدر مفرد + قاطع أرضي #AZ-ELE-00049\",\n      \"description\": \"بالمقطوعية - توريد وتركيب 24 قاطع مفرد شنايدر + قاطع عمومي (إيرث ليكج)، ويشمل السعر جميع الإكسسوارات اللازمة من قواطع وكويلات تجميع، طبقًا للرسومات الفنية المعتمدة.\",\n      \"unit_price\": \"10000\",\n      \"default_quantity\": null,\n      \"tax1\": \"1\",\n      \"tax2\": null,\n      \"purchasing_tax1\": null,\n      \"purchasing_tax2\": null,\n      \"supplier_id\": null,\n      \"brand\": \"Alazab\",\n      \"brand_id\": \"1\",\n      \"category\": \"Electricity\",\n      \"tags\": \"\",\n      \"buy_price\": \"7500\",\n      \"product_code\": \"AZ-ELE-00049\",\n      \"supplier_code\": null,\n      \"track_stock\": \"1\",\n      \"tracking_type\": \"quantity_only\",\n      \"stock_balance\": null,\n      \"low_stock_thershold\": null,\n      \"barcode\": \"EGS-577219804-0210\",\n      \"notes\": null,\n      \"deactivate\": \"0\",\n      \"status\": \"0\",\n      \"created\": \"2024-04-05 05:11:35\",\n      \"modified\": \"2026-10-02 13:38:45\",\n      \"follow_up_status\": null,\n      \"updated_price\": \"0\",\n      \"average_price\": null,\n      \"type\": \"1\",\n      \"raw_store_id\": null,\n      \"class\": null,\n      \"extra_details\": null,\n      \"minimum_price\": null,\n      \"profit_margin\": null,\n      \"discount\": null,\n      \"discout_type\": null,\n      \"duration_minutes\": null,\n      \"availabe_online\": null,\n      \"source_type\": null,\n      \"source_id\": null,\n      \"branch_id\": \"1\",\n      \"is_featured\": \"0\",\n      \"bundle_type\": null,\n      \"item_group_id\": null,\n      \"display_order\": null,\n      \"tax1_name\": \"14%VAT\",\n      \"tax2_name\": \"1%Ds/TAX\",\n      \"purchasing_tax1_name\": null,\n      \"purchasing_tax2_name\": null,\n      \"productPendingQTY\": [],\n      \"productAvailableQTY\": [],\n      \"ProductMasterImage\": {\n        \"id\": null,\n        \"product_id\": null,\n        \"default\": null,\n        \"file\": null,\n        \"created\": null,\n        \"modified\": null\n      },\n      \"CustomModel\": {\n        \"id\": \"149\",\n        \"product_id\": \"267\",\n        \"created\": \"2024-04-05 05:11:35\",\n        \"modified\": \"2024-04-05 05:11:35\",\n        \"staff_id\": null,\n        \"field_24\": \"EGS-577219804-0210\",\n        \"field_25\": \"EGS\",\n        \"field_47\": null,\n        \"field_48\": null\n      },\n      \"ProductImage\": [],\n      \"ProductCategory\": [\n        {\n          \"id\": \"6\",\n          \"name\": \"Accessories\",\n          \"description\": \"إكسسوارات ومكملات الأبواب والنوافذ والتجهيزات المعمارية.\",\n          \"category_type\": \"1\",\n          \"parent_id\": \"10\",\n          \"created\": \"2024-02-02 03:18:25\",\n          \"modified\": \"2026-10-09 02:16:27\",\n          \"image\": \"\",\n          \"mac_address\": null,\n          \"branch_id\": \"1\",\n          \"status\": \"1\"\n        },\n        {\n          \"id\": \"15\",\n          \"name\": \"Electricity\",\n          \"description\": \"تنفيذ وتوريد كافه الاعمال المعدنيه باعلي جوده ودهان حسب الرغبه\",\n          \"category_type\": \"1\",\n          \"parent_id\": \"48\",\n          \"created\": \"2024-03-14 23:48:58\",\n          \"modified\": \"2026-10-09 04:31:06\",\n          \"image\": \"\",\n          \"mac_address\": null,\n          \"branch_id\": \"1\",\n          \"status\": \"1\"\n        }\n      ],\n      \"ProductImageS3\": [\n        {\n          \"id\": \"154\",\n          \"product_id\": \"267\",\n          \"default\": \"1\",\n          \"file\": \"354047980_632149358974160_8628003475793477395_n.jpg\",\n          \"created\": \"2024-04-05 05:52:33\",\n          \"modified\": \"2024-04-05 05:52:33\",\n          \"file_full_path\": \"https://alazab-co.daftra.com/s3/files/bb25d175/product/412c188a-fd63-43e5-88cb-0bbd029c6163.jpg\"\n        }\n      ]\n    }\n  }\n}",
+      "annotations": null,
+      "meta": null
+    }
+  ]
+}

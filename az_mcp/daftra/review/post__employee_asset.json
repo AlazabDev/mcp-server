@@ -1,0 +1,178 @@
+{
+  "path": "/employee_asset",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Asset",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+    "tags": [
+      "Endpoints/HR/Employee Asset/Asset"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string",
+                "nullable": true
+              },
+              "asset_type_id": {
+                "type": "integer",
+                "description": "[`GET /asset_type`](https://docs.daftara.dev/38573106e0)"
+              },
+              "warranty_expiry_date": {
+                "type": "string"
+              },
+              "serial_number": {
+                "type": "string"
+              },
+              "barcode": {
+                "type": "string"
+              },
+              "used_by": {
+                "type": "string",
+                "enum": [
+                  "not_assigned",
+                  "employee",
+                  "storage"
+                ]
+              },
+              "storage_id": {
+                "type": "integer",
+                "description": "Required if 'used_by' value is 'storage'.\n[`GET /asset_storage`](https://docs.daftara.dev/38573113e0)"
+              },
+              "employee_id": {
+                "type": "integer",
+                "description": "Required if 'used_by' value is 'employee'.\n[`GET /staff`](https://docs.daftara.dev/15115376e0)"
+              },
+              "location_id": {
+                "type": "integer",
+                "description": "[`GET /asset_location`](https://docs.daftara.dev/38573109e0)"
+              },
+              "assigned_date": {
+                "type": "string"
+              },
+              "expected_return_date": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "technical_specifications": {
+                "type": "string"
+              },
+              "attachments": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "used_by",
+              "location_id",
+              "employee_id",
+              "storage_id"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "used_by": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "location_id": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "used_by",
+                    "location_id"
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__employee_asset"
+  },
+  "blockers": []
+}

@@ -1,0 +1,237 @@
+{
+  "path": "/treasuries{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Treasuries",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of treasuries and bank accounts. The result is limited to the treasuries the authenticated user is allowed to view: a staff member sees only treasuries they hold a withdraw or deposit permission on, while an account owner or admin sees all. Requires a treasury permission or the *General Settings* permission. Each item includes a computed `balance`.",
+    "tags": [
+      "Endpoints/Finance/Treasuries",
+      "Treasuries"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to retrieve.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Treasury": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "description": "Unique identifier of the treasury.",
+                            "readOnly": true
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Owner staff id, or `0` for the account owner."
+                          },
+                          "name": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Name of the treasury or bank account."
+                          },
+                          "type": {
+                            "type": "integer",
+                            "enum": [
+                              1,
+                              2,
+                              3
+                            ],
+                            "description": "Kind of account.\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                          },
+                          "type_name": {
+                            "type": "string",
+                            "description": "Bank/account label (used for bank accounts).",
+                            "nullable": true
+                          },
+                          "type_account_number": {
+                            "type": "string",
+                            "description": "Bank account number (used for bank accounts).",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether the treasury is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                          },
+                          "is_primary": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether this is the primary (default) treasury.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Free-text description."
+                          },
+                          "currency_code": {
+                            "type": "string",
+                            "maxLength": 3,
+                            "description": "ISO currency code (set for bank accounts; treasuries default to the account currency).",
+                            "nullable": true
+                          },
+                          "metainfo": {
+                            "type": "object",
+                            "description": "Bank reconciliation metadata (bank accounts only).",
+                            "properties": {},
+                            "nullable": true
+                          },
+                          "balance": {
+                            "type": "number",
+                            "description": "Current balance of the treasury, computed at read time.",
+                            "readOnly": true
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the treasury was created.",
+                            "readOnly": true
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the treasury was last updated.",
+                            "readOnly": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized — missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden — the user has no treasury permission and lacks the General Settings permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__treasuries_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,13 @@
+az-agent-codex	enabled	enabled	5	active	prompt	az-model-codex	2	bf53808a-3894-4fb4-8796-e484267bb859
+az-agent-copilot	enabled	enabled	4	active	prompt	az-model-maint	5	e6fac5ec-bbe0-4223-8241-79b19114f357
+az-agent-bim	enabled	enabled	6	active	prompt	az-model-sol	4	2df909e4-75ef-4e01-8337-80ca0dd3502f
+az-agent-maint	enabled	enabled	23	active	prompt	az-model-maint	9	4245d0af-c797-485f-8d8a-22b25d9680f0
+az-agent-project	enabled	enabled	3	active	prompt	az-model-gpt	2	d38726c9-e750-4783-90b6-e50f90f078dc
+az-agent-core	enabled	enabled	8	active	prompt	az-model-core	4	b494c1a9-88f9-4d2c-8601-10a953f6e10f
+az-agent-azabot	enabled	enabled	7	active	prompt	az-model-sol	5	e14a9eca-d9c3-400f-b299-b2cfc2ea0884
+az-agent-backend	enabled	enabled	3	active	prompt	az-model-core	5	a70f4975-da45-4213-8a87-53978b148cb1
+az-agent-auth	enabled	enabled	3	active	prompt	az-model-maint	3	b3c38f07-e66c-412a-985b-9d3838b88eb1
+az-agent-prod	enabled	enabled	11	active	prompt	az-model-sol	7	41014278-1792-4ceb-b3c2-6c0ed0de1052
+az-agent-finance	enabled	enabled	5	active	prompt	az-model-finance	1	5d8629a6-04da-4fbf-8eba-f78bf1bd4b2a
+az-agent-payments	enabled	enabled	4	active	prompt	az-model-finance	2	38e1ac47-7535-4e3c-83ee-092fab86692e
+az-agent-vision	enabled	enabled	3	active	prompt	az-model-core	1	effab342-8cb9-4301-816a-1e1f07cf2805

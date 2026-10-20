@@ -1,0 +1,8 @@
+{
+  "resource": "estimates",
+  "method": "GET",
+  "record_id": 331,
+  "url": "https://alazab-co.daftra.com/api2/estimates/331.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:53.639912+00:00"
+}

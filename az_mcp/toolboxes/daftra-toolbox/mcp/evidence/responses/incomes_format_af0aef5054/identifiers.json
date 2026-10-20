@@ -1,0 +1,45 @@
+{
+  "data[].Income.id": [
+    "154",
+    "155",
+    "175",
+    "176",
+    "178",
+    "179",
+    "185",
+    "192",
+    "193",
+    "204",
+    "214",
+    "235",
+    "238"
+  ],
+  "data[].Income.staff_id": [
+    "0"
+  ],
+  "data[].Income.recurring_expense_id": [
+    "0"
+  ],
+  "data[].Income.treasury_id": [
+    "1",
+    "2",
+    "3"
+  ],
+  "data[].Income.expense_category_id": [
+    "11",
+    "18",
+    "15",
+    "17",
+    "0"
+  ],
+  "data[].Income.branch_id": [
+    "1"
+  ],
+  "data[].Income.journal_account_id": [
+    "403",
+    "402",
+    "338",
+    "337",
+    "68"
+  ]
+}

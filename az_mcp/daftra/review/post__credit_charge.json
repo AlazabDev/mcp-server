@@ -1,0 +1,182 @@
+{
+  "path": "/credit_charge",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Credit Charge",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing credit charge. This posts to the same `/v2/api/entity/credit_charge` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new record is created instead.\n\n**Important — this is a destructive partial overwrite, not a merge.** The update always rewrites a fixed **core set** of columns — `staff_id`, `client_id`, `credit_type_id`, `renewal_id`, and `amount` — and sets any of them **that you omit to null**. Because `client_id`, `credit_type_id`, and `amount` are non-nullable, omitting them fails with a `400`; omitting `staff_id` or `renewal_id` silently clears them. **Always resend the whole core set on every update.** The remaining fields (`start_date`, `expiry_date`, `description`, `status`) are preserved if omitted.\n\nDate fields accept `YYYY-MM-DD` or `DD/MM/YYYY`. On success the response is `{ \"message\": <localized text>, \"id\": <id> }`.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Charges"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the credit charge to update. Required — omitting it creates a new record instead."
+              },
+              "client_id": {
+                "type": "integer",
+                "description": "Id of the client. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+              },
+              "credit_type_id": {
+                "type": "integer",
+                "description": "Id of the credit type. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+              },
+              "amount": {
+                "type": "number",
+                "description": "Credit amount. Part of the core overwrite set — resend it or it is nulled (→ 400)."
+              },
+              "staff_id": {
+                "type": "integer",
+                "description": "Id of the staff member. Part of the core overwrite set — resend it or it is silently cleared to null."
+              },
+              "renewal_id": {
+                "type": "integer",
+                "description": "Id of the membership renewal. Part of the core overwrite set — resend it or it is silently cleared to null."
+              },
+              "start_date": {
+                "type": "string",
+                "description": "Start of the validity window. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+              },
+              "expiry_date": {
+                "type": "string",
+                "description": "End of the validity window. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+              },
+              "description": {
+                "type": "string",
+                "description": "Free-text note. Optional; preserved if omitted."
+              },
+              "status": {
+                "type": "string",
+                "description": "Credit charge status. Optional; preserved if omitted.\n\n| Value | Meaning |\n|---|---|\n| available | Credit is available to consume |\n| consumed | Credit has been fully used |\n| expired | Credit passed its expiry date |\n| suspended | Credit is temporarily suspended |",
+                "enum": [
+                  "available",
+                  "consumed",
+                  "expired",
+                  "suspended"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "client_id",
+              "credit_type_id",
+              "amount"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The credit charge was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the updated credit charge."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update could not be saved — most commonly because a core-set field (`client_id`, `credit_type_id`, or `amount`) was omitted and nulled a non-nullable column.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable failure reason (e.g. a core-set field was omitted and nulled a non-nullable column)."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the Manage Credit Charges permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__credit_charge",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

@@ -1,0 +1,6 @@
+az-model-codex
+az-model-core
+az-model-finance
+az-model-gpt
+az-model-maint
+az-model-sol

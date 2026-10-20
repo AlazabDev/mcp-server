@@ -1,0 +1,244 @@
+{
+  "path": "/client_payments/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Client Payments",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update an existing client payment.\n\nThis is a partial update — send only the fields you want to change, under a `ClientPayment` object. Fields not listed below (and any read-only fields) are ignored.\n\n**Editable fields** (for payments recorded by staff/API): `amount`, `date`, `payment_method`, `transaction_id`, `treasury_id`, `status`, `notes`, `receipt_notes`, `currency_code`, `staff_id`, `invoice_id`, `extra_details`, `attachment`. If the payment was recorded by a client, only a narrower set is editable: `treasury_id`, `receipt_notes`, `status`, `notes`, `invoice_id`, `attachment`.\n\nNotes: `payment_method`, if changed, must be one of the account's active configured methods (changing it clears stored gateway metadata). Changing the payment `date` requires the relevant permission; otherwise the original date is kept.",
+    "tags": [
+      "Endpoints/Clients /Client Payments",
+      "Client Payments"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Numeric reference of the client payment to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ClientPayment": {
+                "type": "object",
+                "description": "The fields to change. All optional — only the supplied editable fields are updated.",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Amount paid."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Payment date, in the account's date format. Requires the change-payment-date permission to take effect."
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "description": "Payment method. Must be one of the account's active configured methods. Changing it clears stored gateway metadata."
+                  },
+                  "transaction_id": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "External / gateway transaction reference."
+                  },
+                  "treasury_id": {
+                    "type": "integer",
+                    "description": "Treasury the payment is deposited into."
+                  },
+                  "status": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ],
+                    "description": "Payment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not completed |\n| 1 | Completed |\n| 2 | Pending |\n| 3 | Failed |\n| 4 | Overpaid |\n| 5 | Draft |"
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": "Internal notes on the payment (max 500 characters)."
+                  },
+                  "receipt_notes": {
+                    "type": "string",
+                    "description": "Notes shown on the payment receipt."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "3-letter ISO 4217 currency code."
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "description": "Staff member associated with the payment."
+                  },
+                  "invoice_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Reference of the invoice the payment is applied to."
+                  },
+                  "extra_details": {
+                    "type": "string",
+                    "description": "Additional gateway / processing metadata, as a JSON-encoded string."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Attachment reference(s); comma-separated when more than one."
+                  }
+                }
+              }
+            },
+            "required": [
+              "ClientPayment"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "The client payment was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update failed validation (e.g. an unsupported payment method or notes over 500 characters).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Per-field error messages keyed by the attribute that failed.",
+                  "properties": {
+                    "payment_method": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to edit this client payment.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No client payment matches the supplied id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__client_payments_id_format"
+  },
+  "blockers": []
+}

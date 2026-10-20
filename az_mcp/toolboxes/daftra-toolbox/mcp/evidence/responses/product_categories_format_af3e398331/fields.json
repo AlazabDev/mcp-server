@@ -1,0 +1,153 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].CategoriesCategory": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].CategoriesCategory.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.category_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.parent_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.image": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.display_order": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.mac_address": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.metadata1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.classification_id2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.metadata2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.classification_id3": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.metadata3": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.classification_id1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].CategoriesCategory.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].CategoriesCategory.image_full_path": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

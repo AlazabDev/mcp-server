@@ -1,0 +1,29 @@
+{
+  "Store": [
+    "object"
+  ],
+  "Store.active": [
+    "string"
+  ],
+  "Store.branch_id": [
+    "string"
+  ],
+  "Store.created": [
+    "string"
+  ],
+  "Store.id": [
+    "string"
+  ],
+  "Store.modified": [
+    "string"
+  ],
+  "Store.name": [
+    "string"
+  ],
+  "Store.primary": [
+    "string"
+  ],
+  "Store.shipping_address": [
+    "string"
+  ]
+}

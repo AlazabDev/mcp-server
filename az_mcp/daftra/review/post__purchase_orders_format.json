@@ -1,0 +1,324 @@
+{
+  "path": "/purchase_orders{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Purchase Order",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new purchase order.\n\nSend a `PurchaseOrder` object together with a `PurchaseOrderItem` array; optionally include a `Payment` object to record an immediate payment and a `PurchaseOrderCustomField` array. The only hard-required fields are `PurchaseOrder.supplier_id` and, for each line item, `item`, `quantity` and `unit_price`; most other fields are defaulted automatically (currency, date, number, store, branch).\n\nThe document `type` and `payment_status` are set server-side and any client values for them are ignored. Whether the order is saved as a draft is controlled by the `send` query parameter, not a body field.\n\nOn success the endpoint returns HTTP **202** with `{ \"result\": \"successful\", \"code\": 202, \"id\": <new id> }`.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Orders",
+      "Purchase Orders"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "send",
+        "in": "query",
+        "description": "Optional save/send behaviour.\n\n| Value | Meaning |\n|---|---|\n| draft | Save the purchase order as a draft (no number is assigned yet) |\n| direct | Save and email it to the supplier |\n| revised | Save and open the send-to-supplier flow |\n| print | Save and prepare a printable copy |\n\nOmit to save a normal (issued) purchase order.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "direct",
+            "revised",
+            "print"
+          ]
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "PurchaseOrder": {
+                "type": "object",
+                "description": "The purchase order header.",
+                "properties": {
+                  "supplier_id": {
+                    "type": "integer",
+                    "description": "Required. The supplier this order is placed with; must reference an existing supplier."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Optional. ISO currency code (e.g. `USD`). Defaults to the account currency when omitted."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Optional. Order date in the account date format. Defaults to today."
+                  },
+                  "issue_date": {
+                    "type": "string",
+                    "description": "Optional. Issue date in the account date format."
+                  },
+                  "received_date": {
+                    "type": "string",
+                    "description": "Optional. Expected/actual receipt date."
+                  },
+                  "supplier_email": {
+                    "type": "string",
+                    "description": "Required only when the supplier's invoicing method is email; must be a valid email address."
+                  },
+                  "discount": {
+                    "type": "number",
+                    "description": "Optional. Order-level discount percentage (0–100)."
+                  },
+                  "discount_amount": {
+                    "type": "number",
+                    "description": "Optional. Order-level discount as a fixed amount (≥ 0)."
+                  },
+                  "deposit": {
+                    "type": "number",
+                    "description": "Optional. Deposit amount."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Optional. Destination store/warehouse; must be active."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Optional. Branch; must be active."
+                  },
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "Optional. Linked work order id."
+                  },
+                  "cost_center_id": {
+                    "type": "integer",
+                    "description": "Optional. Cost center id."
+                  },
+                  "invoice_layout_id": {
+                    "type": "integer",
+                    "description": "Optional. Print/layout template id."
+                  },
+                  "language_id": {
+                    "type": "string",
+                    "description": "Optional. Document language."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Optional. Free-text notes."
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              },
+              "PurchaseOrderItem": {
+                "type": "array",
+                "description": "Line items. At least one item is expected; each item requires `item`, `quantity` and `unit_price`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string",
+                      "description": "Required. The item name/label."
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "Required. Ordered quantity (numeric)."
+                    },
+                    "unit_price": {
+                      "type": "number",
+                      "description": "Required. Price per unit (numeric)."
+                    },
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Optional. Linked product id; the product must be active."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Optional. Item description."
+                    },
+                    "tax": {
+                      "type": "integer",
+                      "description": "Optional. Tax mode.\n\n| Value | Meaning |\n|---|---|\n| 0 | No taxes |\n| 1 | Tax 1 |\n| 2 | Tax 2 |\n| 3 | Both taxes |"
+                    },
+                    "discount": {
+                      "type": "number",
+                      "description": "Optional. Item discount."
+                    },
+                    "store_id": {
+                      "type": "integer",
+                      "description": "Optional. Per-item store; must be active."
+                    }
+                  },
+                  "required": [
+                    "item",
+                    "quantity",
+                    "unit_price"
+                  ]
+                }
+              },
+              "Payment": {
+                "type": "object",
+                "description": "Optional. Record an immediate payment against the order.",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Payment amount."
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "description": "Payment method / gateway."
+                  },
+                  "treasury_id": {
+                    "type": "integer",
+                    "description": "Treasury to deposit into. Defaults to the primary treasury when omitted."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Defaults to the purchase order's currency when omitted."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Payment date."
+                  }
+                }
+              },
+              "PurchaseOrderCustomField": {
+                "type": "array",
+                "description": "Optional. Custom field values.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "PurchaseOrder",
+              "PurchaseOrderItem"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Purchase order created. The body carries the new purchase order id only.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The id of the newly created purchase order."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed, or a referenced product/store is inactive, or the order could not be created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-keyed validation messages, present when validation fails.",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated staff member lacks the Manage Purchase Orders permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__purchase_orders_format"
+  },
+  "blockers": []
+}

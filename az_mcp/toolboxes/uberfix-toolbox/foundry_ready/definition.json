@@ -1,0 +1,173 @@
+{
+  "description": "Alazab uberfix-toolbox verified read-only API tools",
+  "tools": [
+    {
+      "type": "openapi",
+      "name": "uberfix-read",
+      "openapi": {
+        "name": "uberfix-read",
+        "spec": {
+          "openapi": "3.0.3",
+          "info": {
+            "title": "UberFix Read Only API Gateway",
+            "version": "1.0.0"
+          },
+          "servers": [
+            {
+              "url": "https://zrrffsjbfkphridqyais.supabase.co/functions/v1"
+            }
+          ],
+          "paths": {
+            "/maintenance-gateway/requests": {
+              "get": {
+                "operationId": "list_maintenance_requests",
+                "summary": "List UberFix maintenance requests",
+                "parameters": [
+                  {
+                    "name": "status",
+                    "in": "query",
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "limit",
+                    "in": "query",
+                    "schema": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 200
+                    }
+                  },
+                  {
+                    "name": "cursor",
+                    "in": "query",
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Successful JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/maintenance-gateway/requests/{id}": {
+              "get": {
+                "operationId": "get_maintenance_request",
+                "summary": "Get a maintenance request",
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Successful JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/maintenance-gateway/technicians": {
+              "get": {
+                "operationId": "list_technicians",
+                "summary": "List technicians",
+                "parameters": [
+                  {
+                    "name": "specialty",
+                    "in": "query",
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "available_only",
+                    "in": "query",
+                    "schema": {
+                      "type": "boolean"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Successful JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/maintenance-gateway/invoices": {
+              "get": {
+                "operationId": "list_uberfix_invoices",
+                "summary": "List UberFix invoices",
+                "responses": {
+                  "200": {
+                    "description": "Successful JSON response",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "securitySchemes": {
+              "apiKey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key"
+              }
+            }
+          },
+          "security": [
+            {
+              "apiKey": []
+            }
+          ]
+        },
+        "auth": {
+          "type": "project_connection",
+          "security_scheme": {
+            "project_connection_id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/projects/az-ai-gateway/connections/uberfix-gateway-connection"
+          }
+        }
+      }
+    }
+  ]
+}

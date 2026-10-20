@@ -1,0 +1,148 @@
+{
+  "Expense": [
+    "object"
+  ],
+  "Expense.accounts_data": [
+    "null",
+    "string"
+  ],
+  "Expense.amount": [
+    "string"
+  ],
+  "Expense.attachments": [
+    "array"
+  ],
+  "Expense.attachments[]": [
+    "string"
+  ],
+  "Expense.branch_id": [
+    "string"
+  ],
+  "Expense.category": [
+    "string"
+  ],
+  "Expense.client_id": [
+    "null"
+  ],
+  "Expense.created": [
+    "string"
+  ],
+  "Expense.currency_code": [
+    "string"
+  ],
+  "Expense.date": [
+    "string"
+  ],
+  "Expense.expense_category_id": [
+    "null",
+    "string"
+  ],
+  "Expense.expense_number": [
+    "string"
+  ],
+  "Expense.external_source": [
+    "null",
+    "string"
+  ],
+  "Expense.extra_details": [
+    "null",
+    "string"
+  ],
+  "Expense.file": [
+    "null"
+  ],
+  "Expense.id": [
+    "string"
+  ],
+  "Expense.is_income": [
+    "string"
+  ],
+  "Expense.journal_account_id": [
+    "null",
+    "string"
+  ],
+  "Expense.last_update_external_source": [
+    "null",
+    "string"
+  ],
+  "Expense.modified": [
+    "string"
+  ],
+  "Expense.note": [
+    "string"
+  ],
+  "Expense.recurring_expense_id": [
+    "string"
+  ],
+  "Expense.site_id": [
+    "null",
+    "string"
+  ],
+  "Expense.source_id": [
+    "null",
+    "string"
+  ],
+  "Expense.source_type": [
+    "null",
+    "string"
+  ],
+  "Expense.staff_id": [
+    "string"
+  ],
+  "Expense.status": [
+    "string"
+  ],
+  "Expense.supplier_id": [
+    "null",
+    "string"
+  ],
+  "Expense.tax1_amount": [
+    "null",
+    "string"
+  ],
+  "Expense.tax1_id": [
+    "null",
+    "string"
+  ],
+  "Expense.tax1_included": [
+    "null",
+    "string"
+  ],
+  "Expense.tax1_name": [
+    "null",
+    "string"
+  ],
+  "Expense.tax1_value": [
+    "null",
+    "string"
+  ],
+  "Expense.tax2_amount": [
+    "null"
+  ],
+  "Expense.tax2_id": [
+    "null"
+  ],
+  "Expense.tax2_included": [
+    "null"
+  ],
+  "Expense.tax2_name": [
+    "null"
+  ],
+  "Expense.tax2_value": [
+    "null"
+  ],
+  "Expense.total": [
+    "string"
+  ],
+  "Expense.treasury_id": [
+    "string"
+  ],
+  "Expense.vendor": [
+    "null",
+    "string"
+  ],
+  "Expense.work_order_id": [
+    "null",
+    "string"
+  ]
+}

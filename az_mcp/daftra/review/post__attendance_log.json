@@ -1,0 +1,170 @@
+{
+  "path": "/attendance_log",
+  "method": "post",
+  "operation": {
+    "summary": "Add Attendance Log",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Adds an attendance log. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe request body is a flat JSON object. Only `staff_id` and `time` are required; every other field is optional. The combination of `time` + `staff_id` must be unique — posting the same pair twice fails.\n\nThe `status` and `source_type` value tables below are the recognized sets; note the API does not currently validate them on input — an unrecognized value is accepted (stored coerced), not rejected.\n\n`status` defaults to `draft` when omitted:\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |\n\n`source_type`, when supplied, is one of:\n\n| Value | Meaning |\n|---|---|\n| machine | Machine |\n| supervisor | Supervisor |\n| file | File |\n| self | Self |",
+    "tags": [
+      "Endpoints/HR/Attendance Logs"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "staff_id": {
+                "type": "integer",
+                "description": "Required. Id of the employee the log belongs to."
+              },
+              "time": {
+                "type": "string",
+                "description": "Required. Log timestamp, `YYYY-MM-DD HH:MM:SS`. Must be unique per employee (`time` + `staff_id`)."
+              },
+              "status": {
+                "type": "string",
+                "description": "Optional. Defaults to `draft` when omitted. Recognized values are below, but note this field is **not validated on input** — an unrecognized value is accepted and stored coerced (empty), not rejected.\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |"
+              },
+              "session_id": {
+                "type": "integer",
+                "description": "Optional. Id of the attendance session the log belongs to."
+              },
+              "source_type": {
+                "type": "string",
+                "description": "Optional. Recognized source values below (not validated on input):\n\n| Value | Meaning |\n|---|---|\n| machine | Machine |\n| supervisor | Supervisor |\n| file | File |\n| self | Self |"
+              },
+              "source_id": {
+                "type": "integer",
+                "description": "Optional. Id of the source that produced the log."
+              },
+              "source_name": {
+                "type": "string",
+                "description": "Optional. Name of the source."
+              },
+              "source_method": {
+                "type": "string",
+                "description": "Optional. How the source recorded the log."
+              }
+            },
+            "required": [
+              "staff_id",
+              "time"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The attendance log was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created attendance log."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The attendance log could not be saved — for example the `time` + `staff_id` combination already exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "description": "Error detail object."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Reason the record could not be saved — for example a duplicate `time` + `staff_id` combination."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "422": {
+        "description": "A required field is missing or invalid. `errors` maps each failing field to its messages (e.g. `staff_id` or `time` omitted).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Per-field validation messages, keyed by field name.",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__attendance_log",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

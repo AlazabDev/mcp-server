@@ -1,0 +1,102 @@
+{
+  "data[].Product.id": [
+    "267",
+    "390",
+    "445",
+    "314",
+    "643",
+    "191",
+    "216",
+    "1721",
+    "3031",
+    "339",
+    "871",
+    "814",
+    "872",
+    "642",
+    "1568",
+    "1570",
+    "2212",
+    "1933",
+    "2193",
+    "2191"
+  ],
+  "data[].Product.site_id": [
+    "3428849"
+  ],
+  "data[].Product.staff_id": [
+    "0",
+    "-3",
+    "6"
+  ],
+  "data[].Product.brand_id": [
+    "1",
+    "16",
+    "4",
+    "5",
+    "18"
+  ],
+  "data[].Product.branch_id": [
+    "1"
+  ],
+  "data[].Product.ProductCategory[].id": [
+    "6",
+    "15",
+    "13",
+    "12",
+    "51",
+    "41",
+    "48"
+  ],
+  "data[].Product.ProductCategory[].parent_id": [
+    "28",
+    "29"
+  ],
+  "data[].Product.ProductCategory[].branch_id": [
+    "1"
+  ],
+  "data[].Product.ProductImageS3[].id": [
+    "154",
+    "676",
+    "175",
+    "176",
+    "1324",
+    "1325",
+    "1326",
+    "1327",
+    "1328",
+    "1329"
+  ],
+  "data[].Product.ProductImageS3[].product_id": [
+    "267",
+    "216",
+    "339",
+    "814"
+  ],
+  "data[].Product.ProductStock[].id": [
+    "145",
+    "200",
+    "46"
+  ],
+  "data[].Product.ProductStock[].product_id": [
+    "390",
+    "445",
+    "216"
+  ],
+  "data[].Product.ProductStock[].store_id": [
+    "1"
+  ],
+  "data[].Product.ProductStock[].branch_id": [
+    "1"
+  ],
+  "data[].Product.supplier_id": [
+    "100",
+    "2"
+  ],
+  "data[].Product.raw_store_id": [
+    "200"
+  ],
+  "data[].Product.source_id": [
+    "15"
+  ]
+}

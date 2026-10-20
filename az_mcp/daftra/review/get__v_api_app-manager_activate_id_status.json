@@ -1,0 +1,136 @@
+{
+  "path": "/v2/api/app-manager/activate/{id}/{status}",
+  "method": "get",
+  "operation": {
+    "summary": "Activate / Deactivate App",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Activates or deactivates a marketplace app for the current site.\n\nSend `true` in the `status` path segment to activate the app, or any other value to deactivate it. When the app is not yet installed for the site, it is first installed in a deactivated state and then the requested action is applied.\n\nThe response body carries a numeric `code` describing the outcome:\n\n| `code` | Meaning |\n|---|---|\n| 0 | Error — app not found |\n| 1 | App activated |\n| 2 | Settings required — the app must be configured before it can be activated |\n| 3 | App deactivated |\n| 4 | Payment required — the app has not been purchased or renewed |\n\nSuccessful activation/deactivation and the not-found case return HTTP `200`; the *settings required* (`2`) and *payment required* (`4`) cases return HTTP `400`. Branch on `status`/`code`, not only on the HTTP status.",
+    "tags": [
+      "Developers Portal/Developers Portal Endpoints"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The marketplace app id (the `id` of the app in the apps catalogue) to activate or deactivate.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "status",
+        "in": "path",
+        "description": "Whether to activate or deactivate the app. Send `true` to activate; any other value deactivates.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Activation/deactivation outcome. Example bodies:\n\nActivated:\n```json\n{ \"status\": true, \"code\": 1, \"msg\": \"App activated successfully\" }\n```\nDeactivated:\n```json\n{ \"status\": true, \"code\": 3, \"msg\": \"App deactivated successfully\" }\n```\nApp not found (still HTTP 200):\n```json\n{ \"status\": false, \"code\": 0, \"msg\": \"App not found\" }\n```",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The activation/deactivation outcome. Successful activation, successful deactivation, and the not-found case all return HTTP `200` — inspect `status`/`code` to distinguish them.",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "`true` when the requested activation or deactivation succeeded; `false` when the app id was not found."
+                },
+                "code": {
+                  "type": "integer",
+                  "description": "Outcome code. For HTTP `200` responses this is one of:\n\n| Value | Meaning |\n|---|---|\n| 1 | App activated |\n| 3 | App deactivated |\n| 0 | App not found |",
+                  "enum": [
+                    0,
+                    1,
+                    3
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Localized, human-readable outcome message (e.g. `App activated successfully`, `App deactivated successfully`, `App not found`)."
+                }
+              },
+              "required": [
+                "status",
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Activation blocked. Example bodies:\n\nSettings required:\n```json\n{ \"status\": false, \"code\": 2, \"msg\": \"Settings Required\" }\n```\nPayment required:\n```json\n{ \"status\": false, \"code\": 4, \"msg\": \"You cannot activate this application because it has not been purchased or renewed. Please complete the purchase first.\" }\n```",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The app cannot be activated yet. Returned when the app still requires configuration, or has not been purchased/renewed.",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "Always `false` for this response."
+                },
+                "code": {
+                  "type": "integer",
+                  "description": "Reason code:\n\n| Value | Meaning |\n|---|---|\n| 2 | Settings required — the app must be configured before it can be activated |\n| 4 | Payment required — the app has not been purchased or renewed |",
+                  "enum": [
+                    2,
+                    4
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Localized reason message."
+                }
+              },
+              "required": [
+                "status",
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed. Either `{ \"message\": \"Unauthenticated.\" }` (no/invalid credentials) or `{ \"error\": \"Not authorized.\" }` (API key lacks access to this endpoint).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "Authentication failed or was missing.",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when no valid token/API key is supplied."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Returned when an API key is valid but not authorized for this endpoint."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_app-manager_activate_id_status"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Journal": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Journal.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.entity_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.entity_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.is_automatic": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.total_debit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.total_credit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.currency_rate": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.currency_credit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.currency_debit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.alter_description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.financial_year_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.attachment": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.draft": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.manual_currency_rate": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Journal.JournalTransaction[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].journal_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].debit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].credit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].currency_debit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].currency_credit": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].currency_rate": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].subkey": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].journal_account_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].alter_description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].bank_transaction_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].display_order": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_percentage": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_debit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_credit": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_transaction_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].tax_included": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Journal.JournalTransaction[].status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

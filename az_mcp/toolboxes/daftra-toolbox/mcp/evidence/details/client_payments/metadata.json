@@ -1,0 +1,8 @@
+{
+  "resource": "client_payments",
+  "method": "GET",
+  "record_id": 272,
+  "url": "https://alazab-co.daftra.com/api2/client_payments/272.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:59.057511+00:00"
+}

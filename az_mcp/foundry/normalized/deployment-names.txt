@@ -1,0 +1,12 @@
+az-model-codex
+az-model-core
+az-model-finance
+az-model-gemma
+az-model-gpt
+az-model-maint
+az-model-mini
+az-model-sol
+az-model-sora
+az-models-text
+gpt-4o
+gpt-5.1

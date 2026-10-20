@@ -1,0 +1,238 @@
+{
+  "path": "/credit_notes/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Credit Notes",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **credit note** identified by the `id` path parameter.\n\nThe request body has the same shape as **Add New Invoice** (an `Invoice` object plus optional `InvoiceItem`, `Payment`, etc.). Send the fields you want to change; the id from the path is always applied.\n\nReturns `404` when no credit note matches the id. Editing is also blocked (`404`) when the credit note's date is in a closed financial period or it has been submitted to a tax authority. Requires permission to edit invoices/credit notes. See **Add New Invoice** for the full field reference.",
+    "tags": [
+      "Endpoints/Sales /Credit Notes",
+      "Credit Notes"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The credit note ID to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Credit-note header fields to update. Same fields as the Add New Invoice header.",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "The client this credit note is for."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Credit-note date (YYYY-MM-DD).",
+                    "format": "date"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency code (for example, USD)."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Store / warehouse for line items."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free-text notes."
+                  }
+                }
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "Credit-note line items. Same shape as Add New Invoice line items.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The credit note was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed, or a selected store/product is inactive or violates its minimum price.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to edit this credit note.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No credit note matches the id, or it cannot be edited (date in a closed period, submitted to a tax authority, or a locked item).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__credit_notes_id_format"
+  },
+  "blockers": []
+}

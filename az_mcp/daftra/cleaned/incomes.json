@@ -1,0 +1,119 @@
+[
+  {
+    "amount": 60000,
+    "currency_code": "EGP",
+    "vendor": "عبدالفتاح عزب",
+    "category": "إيرادات الذمم الدائنه",
+    "date": "2024-03-12",
+    "note": "رصيد دائن تم اضافته لرصيد العمل 60000 اصل + 1200 ارباح",
+    "staff_id": 0
+  },
+  {
+    "amount": 350000,
+    "currency_code": "EGP",
+    "vendor": "C/Ahmed allam",
+    "category": "عام",
+    "date": "2024-03-13",
+    "note": "اصل الرصيد المدفوع (90.000/EGP)+(3.000/$) الاجمالي بقيمة (187.350/EGP)\r\nثم يضافه ارباح محتجزه بقيمة (172.650) ومجموع الرصيد الختامي [360.000/EGP]\r\nهذا الرصيد مستحق في تاريخ 2023/9/31 \r\nويسداد رصيد الارباح من   2023/10/1 الي 2024/3/30  بقيمة (EGP/200.000) ويتم تنزيلهم من اعمال الشقه الخاصه وبتوفيق باذن الله",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": "am amal",
+    "category": "إيرادات الذمم الدائنه",
+    "date": "2024-03-24",
+    "note": "رصيد دائن تم اضافته لرصيد العمل",
+    "staff_id": 0
+  },
+  {
+    "amount": 750000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "عام",
+    "date": "2024-03-24",
+    "note": "الرصيد العامل الخاص بمحمد عزب",
+    "staff_id": 0
+  },
+  {
+    "amount": 105000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "عام",
+    "date": "2024-03-28",
+    "note": "رصيد داخل العمل خاص بدهب هند 60000 وندي 45000",
+    "staff_id": 0
+  },
+  {
+    "amount": 115000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "إيرادات إخري",
+    "date": "2024-03-28",
+    "note": "رصيد خاص تم اضافه اللي ماليه الشركه",
+    "staff_id": 0
+  },
+  {
+    "amount": 125000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "إيرادات الخدمات",
+    "date": "2024-03-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 40000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "إيرادات المانحة",
+    "date": "2024-04-02",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 40000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "إيرادات إخري",
+    "date": "2024-04-02",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 100000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "إيرادات إخري",
+    "date": "2024-04-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "إيرادات الذمم الدائنه",
+    "date": "2024-07-01",
+    "note": "سامح ابوندي",
+    "staff_id": 0
+  },
+  {
+    "amount": 90000,
+    "currency_code": "EGP",
+    "vendor": "Mohamed Azab",
+    "category": "عام",
+    "date": "2024-12-15",
+    "note": "قبض جمعية هشام المصري",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-01-05",
+    "note": "رصيد ايداع بنك CIB تم التسجيل لتسوية الرصيد",
+    "staff_id": 0
+  }
+]

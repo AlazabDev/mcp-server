@@ -1,0 +1,173 @@
+{
+  "path": "/follow_up_status",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Follow-Up Status",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a follow-up status.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. Send a flat JSON object whose keys are the fields below; `name`, `status`, and `staff_id` are required and any unknown key is ignored.\n\nOn success the id of the new status is returned.",
+    "tags": [
+      "Endpoints/Follow-Up Statuses"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "item_type": {
+                "type": "integer",
+                "default": 0,
+                "description": "The module/record type this status applies to. Optional — the API does not restrict this field: any integer is accepted, and it defaults to `0` when omitted.\n\nKnown values (informational):\n\n| Value | Meaning |\n|---|---|\n| 1 | Client Type |\n| 2 | Invoice Type |\n| 3 | Estimate Type |\n| 4 | PO Type |\n| 5 | Staff Type |\n| 6 | Supplier Type |\n| 7 | Product Type |\n| 8 | Work Order Type |\n| 9 | Appointment Type |\n| 10 | Shift Type |\n| 11 | Booking Type |\n| 12 | Product Tracking Type |"
+              },
+              "name": {
+                "type": "string",
+                "description": "Required. The status name."
+              },
+              "color": {
+                "type": "string",
+                "description": "Optional. A display color for the status as a hex value (e.g. `#ff0000`). Stored as an empty string if omitted."
+              },
+              "status": {
+                "type": "integer",
+                "default": 1,
+                "enum": [
+                  1,
+                  2
+                ],
+                "description": "The status stage. Defaults to `1` (Open). Send an integer — other values are stored incorrectly.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |"
+              },
+              "staff_id": {
+                "type": "integer",
+                "description": "Required. Id of the staff member the status belongs to. If omitted the request fails with a `400`."
+              },
+              "entity_key": {
+                "type": "string",
+                "description": "Optional. Free-text key linking the status to a specific workflow or module entity (for example a workflow entity key). Not restricted to a fixed set.",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "integer",
+                "description": "Optional. Controls the display order of the status.",
+                "nullable": true
+              }
+            },
+            "required": [
+              "name",
+              "status",
+              "staff_id"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Status created successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created status."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record passed validation but could not be saved — for example a required related field such as `staff_id` was not supplied.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Always `Entity not saved`."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable reason the record could not be saved."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "A required field (`name` and/or `status`) was missing or empty.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Always `Entity not saved`."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Per-field validation messages. A key is present only for a field that failed. Required fields: `name`, `status`.",
+                  "properties": {
+                    "name": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "status": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__follow_up_status",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

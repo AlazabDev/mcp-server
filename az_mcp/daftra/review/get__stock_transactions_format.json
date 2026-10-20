@@ -1,0 +1,284 @@
+{
+  "path": "/stock_transactions{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Stock Transactions",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of **processed** stock transactions for the account.\n\nOnly transactions with a processed status are returned — drafts and pending rows are never listed. Results are limited to the warehouses the authenticated user is allowed to view; inactive warehouses are excluded. Items are ordered by transaction date (newest first).\n\nEach item in `data` is wrapped under a `StockTransaction` object holding the stored fields of the transaction.\n\nRequires the **Track Inventory** permission.",
+    "tags": [
+      "Endpoints/Inventory /Stock Transactions",
+      "Stock Transactions"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number of the collection to return.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      {
+        "name": "product_id",
+        "in": "query",
+        "description": "Return only transactions for this product.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "tracking_number_id",
+        "in": "query",
+        "description": "Return only transactions for this tracking number.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "store_id",
+        "in": "query",
+        "description": "Return only transactions in this warehouse. Still constrained by the warehouses you are allowed to view.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "source_type",
+        "in": "query",
+        "description": "Filter by the transaction source type. Accepts a single value or a comma-separated list (e.g. `1,2,9`).\n\n| Value | Meaning |\n|---|---|\n| 1 | Manual adjustment |\n| 2 | Invoice |\n| 3 | Purchase order |\n| 4 | Credit note |\n| 5 | Transfer |\n| 6 | Refund receipt |\n| 7 | Purchase refund |\n| 8 | Bundle |\n| 9 | Requisition |\n| 14 | Purchase debit note |",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "transaction_category_id",
+        "in": "query",
+        "description": "Return only transactions in this transaction category.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "branch_id",
+        "in": "query",
+        "description": "Return only transactions in this branch.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Return transactions whose received date is on or after this date. Uses the account date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Return transactions whose received date is on or before this date (inclusive of the whole day). Uses the account date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of processed stock transactions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "List of stock transactions. Each element wraps the record under a `StockTransaction` object.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "StockTransaction": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "product_id": {
+                            "type": "integer"
+                          },
+                          "store_id": {
+                            "type": "integer"
+                          },
+                          "order_id": {
+                            "type": "integer"
+                          },
+                          "source_type": {
+                            "type": "integer",
+                            "description": "Origin of the transaction (see the `source_type` filter table for values)."
+                          },
+                          "transaction_type": {
+                            "type": "integer",
+                            "description": "1 = stock in, 2 = stock out."
+                          },
+                          "quantity": {
+                            "type": "number"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "purchase_price": {
+                            "type": "number"
+                          },
+                          "total_price": {
+                            "type": "number"
+                          },
+                          "currency_code": {
+                            "type": "string"
+                          },
+                          "currency_rate": {
+                            "type": "number"
+                          },
+                          "received_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "Always 4 (processed) for listed rows."
+                          },
+                          "transaction_category_id": {
+                            "type": "integer"
+                          },
+                          "tracking_number_id": {
+                            "type": "integer"
+                          },
+                          "branch_id": {
+                            "type": "integer"
+                          },
+                          "notes": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the Track Inventory permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__stock_transactions_format"
+  },
+  "blockers": []
+}

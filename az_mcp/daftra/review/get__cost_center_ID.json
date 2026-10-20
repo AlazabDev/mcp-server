@@ -1,0 +1,134 @@
+{
+  "path": "/cost_center/{ID}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Cost Center",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single cost center by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag. For this endpoint it has no visible effect, so `/cost_center/{ID}` and `/cost_center/{ID}/1` return the same result.\n\nThe successful response is a **flat object** of the cost center's fields (it is not wrapped in a `data` envelope).\n\n`is_primary` is:\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) cost center |\n| 0 | Secondary (child) cost center |\n\n`cost_center_id` is the id of the parent cost center (`0` for a primary/root cost center), and `cost_center_ids` is the comma-separated ancestor path.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+    "tags": [
+      "Endpoints/Accounting/Cost Centers"
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "The id of the cost center to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The cost center, returned as a flat object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A single cost-center record, returned flat (not wrapped).",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Cost center id."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Cost center name."
+                },
+                "code": {
+                  "type": "string",
+                  "description": "Cost center code. Unique across the account."
+                },
+                "is_primary": {
+                  "type": "integer",
+                  "description": "Whether this is a primary (root) cost center.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "cost_center_id": {
+                  "type": "integer",
+                  "description": "Id of the parent cost center. `0` for a primary/root cost center."
+                },
+                "cost_center_ids": {
+                  "type": "string",
+                  "description": "Comma-separated ancestor path of parent cost-center ids."
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "branch_id": {
+                  "type": "integer",
+                  "description": "Id of the branch the cost center belongs to.",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "code",
+                "is_primary",
+                "cost_center_id",
+                "cost_center_ids",
+                "created",
+                "modified",
+                "branch_id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened`.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "description": "Plain-text body `error happened`. Currently returned when the requested id does not exist (rather than a 404)."
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__cost_center_ID",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

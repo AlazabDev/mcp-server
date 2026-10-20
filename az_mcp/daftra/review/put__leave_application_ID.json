@@ -1,0 +1,206 @@
+{
+  "path": "/leave_application/{ID}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Leave Application",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing leave application, identified by the `{ID}` path segment. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The request body is a **flat JSON object** of leave-application fields.\n\nProvide the fields to change. The record is re-validated, so keep the date range and day count consistent: `date_to` must equal `date_from + (days − 1)` and be on or after `date_from`. Conditional requirements follow `type` exactly as on create:\n\n| `type` | Meaning | Additionally required |\n|---|---|---|\n| `leave` | Leave | `leave_type_id` |\n| `half_leave` | Half (½) Leave | `leave_type_id` |\n| `delay` | Late Arrival | `late_time` |\n| `early` | Early Leave | `early_time` |\n\nServer-managed fields cannot be changed here: `status` (moved by the approval workflow, not this endpoint), `approved_by`, `created_by` and the approval-cycle fields. The `comment` field can only be set when the application is created — it is not editable here (send it on create instead). On success the standard native-entity `{ message, id }` envelope is returned.\n\n> Known issue (dev): the update pipeline currently faults and returns HTTP 500 `{\"message\":\"Server Error\"}` for this entity (the target row is left unchanged) — see the audit report. The contract below is the intended one.",
+    "tags": [
+      "Endpoints/HR/Leave Application "
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "The id of the leave application to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "staff_id": {
+                "type": "integer",
+                "description": "Id of the staff member the leave is for."
+              },
+              "date_from": {
+                "type": "string",
+                "description": "First day of leave, `YYYY-MM-DD`."
+              },
+              "date_to": {
+                "type": "string",
+                "description": "Last day of leave, `YYYY-MM-DD`. Must be on or after `date_from` and equal to `date_from + (days − 1)`."
+              },
+              "days": {
+                "type": "integer",
+                "description": "Number of leave days."
+              },
+              "type": {
+                "type": "string",
+                "description": "Kind of application.\n\n| Value | Meaning |\n|---|---|\n| leave | Leave |\n| half_leave | Half (½) Leave |\n| delay | Late Arrival |\n| early | Early Leave |",
+                "enum": [
+                  "leave",
+                  "half_leave",
+                  "delay",
+                  "early"
+                ]
+              },
+              "leave_type_id": {
+                "type": "integer",
+                "description": "Required when `type` is `leave` or `half_leave`."
+              },
+              "late_time": {
+                "type": "integer",
+                "description": "Required when `type` is `delay`. Minutes late (≥ 1)."
+              },
+              "early_time": {
+                "type": "integer",
+                "description": "Required when `type` is `early`. Minutes early (≥ 1)."
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional free-text note."
+              },
+              "attachments": {
+                "type": "array",
+                "description": "Optional. Files attached to the application (max 5 MB each). Editable on update.",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "required": [
+              "staff_id",
+              "date_from",
+              "date_to",
+              "days"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The leave application was updated; the standard native-entity `{ message, id }` envelope is returned.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the updated leave application."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update failed. Three shapes: `{ \"message\": \"Record not found\" }` when the `{ID}` does not exist; `{ \"message\": \"Entity not saved\", \"errors\": { … } }` when required fields are missing or invalid for the chosen `type` (per-field messages in `errors`); or the `{ e, message, error }` envelope on a database save failure.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Failure summary. `Record not found` when the `{ID}` does not exist; `Entity not saved` on a validation or save failure."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Present on a validation failure: per-field messages keyed by field name (e.g. a missing `staff_id`/`date_from`/`date_to`/`days`).",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {}
+                },
+                "e": {
+                  "description": "Present on a database save failure: error detail object (or empty array)."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Present on a database save failure: failure detail."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Currently returned by the update pipeline for this entity on dev (`{\"message\":\"Server Error\"}`); the target row is left unchanged. Recorded as a known issue in the audit report.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__leave_application_ID",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

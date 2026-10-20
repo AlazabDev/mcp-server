@@ -1,0 +1,373 @@
+{
+  "files": {
+    "Client_contacts.csv": {
+      "rows": 72,
+      "columns": [
+        "BusinessName",
+        "ClientNumber",
+        "Email",
+        "FirstName",
+        "LastName",
+        "HomePhone",
+        "mobile"
+      ],
+      "sha256": "8a98e01f66ed23230c49a8652c7fa400456fffab1732434308d8af89d46b9400",
+      "line_leading_boms_removed_in_memory": 1
+    },
+    "Clients.csv": {
+      "rows": 64,
+      "columns": [
+        "ClientNumber",
+        "BusinessName",
+        "FirstName",
+        "LastName",
+        "Email",
+        "Address1",
+        "Address2",
+        "City",
+        "State",
+        "PostalCode",
+        "Phone1",
+        "Phone2",
+        "CountryCode",
+        "LastLogin",
+        "StaffID",
+        "FollowUpStatus",
+        "Category",
+        "BusinessNumber1",
+        "BusinessNumber2",
+        "BirthDate",
+        "Gender",
+        "MapLocation",
+        "CreditLimitAmount",
+        "CreditLimitPeriod",
+        "NationalID",
+        "رقم العقد",
+        "حالة العقد",
+        "نوع العقد",
+        "رقم الوحدة",
+        "نوع الوحدة",
+        "الموقع",
+        "رفع ملف"
+      ],
+      "sha256": "a4e54fa1f3594b099caf98ee6a14bf6f099cfabd7734be8ee8295444cca3e9cd",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "ClientNumber",
+      "duplicate_nonblank_keys": {},
+      "blank_key_rows": 0
+    },
+    "Expenses.csv": {
+      "rows": 241,
+      "columns": [
+        "Amount",
+        "CurrencyCode",
+        "Vendor",
+        "Category",
+        "Date",
+        "Note",
+        "StaffID"
+      ],
+      "sha256": "8dff73709970dff5c49b57c6a7fd041630fa89b3287d1e683d7b021f6780b129",
+      "line_leading_boms_removed_in_memory": 1,
+      "currency_counts": {
+        "EGP": 241
+      },
+      "date_values_lexical_min_max": [
+        "2023-02-28",
+        "2026-08-28"
+      ]
+    },
+    "Invoice_items.csv": {
+      "rows": 705,
+      "columns": [
+        "no",
+        "item",
+        "description",
+        "unit_price",
+        "quantity",
+        "subtotal",
+        "subtotal_without_tax",
+        "tax1_name",
+        "tax1_value",
+        "tax1_amount",
+        "tax2_name",
+        "tax2_value",
+        "tax2_amount"
+      ],
+      "sha256": "3a3c4f5959fcb1b3f49506c485f0b2daef5793389d260dd6d1747c58109c385b",
+      "line_leading_boms_removed_in_memory": 1
+    },
+    "Invoices.csv": {
+      "rows": 122,
+      "columns": [
+        "ID",
+        "InvoiceNo",
+        "ClientNo",
+        "Date",
+        "DueAfter",
+        "IssueDate",
+        "CurrencyCode",
+        "ClientBusinessName",
+        "DiscountPercent",
+        "ClientFirstName",
+        "ClientLastName",
+        "ClientEmail",
+        "ClientAddress1",
+        "ClientAddress2",
+        "ClientPostalCode",
+        "ClientCity",
+        "ClientState",
+        "ClientCountryCode",
+        "Notes",
+        "SummaryDiscount",
+        "SummaryTotal",
+        "SummaryPaid",
+        "SummaryUnpaid",
+        "SummaryDeposit",
+        "LastSent",
+        "PaymentStatus",
+        "StaffID",
+        "البريد الإلكتروني"
+      ],
+      "sha256": "210c7c335ba51fd68e18826e5f3682d4c4ce4d628e1f8eeb5fddaa8bafe5cf9f",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "InvoiceNo",
+      "duplicate_nonblank_keys": {
+        "AZ-INV-2024-00177": 2
+      },
+      "blank_key_rows": 0,
+      "currency_counts": {
+        "EGP": 122
+      },
+      "date_values_lexical_min_max": [
+        "2023-02-28",
+        "2026-08-28"
+      ]
+    },
+    "Products.csv": {
+      "rows": 3256,
+      "columns": [
+        "id",
+        "ProductCode",
+        "Barcode",
+        "Name",
+        "Description",
+        "UnitPrice",
+        "Discount",
+        "MinimumPrice",
+        "DiscountType",
+        "Brand",
+        "Category",
+        "Supplier",
+        "SupplierCode",
+        "Notes",
+        "Type",
+        "Tax1",
+        "Tax2",
+        "Status",
+        "BuyPrice",
+        "TrackStock",
+        "TrackingType",
+        "StockBalance",
+        "UnitTemplate",
+        "AverageCost",
+        "LowStockThershol",
+        "ProfitMargin",
+        "ServiceDurationInMinutes",
+        "IsFeatured",
+        "IsAvilableOnline",
+        "Item Code Input-Custom",
+        "Item Type Input-Custom",
+        "علاقات-Custom",
+        "التصنيف الاساسي-Custom"
+      ],
+      "sha256": "b44fe79c5f10523de01c7cbb5b1386186ee8d95b34294e982587b72669bfcf85",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "id",
+      "duplicate_nonblank_keys": {},
+      "blank_key_rows": 0
+    },
+    "Projects.csv": {
+      "rows": 3,
+      "columns": [
+        "ID",
+        "Name",
+        "Active",
+        "Staff"
+      ],
+      "sha256": "cf6c37912db9634f97cecc96bd9c47df3166ad9654299e2c5556fea4fb6c27b6",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "ID",
+      "duplicate_nonblank_keys": {},
+      "blank_key_rows": 0
+    },
+    "Purchase_order_items.csv": {
+      "rows": 279,
+      "columns": [
+        "no",
+        "item",
+        "description",
+        "unit_price",
+        "quantity",
+        "subtotal",
+        "subtotal_without_tax",
+        "tax1_name",
+        "tax1_value",
+        "tax1_amount",
+        "tax2_name",
+        "tax2_value",
+        "tax2_amount"
+      ],
+      "sha256": "242e19bddbf95e4c153a5f1d79019782cde23713301c5cad738f88adffe0757e",
+      "line_leading_boms_removed_in_memory": 1
+    },
+    "Purchase_orders.csv": {
+      "rows": 62,
+      "columns": [
+        "ID",
+        "PurchaseOrderNo",
+        "SupplierNo",
+        "Date",
+        "DueAfter",
+        "CurrencyCode",
+        "SupplierBusinessName",
+        "DiscountPercent",
+        "SupplierFirstName",
+        "SupplierLastName",
+        "SupplierEmail",
+        "SupplierAddress1",
+        "SupplierAddress2",
+        "SupplierPostalCode",
+        "SupplierCity",
+        "SupplierState",
+        "SupplierCountryCode",
+        "Notes",
+        "SummaryDiscount",
+        "SummaryTotal",
+        "SummaryPaid",
+        "SummaryUnpaid",
+        "SummaryDeposit",
+        "LastSent",
+        "PaymentStatus",
+        "StaffID"
+      ],
+      "sha256": "cdf4856f8fc1cf6f421be406762dee67eb7fb8088a8ac588b9e9b0603f840f04",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "PurchaseOrderNo",
+      "duplicate_nonblank_keys": {},
+      "blank_key_rows": 0,
+      "currency_counts": {
+        "EGP": 62
+      },
+      "date_values_lexical_min_max": [
+        "2023-11-30",
+        "2026-08-25"
+      ]
+    },
+    "Supplier_contacts.csv": {
+      "rows": 29,
+      "columns": [
+        "business_name",
+        "supplier_number",
+        "first_name",
+        "last_name",
+        "email",
+        "home_phone",
+        "mobile"
+      ],
+      "sha256": "a44c3ab999206ba81826bf61647a4fd25969bbbb170b0bfcf9be3c4f50a3ce65",
+      "line_leading_boms_removed_in_memory": 1
+    },
+    "Suppliers.csv": {
+      "rows": 29,
+      "columns": [
+        "SupplierNumber",
+        "BusinessName",
+        "FirstName",
+        "LastName",
+        "Email",
+        "Address1",
+        "Address2",
+        "State",
+        "PostalCode",
+        "Phone1",
+        "Phone2",
+        "CountryCode",
+        "LastLogin",
+        "StaffID",
+        "bn1_label",
+        "bn1",
+        "bn2_label",
+        "bn2"
+      ],
+      "sha256": "42059f890b9ec1436e0abc1decd2aeb5634b6b4d53f374b903505162bff9cd1c",
+      "line_leading_boms_removed_in_memory": 1,
+      "key": "SupplierNumber",
+      "duplicate_nonblank_keys": {},
+      "blank_key_rows": 0
+    }
+  },
+  "joins": [
+    {
+      "child": "Invoice_items.csv",
+      "child_key": "no",
+      "parent": "Invoices.csv",
+      "parent_key": "InvoiceNo",
+      "matched_rows": 705,
+      "unmatched_rows": 0,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 4
+    },
+    {
+      "child": "Purchase_order_items.csv",
+      "child_key": "no",
+      "parent": "Purchase_orders.csv",
+      "parent_key": "PurchaseOrderNo",
+      "matched_rows": 279,
+      "unmatched_rows": 0,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 0
+    },
+    {
+      "child": "Invoices.csv",
+      "child_key": "ClientNo",
+      "parent": "Clients.csv",
+      "parent_key": "ClientNumber",
+      "matched_rows": 122,
+      "unmatched_rows": 0,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 0
+    },
+    {
+      "child": "Purchase_orders.csv",
+      "child_key": "SupplierNo",
+      "parent": "Suppliers.csv",
+      "parent_key": "SupplierNumber",
+      "matched_rows": 0,
+      "unmatched_rows": 62,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 0
+    },
+    {
+      "child": "Client_contacts.csv",
+      "child_key": "ClientNumber",
+      "parent": "Clients.csv",
+      "parent_key": "ClientNumber",
+      "matched_rows": 72,
+      "unmatched_rows": 0,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 0
+    },
+    {
+      "child": "Supplier_contacts.csv",
+      "child_key": "supplier_number",
+      "parent": "Suppliers.csv",
+      "parent_key": "SupplierNumber",
+      "matched_rows": 29,
+      "unmatched_rows": 0,
+      "blank_child_rows": 0,
+      "ambiguous_rows": 0
+    }
+  ],
+  "total_rows": 4862
+}

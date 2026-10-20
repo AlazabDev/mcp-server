@@ -1,0 +1,42 @@
+{
+  "value": [
+    {
+      "type": "AzureSearch",
+      "connectionName": "aisearchazabrgai13631b8blqr",
+      "indexName": "az-ks-file-daftra-index",
+      "name": "az-ks-file-daftra-index",
+      "version": "1"
+    },
+    {
+      "type": "AzureSearch",
+      "connectionName": "aisearchazabrgai13631b8blqr",
+      "indexName": "az-aisearch-index",
+      "name": "az-aisearch-index",
+      "version": "1"
+    },
+    {
+      "type": "ManagedAzureSearch",
+      "vectorStoreId": "vs_UKxWQVCZOQUAhlOOLRnMrAZ4",
+      "name": "index_alazab_catalog_full",
+      "version": "1"
+    },
+    {
+      "type": "ManagedAzureSearch",
+      "vectorStoreId": "vs_Jo2qjXwcUG44IKaJNVBt42lv",
+      "name": "index_salmon_lamp_uberfix",
+      "version": "1"
+    },
+    {
+      "type": "ManagedAzureSearch",
+      "vectorStoreId": "vs_wcTfhR96Rz5uy8BBjVDYap6U",
+      "name": "index_boring_shirt_v25g86swdb",
+      "version": "1"
+    },
+    {
+      "type": "ManagedAzureSearch",
+      "vectorStoreId": "vs_NtF3dnVoiLkcK7rSoGm8GnZ3",
+      "name": "index_great_guitar_fvb1x78rdm",
+      "version": "1"
+    }
+  ]
+}

@@ -1,0 +1,660 @@
+{
+  "PurchaseOrder": [
+    "object"
+  ],
+  "PurchaseOrder.Staff": [
+    "object"
+  ],
+  "PurchaseOrder.Staff.active": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.added_by": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.address1": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.address2": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.attendance_restriction_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.auth_id": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.branch_id": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.business_Phone": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.can_access_system": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.citizenship_status": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.city": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.country_code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.created": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.default_account_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.default_store_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.default_treasury_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.deleted": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.deleted_at": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.email_address": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.fax": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.follow_up_status": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.full_name": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.global_user_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.home_phone": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.hourly_rate": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.hourly_rate_currency_code": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.id": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.is_synced": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.language_code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.last_login": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.last_name": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.last_synced_at": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.maximum_general_discount": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.middle_name": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.mobile": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.modified": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.name": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.nationality": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.note": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.official_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.official_id_unique_check": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.photo": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.postal_code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.residence_expiry_date": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.role_id": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.smtp_email_address_id": [
+    "null"
+  ],
+  "PurchaseOrder.Staff.state": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Staff.type": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier": [
+    "object"
+  ],
+  "PurchaseOrder.Supplier.active_secondary_address": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.address1": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.address2": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.bn1": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.bn1_label": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.bn2": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.bn2_label": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.branch_id": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.business_name": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.city": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.country_code": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.created": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.default_currency_code": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.email": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.first_name": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.follow_up_status": [
+    "null"
+  ],
+  "PurchaseOrder.Supplier.id": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.is_offline": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.language_code": [
+    "null"
+  ],
+  "PurchaseOrder.Supplier.last_ip": [
+    "null"
+  ],
+  "PurchaseOrder.Supplier.last_login": [
+    "null"
+  ],
+  "PurchaseOrder.Supplier.last_name": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.modified": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.notes": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.phone1": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.phone2": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.postal_code": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_address1": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_address2": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_city": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_name": [
+    "null"
+  ],
+  "PurchaseOrder.Supplier.secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.secondary_state": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.Supplier.site_id": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.staff_id": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.state": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.supplier_number": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.suspend": [
+    "string"
+  ],
+  "PurchaseOrder.Supplier.unique_id": [
+    "null"
+  ],
+  "PurchaseOrder.active": [
+    "string"
+  ],
+  "PurchaseOrder.adjustment_label": [
+    "null"
+  ],
+  "PurchaseOrder.adjustment_value": [
+    "null"
+  ],
+  "PurchaseOrder.approved_by": [
+    "null"
+  ],
+  "PurchaseOrder.branch_id": [
+    "string"
+  ],
+  "PurchaseOrder.created": [
+    "string"
+  ],
+  "PurchaseOrder.currency_code": [
+    "string"
+  ],
+  "PurchaseOrder.date": [
+    "string"
+  ],
+  "PurchaseOrder.date_format": [
+    "null"
+  ],
+  "PurchaseOrder.deleted_at": [
+    "null"
+  ],
+  "PurchaseOrder.deposit": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.deposit_type": [
+    "string"
+  ],
+  "PurchaseOrder.discount": [
+    "null"
+  ],
+  "PurchaseOrder.discount_amount": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.draft": [
+    "string"
+  ],
+  "PurchaseOrder.due_after": [
+    "string"
+  ],
+  "PurchaseOrder.due_date": [
+    "string"
+  ],
+  "PurchaseOrder.extra_details": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.from": [
+    "null"
+  ],
+  "PurchaseOrder.html_notes": [
+    "string"
+  ],
+  "PurchaseOrder.id": [
+    "string"
+  ],
+  "PurchaseOrder.inventory_request_status": [
+    "null"
+  ],
+  "PurchaseOrder.invoice_layout_id": [
+    "string"
+  ],
+  "PurchaseOrder.is_offline": [
+    "string"
+  ],
+  "PurchaseOrder.is_received": [
+    "string"
+  ],
+  "PurchaseOrder.issue_date": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.issued": [
+    "string"
+  ],
+  "PurchaseOrder.item_columns": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.item_discount_amount": [
+    "string"
+  ],
+  "PurchaseOrder.label_date": [
+    "null"
+  ],
+  "PurchaseOrder.label_deposit": [
+    "null"
+  ],
+  "PurchaseOrder.label_description": [
+    "null"
+  ],
+  "PurchaseOrder.label_due_after": [
+    "null"
+  ],
+  "PurchaseOrder.label_due_date": [
+    "null"
+  ],
+  "PurchaseOrder.label_from_date": [
+    "null"
+  ],
+  "PurchaseOrder.label_invoice_no": [
+    "null"
+  ],
+  "PurchaseOrder.label_item": [
+    "null"
+  ],
+  "PurchaseOrder.label_item_total": [
+    "null"
+  ],
+  "PurchaseOrder.label_paid_amount": [
+    "null"
+  ],
+  "PurchaseOrder.label_po_no": [
+    "null"
+  ],
+  "PurchaseOrder.label_quantity": [
+    "null"
+  ],
+  "PurchaseOrder.label_status": [
+    "null"
+  ],
+  "PurchaseOrder.label_subtotal": [
+    "null"
+  ],
+  "PurchaseOrder.label_tax1": [
+    "null"
+  ],
+  "PurchaseOrder.label_tax2": [
+    "null"
+  ],
+  "PurchaseOrder.label_to_date": [
+    "null"
+  ],
+  "PurchaseOrder.label_total": [
+    "null"
+  ],
+  "PurchaseOrder.label_unit_price": [
+    "null"
+  ],
+  "PurchaseOrder.label_unpaid_amount": [
+    "null"
+  ],
+  "PurchaseOrder.language_id": [
+    "string"
+  ],
+  "PurchaseOrder.last_sent": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.modified": [
+    "string"
+  ],
+  "PurchaseOrder.no": [
+    "string"
+  ],
+  "PurchaseOrder.notes": [
+    "null"
+  ],
+  "PurchaseOrder.payment_status": [
+    "string"
+  ],
+  "PurchaseOrder.po_number": [
+    "string"
+  ],
+  "PurchaseOrder.received_date": [
+    "string"
+  ],
+  "PurchaseOrder.required_terms": [
+    "null"
+  ],
+  "PurchaseOrder.required_terms_file": [
+    "string"
+  ],
+  "PurchaseOrder.requisition_delivery_status": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.shipping_amount": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.shipping_options": [
+    "string"
+  ],
+  "PurchaseOrder.shipping_tax_id": [
+    "null"
+  ],
+  "PurchaseOrder.show_from_to": [
+    "null"
+  ],
+  "PurchaseOrder.site_id": [
+    "string"
+  ],
+  "PurchaseOrder.source_id": [
+    "null"
+  ],
+  "PurchaseOrder.source_type": [
+    "null"
+  ],
+  "PurchaseOrder.staff_id": [
+    "string"
+  ],
+  "PurchaseOrder.store_id": [
+    "string"
+  ],
+  "PurchaseOrder.subscription_id": [
+    "null"
+  ],
+  "PurchaseOrder.subscription_issue_before": [
+    "null"
+  ],
+  "PurchaseOrder.subscription_notify": [
+    "null"
+  ],
+  "PurchaseOrder.summary_deposit": [
+    "null",
+    "string"
+  ],
+  "PurchaseOrder.summary_discount": [
+    "string"
+  ],
+  "PurchaseOrder.summary_paid": [
+    "string"
+  ],
+  "PurchaseOrder.summary_refund": [
+    "string"
+  ],
+  "PurchaseOrder.summary_subtotal": [
+    "string"
+  ],
+  "PurchaseOrder.summary_tax1": [
+    "null"
+  ],
+  "PurchaseOrder.summary_tax2": [
+    "null"
+  ],
+  "PurchaseOrder.summary_total": [
+    "string"
+  ],
+  "PurchaseOrder.summary_unpaid": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_active_secondary_address": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_address1": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_address2": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_bn1": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_bn1_label": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_bn2": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_bn2_label": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_business_name": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_city": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_country_code": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_email": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_first_name": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_id": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_last_name": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_postal_code": [
+    "string"
+  ],
+  "PurchaseOrder.supplier_secondary_address1": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_address2": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_city": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_country_code": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_name": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_postal_code": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_secondary_state": [
+    "null"
+  ],
+  "PurchaseOrder.supplier_state": [
+    "string"
+  ],
+  "PurchaseOrder.tax1": [
+    "null"
+  ],
+  "PurchaseOrder.tax2": [
+    "null"
+  ],
+  "PurchaseOrder.terms": [
+    "string"
+  ],
+  "PurchaseOrder.terms_id": [
+    "null"
+  ],
+  "PurchaseOrder.to": [
+    "null"
+  ],
+  "PurchaseOrder.type": [
+    "string"
+  ],
+  "PurchaseOrder.work_order_id": [
+    "null",
+    "string"
+  ]
+}

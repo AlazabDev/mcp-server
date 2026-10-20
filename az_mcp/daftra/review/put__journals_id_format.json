@@ -1,0 +1,389 @@
+{
+  "path": "/journals/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Journals",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal entry and replaces its line items.\n\n**Amounts.** Send the line amounts as `currency_debit` / `currency_credit`, in the journal's currency. The base-currency `debit` / `credit` fields are derived by the server (`currency_* x currency_rate`) and anything sent in them is overwritten - a payload that carries only `debit` / `credit` has every line discarded and is rejected with `400`.\n\n**Line items are a full replacement.** The `JournalTransaction` array is the complete set: a line with `id` updates that line, a line without `id` is inserted, and any existing line missing from the array is deleted. A line `id` that belongs to a different journal is rejected with `400`.\n\n**Balance.** The sum of `currency_debit` must equal the sum of `currency_credit`; `total_debit` and `total_credit` on the journal are recomputed from the lines and cannot be set directly.\n\nThe `{id}` in the URL identifies the journal. `Journal.id` in the body is optional, but when present it must match the URL id.",
+    "tags": [
+      "Endpoints/Accounting/Journals",
+      "Journals"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Journal REF # to update",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format, e.g. `.json`",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Journal": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Journal REF #. Optional - the `{id}` in the URL is authoritative. If you do send it, it must equal the URL id, otherwise the request is rejected with `400`."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Journal date. Must fall inside an open financial period, otherwise the request is rejected. Omit to keep the current date."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the journal"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "maxLength": 3,
+                    "description": "Currency of the entry. **Always send it** - every line item's `currency_code` is overwritten with this value, so omitting it blanks the currency on all lines."
+                  },
+                  "manual_currency_rate": {
+                    "type": "number",
+                    "description": "Explicit FX rate from `currency_code` to the site's base currency. Omit (or send `null`) to let the server resolve the rate for `date`. Do **not** send `0` or `\"\"`.",
+                    "default": null,
+                    "nullable": true
+                  },
+                  "draft": {
+                    "type": "string",
+                    "description": "`0` = posted, `1` = draft",
+                    "enum": [
+                      "0",
+                      "1"
+                    ]
+                  },
+                  "alter_description": {
+                    "type": "string",
+                    "description": "Overridden description, used for auto-generated journals. Ignored when it equals `description`.",
+                    "default": null,
+                    "nullable": true
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Journal number. Auto-generated; send it only to override.",
+                    "default": null,
+                    "nullable": true
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Comma-separated file ids to keep attached. **Omitting it detaches the journal's existing attachments**, so send the current ids when you do not intend to change them.",
+                    "default": null,
+                    "nullable": true
+                  },
+                  "total_debit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "**Read only** - recomputed from the line items on every save. Anything sent here is ignored.",
+                    "readOnly": true
+                  },
+                  "total_credit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "**Read only** - recomputed from the line items on every save. Anything sent here is ignored.",
+                    "readOnly": true
+                  },
+                  "currency_debit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "**Read only** - total debit in the journal's currency, recomputed from the line items.",
+                    "readOnly": true
+                  },
+                  "currency_credit": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "**Read only** - total credit in the journal's currency, recomputed from the line items.",
+                    "readOnly": true
+                  },
+                  "currency_rate": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "**Read only** - resolved by the server.",
+                    "readOnly": true
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "**Read only on edit** - the creating staff is preserved.",
+                    "readOnly": true
+                  },
+                  "entity_type": {
+                    "type": "string",
+                    "description": "**Read only** - set only for auto-generated journals.",
+                    "readOnly": true
+                  },
+                  "entity_id": {
+                    "type": "string",
+                    "description": "**Read only** - set only for auto-generated journals.",
+                    "readOnly": true
+                  },
+                  "is_automatic": {
+                    "type": "boolean",
+                    "description": "**Read only** - `1` when the journal was generated from another transaction.",
+                    "readOnly": true
+                  },
+                  "created": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Time of creation for the journal",
+                    "readOnly": true
+                  },
+                  "modified": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Last time this journal was updated",
+                    "readOnly": true
+                  }
+                },
+                "required": [
+                  "date",
+                  "currency_code"
+                ]
+              },
+              "JournalTransaction": {
+                "type": "array",
+                "description": "The **complete** set of line items for this journal. This array replaces the existing set: a line carrying `id` is updated, a line without `id` is inserted, and **any existing line whose id is absent from the array is deleted**. At least two lines are required, and the sum of `currency_debit` must equal the sum of `currency_credit` (tolerance 0.001) or the request is rejected with `400`.",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "Existing journal transaction REF #. Send it to **update** that line; omit it to **insert** a new line. The id must belong to this journal - a line id from another journal is rejected with `400`."
+                    },
+                    "journal_account_id": {
+                      "type": "integer",
+                      "description": "Journal Account REF # to post this line to. Get it from [GET Journal Accounts](/15115326e0). A line with no `journal_account_id` is discarded."
+                    },
+                    "currency_debit": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Debit amount **in the journal's currency**. This is the field the API reads for the debit side - not `debit`. Send `0` for a credit line."
+                    },
+                    "currency_credit": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Credit amount **in the journal's currency**. This is the field the API reads for the credit side - not `credit`. Send `0` for a debit line."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the journal transaction"
+                    },
+                    "alter_description": {
+                      "type": "string",
+                      "description": "Overridden description, used for auto-generated journals. Ignored when it equals `description`.",
+                      "default": null,
+                      "nullable": true
+                    },
+                    "tax_id": {
+                      "type": "integer",
+                      "description": "Tax applied to this line. Get it from [GET Taxes](/15115346e0). When set, the server splits the amount and generates an additional tax line for you.",
+                      "default": null,
+                      "nullable": true
+                    },
+                    "debit": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Debit amount in the site's base currency. **Read only - derived as `currency_debit * currency_rate`.** Anything sent here is overwritten.",
+                      "readOnly": true
+                    },
+                    "credit": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Credit amount in the site's base currency. **Read only - derived as `currency_credit * currency_rate`.** Anything sent here is overwritten.",
+                      "readOnly": true
+                    },
+                    "currency_code": {
+                      "type": "string",
+                      "maxLength": 3,
+                      "description": "Currency Code. Read only in practice - every line is forced to `Journal.currency_code`.",
+                      "readOnly": true
+                    },
+                    "currency_rate": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "FX rate used for this line. **Read only** - resolved by the server from `Journal.date`, or from `Journal.manual_currency_rate` when supplied.",
+                      "readOnly": true
+                    },
+                    "subkey": {
+                      "type": "string",
+                      "description": "Transaction sub-key. **Read only** - set by the server for auto-generated lines (taxes, client/supplier postings).",
+                      "readOnly": true
+                    },
+                    "journal_id": {
+                      "type": "integer",
+                      "description": "Journal REF #. **Read only** - taken from the journal being edited.",
+                      "readOnly": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Time of creation for this transaction",
+                      "readOnly": true
+                    },
+                    "modified": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Last time this transaction was updated",
+                      "readOnly": true
+                    }
+                  },
+                  "required": [
+                    "journal_account_id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "Journal",
+              "JournalTransaction"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__journals_id_format"
+  },
+  "blockers": []
+}

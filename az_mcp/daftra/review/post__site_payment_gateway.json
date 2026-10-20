@@ -1,0 +1,174 @@
+{
+  "path": "/site_payment_gateway",
+  "method": "post",
+  "operation": {
+    "summary": "Add Payment Method",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Adds a payment method to the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe body is a flat JSON object. **No field is strictly required** by the server, but you should provide `payment_gateway` — it is the method's business key and is **unique within the account** (creating a second method with the same `payment_gateway` fails). `id` is assigned by the server and must not be sent; `created`/`modified`, `site_id`, `category`, and `credentials` are managed by the server and are not accepted from the request.\n\nOn success the endpoint returns the new record id.",
+    "tags": [
+      "Endpoints/Payment Gateways"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "payment_gateway": {
+                "type": "string",
+                "description": "Gateway key/identifier for the payment method. Unique within the account; creating a duplicate fails with a 400."
+              },
+              "label": {
+                "type": "string",
+                "description": "Display label shown to users."
+              },
+              "username": {
+                "type": "string",
+                "description": "Gateway account username, when applicable."
+              },
+              "option1": {
+                "type": "string",
+                "description": "Gateway-specific configuration value."
+              },
+              "option2": {
+                "type": "string",
+                "description": "Gateway-specific configuration value."
+              },
+              "option3": {
+                "type": "string",
+                "description": "Gateway-specific configuration value."
+              },
+              "default": {
+                "type": "integer",
+                "description": "Whether this is the account's default payment method. Defaults to `0`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not the default |\n| 1 | Default |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "active": {
+                "type": "integer",
+                "description": "Whether the payment method is enabled. Defaults to `0`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Disabled |\n| 1 | Enabled |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "manually_added": {
+                "type": "integer",
+                "description": "Whether the method was added manually. Defaults to `0`.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "disable_for_client": {
+                "type": "integer",
+                "description": "Whether the method is hidden from the client portal. Defaults to `0`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Visible |\n| 1 | Hidden |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "settings": {
+                "type": "string",
+                "description": "JSON-encoded gateway settings."
+              },
+              "treasury_id": {
+                "type": "integer",
+                "description": "Id of a treasury to link this payment method to."
+              },
+              "branch_id": {
+                "type": "integer",
+                "description": "Id of the branch this method belongs to. Defaults to `1` when omitted."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "The payment method was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized confirmation message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created payment method."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The payment method could not be saved. The most common cause is a duplicate `payment_gateway` (which is unique within the account).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Underlying error detail. For a database-constraint failure this is an object with `errorInfo`, `connectionName`, and `readWriteType`."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Error detail string (a database error message for constraint failures)."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication or authorization failed. A missing, invalid, or expired Bearer token returns a plain `401` (no JSON body). An authenticated caller who lacks permission receives a JSON `{ \"error\": \"…\" }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__site_payment_gateway",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

@@ -1,0 +1,123 @@
+{
+  "path": "/categories/update_display_order/{type}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Update Category Display Order",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates the display order of categories of a given type in bulk.\n\nPath `{type}` is the category type (`1` for product categories). The request body is a JSON object that maps **display-order positions to category IDs** — e.g. `{ \"0\": 12, \"1\": 34 }` puts category 12 first and category 34 second. Every key and value must be numeric.",
+    "tags": [
+      "Endpoints/Inventory /Product Categories",
+      "Product Categories"
+    ],
+    "parameters": [
+      {
+        "name": "type",
+        "in": "path",
+        "description": "Category type. Use `1` for product categories.\n\n| Value | Meaning |\n|---|---|\n| 1 | Products' Category |\n| 2 | POS Shifts |\n| 3 | POS Devices |",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "Map of display-order position (key) to category ID (value). Both must be numeric.",
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "properties": {}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Display order updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "`type` is missing, or a body key/value is not numeric.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__categories_update_display_order_type_format"
+  },
+  "blockers": []
+}

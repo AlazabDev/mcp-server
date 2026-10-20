@@ -1,0 +1,15 @@
+HTTP/2 400 
+content-type: application/json; charset=utf-8
+date: Tue, 22 Sep 2026 01:13:24 GMT
+access-control-expose-headers: Operation-Location,Location,Apim-Request-Id,x-agent-session-id,x-agent-invocation-id
+content-length: 1077
+request-context: appId=cid-v1:2d2e8e63-272e-4b3c-8598-4ee570a0e70d
+x-ms-response-type: error
+mise-correlation-id: 5b2962d5-58a3-4b79-b74b-84c16a2c5cb6
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+azureml-served-by-cluster: vienna-eastus2-01
+x-request-time: 0.733
+apim-request-id: 12fb462d-291e-49cf-990a-72653f593535
+x-ms-region: East US 2
+

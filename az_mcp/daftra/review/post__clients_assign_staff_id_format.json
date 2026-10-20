@@ -1,0 +1,117 @@
+{
+  "path": "/clients/assign_staff/{id}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Assign Staff To Client",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Assigns one or more staff members to a client. The client is identified by the `id` path parameter, and the staff member(s) are supplied in the `ItemStaff.staff_id` field (a single id or a list of ids). The supplied list **replaces** the client's existing staff assignments. Requires the **Assign Clients to Staff** permission. Returns `{\"status\": true}` on success.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The client's identifier.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ItemStaff": {
+                "type": "object",
+                "properties": {
+                  "staff_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Staff member(s) to assign to the client. Accepts a single staff id or a list of ids. The supplied list replaces the client's current staff assignments. **Required.**"
+                  },
+                  "item_type": {
+                    "type": "integer",
+                    "enum": [
+                      1
+                    ],
+                    "description": "Item type being assigned. Optional; defaults to `1` for a client.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |"
+                  }
+                },
+                "required": [
+                  "staff_id"
+                ]
+              }
+            },
+            "required": [
+              "ItemStaff"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "The client was assigned to the selected staff member(s).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "`true` when the staff assignment succeeded."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__clients_assign_staff_id_format"
+  },
+  "blockers": []
+}

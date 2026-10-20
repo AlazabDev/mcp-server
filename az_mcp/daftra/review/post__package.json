@@ -1,0 +1,170 @@
+{
+  "path": "/package",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Package",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing package. The package is identified by the **`id` in the request body** — this endpoint uses the same URL as *Add New Package*.\n\n### `id` selects the record\nA body **without** `id` creates a new package instead of updating one, and still replies with an \"Added Successfully\" message. Always send `id`.\n\n### Only the fields you send are changed — with two exceptions\nFields you leave out keep their current values. The exceptions are the two reference fields:\n\n| Field | Left out of the body |\n|---|---|\n| `branch_id` | **Set to `null`** — the package loses its branch and stops appearing in *Get All Packages* |\n| `product_id` | **Set to `null`** — the package is unlinked from its product |\n\nSo resend `branch_id` and `product_id` on every update, even when they are not changing.\n\n### Clearing a text value\nSending `null` for `name`, `description`, `price`, `period_value`, `period_unit`, `status` or `type` leaves the current value untouched. Send an empty string (`\"\"`) to clear a text field.\n\n### Send `Accept: application/json`\nThis endpoint answers with a redirect to a web page instead of JSON when the request does not ask for JSON. Always send `Accept: application/json`.\n\n### Other notes\n- A successful update replies `Package Added Successfully` — the same wording as a create. Do not read it as proof that a new package was inserted; check the `id` you sent.\n- An `id` that does not exist returns `400` with `\"error\": \"Record Not Found\"`, not `404`.\n- Body keys that are not package fields are ignored silently — a misspelled field name is not reported as an error.\n- `modified` is refreshed automatically; `created` and `deleted_at` should be omitted.\n- Values are not validated against the lists below before they reach the database, so an out-of-range value fails as a save error rather than a field-level validation error.",
+    "tags": [
+      "Endpoints/Points & Credits/Packages"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the package to update. **Required** — without it a new package is created."
+              },
+              "name": {
+                "type": "string",
+                "description": "Package name. Optional — unchanged when omitted."
+              },
+              "period_value": {
+                "type": "integer",
+                "description": "How many `period_unit` intervals the package covers. Optional — unchanged when omitted."
+              },
+              "period_unit": {
+                "type": "string",
+                "description": "The unit the validity period is counted in. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                "enum": [
+                  "daily",
+                  "weekly",
+                  "monthly",
+                  "yearly",
+                  "not-expired"
+                ]
+              },
+              "price": {
+                "type": "number",
+                "description": "Package price; decimals are allowed. Optional — unchanged when omitted."
+              },
+              "type": {
+                "type": "string",
+                "description": "What the package sells. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                "enum": [
+                  "credit_charge",
+                  "membership"
+                ]
+              },
+              "status": {
+                "type": "integer",
+                "description": "Whether the package can be sold. Optional — unchanged when omitted.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "description": {
+                "type": "string",
+                "description": "Free-text description. Optional — unchanged when omitted. Send `\"\"` to clear it.",
+                "nullable": true
+              },
+              "product_id": {
+                "type": "integer",
+                "description": "Id of the product the package is linked to. **Resend on every update** — when omitted it is set to `null`.",
+                "nullable": true
+              },
+              "branch_id": {
+                "type": "integer",
+                "description": "Branch the package belongs to. **Resend on every update** — when omitted it is set to `null` and the package stops appearing in *Get All Packages*.",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The package was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Confirmation message. Uses the create wording even for an update."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the package that was updated — the value you sent."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The package was not updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "`Entity not saved` when the update could not be applied — the `id` does not exist, or a value fell outside an allowed list. `Plugin is not installed` when the Points & Credits add-on is not active for the account."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Reason for the failure — `Record Not Found` for an unknown `id`, otherwise the database-level reason. Present only on the save-failure variant."
+                },
+                "e": {
+                  "type": "object",
+                  "description": "Diagnostic detail about the failure. Present only on the save-failure variant; treat as opaque and do not depend on its shape.",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed, or the caller may not save packages.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when the access token is missing, expired or invalid."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Returned instead of `message` when the account is authenticated but not permitted to save packages."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__package"
+  },
+  "blockers": []
+}

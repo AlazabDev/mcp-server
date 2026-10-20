@@ -1,0 +1,98 @@
+{
+  "path": "/credit_type_package",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Package Credit Type",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. ",
+    "tags": [
+      "Endpoints/Points & Credits/Packages Credit Types"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "credit_type_id": {
+                "type": "integer"
+              },
+              "package_id": {
+                "type": "integer"
+              },
+              "amount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "credit_type_id",
+              "package_id",
+              "amount"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "403": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "500": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__credit_type_package"
+  },
+  "blockers": []
+}

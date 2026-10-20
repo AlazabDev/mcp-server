@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/leave_application/list/1",
+  "http_status": 404,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 972,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": false,
+  "timestamp_utc": "2026-10-08T20:18:20.332710+00:00"
+}

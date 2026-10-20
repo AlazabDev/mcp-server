@@ -1,0 +1,222 @@
+{
+  "path": "/le_workflow-type-entity-{workflow_id}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a record in a workflow-type entity. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe `workflow_id` path segment selects the workflow type (entity key `le_workflow-type-entity-{workflow_id}`); the new record is a work-order-based row stamped with that type. The request body is a **flat object** whose keys are the workflow type's fields. The standard fields are listed below; custom fields for the workflow type are supplied under the `le_workflow-type-entity-{workflow_id}_custom_data` object.\n\n**Required fields are defined by the selected workflow type** and enforced server-side; when a required field is missing the response is `422` with an `errors` map naming each field. For example, workflow type 1 (Maintenance Orders) requires `number.code`, `start_date`, and `budget.currency`. The record number itself is assigned by the server (submit only `number.code`).\n\nOn success the `message` is localized to the workflow type's name, e.g. `\"<name> Added Successfully\"`.",
+    "tags": [
+      "Endpoints/Workflow"
+    ],
+    "parameters": [
+      {
+        "name": "workflow_id",
+        "in": "path",
+        "description": "The id of the workflow type into which the record is created. Combined with the resource prefix this forms the entity key `le_workflow-type-entity-{workflow_id}`.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Record title."
+              },
+              "number": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "The numbering-scheme code."
+                  },
+                  "generated": {
+                    "description": "leave empty, the system will assign its value",
+                    "nullable": true,
+                    "enum": [
+                      null
+                    ]
+                  }
+                },
+                "description": "Auto-numbering fieldset. Provide `number.code` (the numbering-scheme code); the sequential number is assigned by the server, so leave `number.generated` empty. Whether this field is required depends on the workflow type's configuration."
+              },
+              "start_date": {
+                "type": "string",
+                "description": "Start date."
+              },
+              "delivery_date": {
+                "type": "string",
+                "description": "Delivery date."
+              },
+              "client_id": {
+                "type": "string",
+                "description": "Related client id."
+              },
+              "assigned_users": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Ids of staff assigned to this record."
+              },
+              "budget": {
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "integer"
+                  },
+                  "currency": {
+                    "type": "string"
+                  }
+                },
+                "description": "Budget as a Currency fieldset: `number` (amount) and `currency` (ISO code). Whether `budget.currency` is required depends on the workflow type's configuration."
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Tag names to attach."
+              },
+              "description": {
+                "type": "string",
+                "description": "Free-text description."
+              },
+              "attachments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Attachment references."
+              },
+              "branch_id": {
+                "type": "integer",
+                "description": "Branch id. Defaults to the request branch when omitted."
+              },
+              "staff_id": {
+                "description": "the staff member who added this instance",
+                "type": "integer"
+              },
+              "follow_up_status_id": {
+                "description": "Follow-up status id.",
+                "nullable": true,
+                "enum": [
+                  null
+                ]
+              },
+              "le_workflow-type-entity-{{workflow_id}}_custom_data": {
+                "type": "object",
+                "properties": {},
+                "description": "Per-workflow custom fields for this workflow type, keyed by field name. The available custom fields are defined by the workflow type's configuration."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Record created. `message` is localized to the workflow type's name; `id` is the new record id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record could not be saved. Two cases: the Workflow plugin is not active for the account → `{\"message\":\"Plugin is not installed\"}`; or a save error → `{\"message\":\"Entity not saved\",\"error\":\"<detail>\"}`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "e": {
+                  "type": "object",
+                  "description": "Diagnostic details of the failure (present on save errors).",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "422": {
+        "description": "Validation failed. `errors` lists the fields the workflow type requires or rejects.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Map of field name to an array of validation messages. Field names use dot notation for nested fieldsets (e.g. `number.code`, `budget.currency`).",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__le_workflow-type-entity-_workflow_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

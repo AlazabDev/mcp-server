@@ -1,0 +1,150 @@
+{
+  "path": "/invoices/add_shipping/{id}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add Shipping to Invoice",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Sets shipping details on an existing invoice.\n\nThe invoice is identified by the `id` path parameter. Send the shipping fields nested under the `Invoice` object — all are optional, and only the fields you include (with a non-empty value) are applied:\n\n| Field | Meaning |\n|---|---|\n| `shipping_option_id` | ID of a shipping option to apply |\n| `shipping_amount` | Shipping fee added to the invoice total |\n| `shipping_tax_id` | ID of the tax applied to the shipping fee |\n| `shipping_number` | Tracking/shipping number, recorded as the invoice's \"Shipping Number\" custom field |\n\nEmpty or `0` values are ignored, so this endpoint can set or overwrite shipping fields but cannot clear them. A request that includes no shipping fields still returns a success response without changing the invoice.\n\nThe response is `403` when no invoice matches the given ID.",
+    "tags": [
+      "Endpoints/Sales /Invoices",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The invoice ID to set shipping on.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "properties": {
+                  "shipping_option_id": {
+                    "type": "integer",
+                    "description": "ID of a shipping option to apply to the invoice."
+                  },
+                  "shipping_amount": {
+                    "type": "integer",
+                    "description": "Shipping fee added to the invoice total."
+                  },
+                  "shipping_tax_id": {
+                    "type": "integer",
+                    "description": "ID of the tax applied to the shipping fee."
+                  },
+                  "shipping_number": {
+                    "type": "string",
+                    "description": "Tracking/shipping number. Recorded as the invoice's \"Shipping Number\" custom field."
+                  }
+                },
+                "required": [
+                  "shipping_option_id",
+                  "shipping_amount",
+                  "shipping_tax_id",
+                  "shipping_number"
+                ],
+                "description": "Wrapper object carrying the shipping fields to set. Send only the fields you want to update; all are optional. Empty or `0` values are ignored (a value cannot be cleared through this endpoint)."
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The invoice shipping was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "No invoice matches the given ID, or it is not accessible.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "array",
+                  "description": "Present only when field-level validation errors exist.",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__invoices_add_shipping_id_format"
+  },
+  "blockers": []
+}

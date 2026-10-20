@@ -1,0 +1,145 @@
+{
+  "path": "/invoices/view_subscription/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "View Subscription",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **subscription** (recurring invoice) by id, with full nested detail — line items, payments, taxes, documents, custom fields and the client — in one response (no `recursive` flag needed).\n\nThis is the subscription counterpart of **GET Single Invoice**. Only subscription documents are returned here; an id belonging to another document type (standard invoice, estimate, credit note, …) returns **404 Recurring invoice generator not found** — use that type's own single-resource endpoint instead.\n\nRequires permission to view invoices (all-invoices access, or view-details permission together with ownership of the record).",
+    "tags": [
+      "Endpoints/Sales /Subsciptions",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The subscription (recurring invoice) ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The subscription with full nested detail.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "The subscription, with full nested detail.",
+                  "properties": {
+                    "Invoice": {
+                      "type": "object",
+                      "description": "The subscription header plus its nested line items, payments, taxes, documents, custom fields and client. See GET Single Invoice for the full field reference.",
+                      "properties": {}
+                    }
+                  }
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "data"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view this subscription.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No subscription matches the given ID. Also returned when the ID belongs to a non-subscription document (use that document type's own endpoint instead).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoices_view_subscription_id_format"
+  },
+  "blockers": []
+}

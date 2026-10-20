@@ -1,0 +1,260 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Income": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Income.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.vendor": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.category": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.file": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.note": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.client_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.supplier_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.site_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.recurring_expense_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.tax1_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax1_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax1_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax1_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax1_included": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax2_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax2_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax2_value": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax2_amount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.tax2_included": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.total": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.is_income": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.treasury_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.source_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Income.expense_category_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Income.journal_account_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Income.expense_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.accounts_data": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.external_source": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.last_update_external_source": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Income.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Income.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

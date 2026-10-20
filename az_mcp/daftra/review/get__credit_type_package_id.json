@@ -1,0 +1,96 @@
+{
+  "path": "/credit_type_package/{id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Package Credit Type",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **package credit type** by id.\n\nA package credit type links a credit type to a package and carries the credit `amount` granted for that package. The record id is supplied in the path; the response is the flat record (`id`, `credit_type_id`, `package_id`, `amount`) — not wrapped in an envelope.\n\nThe trailing path segment (e.g. `/credit_type_package/{id}/1`) sets the data-detail level; it is optional for this entity and does not change the returned record.\n\nIf the id does not exist, the endpoint currently responds with HTTP `500` and a plain-text `error happened` body (not JSON). Confirm the id exists (e.g. via the list endpoint) before fetching.",
+    "tags": [
+      "Endpoints/Points & Credits/Packages Credit Types"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The package credit type id to fetch.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested package credit type.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "credit_type_id": {
+                  "type": "integer",
+                  "description": "The linked credit type id."
+                },
+                "package_id": {
+                  "type": "integer",
+                  "description": "The linked package id."
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Credit amount granted for the package (decimal)."
+                }
+              },
+              "required": [
+                "id",
+                "credit_type_id",
+                "package_id",
+                "amount"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks view permission for this entity also receives a `401` with a message stating access is not allowed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Currently returned when the id does not exist or cannot be loaded — a plain-text `error happened` body. Check the id exists (e.g. via the list endpoint) before fetching.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_type_package_id"
+  },
+  "blockers": []
+}

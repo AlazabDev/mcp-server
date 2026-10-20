@@ -1,0 +1,311 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Alazab Meta WhatsApp — Management",
+    "version": "1.0.0",
+    "description": "Asset discovery and WhatsApp Business phone/profile management."
+  },
+  "servers": [
+    {
+      "url": "https://graph.facebook.com"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/{graph_version}/{business_id}/owned_whatsapp_business_accounts": {
+      "get": {
+        "operationId": "listOwnedWhatsAppBusinessAccounts",
+        "summary": "List WABAs owned by the business",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "name": "business_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned WABAs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{graph_version}/{waba_id}/phone_numbers": {
+      "get": {
+        "operationId": "listWhatsAppPhoneNumbers",
+        "summary": "List phone numbers for a WABA",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/WabaId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Phone numbers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{graph_version}/{phone_number_id}": {
+      "get": {
+        "operationId": "getWhatsAppPhoneNumber",
+        "summary": "Get WhatsApp business phone number details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/PhoneNumberId"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Phone number details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{graph_version}/{phone_number_id}/whatsapp_business_profile": {
+      "get": {
+        "operationId": "getWhatsAppBusinessProfile",
+        "summary": "Get WhatsApp Business profile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/PhoneNumberId"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated fields to return."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Business profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "updateWhatsAppBusinessProfile",
+        "summary": "Update WhatsApp Business profile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/GraphVersion"
+          },
+          {
+            "$ref": "#/components/parameters/PhoneNumberId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "messaging_product"
+                ],
+                "properties": {
+                  "messaging_product": {
+                    "type": "string",
+                    "const": "whatsapp"
+                  },
+                  "about": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "websites": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "vertical": {
+                    "type": "string"
+                  },
+                  "profile_picture_handle": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Meta Graph API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Meta Access Token",
+        "description": "Meta Graph API access token. Do not embed tokens in the OpenAPI document."
+      }
+    },
+    "parameters": {
+      "GraphVersion": {
+        "name": "graph_version",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        }
+      },
+      "WabaId": {
+        "name": "waba_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PhoneNumberId": {
+        "name": "phone_number_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

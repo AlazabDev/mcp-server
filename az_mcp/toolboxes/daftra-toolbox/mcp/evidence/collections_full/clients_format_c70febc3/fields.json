@@ -1,0 +1,297 @@
+{
+  "Client": [
+    "object"
+  ],
+  "Client.active_secondary_address": [
+    "string"
+  ],
+  "Client.address1": [
+    "null",
+    "string"
+  ],
+  "Client.address2": [
+    "null",
+    "string"
+  ],
+  "Client.addresses": [
+    "array"
+  ],
+  "Client.addresses[]": [
+    "object"
+  ],
+  "Client.addresses[].address1": [
+    "null",
+    "string"
+  ],
+  "Client.addresses[].address2": [
+    "null",
+    "string"
+  ],
+  "Client.addresses[].city": [
+    "null",
+    "string"
+  ],
+  "Client.addresses[].country_code": [
+    "null",
+    "string"
+  ],
+  "Client.addresses[].entity_id": [
+    "string"
+  ],
+  "Client.addresses[].id": [
+    "integer",
+    "string"
+  ],
+  "Client.addresses[].postal_code": [
+    "null",
+    "string"
+  ],
+  "Client.addresses[].state": [
+    "null",
+    "string"
+  ],
+  "Client.birth_date": [
+    "null",
+    "string"
+  ],
+  "Client.bn1": [
+    "null",
+    "string"
+  ],
+  "Client.bn1_label": [
+    "null",
+    "string"
+  ],
+  "Client.bn2": [
+    "null",
+    "string"
+  ],
+  "Client.bn2_label": [
+    "null",
+    "string"
+  ],
+  "Client.branch_id": [
+    "string"
+  ],
+  "Client.business_name": [
+    "null",
+    "string"
+  ],
+  "Client.category": [
+    "null",
+    "string"
+  ],
+  "Client.category_id": [
+    "null",
+    "string"
+  ],
+  "Client.city": [
+    "null",
+    "string"
+  ],
+  "Client.client_number": [
+    "string"
+  ],
+  "Client.country_code": [
+    "null",
+    "string"
+  ],
+  "Client.created": [
+    "string"
+  ],
+  "Client.credit_limit": [
+    "string"
+  ],
+  "Client.credit_period": [
+    "string"
+  ],
+  "Client.default_address": [
+    "object"
+  ],
+  "Client.default_address.address1": [
+    "null",
+    "string"
+  ],
+  "Client.default_address.address2": [
+    "null",
+    "string"
+  ],
+  "Client.default_address.city": [
+    "null",
+    "string"
+  ],
+  "Client.default_address.country_code": [
+    "null",
+    "string"
+  ],
+  "Client.default_address.entity_id": [
+    "string"
+  ],
+  "Client.default_address.id": [
+    "integer",
+    "string"
+  ],
+  "Client.default_address.postal_code": [
+    "null",
+    "string"
+  ],
+  "Client.default_address.state": [
+    "null",
+    "string"
+  ],
+  "Client.default_currency_code": [
+    "null",
+    "string"
+  ],
+  "Client.email": [
+    "null",
+    "string"
+  ],
+  "Client.extra_details": [
+    "null"
+  ],
+  "Client.first_name": [
+    "null",
+    "string"
+  ],
+  "Client.follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Client.gender": [
+    "null",
+    "string"
+  ],
+  "Client.group_price_id": [
+    "string"
+  ],
+  "Client.id": [
+    "string"
+  ],
+  "Client.is_government_entity": [
+    "integer"
+  ],
+  "Client.is_offline": [
+    "string"
+  ],
+  "Client.language_code": [
+    "null",
+    "string"
+  ],
+  "Client.last_ip": [
+    "null",
+    "string"
+  ],
+  "Client.last_login": [
+    "null",
+    "string"
+  ],
+  "Client.last_name": [
+    "null",
+    "string"
+  ],
+  "Client.link": [
+    "null",
+    "string"
+  ],
+  "Client.map_location": [
+    "null",
+    "string"
+  ],
+  "Client.modified": [
+    "string"
+  ],
+  "Client.national_id": [
+    "null",
+    "string"
+  ],
+  "Client.notes": [
+    "null",
+    "string"
+  ],
+  "Client.original_site_id": [
+    "null"
+  ],
+  "Client.phone1": [
+    "null",
+    "string"
+  ],
+  "Client.phone2": [
+    "null",
+    "string"
+  ],
+  "Client.photo": [
+    "null",
+    "string"
+  ],
+  "Client.photo_full_path": [
+    "string"
+  ],
+  "Client.photo_thumb_full_path": [
+    "string"
+  ],
+  "Client.postal_code": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_address1": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_address2": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_city": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_country_code": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_follow_up_status": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_name": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_postal_code": [
+    "null",
+    "string"
+  ],
+  "Client.secondary_state": [
+    "null",
+    "string"
+  ],
+  "Client.site_id": [
+    "string"
+  ],
+  "Client.staff_id": [
+    "string"
+  ],
+  "Client.starting_balance": [
+    "null",
+    "string"
+  ],
+  "Client.state": [
+    "null",
+    "string"
+  ],
+  "Client.suspend": [
+    "string"
+  ],
+  "Client.tags": [
+    "array"
+  ],
+  "Client.timezone": [
+    "null",
+    "string"
+  ],
+  "Client.type": [
+    "null",
+    "string"
+  ]
+}

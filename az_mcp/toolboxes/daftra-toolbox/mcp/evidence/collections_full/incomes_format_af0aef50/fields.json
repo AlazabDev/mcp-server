@@ -1,0 +1,128 @@
+{
+  "Income": [
+    "object"
+  ],
+  "Income.accounts_data": [
+    "string"
+  ],
+  "Income.amount": [
+    "string"
+  ],
+  "Income.branch_id": [
+    "string"
+  ],
+  "Income.category": [
+    "string"
+  ],
+  "Income.client_id": [
+    "null"
+  ],
+  "Income.created": [
+    "string"
+  ],
+  "Income.currency_code": [
+    "string"
+  ],
+  "Income.date": [
+    "string"
+  ],
+  "Income.expense_category_id": [
+    "null",
+    "string"
+  ],
+  "Income.expense_number": [
+    "string"
+  ],
+  "Income.external_source": [
+    "string"
+  ],
+  "Income.extra_details": [
+    "null"
+  ],
+  "Income.file": [
+    "null"
+  ],
+  "Income.id": [
+    "string"
+  ],
+  "Income.is_income": [
+    "string"
+  ],
+  "Income.journal_account_id": [
+    "null",
+    "string"
+  ],
+  "Income.last_update_external_source": [
+    "null",
+    "string"
+  ],
+  "Income.modified": [
+    "string"
+  ],
+  "Income.note": [
+    "string"
+  ],
+  "Income.recurring_expense_id": [
+    "string"
+  ],
+  "Income.site_id": [
+    "null"
+  ],
+  "Income.source_id": [
+    "null"
+  ],
+  "Income.source_type": [
+    "null"
+  ],
+  "Income.staff_id": [
+    "string"
+  ],
+  "Income.status": [
+    "string"
+  ],
+  "Income.supplier_id": [
+    "null"
+  ],
+  "Income.tax1_amount": [
+    "null"
+  ],
+  "Income.tax1_id": [
+    "null"
+  ],
+  "Income.tax1_included": [
+    "null"
+  ],
+  "Income.tax1_name": [
+    "null"
+  ],
+  "Income.tax1_value": [
+    "null"
+  ],
+  "Income.tax2_amount": [
+    "null"
+  ],
+  "Income.tax2_id": [
+    "null"
+  ],
+  "Income.tax2_included": [
+    "null"
+  ],
+  "Income.tax2_name": [
+    "null"
+  ],
+  "Income.tax2_value": [
+    "null"
+  ],
+  "Income.total": [
+    "string"
+  ],
+  "Income.treasury_id": [
+    "string"
+  ],
+  "Income.vendor": [
+    "string"
+  ],
+  "Income.work_order_id": [
+    "null"
+  ]
+}

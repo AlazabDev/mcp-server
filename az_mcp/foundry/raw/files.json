@@ -1,0 +1,195 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "file",
+      "id": "assistant-AJVp8XrbjB3Gn14raNHsGP",
+      "purpose": "assistants",
+      "filename": "alazab_agent_knowledge_base_full.md",
+      "bytes": 7830599,
+      "created_at": 1786035744,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-UVV9JHPusMG39s5daKXDKu",
+      "purpose": "assistants",
+      "filename": "alazab_catalog_full.json",
+      "bytes": 5307063,
+      "created_at": 1785958507,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-DhzxAY2XWcL8eorVMpN25N",
+      "purpose": "assistants",
+      "filename": "alazab_catalog_full.json",
+      "bytes": 5307063,
+      "created_at": 1785958400,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "file-e1f89673195f4bb1a152785c7938074e",
+      "purpose": "fine-tune",
+      "filename": "az-dataset.jsonl",
+      "bytes": null,
+      "created_at": 1782826628,
+      "expires_at": null,
+      "status": "error",
+      "status_details": "Validation of jsonl file failed: Deserialization of line #0 failed."
+    },
+    {
+      "object": "file",
+      "id": "assistant-HTpr84VgHGSK6zcrcShA8R",
+      "purpose": "assistants",
+      "filename": "06_maintenance_gateway_tool_rules.md",
+      "bytes": 1612,
+      "created_at": 1782364692,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-MsjFVmwK7NJe76TtjEcNuM",
+      "purpose": "assistants",
+      "filename": "manifest.json",
+      "bytes": 578,
+      "created_at": 1782364684,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-2BtXg6u5PQ2UL9deAY4eV5",
+      "purpose": "assistants",
+      "filename": "07_local_only_gateway_testing_commands_SANITIZED.md",
+      "bytes": 10612,
+      "created_at": 1782364684,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-PmjkPqPtDXDmw8oKXUMAGt",
+      "purpose": "assistants",
+      "filename": "05_maintenance_gateway_openapi.json",
+      "bytes": 6396,
+      "created_at": 1782364683,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-HCXt6VkfxmKoYGYUrQLgWu",
+      "purpose": "assistants",
+      "filename": "02_uberfix_operational_policy.md",
+      "bytes": 2151,
+      "created_at": 1782364683,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-GSTL7KqkKGzJV4ryLSGsRq",
+      "purpose": "assistants",
+      "filename": "03_uberfix_services_catalog_summary.md",
+      "bytes": 1958,
+      "created_at": 1782364683,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-XYRnEH7NKvZaXydUFortHT",
+      "purpose": "assistants",
+      "filename": "voice_scripts_by_brand.json",
+      "bytes": 4235,
+      "created_at": 1782305459,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-P2zwWMHQ6kvs8VBj3mj88a",
+      "purpose": "assistants",
+      "filename": "audio_assets_manifest.json",
+      "bytes": 7822,
+      "created_at": 1782305458,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-3dRYhRdcmjkWVriYWkr3GK",
+      "purpose": "assistants",
+      "filename": "arabic_voices_subset.json",
+      "bytes": 1681,
+      "created_at": 1782305458,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-2nt35pM3kpZKhWKuzudmfT",
+      "purpose": "assistants",
+      "filename": "voice_scripts_by_brand.txt",
+      "bytes": 3088,
+      "created_at": 1782305458,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-H6harEqG3kD5XfWpqkksyV",
+      "purpose": "assistants",
+      "filename": "API_GATEWAY_TESTING_COMMANDS.md",
+      "bytes": 10670,
+      "created_at": 1782102548,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-JXVZ8VJ1pdvJAvUg5Cjh1y",
+      "purpose": "assistants",
+      "filename": "uberfix_maintenance_gateway.openapi.json",
+      "bytes": 9418,
+      "created_at": 1782051790,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    },
+    {
+      "object": "file",
+      "id": "assistant-9CSNBgRjWGy9VEycMAMCWn",
+      "purpose": "assistants",
+      "filename": "uf_db_v3.txt",
+      "bytes": 59048,
+      "created_at": 1782044396,
+      "expires_at": null,
+      "status": "processed",
+      "status_details": null
+    }
+  ],
+  "has_more": true,
+  "first_id": "assistant-AJVp8XrbjB3Gn14raNHsGP",
+  "last_id": "assistant-9CSNBgRjWGy9VEycMAMCWn"
+}

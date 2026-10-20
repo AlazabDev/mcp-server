@@ -1,0 +1,84 @@
+{
+  "path": "/products/brands{format}",
+  "method": "get",
+  "operation": {
+    "summary": "List Brands",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns the distinct brand names used across the account's products, ordered alphabetically.\n\nPass the optional `brand` query parameter to filter the list to brands whose name contains the given text. The response is a flat list of brand-name strings under the `brands` key.",
+    "tags": [
+      "Endpoints/Inventory /Products",
+      "Products"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "brand",
+        "in": "query",
+        "description": "Optional. Filters to brands whose name contains this text (case-insensitive substring match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "List of distinct brand names.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "brands": {
+                  "type": "array",
+                  "description": "Distinct brand names, ordered alphabetically.",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__products_brands_format"
+  },
+  "blockers": []
+}

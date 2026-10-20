@@ -1,0 +1,332 @@
+{
+  "path": "/purchase_orders/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Purchase Order",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing purchase order.\n\nSend the `PurchaseOrder` header object plus the full `PurchaseOrderItem` array (the supplied items replace the existing ones); optionally include `PurchaseOrderCustomField`. The `id` comes from the path. The only hard-required fields are `PurchaseOrder.supplier_id` and, per line item, `item`, `quantity` and `unit_price`. The document `type` is set server-side.\n\n**Response note:** a JSON success body (`{ \"result\": \"successful\", \"code\": 200 }`) is returned only when the `send=direct` query parameter is provided. Without it, a successful update responds with an HTTP 302 redirect to the v2 show page rather than a JSON body. Editing an order that has already been invoiced returns a 400 error.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Orders",
+      "Purchase Orders"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The purchase order id to update.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "send",
+        "in": "query",
+        "description": "Optional save/send behaviour. **Pass `direct` to receive a JSON success acknowledgement** — without it, a successful update responds with an HTTP 302 redirect instead of a JSON body.\n\n| Value | Meaning |\n|---|---|\n| direct | Save, email the supplier, and return a JSON success body |\n| revised | Save and open the send-to-supplier flow |\n| print | Save and prepare a printable copy |\n| draft | Save as a draft |",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "direct",
+            "revised",
+            "print",
+            "draft"
+          ]
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "PurchaseOrder": {
+                "type": "object",
+                "description": "The purchase order header fields to update. The `id` is taken from the path.",
+                "properties": {
+                  "supplier_id": {
+                    "type": "integer",
+                    "description": "Required. Must reference an existing supplier."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Optional. ISO currency code (e.g. `USD`)."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Optional. Order date in the account date format."
+                  },
+                  "issue_date": {
+                    "type": "string",
+                    "description": "Optional. Issue date."
+                  },
+                  "received_date": {
+                    "type": "string",
+                    "description": "Optional. Receipt date."
+                  },
+                  "supplier_email": {
+                    "type": "string",
+                    "description": "Required when the supplier's invoicing method is email; must be a valid email."
+                  },
+                  "discount": {
+                    "type": "number",
+                    "description": "Optional. Order-level discount percentage (0–100)."
+                  },
+                  "discount_amount": {
+                    "type": "number",
+                    "description": "Optional. Order-level discount amount (≥ 0)."
+                  },
+                  "deposit": {
+                    "type": "number",
+                    "description": "Optional. Deposit amount."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Optional. Store/warehouse; must be active."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Optional. Branch; must be active."
+                  },
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "Optional. Linked work order id."
+                  },
+                  "cost_center_id": {
+                    "type": "integer",
+                    "description": "Optional. Cost center id."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Optional. Free-text notes."
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              },
+              "PurchaseOrderItem": {
+                "type": "array",
+                "description": "The full set of line items for the order (replaces the existing items). Each item requires `item`, `quantity` and `unit_price`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Optional. Existing line item id to update; omit for new items."
+                    },
+                    "item": {
+                      "type": "string",
+                      "description": "Required. The item name/label."
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "Required. Quantity (numeric)."
+                    },
+                    "unit_price": {
+                      "type": "number",
+                      "description": "Required. Price per unit (numeric)."
+                    },
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Optional. Linked product id; the product must be active."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Optional. Item description."
+                    },
+                    "tax": {
+                      "type": "integer",
+                      "description": "Optional. Tax mode.\n\n| Value | Meaning |\n|---|---|\n| 0 | No taxes |\n| 1 | Tax 1 |\n| 2 | Tax 2 |\n| 3 | Both taxes |"
+                    },
+                    "discount": {
+                      "type": "number",
+                      "description": "Optional. Item discount."
+                    },
+                    "store_id": {
+                      "type": "integer",
+                      "description": "Optional. Per-item store; must be active."
+                    }
+                  },
+                  "required": [
+                    "item",
+                    "quantity",
+                    "unit_price"
+                  ]
+                }
+              },
+              "PurchaseOrderCustomField": {
+                "type": "array",
+                "description": "Optional. Custom field values.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "PurchaseOrder",
+              "PurchaseOrderItem"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Purchase order updated. Returned as a JSON body only when the `send=direct` query parameter is supplied; otherwise a successful update responds with an HTTP 302 redirect to the v2 show page.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Optional message."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The order is already invoiced, a referenced product/store is inactive, or validation failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-keyed validation messages, present when validation fails.",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The staff member lacks the Manage Purchase Orders permission, or the order originates from a purchase quotation and the caller lacks approval permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No purchase order with this id exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__purchase_orders_id_format"
+  },
+  "blockers": []
+}

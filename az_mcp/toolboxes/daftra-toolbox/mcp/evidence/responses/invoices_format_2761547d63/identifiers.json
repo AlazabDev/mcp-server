@@ -1,0 +1,118 @@
+{
+  "data[].Invoice.id": [
+    "332",
+    "329",
+    "328",
+    "327",
+    "326",
+    "325",
+    "324",
+    "323",
+    "322",
+    "321",
+    "313",
+    "320",
+    "319",
+    "318",
+    "314",
+    "312",
+    "311",
+    "310",
+    "282",
+    "308"
+  ],
+  "data[].Invoice.site_id": [
+    "3428849"
+  ],
+  "data[].Invoice.staff_id": [
+    "-3",
+    "6",
+    "0"
+  ],
+  "data[].Invoice.store_id": [
+    "1"
+  ],
+  "data[].Invoice.client_id": [
+    "55",
+    "11",
+    "71",
+    "70",
+    "48",
+    "69",
+    "45"
+  ],
+  "data[].Invoice.language_id": [
+    "7"
+  ],
+  "data[].Invoice.invoice_layout_id": [
+    "23",
+    "21",
+    "19",
+    "18"
+  ],
+  "data[].Invoice.sales_person_id": [
+    "-3",
+    "6",
+    "2"
+  ],
+  "data[].Invoice.branch_id": [
+    "1"
+  ],
+  "data[].Invoice.client_national_id": [
+    ""
+  ],
+  "data[].Invoice.Client.id": [
+    "55",
+    "11",
+    "71",
+    "70",
+    "48",
+    "69",
+    "45"
+  ],
+  "data[].Invoice.Client.site_id": [
+    "3428849"
+  ],
+  "data[].Invoice.Client.staff_id": [
+    "0",
+    "6",
+    "-3"
+  ],
+  "data[].Invoice.Client.national_id": [
+    ""
+  ],
+  "data[].Invoice.Client.branch_id": [
+    "1"
+  ],
+  "data[].Invoice.Client.category_id": [
+    "4"
+  ],
+  "data[].Invoice.Client.group_price_id": [
+    "1"
+  ],
+  "data[].Invoice.shipping_option_id": [
+    "1",
+    "2"
+  ],
+  "data[].Invoice.shipping_tax_id": [
+    "1"
+  ],
+  "data[].Invoice.address_id": [
+    "9",
+    "0"
+  ],
+  "data[].Invoice.group_price_id": [
+    "1"
+  ],
+  "data[].Invoice.order_source_id": [
+    "1",
+    "3",
+    "2"
+  ],
+  "data[].Invoice.estimate_id": [
+    "267"
+  ],
+  "data[].Invoice.work_order_id": [
+    "13"
+  ]
+}

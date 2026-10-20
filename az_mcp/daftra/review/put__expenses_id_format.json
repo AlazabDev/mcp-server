@@ -1,0 +1,329 @@
+{
+  "path": "/expenses/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Expenses",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update an existing expense.\n\nThis is a partial update — send only the `Expense` fields you want to change. Any field validated on create keeps its rule when supplied (e.g. a supplied `amount` must be non-zero, a supplied `date` must fall in an open period). The expense id is taken from the path; any `id` in the body is ignored.\n\nOptionally include `JournalTransaction` / `CostCenterTransaction` arrays to replace the account and cost-center allocation, or a `RecurringExpense` object.\n\nThe same operation is also reachable via `POST /expenses/{id}`.\n\nAn expense that is locked to another record (e.g. generated from another entity) or already used in an expense-distribution transaction cannot be edited.\n\n**Access:** requires the account owner, or staff with *Edit/Delete All Expenses*, or *Edit/Delete His Own Expenses* (for their own records), or *Draft* (for their own draft records).",
+    "tags": [
+      "Endpoints/Finance/Expenses",
+      "Expenses"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Expense": {
+                "type": "object",
+                "description": "The expense fields to change. Provide only the fields you want to update.",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Expense amount. Must be non-zero when supplied."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Expense date, in the account's date format. Must fall within an open financial period when supplied."
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "3-letter ISO 4217 currency code."
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "description": "Vendor name."
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                  },
+                  "expense_category_id": {
+                    "type": "integer",
+                    "description": "Existing expense-category reference (alternative to `category`)."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Free-text description / notes."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Linked client reference."
+                  },
+                  "supplier_id": {
+                    "type": "integer",
+                    "description": "Linked supplier reference."
+                  },
+                  "treasury_id": {
+                    "type": "integer",
+                    "description": "Treasury to withdraw from."
+                  },
+                  "journal_account_id": {
+                    "type": "integer",
+                    "description": "Journal (chart-of-accounts) account."
+                  },
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "Linked work-order reference."
+                  },
+                  "unit_id": {
+                    "type": "integer",
+                    "description": "Rental-unit reference; sets the expense source to that unit."
+                  },
+                  "expense_number": {
+                    "type": "string",
+                    "description": "Expense number / reference code."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Comma-separated list of previously uploaded file ids. Must be a string; an array is rejected with 400."
+                  },
+                  "unique_id": {
+                    "type": "string",
+                    "description": "Client-supplied idempotency key."
+                  },
+                  "tax1_id": {
+                    "type": "integer",
+                    "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                  },
+                  "tax1_value": {
+                    "type": "number",
+                    "description": "First tax rate (percentage). The tax amount is computed automatically."
+                  },
+                  "tax1_included": {
+                    "type": "integer",
+                    "description": "Whether the first tax is included in `amount` (0/1)."
+                  },
+                  "tax2_id": {
+                    "type": "integer",
+                    "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                  },
+                  "tax2_value": {
+                    "type": "number",
+                    "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                  },
+                  "tax2_included": {
+                    "type": "integer",
+                    "description": "Whether the second tax is included in `amount` (0/1)."
+                  },
+                  "file": {
+                    "type": "string",
+                    "description": "Legacy single-file attachment reference."
+                  }
+                }
+              },
+              "JournalTransaction": {
+                "type": "array",
+                "description": "Optional. Replaces the chart-of-accounts allocation. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Expense.amount`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "number",
+                      "description": "Portion of the expense allocated to this account."
+                    },
+                    "journal_account_id": {
+                      "type": "integer",
+                      "description": "Target account. Alternatively identify it by `entity_type` + `entity_id`."
+                    },
+                    "entity_type": {
+                      "type": "string",
+                      "description": "Resolve the account automatically from a related entity."
+                    },
+                    "entity_id": {
+                      "type": "integer",
+                      "description": "Reference of the entity named by `entity_type`."
+                    },
+                    "tax_id": {
+                      "type": "integer",
+                      "description": "Tax applied to this line."
+                    },
+                    "percent": {
+                      "type": "number",
+                      "description": "Tax rate (percentage) for this line."
+                    },
+                    "included": {
+                      "type": "integer",
+                      "description": "Whether the line tax is included in the line amount (0/1)."
+                    }
+                  }
+                }
+              },
+              "CostCenterTransaction": {
+                "type": "array",
+                "description": "Optional. Replaces the cost-center allocation for the expense.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cost_center_id": {
+                      "type": "integer",
+                      "description": "Target cost center."
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Amount allocated to this cost center."
+                    }
+                  }
+                }
+              },
+              "RecurringExpense": {
+                "type": "object",
+                "description": "Optional. Recurrence settings.",
+                "properties": {}
+              }
+            },
+            "required": [
+              "Expense"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The expense was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed (e.g. zero amount, date in a closed period, or a non-string `attachment`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Map of field name to error message.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to edit this expense, or a mobile request tried to edit a record last updated from the web.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No expense with the given id exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__expenses_id_format"
+  },
+  "blockers": []
+}

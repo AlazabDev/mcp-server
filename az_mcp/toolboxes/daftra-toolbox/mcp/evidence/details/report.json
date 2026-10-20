@@ -1,0 +1,79 @@
+[
+  {
+    "resource": "clients",
+    "record_id": 48,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "invoices",
+    "record_id": 332,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "estimates",
+    "record_id": 331,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "products",
+    "record_id": 267,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "work_orders",
+    "record_id": 19,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "suppliers",
+    "record_id": 13,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "client_payments",
+    "record_id": 272,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "invoice_payments",
+    "record_id": 287,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "expenses",
+    "record_id": 1,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "journal_accounts",
+    "record_id": 381,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  },
+  {
+    "resource": "staff",
+    "record_id": 3,
+    "status": 200,
+    "result": "successful",
+    "message": null
+  }
+]

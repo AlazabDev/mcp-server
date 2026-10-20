@@ -1,0 +1,16 @@
+HTTP/2 200 
+content-type: application/json; charset=utf-8
+date: Tue, 22 Sep 2026 01:13:32 GMT
+access-control-expose-headers: Operation-Location,Location,Apim-Request-Id,x-agent-session-id,x-agent-invocation-id
+vary: Accept-Encoding
+request-context: appId=cid-v1:2d2e8e63-272e-4b3c-8598-4ee570a0e70d
+x-ms-response-type: standard
+api-supported-versions: 2022-12-01,2023-03-15-preview,2023-05-15,2023-06-01-preview,2023-07-01-preview,2023-08-01-preview,2023-09-01-preview,2023-10-01-preview,2023-12-01-preview,2024-02-01,2024-02-15-preview,2024-03-01-preview,2024-04-01-preview,2024-04-15-preview,2024-05-01-preview,2024-06-01,2024-07-01-preview,2024-08-01-preview,2024-09-01-preview,2024-10-01-preview,2024-10-21,2024-11-01-preview,2024-12-01-preview,2025-01-01-preview,2025-02-01-preview,2025-03-01-preview,2025-04-01-preview,2025-04-28,1
+x-envoy-upstream-service-time: 211
+apim-request-id: e34659ed-31a7-41ee-927e-582aeed7a8f7
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-ms-region: East US 2
+azureml-served-by-cluster: vienna-eastus2-02
+x-request-time: 0.492
+

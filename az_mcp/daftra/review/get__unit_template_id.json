@@ -1,0 +1,194 @@
+{
+  "path": "/unit_template/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Unit Template",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **unit template** by id, **including its unit-factor sub-rows**.\n\nReal path: `GET /v2/api/entity/unit_template/{id}`.\n\nThe response contains the template's own fields plus the embedded `branch` and `staff` records and the `unit_templates_unit_factors[]` array — one entry per sub-unit (conversion factor). Unlike the list endpoint, the sub-factors are included here.\n\nAn optional trailing path segment sets the data-detail level (e.g. `/unit_template/{id}/1`); the sub-factors are returned at the default detail level and above.",
+    "tags": [
+      "Endpoints/Inventory /Unit Templates"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The unit template id to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested unit template with its sub-factors.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "template_name": {
+                  "type": "string"
+                },
+                "active": {
+                  "type": "integer",
+                  "description": "`1` = active, `0` = inactive."
+                },
+                "main_unit_name": {
+                  "type": "string"
+                },
+                "unit_small_name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`), or null.",
+                  "nullable": true
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp, or null.",
+                  "nullable": true
+                },
+                "branch_id": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "staff_id": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "branch": {
+                  "type": "object",
+                  "description": "The template's branch.",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "modified": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  }
+                },
+                "staff": {
+                  "type": "object",
+                  "description": "The staff member who created the template (embedded profile). Contains the full staff record.",
+                  "properties": {}
+                },
+                "unit_templates_unit_factors": {
+                  "type": "array",
+                  "description": "The template's sub-units (conversion factors). Empty when the template has none.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "factor_name": {
+                        "type": "string"
+                      },
+                      "factor": {
+                        "type": "number",
+                        "description": "Multiplier relative to the base unit."
+                      },
+                      "small_name": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "modified": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "unit_template_id": {
+                        "type": "integer"
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "factor_name",
+                      "factor",
+                      "small_name",
+                      "unit_template_id"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "template_name",
+                "active",
+                "main_unit_name",
+                "unit_small_name",
+                "created",
+                "modified",
+                "branch_id",
+                "staff_id",
+                "unit_templates_unit_factors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__unit_template_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

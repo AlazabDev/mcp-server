@@ -1,0 +1,96 @@
+{
+  "path": "/bookings/convert_to_invoice/{bookingId}",
+  "method": "get",
+  "operation": {
+    "summary": "Convert booking to Invoice",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Converts a booking into an invoice. On success it returns the id of the newly created invoice and marks the booking as *Invoiced*.\n\nThe conversion is rejected when the booking is cancelled, already converted, or missing required data. A booking id that does not exist returns 404.\n\nThe `.json` extension is optional.",
+    "tags": [
+      "Endpoints/Bookings/Booking (Classic version)"
+    ],
+    "parameters": [
+      {
+        "name": "bookingId",
+        "in": "path",
+        "description": "The id of the booking to convert.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "The booking was converted. Returns HTTP 202 with the new invoice id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "The id of the invoice created from the booking."
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The booking could not be converted — it is cancelled, already converted, or missing required data.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__bookings_convert_to_invoice_bookingId"
+  },
+  "blockers": []
+}

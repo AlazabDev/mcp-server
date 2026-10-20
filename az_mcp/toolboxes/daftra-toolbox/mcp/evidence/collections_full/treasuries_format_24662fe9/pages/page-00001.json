@@ -1,0 +1,70 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": [
+    {
+      "Treasury": {
+        "id": "3",
+        "staff_id": "0",
+        "name": "CIB",
+        "type": "1",
+        "type_name": "CIB Bank",
+        "type_account_number": "100057498921",
+        "active": "1",
+        "is_primary": "0",
+        "description": "100057498921\r\n",
+        "currency_code": "EGP",
+        "metainfo": null,
+        "created": "2024-05-02 18:00:47",
+        "modified": "2024-05-02 18:00:47",
+        "branch_id": "1",
+        "balance": 10000
+      }
+    },
+    {
+      "Treasury": {
+        "id": "1",
+        "staff_id": "0",
+        "name": "Main",
+        "type": "3",
+        "type_name": null,
+        "type_account_number": null,
+        "active": "1",
+        "is_primary": "0",
+        "description": "",
+        "currency_code": null,
+        "metainfo": null,
+        "created": "2018-02-04 08:36:52",
+        "modified": "2018-02-04 08:36:52",
+        "branch_id": "1",
+        "balance": 30202.319999999832
+      }
+    },
+    {
+      "Treasury": {
+        "id": "2",
+        "staff_id": "0",
+        "name": "QNB",
+        "type": "1",
+        "type_name": "MOHAMED ABDELGHANY MOHAMED",
+        "type_account_number": "1002368315932",
+        "active": "1",
+        "is_primary": "1",
+        "description": "",
+        "currency_code": "EGP",
+        "metainfo": null,
+        "created": "2024-01-28 23:39:11",
+        "modified": "2024-03-29 11:05:17",
+        "branch_id": "1",
+        "balance": 8362575.124249991
+      }
+    }
+  ],
+  "pagination": {
+    "prev": null,
+    "next": null,
+    "page": 1,
+    "page_count": 1,
+    "total_results": 3
+  }
+}

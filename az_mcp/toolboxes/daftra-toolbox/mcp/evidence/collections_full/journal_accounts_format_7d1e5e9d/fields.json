@@ -1,0 +1,71 @@
+{
+  "JournalAccount": [
+    "object"
+  ],
+  "JournalAccount.branch_id": [
+    "string"
+  ],
+  "JournalAccount.code": [
+    "string"
+  ],
+  "JournalAccount.created": [
+    "string"
+  ],
+  "JournalAccount.disabled": [
+    "string"
+  ],
+  "JournalAccount.entity_id": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.entity_type": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.id": [
+    "string"
+  ],
+  "JournalAccount.is_hidden": [
+    "string"
+  ],
+  "JournalAccount.is_recalculated": [
+    "string"
+  ],
+  "JournalAccount.is_suspended": [
+    "string"
+  ],
+  "JournalAccount.journal_cat_id": [
+    "string"
+  ],
+  "JournalAccount.last_transaction_update": [
+    "string"
+  ],
+  "JournalAccount.level": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.modified": [
+    "string"
+  ],
+  "JournalAccount.name": [
+    "string"
+  ],
+  "JournalAccount.parent_cat_ids": [
+    "string"
+  ],
+  "JournalAccount.staff_id": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.total_credit": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.total_debit": [
+    "null",
+    "string"
+  ],
+  "JournalAccount.type": [
+    "string"
+  ]
+}

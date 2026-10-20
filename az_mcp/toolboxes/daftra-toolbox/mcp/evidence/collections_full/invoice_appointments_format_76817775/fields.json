@@ -1,0 +1,77 @@
+{
+  "InvoiceAppointment": [
+    "object"
+  ],
+  "InvoiceAppointment.action_id": [
+    "string"
+  ],
+  "InvoiceAppointment.body": [
+    "string"
+  ],
+  "InvoiceAppointment.branch_id": [
+    "string"
+  ],
+  "InvoiceAppointment.created": [
+    "string"
+  ],
+  "InvoiceAppointment.date": [
+    "string"
+  ],
+  "InvoiceAppointment.duration": [
+    "string"
+  ],
+  "InvoiceAppointment.end_date": [
+    "string"
+  ],
+  "InvoiceAppointment.end_date2": [
+    "string"
+  ],
+  "InvoiceAppointment.end_time": [
+    "string"
+  ],
+  "InvoiceAppointment.id": [
+    "string"
+  ],
+  "InvoiceAppointment.is_waiting": [
+    "string"
+  ],
+  "InvoiceAppointment.item_id": [
+    "string"
+  ],
+  "InvoiceAppointment.item_type": [
+    "string"
+  ],
+  "InvoiceAppointment.modified": [
+    "string"
+  ],
+  "InvoiceAppointment.partner_id": [
+    "string"
+  ],
+  "InvoiceAppointment.partner_type": [
+    "string"
+  ],
+  "InvoiceAppointment.post_id": [
+    "string"
+  ],
+  "InvoiceAppointment.recurring_appointment_id": [
+    "null"
+  ],
+  "InvoiceAppointment.share_with_partner": [
+    "string"
+  ],
+  "InvoiceAppointment.staff_id": [
+    "string"
+  ],
+  "InvoiceAppointment.start_date": [
+    "string"
+  ],
+  "InvoiceAppointment.start_time": [
+    "string"
+  ],
+  "InvoiceAppointment.status": [
+    "string"
+  ],
+  "InvoiceAppointment.status_date": [
+    "null"
+  ]
+}

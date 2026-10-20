@@ -1,0 +1,36 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": {
+    "WorkOrder": {
+      "id": "19",
+      "client_id": "11",
+      "number": "AZ-PROJ-2026-0028",
+      "title": "AbuAuf Alex Sidi Gaber",
+      "start_date": "2026-09-15",
+      "description": "Abu Auf Branch Project – Sidi Gaber, Alexandria\r\n\r\nThe project entails the design and fit-out of a new Abu Auf branch in the Sidi Gaber district of Alexandria, covering an area of ​​approximately 28 square meters. The design focuses on the intelligent use of every inch of space while maintaining the brand's identity and ensuring a clear, comfortable, and efficient shopping experience for customers.\r\n\r\nExterior Facade\r\n\r\nThe facade features a modern design that aligns with the Abu Auf brand identity, giving the branch a prominent street presence. Glass is the primary material used to maximize visual openness, showcasing the products and interior space to passersby. A main illuminated sign bearing the Abu Auf branding is integrated with the facade's architectural lighting.\r\n",
+      "delivery_date": "2026-10-15",
+      "delivery_appointment_id": "105",
+      "follow_up_status_id": null,
+      "budget": "1200000",
+      "budget_currency": "EGP",
+      "status": "1",
+      "created": "2026-09-16 00:46:44",
+      "modified": "2026-09-16 00:46:53",
+      "staff_id": "6",
+      "client_data": "{\"id\":\"11\",\"is_offline\":\"0\",\"client_number\":\"AZ-CU-2022-01003\",\"site_id\":\"3428849\",\"staff_id\":\"6\",\"business_name\":\"AUF Egypt\",\"first_name\":\"Abu\",\"last_name\":\"Auf\",\"email\":\"mohamed.sami@abu-auf.com\",\"password\":\"3a65bdac25a066720507b500e7c98f82957932d6\",\"address1\":\"Maadi\",\"address2\":\"Eng\\/Mohamed Sami\",\"city\":\"maadi\",\"state\":\"cairo\",\"postal_code\":\"11473\",\"phone1\":\"+227047955\",\"phone2\":\"+201050154626\",\"country_code\":\"EG\",\"notes\":\"Modern Building Contracting and Branch Maintenance Official Throughout the Republic\",\"active_secondary_address\":\"1\",\"secondary_name\":\"\",\"secondary_address1\":\"Abu Auf Branch\",\"secondary_address2\":\"\",\"secondary_city\":\" Cairo\",\"secondary_state\":\"Egypt\",\"secondary_postal_code\":\"4234570\",\"secondary_country_code\":\"EG\",\"language_code\":\"7\",\"default_currency_code\":\"EGP\",\"last_login\":\"2025-12-25 02:44:27\",\"suspend\":\"0\",\"last_ip\":\"3.131.32.209\",\"created\":\"2024-01-28 10:35:13\",\"modified\":\"2026-07-27 15:41:39\",\"follow_up_status\":\"36\",\"category\":\"\",\"original_site_id\":null,\"group_price_id\":\"1\",\"timezone\":null,\"bn1\":\"150361\",\"bn1_label\":\"\\u0633\\u062c\\u0644 \\u062a\\u062c\\u0627\\u0631\\u064a\",\"bn2_label\":\"\\u0627\\u0644\\u0631\\u0642\\u0645 \\u0627\\u0644\\u0636\\u0631\\u064a\\u0628\\u064a\",\"bn2\":\"584628846\",\"starting_balance\":\"84645\",\"photo\":\"\",\"birth_date\":\"0000-00-00\",\"gender\":\"0\",\"map_location\":\"31.314441561698914,29.98022017866969,19\",\"type\":null,\"credit_limit\":\"0\",\"credit_period\":\"0\",\"national_id\":\"\",\"branch_id\":\"1\",\"category_id\":null,\"link\":\"https:\\/\\/www.abuauf.com\",\"secondary_follow_up_status\":\"36\",\"extra_details\":null}",
+      "type": null,
+      "extra_details": null,
+      "branch_id": "1",
+      "workflow_type_id": null,
+      "bid_id": null,
+      "parent_cost_center_id": null,
+      "cost_tracking_level": null,
+      "duration": null,
+      "duration_unit": null,
+      "construction_cycle_id": null,
+      "is_draft": null,
+      "cost_center_id": null
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "path": "/taxes/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Taxe",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single tax by its identifier.",
+    "tags": [
+      "Endpoints/Taxes",
+      "Taxes"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifier of the tax to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Tax": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique identifier of the tax.",
+                          "readOnly": true
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Display name of the tax (e.g. VAT)."
+                        },
+                        "value": {
+                          "type": "number",
+                          "description": "Tax rate as a percentage. Stored as a whole number."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Optional free-text description of the tax."
+                        },
+                        "included": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "default": 0,
+                          "description": "Whether the tax is included in the product price.\n\n| Value | Meaning |\n|---|---|\n| 0 | Exclusive — the product price does not include the tax |\n| 1 | Inclusive — the product price already includes the tax |"
+                        },
+                        "is_active": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "default": 1,
+                          "description": "Whether the tax is active and selectable. Defaults to `1`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                        },
+                        "site_id": {
+                          "type": "integer",
+                          "description": "Identifier of the account that owns the tax. Set automatically by the server.",
+                          "readOnly": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Timestamp when the tax was created.",
+                          "readOnly": true
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Timestamp when the tax was last updated.",
+                          "readOnly": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Record Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__taxes_id_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,27 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "message": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "error_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "extra_data": {
+    "observed_types": [
+      "null"
+    ]
+  }
+}

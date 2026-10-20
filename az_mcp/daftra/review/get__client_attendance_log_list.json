@@ -1,0 +1,149 @@
+{
+  "path": "/client_attendance_log/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Client Attendance Logs",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of client attendance entries (v2 native-entity).\n\nServed from the `/v2/api/entity` base with a Bearer token. The trailing path segment is the data level; `1` is the usual value. Default ordering is newest id first.\n\n**Filtering / sorting / fields** (query params): `filter[<field>][<operator>]=<value>`, `sort[<field>]=asc|desc`, `fields[]=<field>`. Any existing column may be filtered/sorted.",
+    "tags": [
+      "Endpoints/Clients /Client Attendance Log",
+      "Client Attendance Log"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Paginated list of attendance entries.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The attendance entries on this page.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "client_id": {
+                        "type": "integer"
+                      },
+                      "added_by": {
+                        "type": "integer"
+                      },
+                      "time": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    }
+                  }
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks view permission, or the Client Attendance feature is not enabled.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__client_attendance_log_list",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

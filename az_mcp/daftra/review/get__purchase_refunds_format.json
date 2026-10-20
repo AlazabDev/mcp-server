@@ -1,0 +1,241 @@
+{
+  "path": "/purchase_refunds{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Purchase Refunds",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of purchase refunds (purchase debit notes), most recent first. Supports free-text search and filtering by supplier, payment status, refund number, currency, date range, total range, line item, work order, and the staff member who created the refund.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Refunds",
+      "Purchase Refunds"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The collection items page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "keywords",
+        "in": "query",
+        "description": "Free-text search across supplier business name, supplier first/last name, supplier email, supplier number, and the refund number.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "supplier_id",
+        "in": "query",
+        "description": "Filter by supplier id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "payment_status",
+        "in": "query",
+        "description": "Filter by payment status. Omit to return all non-draft refunds.\n\n| Value | Meaning |\n|---|---|\n| -1 | Draft refunds only |\n| 0 | Unpaid |\n| 1 | Partially paid |\n| 2 | Paid |\n| 3 | Refunded |\n| 4 | Over-paid |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "no",
+        "in": "query",
+        "description": "Filter by the refund number.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "currency_code",
+        "in": "query",
+        "description": "Filter by currency code (e.g. `USD`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Filter by refund date, inclusive lower bound. Uses the account date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Filter by refund date, inclusive upper bound. Uses the account date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary_total_from",
+        "in": "query",
+        "description": "Filter by total amount, lower bound.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "summary_total_to",
+        "in": "query",
+        "description": "Filter by total amount, upper bound.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "item",
+        "in": "query",
+        "description": "Return only refunds that contain a line item matching this text (searches the item name, description, and the additional item columns).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "work_order_id",
+        "in": "query",
+        "description": "Filter by the linked work order id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "staff_id",
+        "in": "query",
+        "description": "Filter by the staff member who created the refund. Available when the Staff plugin is active and the caller can view all purchase orders.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "PurchaseRefund": {
+                        "allOf": [
+                          {}
+                        ]
+                      }
+                    }
+                  }
+                },
+                "pagination": {}
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__purchase_refunds_format"
+  },
+  "blockers": []
+}

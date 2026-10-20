@@ -1,0 +1,293 @@
+{
+  "path": "/purchase_debit_note",
+  "method": "post",
+  "operation": {
+    "summary": "Purchase Debit Note",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a purchase debit note. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. It requires the **Inventory** plugin to be active.\n\nA purchase debit note shares storage with purchase orders and is identified by its document type, so **`type` must be `14`** — sending a different type (or omitting it) fails with a `400` (`\"error\": \"Record Not Found\"`) because the entity can only be resolved for type `14`.\n\n### Request body\n\nThe body is a flat JSON object. The account layer enforces exactly three required fields — omitting any of them returns `422`:\n\n| Field | Requirement |\n|---|---|\n| `supplier_business_name` | Required, non-empty. |\n| `draft` | Required. `1` = save as draft, `0` = finalized. |\n| `summary_total.currency` | Required, non-empty (the currency of the totals object). |\n\nIn addition, `type` must be `14` for the record to save (enforced below the validation layer with a `400`).\n\nAll other fields are optional. `no` (the debit-note number) is generated automatically when omitted. `currency_code` and `supplier_id` are optional. Server-managed fields (`id`, `created`, `modified`, `branch_id`, `site_id`, `staff_id`, payment/summary totals) are assigned by the server.\n\n### Line items\n\nLine items are sent under the **`purchase_debit_notes_items`** array (each entry becomes a purchase-order-item row). Each item takes `product_id`, `item` (name), `description`, `unit_price`, `quantity`, `discount`, `discount_type`, `tax1`, `tax2`, and optional `col_3`..`col_5` extra columns.\n\n### Statuses\n\n`requisition_delivery_status`:\n\n| Value | Meaning |\n|---|---|\n| 1 | Received |\n| 2 | Rejected |\n| 3 | Pending |\n| 4 | Partially Received |\n| 5 | Partially Rejected |\n\nOn success the response is `{ \"message\": \"...\", \"id\": <new id> }`; the message is localized to the caller's language.",
+    "tags": [
+      "Endpoints/Purchases/Purchase Debit Note"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "supplier_business_name": {
+                "type": "string",
+                "description": "Required, non-empty. Supplier business name."
+              },
+              "draft": {
+                "type": "integer",
+                "description": "Required. Whether to save the document as a draft.\n\n| Value | Meaning |\n|---|---|\n| 1 | Draft |\n| 0 | Finalized |",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "type": {
+                "type": "integer",
+                "description": "Required. Document type. Must be `14` (purchase debit note); any other value returns a `400` (`Record Not Found`)."
+              },
+              "summary_total": {
+                "type": "object",
+                "description": "Totals object. Its `currency` is required.",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "description": "Required, non-empty. Currency code of the totals (e.g. `EGP`)."
+                  }
+                },
+                "required": [
+                  "currency"
+                ]
+              },
+              "supplier_id": {
+                "type": "integer",
+                "description": "Optional. Id of the supplier."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Optional. Currency code of the document (e.g. `EGP`)."
+              },
+              "date": {
+                "type": "string",
+                "description": "Optional. Document date (`YYYY-MM-DD`)."
+              },
+              "no": {
+                "type": "string",
+                "description": "Optional. Debit-note number. Generated automatically when omitted."
+              },
+              "staff_id": {
+                "type": "integer",
+                "description": "Optional. Id of the staff member. Defaults to the authenticated user."
+              },
+              "store_id": {
+                "type": "integer",
+                "description": "Optional. Id of the store."
+              },
+              "work_order_id": {
+                "type": "integer",
+                "description": "Optional. Id of a linked work order."
+              },
+              "requisition_delivery_status": {
+                "type": "integer",
+                "description": "Optional. Requisition delivery status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Received |\n| 2 | Rejected |\n| 3 | Pending |\n| 4 | Partially Received |\n| 5 | Partially Rejected |",
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              },
+              "follow_up_status": {
+                "type": "integer",
+                "description": "Optional. Follow-up status."
+              },
+              "tags": {
+                "type": "array",
+                "description": "Optional. Tags to assign to the document.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchase_debit_notes_items": {
+                "type": "array",
+                "description": "Line items. Each entry is persisted as a purchase-order-item row.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Id of the product."
+                    },
+                    "item": {
+                      "type": "string",
+                      "description": "Item name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Item description."
+                    },
+                    "unit_price": {
+                      "type": "number",
+                      "description": "Unit price."
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "Quantity."
+                    },
+                    "discount": {
+                      "type": "number",
+                      "description": "Discount amount or percentage (see `discount_type`)."
+                    },
+                    "discount_type": {
+                      "type": "integer",
+                      "description": "Discount type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Percentage |\n| 2 | Fixed amount |",
+                      "enum": [
+                        1,
+                        2
+                      ]
+                    },
+                    "tax1": {
+                      "type": "integer",
+                      "description": "Id of the first tax applied to the item, or null.",
+                      "nullable": true
+                    },
+                    "tax2": {
+                      "type": "integer",
+                      "description": "Id of the second tax applied to the item, or null.",
+                      "nullable": true
+                    },
+                    "col_3": {
+                      "type": "string",
+                      "description": "Optional extra column value."
+                    },
+                    "col_4": {
+                      "type": "string",
+                      "description": "Optional extra column value."
+                    },
+                    "col_5": {
+                      "type": "string",
+                      "description": "Optional extra column value."
+                    }
+                  },
+                  "required": [
+                    "product_id",
+                    "unit_price",
+                    "quantity"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "supplier_business_name",
+              "draft",
+              "type",
+              "summary_total"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The purchase debit note was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created purchase debit note."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The record passed validation but could not be saved — most commonly because `type` was missing or not `14` (`\"error\": \"Record Not Found\"`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "description": "Error detail (an object for database-level failures, or an empty array for other save failures)."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Reason the record could not be saved. `Record Not Found` is returned when `type` is missing or not `14`."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "422": {
+        "description": "A required field failed validation. `errors` maps each failing field (`supplier_business_name`, `draft`, `summary_total.currency`) to its messages.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Map of field name to an array of error messages. Returned when `supplier_business_name`, `draft`, or `summary_total.currency` is missing or empty.",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__purchase_debit_note",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

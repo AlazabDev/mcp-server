@@ -1,0 +1,8 @@
+{
+  "path": "/purchase_invoices{format}",
+  "complete": true,
+  "pages": 1,
+  "unique_records": 62,
+  "error": null,
+  "evidence": "evidence/collections_full/purchase_invoices_format_d3cbc1a0"
+}

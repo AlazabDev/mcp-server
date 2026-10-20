@@ -1,0 +1,8 @@
+{
+  "resource": "clients",
+  "method": "GET",
+  "record_id": 48,
+  "url": "https://alazab-co.daftra.com/api2/clients/48.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:50.606298+00:00"
+}

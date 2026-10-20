@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/invoices{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1979,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:17:21.336903+00:00"
+}

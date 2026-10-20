@@ -1,0 +1,181 @@
+{
+  "path": "/v2/api/entity/{entityKey}/list/{dataLevel}",
+  "method": "get",
+  "operation": {
+    "summary": "List entity records",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. List records of any entity, addressed by its `entityKey` (e.g. `client`, `product`, `cost_center`, `work_order`).\n\nThis is a generic, metadata-driven endpoint: the columns of each returned record are defined per entity, so the field set differs by `entityKey`. Use the entity schema/fields endpoints to discover an entity's fields.\n\n**Authentication & authorization.** Requires an OAuth2 Bearer token. The caller must hold the entity's **view** permission; otherwise the request is rejected with `401`.\n\n**Response modes.** The `mode` query parameter selects the response shape (default `api`, a paginated list):\n\n| Value | Meaning |\n|---|---|\n| api | Paginated list (default). |\n| paginate | Paginated list. |\n| listing | Lightweight id/label list, for dropdowns. |\n| count | Returns only `{ \"total\": <n> }`. |\n| export | Export-oriented payload. |\n| nav | Navigation (prev/next) payload. |\n\n**Filtering.** Pass nested filters as `filter[<field>][<operator>]=<value>` (operators include `equal`, `like`); group alternatives under `filter[or][<field>][<operator>]=<value>`.\n\n**Field selection.** Pass `fields[]=<column>` (repeatable) to limit the columns returned.",
+    "tags": [
+      "Endpoints/Entities",
+      "Entities"
+    ],
+    "parameters": [
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key whose records to list, e.g. `client`, `product`, `cost_center`, `work_order`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "dataLevel",
+        "in": "path",
+        "description": "Depth of related/nested data to load (higher loads more relations). Optional; defaults to `2` when omitted.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "mode",
+        "in": "query",
+        "description": "Response shape. Defaults to `api` (paginated). One of `api`, `paginate`, `listing`, `count`, `export`, `nav`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "fields[]",
+        "in": "query",
+        "description": "Repeatable. Restrict the returned columns to the listed fields.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[<field>][<operator>]",
+        "in": "query",
+        "description": "Nested filter, e.g. `filter[business_name][like]=acme`. Operators include `equal` and `like`. Use `filter[or][...]` for OR groups.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Records per page for paginated modes.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number for paginated modes.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Sort field and direction; persisted as the caller's sorting preference for this entity.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "version",
+        "in": "query",
+        "description": "When set to `2`, each row is post-formatted for display (honours `image_size`).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Success. In the default `api`/`paginate` modes a paginated envelope is returned; `count` mode returns `{ \"total\": <n> }`. Each record's own columns are at the top level and related data is nested under the relation name (fields are entity-specific).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The page of records. Each item's fields depend on the entity.",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                },
+                "from": {
+                  "type": "integer"
+                },
+                "to": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "path": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The entity key is unknown, the entity's plugin is not active, or the list could not be built.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The caller does not hold the entity's view permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_entity_entityKey_list_dataLevel"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

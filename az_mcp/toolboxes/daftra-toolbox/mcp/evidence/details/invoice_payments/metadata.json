@@ -1,0 +1,8 @@
+{
+  "resource": "invoice_payments",
+  "method": "GET",
+  "record_id": 287,
+  "url": "https://alazab-co.daftra.com/api2/invoice_payments/287.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:55:00.061653+00:00"
+}

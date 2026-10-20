@@ -1,0 +1,169 @@
+{
+  "path": "/product_categories{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Product Category",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new product category.\n\nSend the category fields wrapped in a `Category` object. For a product category set `category_type` to `1`. No field is strictly required by the server. On success the submitted category is echoed back together with its new `id`.\n\nNote: the response body reports `code: 202`, but the HTTP status is `200`.",
+    "tags": [
+      "Endpoints/Inventory /Product Categories",
+      "Product Categories"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Category": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Category name."
+                  },
+                  "category_type": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Category type. Use `1` for a product category.\n\n| Value | Meaning |\n|---|---|\n| 1 | Products' Category |\n| 2 | POS Shifts |\n| 3 | POS Devices |"
+                  },
+                  "parent_id": {
+                    "type": "integer",
+                    "description": "Parent category ID. Use `0` (or omit) for a top-level category."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Category description."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Image file name for the category."
+                  },
+                  "display_order": {
+                    "type": "integer",
+                    "description": "Display order. Defaults to `0` when omitted."
+                  },
+                  "attachments": {
+                    "type": "string",
+                    "description": "Attachment reference(s) for the category image (uploaded file token)."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Category created (the response body reports code 202; HTTP status is 200).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer",
+                  "description": "Reported in the body; the actual HTTP status is 200."
+                },
+                "Category": {
+                  "type": "object",
+                  "description": "The submitted category data, with the new `id` added.",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the newly created category."
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category_type": {
+                      "type": "integer"
+                    },
+                    "parent_id": {
+                      "type": "integer"
+                    },
+                    "display_order": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Returned when the category could not be created (the save did not complete).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__product_categories_format"
+  },
+  "blockers": []
+}

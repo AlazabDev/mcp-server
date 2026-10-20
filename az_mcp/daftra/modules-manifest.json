@@ -1,0 +1,707 @@
+[
+  {
+    "name": "Authorization",
+    "slug": "authorization",
+    "operationCount": 1,
+    "methods": {
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Site",
+    "slug": "endpoints-site",
+    "operationCount": 1,
+    "methods": {
+      "GET": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Invoices",
+    "slug": "endpoints-sales-invoices",
+    "operationCount": 11,
+    "methods": {
+      "GET": 3,
+      "POST": 5,
+      "PUT": 1,
+      "DELETE": 2
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Subsciptions",
+    "slug": "endpoints-sales-subsciptions",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Estimates",
+    "slug": "endpoints-sales-estimates",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Credit Notes",
+    "slug": "endpoints-sales-credit-notes",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Refund Receipts",
+    "slug": "endpoints-sales-refund-receipts",
+    "operationCount": 6,
+    "methods": {
+      "GET": 2,
+      "POST": 2,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Invoice Payments",
+    "slug": "endpoints-sales-invoice-payments",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Follow-Up Status",
+    "slug": "endpoints-sales-follow-up-status",
+    "operationCount": 4,
+    "methods": {
+      "GET": 3,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Follow-Up Statuses",
+    "slug": "endpoints-follow-up-statuses",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Invoice Appointments",
+    "slug": "endpoints-sales-invoice-appointments",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Estimate Appointments",
+    "slug": "endpoints-sales-estimate-appointments",
+    "operationCount": 6,
+    "methods": {
+      "GET": 2,
+      "POST": 2,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Advance Payment Invoices",
+    "slug": "endpoints-sales-advance-payment-invoices",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /Shipping Options",
+    "slug": "endpoints-sales-shipping-options",
+    "operationCount": 1,
+    "methods": {
+      "GET": 1
+    }
+  },
+  {
+    "name": "Endpoints/Sales /POS",
+    "slug": "endpoints-sales-pos",
+    "operationCount": 1,
+    "methods": {
+      "GET": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Clients",
+    "slug": "endpoints-clients-clients",
+    "operationCount": 10,
+    "methods": {
+      "GET": 5,
+      "POST": 3,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Client Appointments",
+    "slug": "endpoints-clients-client-appointments",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Client Payments",
+    "slug": "endpoints-clients-client-payments",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Client Attendance Log",
+    "slug": "endpoints-clients-client-attendance-log",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Follow-Up Action",
+    "slug": "endpoints-clients-follow-up-action",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Clients /Notes",
+    "slug": "endpoints-clients-notes",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Bookings/Booking (Beta version)",
+    "slug": "endpoints-bookings-booking-beta-version",
+    "operationCount": 5,
+    "methods": {
+      "GET": 3,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Bookings/Booking (Classic version)",
+    "slug": "endpoints-bookings-booking-classic-version",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Work Orders/Work Orders",
+    "slug": "endpoints-work-orders-work-orders",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Work Orders/Work Order Appointments",
+    "slug": "endpoints-work-orders-work-order-appointments",
+    "operationCount": 6,
+    "methods": {
+      "GET": 2,
+      "POST": 2,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Product Bundles",
+    "slug": "endpoints-inventory-product-bundles",
+    "operationCount": 1,
+    "methods": {
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Products",
+    "slug": "endpoints-inventory-products",
+    "operationCount": 6,
+    "methods": {
+      "GET": 3,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Requsitions",
+    "slug": "endpoints-inventory-requsitions",
+    "operationCount": 6,
+    "methods": {
+      "GET": 3,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Product Categories",
+    "slug": "endpoints-inventory-product-categories",
+    "operationCount": 7,
+    "methods": {
+      "GET": 2,
+      "POST": 3,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Stores",
+    "slug": "endpoints-inventory-stores",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Brands",
+    "slug": "endpoints-inventory-brands",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Unit Templates",
+    "slug": "endpoints-inventory-unit-templates",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/Inventory /Stock Transactions",
+    "slug": "endpoints-inventory-stock-transactions",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Accounting/Journals",
+    "slug": "endpoints-accounting-journals",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Accounting/Journal Accounts",
+    "slug": "endpoints-accounting-journal-accounts",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Accounting/Journal Cats",
+    "slug": "endpoints-accounting-journal-cats",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Accounting/Cost Centers",
+    "slug": "endpoints-accounting-cost-centers",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Finance/Incomes",
+    "slug": "endpoints-finance-incomes",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Finance/Treasuries",
+    "slug": "endpoints-finance-treasuries",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Finance/Expenses",
+    "slug": "endpoints-finance-expenses",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Leave Application ",
+    "slug": "endpoints-hr-leave-application",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Attendance Logs",
+    "slug": "endpoints-hr-attendance-logs",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Employee Asset/Asset Type",
+    "slug": "endpoints-hr-employee-asset-asset-type",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Employee Asset/Asset Location",
+    "slug": "endpoints-hr-employee-asset-asset-location",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Employee Asset/Asset Storage",
+    "slug": "endpoints-hr-employee-asset-asset-storage",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Employee Asset/Asset",
+    "slug": "endpoints-hr-employee-asset-asset",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Organizational Structure/Designation",
+    "slug": "endpoints-hr-organizational-structure-designation",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Organizational Structure/Department",
+    "slug": "endpoints-hr-organizational-structure-department",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/HR/Organizational Structure/Employment Type",
+    "slug": "endpoints-hr-organizational-structure-employment-type",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/Branches ",
+    "slug": "endpoints-branches",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Taxes",
+    "slug": "endpoints-taxes",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Purchases/Purchase Debit Note",
+    "slug": "endpoints-purchases-purchase-debit-note",
+    "operationCount": 2,
+    "methods": {
+      "GET": 1,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Purchases/Purchase Refunds",
+    "slug": "endpoints-purchases-purchase-refunds",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Purchases/Purchase Invoices",
+    "slug": "endpoints-purchases-purchase-invoices",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/Purchases/Purchase Orders",
+    "slug": "endpoints-purchases-purchase-orders",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/General Listing",
+    "slug": "endpoints-general-listing",
+    "operationCount": 1,
+    "methods": {
+      "GET": 1
+    }
+  },
+  {
+    "name": "Endpoints/Payment Gateways",
+    "slug": "endpoints-payment-gateways",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Points & Credits/Packages Credit Types",
+    "slug": "endpoints-points-credits-packages-credit-types",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Points & Credits/Credit Charges",
+    "slug": "endpoints-points-credits-credit-charges",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Points & Credits/Credit Usage",
+    "slug": "endpoints-points-credits-credit-usage",
+    "operationCount": 6,
+    "methods": {
+      "GET": 4,
+      "POST": 2
+    }
+  },
+  {
+    "name": "Endpoints/Points & Credits/Credit Types",
+    "slug": "endpoints-points-credits-credit-types",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Points & Credits/Packages",
+    "slug": "endpoints-points-credits-packages",
+    "operationCount": 3,
+    "methods": {
+      "GET": 2,
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Workflow",
+    "slug": "endpoints-workflow",
+    "operationCount": 4,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1
+    }
+  },
+  {
+    "name": "Endpoints/Multity entity request",
+    "slug": "endpoints-multity-entity-request",
+    "operationCount": 1,
+    "methods": {
+      "POST": 1
+    }
+  },
+  {
+    "name": "Endpoints/Suppliers",
+    "slug": "endpoints-suppliers",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Staff",
+    "slug": "endpoints-staff",
+    "operationCount": 5,
+    "methods": {
+      "GET": 3,
+      "POST": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Time Tracking",
+    "slug": "endpoints-time-tracking",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Endpoints/Entities",
+    "slug": "endpoints-entities",
+    "operationCount": 5,
+    "methods": {
+      "GET": 2,
+      "POST": 1,
+      "PUT": 1,
+      "DELETE": 1
+    }
+  },
+  {
+    "name": "Advanced Filtering/Using API v2",
+    "slug": "advanced-filtering-using-api-v2",
+    "operationCount": 1,
+    "methods": {
+      "GET": 1
+    }
+  },
+  {
+    "name": "Developers Portal/Developers Portal Endpoints",
+    "slug": "developers-portal-developers-portal-endpoints",
+    "operationCount": 3,
+    "methods": {
+      "GET": 3
+    }
+  }
+]

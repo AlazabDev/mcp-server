@@ -1,0 +1,512 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.description": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.unit_price": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.default_quantity": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.tax1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.tax2": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.purchasing_tax1": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.purchasing_tax2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.supplier_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.brand": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.brand_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.category": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.tags": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.buy_price": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.product_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.supplier_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.track_stock": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.tracking_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.stock_balance": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.low_stock_thershold": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.barcode": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.notes": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.deactivate": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.follow_up_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.updated_price": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.average_price": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.type": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.raw_store_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.class": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.minimum_price": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.profit_margin": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.discount": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.discout_type": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.duration_minutes": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.availabe_online": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Product.source_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.source_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.is_featured": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.bundle_type": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.item_group_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.display_order": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.product_store_balance": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.bundle_final_cost": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].Product.productPendingQTY": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Product.productAvailableQTY": {
+    "observed_types": [
+      "array",
+      "object"
+    ]
+  },
+  "data[].Product.ProductImage": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Product.ProductCategory": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Product.ProductCategory[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product.ProductCategory[].id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].description": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.ProductCategory[].category_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].parent_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.ProductCategory[].created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].image": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Product.ProductCategory[].mac_address": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Product.ProductCategory[].branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductCategory[].status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductStock": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Product.ProductMasterImage": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product.ProductMasterImage.file_full_path": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Product.ProductImageS3[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product.ProductImageS3[].id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].product_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].default": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].file": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductImageS3[].file_full_path": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.productAvailableQTY.1": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data[].Product.ProductStock[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Product.ProductStock[].id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductStock[].product_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductStock[].store_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductStock[].balance": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Product.ProductStock[].branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

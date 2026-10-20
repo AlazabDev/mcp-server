@@ -1,0 +1,155 @@
+{
+  "path": "/credit_usage",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Credit Usage",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing credit usage. This posts to the same `/v2/api/entity/credit_usage` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new record is created instead.\n\n**Important — this is a partial overwrite, not a full merge.** The update always rewrites the foreign-key columns `client_id` and `credit_type_id` and sets either of them **that you omit to null**. Because both are non-nullable, omitting one fails with a `400`. **Always resend `client_id` and `credit_type_id` on every update.** The other fields (`usage_date`, `description`) are preserved if omitted.\n\n`usage_date` accepts `YYYY-MM-DD` or `DD/MM/YYYY`. On success the response is `{ \"message\": <localized text>, \"id\": <id> }`.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Usage"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the credit usage to update. Required — omitting it creates a new record instead."
+              },
+              "client_id": {
+                "type": "integer",
+                "description": "Id of the client. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+              },
+              "credit_type_id": {
+                "type": "integer",
+                "description": "Id of the credit type. Part of the core overwrite set — resend it or it is set to null (→ 400, non-nullable)."
+              },
+              "usage_date": {
+                "type": "string",
+                "description": "Date the credit was used. Optional; preserved if omitted. Accepts `YYYY-MM-DD` or `DD/MM/YYYY`."
+              },
+              "description": {
+                "type": "string",
+                "description": "Free-text note. Optional; preserved if omitted."
+              }
+            },
+            "required": [
+              "id",
+              "client_id",
+              "credit_type_id"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The record was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the updated credit usage."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update could not be saved — most commonly because a core foreign key (`client_id` or `credit_type_id`) was omitted and nulled a non-nullable column.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable failure reason (e.g. a core-set foreign key was omitted and nulled a non-nullable column)."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to manage credit usage.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__credit_usage",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

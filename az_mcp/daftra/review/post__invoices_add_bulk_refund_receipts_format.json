@@ -1,0 +1,229 @@
+{
+  "path": "/invoices/add_bulk_refund_receipts{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Bulk Add Refund Receipts",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates multiple refund receipts in a single request. The request body is a **JSON array**; each element has the same shape as the body of **Add New Refund Receipt** (an object with an `Invoice` member — `RefundReceipt` is also accepted — plus optional `InvoiceItem`, `Payment`, etc.).\n\nEach element must set `Invoice.subscription_id` to the **source invoice being refunded** (despite the name, this is not a subscription). That source invoice must be an issued (non-draft) standard invoice.\n\nRefund receipts are created **one by one and the operation is not atomic** — if one element fails the others are still created. The response is a **JSON array** with one result object per submitted element, in request order:\n\n| Outcome | Item fields |\n|---|---|\n| Success | `result` = `successful`, `code` = `202`, `id`, `invoice_number` |\n| Failure | `message`, `validation_errors` (and sometimes `error_type` / `extra_data`) |\n\nThe overall response is `200` regardless of individual outcomes, so you must inspect each element. Per-element field and defaulting behaviour is identical to **Add New Refund Receipt** — see that endpoint for the full field reference.",
+    "tags": [
+      "Endpoints/Sales /Refund Receipts",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "array",
+            "description": "Array of refund receipts to create. Each element has the same shape as the body of Add New Refund Receipt (an object with an `Invoice` member plus optional `InvoiceItem`, `Payment`, etc.).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Invoice": {
+                  "type": "object",
+                  "description": "Refund receipt header. The `RefundReceipt` key is also accepted and treated as `Invoice`.",
+                  "properties": {
+                    "subscription_id": {
+                      "type": "integer",
+                      "description": "**Required.** The ID of the source invoice being refunded (despite the field name, this is not a subscription). The source invoice must be an issued (non-draft) standard invoice. An element with no `subscription_id` fails with `Invoice not found`."
+                    },
+                    "date": {
+                      "type": "string",
+                      "description": "Refund receipt date (YYYY-MM-DD). Must fall within an open financial period.",
+                      "format": "date"
+                    },
+                    "currency_code": {
+                      "type": "string",
+                      "description": "Currency code (for example, `USD`). Optional — defaults to the account currency."
+                    }
+                  },
+                  "required": [
+                    "subscription_id"
+                  ]
+                },
+                "InvoiceItem": {
+                  "type": "array",
+                  "description": "Line items being refunded. Same shape as Add New Refund Receipt / Add New Invoice line items.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "string"
+                      },
+                      "unit_price": {
+                        "type": "number"
+                      },
+                      "quantity": {
+                        "type": "number"
+                      },
+                      "product_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "Payment": {
+                  "type": "array",
+                  "description": "Optional refund payments.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "payment_method": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "Invoice"
+              ]
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "All elements processed. Each array element is either a success object (`result`/`code`/`id`/`invoice_number`) or an error object (`message`/`validation_errors`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "description": "One result object per submitted element, in request order. A 200 does not guarantee every refund receipt was created — inspect each element. Successful items carry the created refund receipt id/number; failed items carry an error result.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "Present on successful items."
+                  },
+                  "code": {
+                    "type": "integer",
+                    "description": "Present on successful items."
+                  },
+                  "id": {
+                    "type": "integer",
+                    "description": "The new refund receipt id (successful items)."
+                  },
+                  "invoice_number": {
+                    "type": "string",
+                    "description": "The generated refund receipt number (successful items)."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Error summary (failed items)."
+                  },
+                  "validation_errors": {
+                    "type": "array",
+                    "description": "Field-level or general error messages (failed items).",
+                    "items": {}
+                  },
+                  "error_type": {
+                    "type": "string",
+                    "description": "Error category, when set (failed items)."
+                  },
+                  "extra_data": {
+                    "type": "array",
+                    "description": "Additional error context, when set (failed items).",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "You do not have permission to create refund receipts. Note: a permission failure (or a draft source invoice) on any single element can abort the whole batch with this status rather than failing only that element.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__invoices_add_bulk_refund_receipts_format"
+  },
+  "blockers": []
+}

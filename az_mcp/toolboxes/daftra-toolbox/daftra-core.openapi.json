@@ -1,0 +1,666 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Default module — Core / Auth / Site",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Authorization"
+    },
+    {
+      "name": "Endpoints/Site"
+    },
+    {
+      "name": "Site"
+    }
+  ],
+  "components": {
+    "schemas": {},
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            },
+            "examples": {
+              "Example 1": {
+                "summary": "Example 1",
+                "value": {
+                  "message": "Unauthenticated."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            },
+            "examples": {
+              "Example 1": {
+                "summary": "Example 1",
+                "value": {
+                  "message": "Record not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{{subdomain}}.daftara.com/api2",
+      "description": "Production"
+    },
+    {
+      "url": "",
+      "description": "Cloud Mock"
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/v2/oauth/token": {
+      "post": {
+        "summary": "Generate Access Token",
+        "deprecated": false,
+        "description": "Issues an OAuth 2.0 access token for the Daftra API. The returned token is bound to the account (tenant) identified by the request subdomain.\n\nThe primary flow is the **password grant**: submit the account owner's email (or a staff member's email) as `username` together with their `password`, plus the API application's `client_id` and `client_secret`. Both account owners and staff users can authenticate through this endpoint.\n\nOn success you receive a long-lived `Bearer` access token and a `refresh_token`. Send the access token in the `Authorization: Bearer <access_token>` header on subsequent API calls.\n\nThis endpoint is public and does not itself require authentication. Request bodies may be sent as `multipart/form-data` or `application/x-www-form-urlencoded`.",
+        "tags": [
+          "Authorization"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "example": "application/json",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "You can generate the bearer token using the the authorization endpoint then use it here to be able to operate over your account's data",
+            "example": "Bearer {{access_token}}",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grant_type": {
+                    "description": "The OAuth 2.0 grant type. Use `password` for interactive email/password login.\n\n| Value | Meaning |\n|---|---|\n| password | Authenticate with `username` + `password` (account owner or staff email). |\n| refresh_token | Exchange a `refresh_token` for a new access token. |\n| client_credentials | Machine-to-machine token for the application itself. |\n| authorization_code | Authorization-code (redirect-based) flow. |",
+                    "example": "password",
+                    "type": "string"
+                  },
+                  "client_id": {
+                    "description": "The API application's client identifier.",
+                    "example": "1",
+                    "type": "string"
+                  },
+                  "client_secret": {
+                    "description": "The API application's client secret.",
+                    "example": "jCfy6cMh1X6NTxR3OWLuvEFa0si5uZKr05UeoAEs",
+                    "type": "string"
+                  },
+                  "username": {
+                    "description": "The account owner's email or a staff member's email. Case-insensitive. Required for the `password` grant.",
+                    "example": "owner@example.com",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "The account owner or staff member's password. Required for the `password` grant.",
+                    "example": "{{password}}",
+                    "type": "string"
+                  },
+                  "scope": {
+                    "description": "Optional. Space-separated list of scopes to request. Defaults to the application's default scope when omitted.",
+                    "example": "",
+                    "type": "string"
+                  },
+                  "refresh_token": {
+                    "description": "The refresh token to exchange for a new access token. Required only when `grant_type` is `refresh_token`.",
+                    "example": "",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "grant_type",
+                  "client_id",
+                  "client_secret",
+                  "username",
+                  "password"
+                ]
+              },
+              "example": {
+                "grant_type": "password",
+                "client_id": "1",
+                "client_secret": "jCfy6cMh1X6NTxR3OWLuvEFa0si5uZKr05UeoAEs",
+                "username": "owner@example.com",
+                "password": "{{password}}",
+                "scope": "",
+                "refresh_token": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Access token issued successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token_type": {
+                      "type": "string",
+                      "description": "The token type. Always `Bearer`.",
+                      "example": "Bearer"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Number of seconds until the access token expires.",
+                      "example": 94608000
+                    },
+                    "access_token": {
+                      "type": "string",
+                      "description": "The signed JWT access token. Send it as `Authorization: Bearer <access_token>` on subsequent requests."
+                    },
+                    "refresh_token": {
+                      "type": "string",
+                      "description": "Token used to obtain a new access token via the `refresh_token` grant."
+                    }
+                  },
+                  "required": [
+                    "token_type",
+                    "expires_in",
+                    "access_token",
+                    "refresh_token"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid or missing request parameters, or failed user credentials (password grant).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Machine-readable error code.\n\n| `error` | Meaning |\n|---|---|\n| invalid_request | A required parameter (such as `username` or `password`) is missing or malformed. |\n| invalid_grant | The supplied user credentials are incorrect. |\n| invalid_scope | The requested scope is invalid or unknown. |\n| unsupported_grant_type | The `grant_type` is not supported. |",
+                      "example": "invalid_grant"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "description": "Human-readable description of the error.",
+                      "example": "The user credentials were incorrect."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Same text as `error_description`.",
+                      "example": "The user credentials were incorrect."
+                    },
+                    "hint": {
+                      "type": "string",
+                      "description": "Optional additional hint about the error."
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "error_description",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The client credentials are invalid, or the account is not permitted to sign in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Machine-readable error code.\n\n| `error` | Meaning |\n|---|---|\n| invalid_client | The `client_id` or `client_secret` is invalid. |\n| inactive_user | The staff user account has been deactivated. |\n| inactive_employee | The employee account has been deactivated. |\n| user_cannot_access_system | The user is not allowed to access the system. |",
+                      "example": "invalid_client"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "description": "Human-readable description of the error.",
+                      "example": "Client authentication failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Same text as `error_description`.",
+                      "example": "Client authentication failed"
+                    },
+                    "hint": {
+                      "type": "string",
+                      "description": "Optional additional hint about the error."
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "error_description",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/site_info{format}": {
+      "get": {
+        "summary": "GET Site Info",
+        "deprecated": false,
+        "description": "Returns information about the current site (account) and the authenticated principal: the business/owner profile, localization (currency, number and date formats), subscription status, and a few plugin/context flags. The payload is wrapped in a `Site` object under `data`.\n\nSome fields are conditional:\n- `is_super_admin` and `staff` are returned only when the request is authenticated as a staff member (`staff_id` > 0); `staff` is that staff member's record with the password removed.\n- `expensesIsMandatoryEnabled` is returned only when the request sends the header `x-app-name: EXP`.\n\nAuthenticate with an `apikey` header or a Bearer access token.",
+        "tags": [
+          "Endpoints/Site",
+          "Site"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "example": "application/json",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "You can generate the bearer token using the the authorization endpoint then use it here to be able to operate over your account's data",
+            "example": "Bearer {{access_token}}",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            }
+          },
+          {
+            "name": "apikey",
+            "in": "header",
+            "description": "You can find/generate your apikey(s) from inside your Daftra Account",
+            "example": "{{apikey}}",
+            "schema": {
+              "type": "string",
+              "deprecated": true,
+              "default": "{{apikey}}"
+            },
+            "deprecated": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "example": "successful"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Site": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Current site (account) id.",
+                              "example": "3418499"
+                            },
+                            "business_name": {
+                              "type": "string",
+                              "description": "Business name of the owner."
+                            },
+                            "first_name": {
+                              "type": "string",
+                              "description": "Owner's first name."
+                            },
+                            "last_name": {
+                              "type": "string",
+                              "description": "Owner's last name."
+                            },
+                            "subdomain": {
+                              "type": "string",
+                              "description": "Site subdomain / host."
+                            },
+                            "site_logo": {
+                              "type": "string",
+                              "description": "Default site logo URL (empty when none).",
+                              "nullable": true
+                            },
+                            "invoice_logo": {
+                              "type": "string",
+                              "description": "Default invoice logo URL (null when none).",
+                              "nullable": true
+                            },
+                            "address1": {
+                              "type": "string",
+                              "description": "Owner address line 1."
+                            },
+                            "address2": {
+                              "type": "string",
+                              "description": "Owner address line 2."
+                            },
+                            "city": {
+                              "type": "string",
+                              "description": "Owner city."
+                            },
+                            "state": {
+                              "type": "string",
+                              "description": "Owner state / province."
+                            },
+                            "postal_code": {
+                              "type": "string",
+                              "description": "Owner postal code."
+                            },
+                            "phone1": {
+                              "type": "string",
+                              "description": "Primary phone number."
+                            },
+                            "phone2": {
+                              "type": "string",
+                              "description": "Secondary phone number."
+                            },
+                            "country_code": {
+                              "type": "string",
+                              "description": "Country ISO ALPHA-2 code.",
+                              "example": "EG"
+                            },
+                            "bn1": {
+                              "type": "string",
+                              "description": "Primary business / tax registration number."
+                            },
+                            "bn2": {
+                              "type": "string",
+                              "description": "Secondary business / tax registration number."
+                            },
+                            "timezone": {
+                              "type": "string",
+                              "description": "Timezone id. Resolve the label from the general listing (model `Timezone`).",
+                              "example": "13"
+                            },
+                            "date_format": {
+                              "type": "string",
+                              "description": "The site's date format as a **Moment.js** format string (not an id).",
+                              "example": "DD/MM/YYYY"
+                            },
+                            "moment_format": {
+                              "type": "string",
+                              "description": "The site's date format as a Moment.js format string (same value as `date_format`).",
+                              "example": "DD/MM/YYYY"
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "description": "Default currency code (ISO 4217).",
+                              "example": "EGP"
+                            },
+                            "currencyFormat": {
+                              "type": "string",
+                              "description": "Default currency display format (`%s` is the amount placeholder).",
+                              "example": "%s ج.م"
+                            },
+                            "currencies": {
+                              "type": "object",
+                              "description": "Currency display formats per language.",
+                              "properties": {
+                                "currencies_ar": {
+                                  "type": "string",
+                                  "description": "Arabic currency format."
+                                },
+                                "currencies_en": {
+                                  "type": "string",
+                                  "description": "English currency format."
+                                }
+                              }
+                            },
+                            "numberFormat": {
+                              "type": "array",
+                              "description": "Default number format as `[decimals, decimal_point_symbol, thousands_separator_symbol]`.",
+                              "items": {},
+                              "example": [
+                                2,
+                                ".",
+                                ","
+                              ]
+                            },
+                            "language_code": {
+                              "type": "string",
+                              "description": "Default interface language id. Resolve the label from the general listing (model `languageCodes`).",
+                              "example": "7"
+                            },
+                            "email": {
+                              "type": "string",
+                              "description": "Owner email address.",
+                              "format": "email"
+                            },
+                            "expiry_date": {
+                              "type": "string",
+                              "description": "Subscription expiry date (`YYYY-MM-DD`).",
+                              "format": "date",
+                              "example": "2035-02-02"
+                            },
+                            "is_expired": {
+                              "type": "boolean",
+                              "description": "Whether the subscription has expired (past the expiry date plus any grace period)."
+                            },
+                            "package_id": {
+                              "type": "string",
+                              "description": "Subscription package id (null when none).",
+                              "nullable": true
+                            },
+                            "tolerant": {
+                              "type": "integer",
+                              "description": "Grace-period days allowed after the expiry date (null when none).",
+                              "nullable": true
+                            },
+                            "beta_version": {
+                              "type": "string",
+                              "description": "Whether the site runs on the beta stack.\n\n| Value | Meaning |\n|---|---|\n| 0 | Production stack |\n| 1 | Beta stack |",
+                              "example": "1"
+                            },
+                            "is_beta": {
+                              "type": "boolean",
+                              "description": "Boolean form of `beta_version`."
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "Absolute site URL.",
+                              "format": "uri",
+                              "example": "https://oidev.daftra.local"
+                            },
+                            "SITE_HASH": {
+                              "type": "string",
+                              "description": "Current site hash.",
+                              "example": "40312c8c"
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Id of the authenticated staff member. A **negative** value indicates the request is authenticated cross-domain via APIKEY / by a system principal (no specific staff).",
+                              "example": -3
+                            },
+                            "is_super_admin": {
+                              "type": "boolean",
+                              "description": "Whether the authenticated staff member is a super admin. Returned only when the request is authenticated as a staff member.",
+                              "nullable": true
+                            },
+                            "staff": {
+                              "type": "object",
+                              "additionalProperties": true,
+                              "description": "The authenticated staff member's record (with the password removed). Returned **only** when the principal is a staff member (`staff_id` > 0).",
+                              "properties": {}
+                            },
+                            "ALLOWED_LOYALTY_PLUGIN": {
+                              "type": "boolean",
+                              "description": "Whether the client-loyalty plugin is active for this site."
+                            }
+                          }
+                        },
+                        "expensesIsMandatoryEnabled": {
+                          "type": "boolean",
+                          "description": "Whether selecting an expense account is mandatory. Returned **only** when the request sends the header `x-app-name: EXP`."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "example": "failed"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "example": "failed"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  }
+}

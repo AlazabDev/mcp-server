@@ -1,0 +1,8 @@
+{
+  "resource": "work_orders",
+  "method": "GET",
+  "record_id": 19,
+  "url": "https://alazab-co.daftra.com/api2/work_orders/19.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:56.571494+00:00"
+}

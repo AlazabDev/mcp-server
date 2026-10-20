@@ -1,0 +1,406 @@
+{
+  "path": "/clients/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Client",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single client by ID, wrapped in a `Client` object.\n\nRequires a permission that grants access to the client (viewing all clients, or being the assigned staff member for it). Returns `404` if no client matches the given ID.",
+    "tags": [
+      "Endpoints/Clients /Clients",
+      "Clients"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Client": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Unique client identifier."
+                        },
+                        "client_number": {
+                          "type": "string",
+                          "description": "Human-facing client code / reference."
+                        },
+                        "site_id": {
+                          "type": "integer",
+                          "description": "Identifier of the account (site) the client belongs to."
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "default": 0,
+                          "description": "Staff member who owns/created the client. `0` means the account owner."
+                        },
+                        "is_offline": {
+                          "type": "boolean",
+                          "description": "Whether the client originates from offline (e.g. POS) rather than online sign-up. `0` / `1`."
+                        },
+                        "business_name": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Client's business (company) name."
+                        },
+                        "first_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Client's first name (individual clients)."
+                        },
+                        "last_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Client's last name (individual clients)."
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "maxLength": 255,
+                          "description": "Client's email address."
+                        },
+                        "type": {
+                          "type": "integer",
+                          "enum": [
+                            2,
+                            3
+                          ],
+                          "description": "Client type.\n\n| Value | Meaning |\n|---|---|\n| 2 | Individual |\n| 3 | Business |"
+                        },
+                        "address1": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Address line 1."
+                        },
+                        "address2": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Address line 2."
+                        },
+                        "city": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "City."
+                        },
+                        "state": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "State / province."
+                        },
+                        "postal_code": {
+                          "type": "string",
+                          "maxLength": 20,
+                          "description": "Postal code."
+                        },
+                        "phone1": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Primary phone number."
+                        },
+                        "phone2": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Secondary / mobile phone number."
+                        },
+                        "country_code": {
+                          "type": "string",
+                          "maxLength": 3,
+                          "description": "Country ISO ALPHA-2 code."
+                        },
+                        "national_id": {
+                          "type": "string",
+                          "description": "National ID number (shown when the National ID setting is enabled)."
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Free-text notes about the client."
+                        },
+                        "active_secondary_address": {
+                          "type": "boolean",
+                          "description": "Whether the secondary address block is active. `0` / `1`."
+                        },
+                        "secondary_name": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary contact name."
+                        },
+                        "secondary_address1": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary address line 1."
+                        },
+                        "secondary_address2": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Secondary address line 2."
+                        },
+                        "secondary_city": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Secondary city."
+                        },
+                        "secondary_state": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Secondary state / province."
+                        },
+                        "secondary_postal_code": {
+                          "type": "string",
+                          "maxLength": 50,
+                          "description": "Secondary postal code."
+                        },
+                        "secondary_country_code": {
+                          "type": "string",
+                          "maxLength": 10,
+                          "description": "Secondary country code."
+                        },
+                        "language_code": {
+                          "type": "integer",
+                          "description": "Client's preferred language, stored as an internal language ID."
+                        },
+                        "default_currency_code": {
+                          "type": "string",
+                          "maxLength": 5,
+                          "description": "Client's default currency code (e.g. `USD`)."
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Legacy free-text client category label."
+                        },
+                        "category_id": {
+                          "type": "integer",
+                          "description": "Identifier of the client category."
+                        },
+                        "group_price_id": {
+                          "type": "integer",
+                          "description": "Price group / list assigned to the client."
+                        },
+                        "follow_up_status": {
+                          "type": "integer",
+                          "description": "CRM follow-up status identifier."
+                        },
+                        "secondary_follow_up_status": {
+                          "type": "integer",
+                          "description": "Secondary CRM follow-up status identifier."
+                        },
+                        "starting_balance": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Opening balance carried for the client."
+                        },
+                        "credit_limit": {
+                          "type": "number",
+                          "format": "double",
+                          "default": 0,
+                          "description": "Maximum allowed outstanding balance."
+                        },
+                        "credit_period": {
+                          "type": "integer",
+                          "default": 0,
+                          "description": "Allowed credit period, in days."
+                        },
+                        "timezone": {
+                          "type": "integer",
+                          "default": 0,
+                          "description": "Client timezone identifier."
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "default": 1,
+                          "description": "Branch the client is scoped to."
+                        },
+                        "gender": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1,
+                            2
+                          ],
+                          "description": "Client gender.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not selected |\n| 1 | Male |\n| 2 | Female |"
+                        },
+                        "birth_date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Client's date of birth."
+                        },
+                        "photo": {
+                          "type": "string",
+                          "description": "Path to the client's photo."
+                        },
+                        "map_location": {
+                          "type": "string",
+                          "description": "Geographic map location."
+                        },
+                        "link": {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Client website / external link."
+                        },
+                        "bn1": {
+                          "type": "string",
+                          "description": "Custom business field 1 value."
+                        },
+                        "bn1_label": {
+                          "type": "string",
+                          "description": "Custom business field 1 label."
+                        },
+                        "bn2": {
+                          "type": "string",
+                          "description": "Custom business field 2 value."
+                        },
+                        "bn2_label": {
+                          "type": "string",
+                          "description": "Custom business field 2 label."
+                        },
+                        "suspend": {
+                          "type": "boolean",
+                          "description": "Whether the client is suspended (blocked from portal login). `0` / `1`."
+                        },
+                        "last_login": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last portal login time."
+                        },
+                        "last_ip": {
+                          "type": "string",
+                          "description": "Last login IP address."
+                        },
+                        "original_site_id": {
+                          "type": "integer",
+                          "description": "Originating account identifier (for cloned/migrated clients)."
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time the client record was created."
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time the client record was last updated."
+                        },
+                        "CustomModel": {
+                          "type": "object",
+                          "description": "Custom-field values defined for clients on this account. Present only when custom fields are configured.",
+                          "additionalProperties": true,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__clients_id_format"
+  },
+  "blockers": []
+}

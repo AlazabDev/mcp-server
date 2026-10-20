@@ -1,0 +1,91 @@
+{
+  "path": "/department/id/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Department",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Organizational Structure/Department"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "active": {
+                  "type": "integer"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "abbr": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "managers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "department_managers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "description",
+                "active",
+                "created",
+                "modified",
+                "abbr",
+                "managers",
+                "department_managers"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__department_id"
+  },
+  "blockers": [
+    "Literal /id in source; confirm actual route and identifier parameter"
+  ]
+}

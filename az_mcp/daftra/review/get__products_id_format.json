@@ -1,0 +1,296 @@
+{
+  "path": "/products/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Product",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single product by its ID.\n\nThe product is returned inside the `data` object, wrapped in a `Product` object together with its related collections (images, categories). Requires a permission that grants access to viewing products.\n\nProducts are scoped to the current branch: a product that exists but belongs to another branch (and is not shared) is reported as not found.",
+    "tags": [
+      "Endpoints/Inventory /Products",
+      "Products"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Unique identifier of the product to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path. Use `.json` for JSON responses.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested product.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Product": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique product identifier."
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "description": "ID of the staff member who created the product. `0` means the account owner."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Product name."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Product description."
+                        },
+                        "unit_price": {
+                          "type": "number",
+                          "description": "Selling price of one unit."
+                        },
+                        "buy_price": {
+                          "type": "number",
+                          "description": "Purchase (cost) price."
+                        },
+                        "average_price": {
+                          "type": "number",
+                          "description": "Current active average price."
+                        },
+                        "minimum_price": {
+                          "type": "number",
+                          "description": "Minimum selling price."
+                        },
+                        "tax1": {
+                          "type": "integer",
+                          "description": "First tax ID applied to the product."
+                        },
+                        "tax2": {
+                          "type": "integer",
+                          "description": "Second tax ID applied to the product."
+                        },
+                        "supplier_id": {
+                          "type": "integer",
+                          "description": "Default supplier ID."
+                        },
+                        "brand": {
+                          "type": "string",
+                          "description": "Brand name."
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Category name."
+                        },
+                        "tags": {
+                          "type": "string",
+                          "description": "Comma-separated tags."
+                        },
+                        "product_code": {
+                          "type": "string",
+                          "description": "Product code."
+                        },
+                        "barcode": {
+                          "type": "string",
+                          "description": "Barcode."
+                        },
+                        "track_stock": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "description": "Whether stock is tracked for this product (`1`) or not (`0`). Requires the Inventory feature."
+                        },
+                        "stock_balance": {
+                          "type": "number",
+                          "description": "Current stock balance."
+                        },
+                        "low_stock_thershold": {
+                          "type": "integer",
+                          "description": "Threshold at which a low-stock notification is raised."
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Internal notes."
+                        },
+                        "status": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1,
+                            2
+                          ],
+                          "description": "Product status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Active |\n| 1 | Inactive |\n| 2 | Suspended |"
+                        },
+                        "type": {
+                          "type": "integer",
+                          "enum": [
+                            1,
+                            2,
+                            3
+                          ],
+                          "description": "Product type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Product |\n| 2 | Service |\n| 3 | Bundle |",
+                          "nullable": true
+                        },
+                        "discount": {
+                          "type": "number",
+                          "description": "Discount amount."
+                        },
+                        "discount_type": {
+                          "type": "integer",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "description": "Discount type.\n\n| Value | Meaning |\n|---|---|\n| 1 | Percentage |\n| 2 | Absolute |"
+                        },
+                        "profit_margin": {
+                          "type": "number",
+                          "description": "Profit margin."
+                        },
+                        "duration_minutes": {
+                          "type": "number",
+                          "description": "Service duration in minutes (services only)."
+                        },
+                        "availabe_online": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "description": "Whether the product is available online (`1`) or not (`0`)."
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "description": "Branch the product belongs to."
+                        },
+                        "created": {
+                          "type": "string",
+                          "description": "Creation timestamp."
+                        },
+                        "modified": {
+                          "type": "string",
+                          "description": "Last-modified timestamp."
+                        }
+                      }
+                    },
+                    "ProductImage": {
+                      "type": "array",
+                      "description": "Product images.",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    },
+                    "ProductCategory": {
+                      "type": "array",
+                      "description": "Categories the product belongs to.",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view products.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No product matches the given ID, or the product belongs to another branch and is not shared with the current branch.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__products_id_format"
+  },
+  "blockers": []
+}

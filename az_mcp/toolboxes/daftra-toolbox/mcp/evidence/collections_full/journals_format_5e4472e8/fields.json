@@ -1,0 +1,149 @@
+{
+  "Journal": [
+    "object"
+  ],
+  "Journal.JournalTransaction": [
+    "array"
+  ],
+  "Journal.JournalTransaction[]": [
+    "object"
+  ],
+  "Journal.JournalTransaction[].alter_description": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].bank_transaction_id": [
+    "null",
+    "string"
+  ],
+  "Journal.JournalTransaction[].created": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].credit": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].currency_code": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].currency_credit": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].currency_debit": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].currency_rate": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].debit": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].description": [
+    "null",
+    "string"
+  ],
+  "Journal.JournalTransaction[].display_order": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].id": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].journal_account_id": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].journal_id": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].modified": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].status": [
+    "string"
+  ],
+  "Journal.JournalTransaction[].subkey": [
+    "null",
+    "string"
+  ],
+  "Journal.JournalTransaction[].tax_credit": [
+    "null"
+  ],
+  "Journal.JournalTransaction[].tax_debit": [
+    "null"
+  ],
+  "Journal.JournalTransaction[].tax_id": [
+    "null"
+  ],
+  "Journal.JournalTransaction[].tax_included": [
+    "null"
+  ],
+  "Journal.JournalTransaction[].tax_percentage": [
+    "null"
+  ],
+  "Journal.JournalTransaction[].tax_transaction_id": [
+    "null"
+  ],
+  "Journal.alter_description": [
+    "string"
+  ],
+  "Journal.attachment": [
+    "null"
+  ],
+  "Journal.branch_id": [
+    "string"
+  ],
+  "Journal.created": [
+    "string"
+  ],
+  "Journal.currency_code": [
+    "string"
+  ],
+  "Journal.currency_credit": [
+    "string"
+  ],
+  "Journal.currency_debit": [
+    "string"
+  ],
+  "Journal.currency_rate": [
+    "string"
+  ],
+  "Journal.date": [
+    "string"
+  ],
+  "Journal.description": [
+    "string"
+  ],
+  "Journal.draft": [
+    "string"
+  ],
+  "Journal.entity_id": [
+    "string"
+  ],
+  "Journal.entity_type": [
+    "string"
+  ],
+  "Journal.financial_year_id": [
+    "string"
+  ],
+  "Journal.id": [
+    "string"
+  ],
+  "Journal.is_automatic": [
+    "string"
+  ],
+  "Journal.manual_currency_rate": [
+    "null"
+  ],
+  "Journal.modified": [
+    "string"
+  ],
+  "Journal.number": [
+    "string"
+  ],
+  "Journal.staff_id": [
+    "string"
+  ],
+  "Journal.total_credit": [
+    "string"
+  ],
+  "Journal.total_debit": [
+    "string"
+  ]
+}

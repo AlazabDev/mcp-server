@@ -1,0 +1,201 @@
+{
+  "path": "/v2/api/bookings",
+  "method": "post",
+  "operation": {
+    "summary": "Add new Booking",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new booking (an appointment-style record). Provide the client, the booking date, and one or more services to book.\n\nEach entry in `InvoiceItem` must reference an **active bookable service** — a product of type *Service* that has a duration configured and belongs to at least one category. A request whose services are not valid bookable services is rejected with `Please Enter Valid Service`.\n\nThe end time is calculated automatically from the services' durations, and the booking's staff and status are assigned automatically — you do not send them. Set `Invoice.convert` to `1` to immediately convert the new booking into an invoice within the same request; the response then also returns `invoice_id`.\n\nThe `.json` extension is optional and does not change the response.",
+    "tags": [
+      "Endpoints/Bookings/Booking (Beta version)"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "booking": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "client_id"
+                ]
+              },
+              "booking_items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "service_id": {
+                      "type": "integer"
+                    },
+                    "is_waiting": {
+                      "type": "integer"
+                    },
+                    "start_date_time": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "unit_price": {
+                      "type": "integer"
+                    },
+                    "discount": {
+                      "type": "integer"
+                    },
+                    "discount_type": {
+                      "type": "integer"
+                    },
+                    "sales_person_id": {
+                      "type": "string"
+                    },
+                    "booking_package_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "Invoice": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Required. The id of an existing client the booking is for."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Required. The booking date in `dd/mm/yyyy` format."
+                  },
+                  "start_time": {
+                    "type": "string",
+                    "description": "Optional. Start time in 24-hour `HH:mm` format. Defaults to the start of the day when omitted."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Optional. Free-text note stored on the booking."
+                  },
+                  "branch_id": {
+                    "type": "integer",
+                    "description": "Optional. The branch the booking belongs to. Defaults to the request's current branch."
+                  },
+                  "convert": {
+                    "type": "integer",
+                    "description": "Optional. Set to `1` to also convert the created booking into an invoice in the same request; the response then includes `invoice_id`. Defaults to `0`."
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "date"
+                ]
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "The services to book. At least one is required and each must reference an active bookable service product.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "product_id": {
+                      "type": "integer",
+                      "description": "Required. The id of a bookable service product (type *Service*, with a duration and a category)."
+                    }
+                  },
+                  "required": [
+                    "product_id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "booking",
+              "booking_items",
+              "Invoice",
+              "InvoiceItem"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The booking was created. Note this endpoint returns a `{code, message, id, appointment_id}` object (not the standard result envelope). When `Invoice.convert` was `1`, `invoice_id` is also returned; if the conversion failed, an `error` message is returned instead of `invoice_id`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "description": "Result code (`200`)."
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Success message."
+                },
+                "id": {
+                  "type": "string",
+                  "description": "The id of the created booking."
+                },
+                "appointment_id": {
+                  "type": "string",
+                  "description": "The id of the appointment created for the booking."
+                },
+                "invoice_id": {
+                  "type": "string",
+                  "description": "Only present when `Invoice.convert` was `1` and conversion succeeded — the id of the invoice created from the booking."
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "id",
+                "appointment_id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The booking could not be created. Two cases: an invalid bookable service returns `{ code: 400, errors: \"Please Enter Valid Service\" }`; a save failure returns `{ code: 400, message: ... }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "description": "Result code (`400`)."
+                },
+                "errors": {
+                  "type": "string",
+                  "description": "Present when a booked service is not a valid bookable service."
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Present when the booking itself could not be saved."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__v_api_bookings"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

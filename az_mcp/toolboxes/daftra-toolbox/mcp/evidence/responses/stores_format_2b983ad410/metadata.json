@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/stores{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 3904,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:18:04.497849+00:00"
+}

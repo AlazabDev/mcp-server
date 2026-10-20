@@ -1,0 +1,1100 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra time_tracking",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api2"
+    }
+  ],
+  "paths": {
+    "/time_tracking.json": {
+      "get": {
+        "summary": "GET All Time Tracking",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of time-tracking entries for the current site. Requires an API key with the `time_tracking.read` scope. Callers without the *Edit all timesheets* or *Track all staff times* permission see only their own entries.",
+        "tags": [
+          "Endpoints/Time Tracking",
+          "Time Tracking"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The collection items limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection items page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "TimeTracking": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "description": "Unique identifier.",
+                                "readOnly": true
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The staff member the time is tracked for. `0` means the site owner. Look staff up via the GET Staff endpoint."
+                              },
+                              "project_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "description": "The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                              },
+                              "activity_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "description": "The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "The date the time is tracked on."
+                              },
+                              "time": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Tracked time in decimal hours (e.g. `8.5` = 8 hours 30 minutes). Returns `0` when unset. Use `time_formatted` for the `HH:MM` breakdown."
+                              },
+                              "time_formatted": {
+                                "type": "object",
+                                "description": "Human-readable breakdown of `time`. Returned on read; ignored on write.",
+                                "properties": {
+                                  "hours": {
+                                    "type": "integer",
+                                    "description": "Whole hours."
+                                  },
+                                  "minutes": {
+                                    "type": "integer",
+                                    "description": "Minutes past the hour."
+                                  },
+                                  "seconds": {
+                                    "type": "integer",
+                                    "description": "Seconds."
+                                  },
+                                  "string": {
+                                    "type": "string",
+                                    "description": "Visual `HH:MM` representation."
+                                  }
+                                },
+                                "readOnly": true
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "Free-text notes for the entry.",
+                                "default": ""
+                              },
+                              "cost": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Cost of the entry, computed automatically from the staff hourly rate. Read-only.",
+                                "readOnly": true
+                              },
+                              "currency": {
+                                "type": "string",
+                                "maxLength": 10,
+                                "description": "3-letter ISO 4217 currency code of `cost`. Read-only.",
+                                "readOnly": true
+                              },
+                              "hourly_rate": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Hourly rate used to compute `cost`. Set automatically. Read-only.",
+                                "readOnly": true
+                              },
+                              "work_order_id": {
+                                "type": "integer",
+                                "description": "The related work order, when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                                "default": null,
+                                "nullable": true
+                              },
+                              "site_id": {
+                                "type": "integer",
+                                "description": "Owning site identifier. Set automatically. Read-only.",
+                                "readOnly": true
+                              },
+                              "branch_id": {
+                                "type": "integer",
+                                "description": "Branch the entry belongs to. Set automatically. Read-only.",
+                                "readOnly": true,
+                                "nullable": true
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp.",
+                                "readOnly": true
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last-update timestamp.",
+                                "readOnly": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__time_tracking_format"
+      },
+      "post": {
+        "summary": "Add New Time Tracking",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a time-tracking entry. Requires an API key with the `time_tracking.write` scope. Send the body nested under a `TimeTracking` object. `date` and `project_id` are required; `staff_id`, `time`, and cost/currency are filled automatically when omitted.",
+        "tags": [
+          "Endpoints/Time Tracking",
+          "Time Tracking"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "TimeTracking": {
+                    "type": "object",
+                    "properties": {
+                      "staff_id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Optional. The staff member the time is tracked for; `0` is the site owner. When omitted, the entry is tracked for the calling user. Users without the *Edit all timesheets* permission can only track their own time. Look staff up via the GET Staff endpoint."
+                      },
+                      "project_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Required. The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                      },
+                      "activity_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Optional. The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Required. The date the time is tracked on (`YYYY-MM-DD`). Must not fall inside a closed accounting period."
+                      },
+                      "time": {
+                        "type": "string",
+                        "pattern": "^\\d{1,}:\\d{2}$",
+                        "description": "Optional. Time worked as `hours:minutes` (e.g. `8:17`). Stored as decimal hours; defaults to `0` when omitted."
+                      },
+                      "notes": {
+                        "type": "string",
+                        "description": "Optional. Free-text notes for the entry.",
+                        "default": ""
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Optional. The related work order; only accepted when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                        "default": null,
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "project_id"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Identifier of the created entry."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — validation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__time_tracking_format"
+      }
+    },
+    "/time_tracking/{id}.json": {
+      "get": {
+        "summary": "GET Single Time Tracking",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single time-tracking entry by id. Requires an API key with the `time_tracking.read` scope. Callers without the *Edit all timesheets* permission can only retrieve their own entries.",
+        "tags": [
+          "Endpoints/Time Tracking",
+          "Time Tracking"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "TimeTracking": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "format": "int64",
+                              "description": "Unique identifier.",
+                              "readOnly": true
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "The staff member the time is tracked for. `0` means the site owner. Look staff up via the GET Staff endpoint."
+                            },
+                            "project_id": {
+                              "type": "integer",
+                              "format": "int64",
+                              "description": "The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                            },
+                            "activity_id": {
+                              "type": "integer",
+                              "format": "int64",
+                              "description": "The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "The date the time is tracked on."
+                            },
+                            "time": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "Tracked time in decimal hours (e.g. `8.5` = 8 hours 30 minutes). Returns `0` when unset. Use `time_formatted` for the `HH:MM` breakdown."
+                            },
+                            "time_formatted": {
+                              "type": "object",
+                              "description": "Human-readable breakdown of `time`. Returned on read; ignored on write.",
+                              "properties": {
+                                "hours": {
+                                  "type": "integer",
+                                  "description": "Whole hours."
+                                },
+                                "minutes": {
+                                  "type": "integer",
+                                  "description": "Minutes past the hour."
+                                },
+                                "seconds": {
+                                  "type": "integer",
+                                  "description": "Seconds."
+                                },
+                                "string": {
+                                  "type": "string",
+                                  "description": "Visual `HH:MM` representation."
+                                }
+                              },
+                              "readOnly": true
+                            },
+                            "notes": {
+                              "type": "string",
+                              "description": "Free-text notes for the entry.",
+                              "default": ""
+                            },
+                            "cost": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "Cost of the entry, computed automatically from the staff hourly rate. Read-only.",
+                              "readOnly": true
+                            },
+                            "currency": {
+                              "type": "string",
+                              "maxLength": 10,
+                              "description": "3-letter ISO 4217 currency code of `cost`. Read-only.",
+                              "readOnly": true
+                            },
+                            "hourly_rate": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "Hourly rate used to compute `cost`. Set automatically. Read-only.",
+                              "readOnly": true
+                            },
+                            "work_order_id": {
+                              "type": "integer",
+                              "description": "The related work order, when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                              "default": null,
+                              "nullable": true
+                            },
+                            "site_id": {
+                              "type": "integer",
+                              "description": "Owning site identifier. Set automatically. Read-only.",
+                              "readOnly": true
+                            },
+                            "branch_id": {
+                              "type": "integer",
+                              "description": "Branch the entry belongs to. Set automatically. Read-only.",
+                              "readOnly": true,
+                              "nullable": true
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Creation timestamp.",
+                              "readOnly": true
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Last-update timestamp.",
+                              "readOnly": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__time_tracking_id_format"
+      },
+      "put": {
+        "summary": "Edit Time Tracking",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing time-tracking entry by id. Requires an API key with the `time_tracking.write` scope. Send the changed fields nested under a `TimeTracking` object; `date` and `project_id` must be valid. Callers without the *Edit all timesheets* permission can only update their own entries.",
+        "tags": [
+          "Endpoints/Time Tracking",
+          "Time Tracking"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "TimeTracking": {
+                    "type": "object",
+                    "properties": {
+                      "staff_id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Optional. The staff member the time is tracked for; `0` is the site owner. When omitted, the entry is tracked for the calling user. Users without the *Edit all timesheets* permission can only track their own time. Look staff up via the GET Staff endpoint."
+                      },
+                      "project_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Required. The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                      },
+                      "activity_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Optional. The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Required. The date the time is tracked on (`YYYY-MM-DD`). Must not fall inside a closed accounting period."
+                      },
+                      "time": {
+                        "type": "string",
+                        "pattern": "^\\d{1,}:\\d{2}$",
+                        "description": "Optional. Time worked as `hours:minutes` (e.g. `8:17`). Stored as decimal hours; defaults to `0` when omitted."
+                      },
+                      "notes": {
+                        "type": "string",
+                        "description": "Optional. Free-text notes for the entry.",
+                        "default": ""
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Optional. The related work order; only accepted when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                        "default": null,
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "project_id"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — validation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__time_tracking_id_format"
+      },
+      "delete": {
+        "summary": "Delete Time Tracking",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a time-tracking entry by id. Requires an API key with the `time_tracking.write` scope. Callers without the *Edit all timesheets* permission can only delete their own entries. If the entry's date falls inside a closed accounting period, the deletion is rejected and the response body is `{\"error\": true, \"errors\": {\"date\": \"<reason>\"}}`.",
+        "tags": [
+          "Endpoints/Time Tracking",
+          "Time Tracking"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK — the entry was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — no entry id was supplied.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found — no entry matches the id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error — the entry could not be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__time_tracking_id_format"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

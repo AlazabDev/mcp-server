@@ -1,0 +1,7 @@
+{
+  "result": "failed",
+  "code": 400,
+  "message": "The Posshift header (an open POS session id) is required",
+  "error_type": "",
+  "extra_data": []
+}

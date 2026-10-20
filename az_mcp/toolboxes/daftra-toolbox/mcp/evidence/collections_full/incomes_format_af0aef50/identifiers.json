@@ -1,0 +1,45 @@
+{
+  "Income.branch_id": [
+    "1"
+  ],
+  "Income.expense_category_id": [
+    "0",
+    "11",
+    "15",
+    "17",
+    "18"
+  ],
+  "Income.id": [
+    "154",
+    "155",
+    "175",
+    "176",
+    "178",
+    "179",
+    "185",
+    "192",
+    "193",
+    "204",
+    "214",
+    "235",
+    "238"
+  ],
+  "Income.journal_account_id": [
+    "337",
+    "338",
+    "402",
+    "403",
+    "68"
+  ],
+  "Income.recurring_expense_id": [
+    "0"
+  ],
+  "Income.staff_id": [
+    "0"
+  ],
+  "Income.treasury_id": [
+    "1",
+    "2",
+    "3"
+  ]
+}

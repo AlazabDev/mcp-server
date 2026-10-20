@@ -1,0 +1,19 @@
+HTTP/2 200 
+content-type: application/json
+date: Tue, 22 Sep 2026 01:13:21 GMT
+server: istio-envoy
+access-control-expose-headers: Operation-Location,Location,Apim-Request-Id,x-agent-session-id,x-agent-invocation-id
+content-length: 2071
+request-context: appId=
+x-ms-response-type: standard
+x-ms-middleware-request-id: 1f18e0e5-787f-4bcc-b585-f3778fcbc31d
+openai-version: 2020-10-01
+openai-organization: c9f5f032fc89486699686a77051f4cfb
+x-request-id: 06445b1e-7129-44fd-ae67-a3df8e4ce31f
+openai-processing-ms: 124
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+apim-request-id: 72663b65-47c5-4cec-84db-9b2a1cb71239
+x-content-type-options: nosniff
+x-ms-region: East US 2
+azureml-served-by-cluster: hyena-eastus2-01
+

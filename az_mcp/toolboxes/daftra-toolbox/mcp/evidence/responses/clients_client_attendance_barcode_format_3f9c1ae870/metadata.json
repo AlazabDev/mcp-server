@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/clients/client_attendance_barcode{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 981,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:17:40.072694+00:00"
+}

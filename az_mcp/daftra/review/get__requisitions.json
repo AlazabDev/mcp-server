@@ -1,0 +1,271 @@
+{
+  "path": "/requisitions",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Requisitions ",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of requisitions (stock transactions: inbound, outbound and transfer movements) as JSON.\n\nEach element of `data` is an object keyed by `Requisition`; the requisition's line items are nested inside it as `RequisitionItem`. Other related records are not included.\n\nWhen `store_id` is omitted, the list is automatically scoped to the warehouses the authenticated user is allowed to view.",
+    "tags": [
+      "Endpoints/Inventory /Requsitions"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number for pagination. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "store_id",
+        "in": "query",
+        "description": "Filter to requisitions whose source **or** destination warehouse is this store. When omitted, results are scoped to the warehouses the authenticated user may view.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "pos_shift_id",
+        "in": "query",
+        "description": "Return only requisitions linked to the given POS shift.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "is_stock_request",
+        "in": "query",
+        "description": "Set to `1` together with `requisitions_ids` to restrict the result to a specific set of requisitions.",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "requisitions_ids",
+        "in": "query",
+        "description": "Comma-separated requisition ids to return. Used together with `is_stock_request`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "is_manufacture_order",
+        "in": "query",
+        "description": "Set to `1` together with `manufacturing_order_type` to filter manufacturing-order requisitions.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "manufacturing_order_type",
+        "in": "query",
+        "description": "Filter manufacturing-order requisitions by direction. Used together with `is_manufacture_order`.\n\n| Value | Meaning |\n|---|---|\n| inbound | Manufactured product / scrap inbound |\n| outbound | Materials issued to the order |\n| refund | Returned (refunded) materials |",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary",
+        "in": "query",
+        "description": "Set to `1` to request summary mode.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Paginated list of requisitions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "List of requisitions. Each entry wraps a single requisition under the `Requisition` key, with its line items nested as `RequisitionItem`.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Requisition": {
+                        "type": "object",
+                        "description": "The requisition record, with its line items nested as `RequisitionItem`.",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "string",
+                            "description": "Requisition number."
+                          },
+                          "date": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Stock effect. `1` Inbound, `2` Outbound, `3` Manual Transfer (no effect)."
+                          },
+                          "order_type": {
+                            "type": "string",
+                            "description": "Origin of the requisition (e.g. `1` Inbound, `2` Outbound, `8` Manual Transfer, `25` Sales Order). See the create endpoint for the full list."
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "`1` Under Delivery, `3` Accepted, `4` Rejected."
+                          },
+                          "store_id": {
+                            "type": "string",
+                            "description": "Source warehouse id."
+                          },
+                          "to_store_id": {
+                            "type": "string",
+                            "description": "Destination warehouse id (transfer requisitions only); otherwise null."
+                          },
+                          "currency_code": {
+                            "type": "string"
+                          },
+                          "staff_id": {
+                            "type": "string",
+                            "description": "Id of the staff member who created the requisition."
+                          },
+                          "journal_account_id": {
+                            "type": "string"
+                          },
+                          "order_id": {
+                            "type": "string",
+                            "description": "Id of the source document (invoice, purchase order, …); `0` for manual requisitions."
+                          },
+                          "branch_id": {
+                            "type": "string"
+                          },
+                          "notes": {
+                            "type": "string"
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "modified": {
+                            "type": "string"
+                          },
+                          "RequisitionItem": {
+                            "type": "array",
+                            "description": "Line items.",
+                            "items": {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view requisitions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__requisitions"
+  },
+  "blockers": []
+}

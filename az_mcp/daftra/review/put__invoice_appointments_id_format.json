@@ -1,0 +1,249 @@
+{
+  "path": "/invoice_appointments/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Invoice Appointments",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing invoice appointment. Send only the fields to change, wrapped in an `InvoiceAppointments` object; omitted fields keep their current values. Requires permission to edit appointments/notes.",
+    "tags": [
+      "Endpoints/Sales /Invoice Appointments",
+      "Invoice Appointments"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The invoice appointment's identifier.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "InvoiceAppointments": {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "integer",
+                    "description": "The invoice id to attach the appointment to."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Appointment start date/time. Must be earlier than `end_date`."
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Appointment end date/time. Optional; computed from `duration` when omitted."
+                  },
+                  "duration": {
+                    "type": "string",
+                    "description": "Appointment length in hours (numeric) or as `HH:MM`. Optional; defaults to 1 hour and is used to compute `end_date` when `end_date` is not supplied."
+                  },
+                  "action_id": {
+                    "type": "integer",
+                    "description": "Follow-up action id."
+                  },
+                  "staff_id": {
+                    "description": "Id of the creating staff member, or an array of staff ids to assign. Defaults to the authenticated staff when omitted."
+                  },
+                  "body": {
+                    "type": "string",
+                    "maxLength": 1500,
+                    "description": "Free-text note (max 1500 characters)."
+                  },
+                  "status": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2
+                    ],
+                    "default": 0,
+                    "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                  },
+                  "recurring": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to `1` to create a repeating appointment; supply the recurrence in the `RecurringAppointment` object."
+                  },
+                  "share_with_partner": {
+                    "type": "boolean",
+                    "description": "Share the appointment with the linked partner (the invoice's client)."
+                  }
+                }
+              },
+              "RecurringAppointment": {
+                "type": "object",
+                "description": "Recurrence settings; used when `recurring` is `1`.",
+                "properties": {
+                  "period_unit": {
+                    "type": "integer",
+                    "description": "Repeat interval (number of `unit_name` units between occurrences)."
+                  },
+                  "unit_count": {
+                    "type": "integer",
+                    "description": "How many occurrences to generate."
+                  },
+                  "unit_name": {
+                    "type": "string",
+                    "description": "Recurrence unit, e.g. `day`, `week`, `month`."
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date to stop generating occurrences."
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "InvoiceAppointments"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Success.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed; `validation_errors` lists the offending fields.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "properties": {
+                    "Attribute that caused the error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The caller lacks permission for this operation.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No invoice appointment matches the supplied id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__invoice_appointments_id_format"
+  },
+  "blockers": []
+}

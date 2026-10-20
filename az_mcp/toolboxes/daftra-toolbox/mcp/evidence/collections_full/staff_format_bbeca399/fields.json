@@ -1,0 +1,163 @@
+{
+  "Staff": [
+    "object"
+  ],
+  "Staff.active": [
+    "string"
+  ],
+  "Staff.added_by": [
+    "string"
+  ],
+  "Staff.address1": [
+    "string"
+  ],
+  "Staff.address2": [
+    "null",
+    "string"
+  ],
+  "Staff.attendance_restriction_id": [
+    "null",
+    "string"
+  ],
+  "Staff.auth_id": [
+    "string"
+  ],
+  "Staff.branch_id": [
+    "string"
+  ],
+  "Staff.business_Phone": [
+    "null"
+  ],
+  "Staff.can_access_system": [
+    "string"
+  ],
+  "Staff.citizenship_status": [
+    "null",
+    "string"
+  ],
+  "Staff.city": [
+    "string"
+  ],
+  "Staff.code": [
+    "string"
+  ],
+  "Staff.country_code": [
+    "string"
+  ],
+  "Staff.created": [
+    "string"
+  ],
+  "Staff.default_account_id": [
+    "null"
+  ],
+  "Staff.default_store_id": [
+    "null"
+  ],
+  "Staff.default_treasury_id": [
+    "null"
+  ],
+  "Staff.deleted": [
+    "null"
+  ],
+  "Staff.deleted_at": [
+    "null"
+  ],
+  "Staff.email_address": [
+    "string"
+  ],
+  "Staff.fax": [
+    "null"
+  ],
+  "Staff.follow_up_status": [
+    "null"
+  ],
+  "Staff.full_name": [
+    "string"
+  ],
+  "Staff.global_user_id": [
+    "null",
+    "string"
+  ],
+  "Staff.home_phone": [
+    "null",
+    "string"
+  ],
+  "Staff.hourly_rate": [
+    "null"
+  ],
+  "Staff.hourly_rate_currency_code": [
+    "null"
+  ],
+  "Staff.id": [
+    "string"
+  ],
+  "Staff.is_synced": [
+    "string"
+  ],
+  "Staff.language_code": [
+    "string"
+  ],
+  "Staff.last_login": [
+    "string"
+  ],
+  "Staff.last_name": [
+    "string"
+  ],
+  "Staff.last_synced_at": [
+    "null",
+    "string"
+  ],
+  "Staff.maximum_general_discount": [
+    "null",
+    "string"
+  ],
+  "Staff.middle_name": [
+    "null",
+    "string"
+  ],
+  "Staff.mobile": [
+    "string"
+  ],
+  "Staff.modified": [
+    "string"
+  ],
+  "Staff.name": [
+    "string"
+  ],
+  "Staff.nationality": [
+    "null"
+  ],
+  "Staff.note": [
+    "null",
+    "string"
+  ],
+  "Staff.official_id": [
+    "null"
+  ],
+  "Staff.official_id_unique_check": [
+    "null"
+  ],
+  "Staff.photo": [
+    "null",
+    "string"
+  ],
+  "Staff.postal_code": [
+    "string"
+  ],
+  "Staff.residence_expiry_date": [
+    "null"
+  ],
+  "Staff.role_id": [
+    "null",
+    "string"
+  ],
+  "Staff.smtp_email_address_id": [
+    "null"
+  ],
+  "Staff.state": [
+    "string"
+  ],
+  "Staff.type": [
+    "string"
+  ]
+}

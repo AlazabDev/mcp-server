@@ -1,0 +1,455 @@
+{
+  "path": "/journals{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Journals",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of journal entries. Results are ordered by date (newest first) by default and can be narrowed with the filter parameters below. Non-owner staff see only the journals they are permitted to view.",
+    "tags": [
+      "Endpoints/Accounting/Journals",
+      "Journals"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page. Defaults to `20`, maximum `100`.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to `1`.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "description",
+        "in": "query",
+        "description": "Keyword search on the journal description (and alternate description). Multiple space-separated words are matched together.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "number",
+        "in": "query",
+        "description": "Filter by journal number (partial match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "draft",
+        "in": "query",
+        "description": "Filter by status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Issued |\n| 1 | Draft |",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        }
+      },
+      {
+        "name": "entity_type",
+        "in": "query",
+        "description": "Filter by the source that generated the journal. Use `0` for manual journals. Common values: `invoice`, `refund_receipt`, `credit_note`, `purchase_order`, `purchase_refund`, `expense`, `income`, `invoice_payment`, `stock_transaction`, `treasury_transfer`, `asset`, `requisition`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "entity_id",
+        "in": "query",
+        "description": "Filter by the id of the source record. Use together with `entity_type`.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Return journals dated on or after this date (`YYYY-MM-DD`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Return journals dated on or before this date (`YYYY-MM-DD`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_selector",
+        "in": "query",
+        "description": "Relative date shortcut for the journal date.\n\n| Value | Meaning |\n|---|---|\n| lastmonth | Journals from the last month |\n| lastyear | Journals from the last year |",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "lastmonth",
+            "lastyear"
+          ]
+        }
+      },
+      {
+        "name": "created_from",
+        "in": "query",
+        "description": "Return journals created on or after this date-time.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_to",
+        "in": "query",
+        "description": "Return journals created on or before this date-time.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "total_credit_from",
+        "in": "query",
+        "description": "Return journals whose total is greater than or equal to this amount.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "total_credit_to",
+        "in": "query",
+        "description": "Return journals whose total is less than or equal to this amount.",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "journal_account_id",
+        "in": "query",
+        "description": "Return journals that contain a transaction on this journal account.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "cost_center",
+        "in": "query",
+        "description": "Return journals with a transaction on this cost center. Use `-1` to return journals that have no cost center.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "added_by",
+        "in": "query",
+        "description": "Filter by the staff id who created the journal.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "recurring_profile",
+        "in": "query",
+        "description": "Return journals that belong to this recurring profile.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "fy_id",
+        "in": "query",
+        "description": "Filter by financial year. Accepts a financial-year id; `-1` limits to journals with no financial year.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Field to sort by.\n\n| Value | Meaning |\n|---|---|\n| date | Journal date (default) |\n| number | Journal number |\n| created | Creation date |",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "date",
+            "number",
+            "created"
+          ]
+        }
+      },
+      {
+        "name": "direction",
+        "in": "query",
+        "description": "Sort direction.\n\n| Value | Meaning |\n|---|---|\n| asc | Ascending (default) |\n| desc | Descending |",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Journal": {
+                        "type": "object",
+                        "description": "The full journal row. Key fields are listed below; additional stored columns may also be present.",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique identifier"
+                          },
+                          "number": {
+                            "type": "string",
+                            "description": "Journal number"
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date",
+                            "description": "Journal date"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Journal description"
+                          },
+                          "alter_description": {
+                            "type": "string",
+                            "description": "Alternate description",
+                            "nullable": true
+                          },
+                          "entity_type": {
+                            "type": "string",
+                            "description": "Source type that generated the journal; empty for manual journals",
+                            "nullable": true
+                          },
+                          "entity_id": {
+                            "type": "string",
+                            "description": "Id of the source record",
+                            "nullable": true
+                          },
+                          "draft": {
+                            "type": "integer",
+                            "description": "0 = issued, 1 = draft"
+                          },
+                          "is_automatic": {
+                            "type": "integer",
+                            "description": "1 when the journal was generated automatically"
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Staff id who created the journal; `0` means the account owner"
+                          },
+                          "total_debit": {
+                            "type": "number",
+                            "description": "Total debit (base currency), always equal to total credit"
+                          },
+                          "total_credit": {
+                            "type": "number",
+                            "description": "Total credit (base currency), always equal to total debit"
+                          },
+                          "currency_code": {
+                            "type": "string",
+                            "description": "Currency code"
+                          },
+                          "currency_rate": {
+                            "type": "number",
+                            "description": "Currency conversion rate applied to the journal"
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Creation timestamp"
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Last update timestamp"
+                          },
+                          "JournalTransaction": {
+                            "type": "array",
+                            "description": "The double-entry transaction lines of this journal.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "description": "Unique identifier"
+                                },
+                                "journal_id": {
+                                  "type": "string",
+                                  "description": "Parent journal id"
+                                },
+                                "journal_account_id": {
+                                  "type": "string",
+                                  "description": "Journal account id for this line"
+                                },
+                                "debit": {
+                                  "type": "number",
+                                  "description": "Debit amount (base currency)"
+                                },
+                                "credit": {
+                                  "type": "number",
+                                  "description": "Credit amount (base currency)"
+                                },
+                                "currency_debit": {
+                                  "type": "number",
+                                  "description": "Debit amount in the journal currency"
+                                },
+                                "currency_credit": {
+                                  "type": "number",
+                                  "description": "Credit amount in the journal currency"
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "description": "Line description",
+                                  "nullable": true
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__journals_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,512 @@
+{
+  "path": "/incomes{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Incomes",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. List incomes, most recent first.\n\nReturns a paginated array under `data[]`, each entry wrapped in an `Income` object, plus a `pagination` summary. Only income records are returned (expense records are served by the separate expenses endpoints).\n\nResults can be narrowed with the query filters below and ordered with `sort`/`direction`. Some filters depend on the account's configuration or enabled plugins, as noted per parameter.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Incomes*, *Add New Incomes*, or *Edit/Delete His Own Incomes* permissions. Staff without *View All Incomes* or *Edit/Delete All Incomes* see only incomes they recorded.",
+    "tags": [
+      "Endpoints/Finance/Incomes",
+      "Incomes"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page (1–1000). Defaults to 20.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to retrieve. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Field to order the results by (e.g. `date`, `amount`, `id`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "direction",
+        "in": "query",
+        "description": "Sort direction: `asc` or `desc`.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "id",
+        "in": "query",
+        "description": "Filter by exact income id.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "expense_number",
+        "in": "query",
+        "description": "Filter by income number / reference code (partial match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Start of the income-date range (inclusive), in the account's date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "End of the income-date range (inclusive), in the account's date format.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_from",
+        "in": "query",
+        "description": "Start of the created-date range (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_to",
+        "in": "query",
+        "description": "End of the created-date range (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "amount_from",
+        "in": "query",
+        "description": "Minimum amount (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "amount_to",
+        "in": "query",
+        "description": "Maximum amount (inclusive).",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "note",
+        "in": "query",
+        "description": "Filter by words in the description / note (partial match; multiple words all must match).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "expense_category_id",
+        "in": "query",
+        "description": "Filter by income category reference.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "vendor",
+        "in": "query",
+        "description": "Filter by exact vendor name. Available only when the account has recorded vendors.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Filter to a single client. Available when the account is not configured to hide the client field on incomes.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "journal_account_id",
+        "in": "query",
+        "description": "Filter by journal (chart-of-accounts) account. Matches the income's account or any of its per-line accounts. Available when the account is configured to hide the client field on incomes.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "status",
+        "in": "query",
+        "description": "Filter by status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "work_order_id",
+        "in": "query",
+        "description": "Filter to incomes linked to a specific work order.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "recurring_expense_id",
+        "in": "query",
+        "description": "Filter to incomes generated from a specific recurring income.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "creation_method",
+        "in": "query",
+        "description": "Filter by how the income was created.\n\n| Value | Meaning |\n|---|---|\n| ai | Only AI-generated incomes |\n| (other) | Only incomes that were not AI-generated |",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "staff_id",
+        "in": "query",
+        "description": "Filter by the staff member who recorded the income. Available only when the Staff plugin is enabled and the caller holds the *View All Incomes* permission; otherwise ignored.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "is_mileage",
+        "in": "query",
+        "description": "Filter by record type. Available only when the Mileage plugin is enabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Regular income |\n| 1 | Mileage |",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of incomes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Income": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Unique income identifier."
+                          },
+                          "amount": {
+                            "type": "number",
+                            "description": "Income amount (before taxes)."
+                          },
+                          "currency_code": {
+                            "type": "string",
+                            "description": "3-letter ISO 4217 currency code."
+                          },
+                          "vendor": {
+                            "type": "string",
+                            "description": "Vendor name. May be empty."
+                          },
+                          "category": {
+                            "type": "string",
+                            "description": "Category name. May be empty."
+                          },
+                          "date": {
+                            "type": "string",
+                            "description": "Date of the income (YYYY-MM-DD)."
+                          },
+                          "file": {
+                            "type": "string",
+                            "description": "Legacy single-file attachment reference. May be empty."
+                          },
+                          "note": {
+                            "type": "string",
+                            "description": "Free-text notes / description."
+                          },
+                          "client_id": {
+                            "type": "integer",
+                            "description": "Reference of the linked client, when applicable. May be null."
+                          },
+                          "supplier_id": {
+                            "type": "integer",
+                            "description": "Reference of the linked supplier, when applicable. May be null."
+                          },
+                          "staff_id": {
+                            "type": "integer",
+                            "description": "Staff member who recorded the income; `0` indicates the account owner."
+                          },
+                          "site_id": {
+                            "type": "integer",
+                            "description": "Internal account reference."
+                          },
+                          "recurring_expense_id": {
+                            "type": "integer",
+                            "description": "Reference of the recurring income this record was generated from; `0` if none."
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Time the income was created."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Time the income was last updated."
+                          },
+                          "tax1_id": {
+                            "type": "integer",
+                            "description": "First tax reference. May be null."
+                          },
+                          "tax1_name": {
+                            "type": "string",
+                            "description": "First tax name."
+                          },
+                          "tax1_value": {
+                            "type": "number",
+                            "description": "First tax rate (percentage)."
+                          },
+                          "tax1_amount": {
+                            "type": "number",
+                            "description": "First tax amount."
+                          },
+                          "tax1_included": {
+                            "type": "integer",
+                            "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                          },
+                          "tax2_id": {
+                            "type": "integer",
+                            "description": "Second tax reference. May be null."
+                          },
+                          "tax2_name": {
+                            "type": "string",
+                            "description": "Second tax name."
+                          },
+                          "tax2_value": {
+                            "type": "number",
+                            "description": "Second tax rate (percentage)."
+                          },
+                          "tax2_amount": {
+                            "type": "number",
+                            "description": "Second tax amount."
+                          },
+                          "tax2_included": {
+                            "type": "integer",
+                            "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                          },
+                          "total": {
+                            "type": "number",
+                            "description": "Income total including taxes."
+                          },
+                          "is_income": {
+                            "type": "integer",
+                            "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Income |\n| 1 | Income |"
+                          },
+                          "treasury_id": {
+                            "type": "integer",
+                            "description": "Treasury the amount was deposited into."
+                          },
+                          "work_order_id": {
+                            "type": "integer",
+                            "description": "Reference of the linked work order, when applicable. May be null."
+                          },
+                          "source_id": {
+                            "type": "integer",
+                            "description": "Reference of the originating record, when the income was generated from another entity. May be null."
+                          },
+                          "source_type": {
+                            "type": "string",
+                            "description": "Type of the originating record, when generated from another entity. May be null."
+                          },
+                          "expense_category_id": {
+                            "type": "integer",
+                            "description": "Reference of the income category; `0` if uncategorised."
+                          },
+                          "journal_account_id": {
+                            "type": "integer",
+                            "description": "Journal (chart-of-accounts) account reference. May be null."
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Branch the income belongs to."
+                          },
+                          "expense_number": {
+                            "type": "string",
+                            "description": "Income number / reference code."
+                          },
+                          "accounts_data": {
+                            "type": "string",
+                            "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                          },
+                          "external_source": {
+                            "type": "string",
+                            "description": "Origin of the record (e.g. `web`, `mobile`)."
+                          },
+                          "last_update_external_source": {
+                            "type": "string",
+                            "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "draft",
+                              "issued"
+                            ],
+                            "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                          },
+                          "extra_details": {
+                            "type": "string",
+                            "description": "Additional processing metadata, as a JSON-encoded string."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null on the first page.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null on the last page.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer",
+                      "description": "Current page number."
+                    },
+                    "page_count": {
+                      "type": "integer",
+                      "description": "Total number of pages."
+                    },
+                    "total_results": {
+                      "type": "integer",
+                      "description": "Total number of matching incomes."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view incomes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__incomes_format"
+  },
+  "blockers": []
+}

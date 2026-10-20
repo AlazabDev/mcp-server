@@ -1,0 +1,79 @@
+{
+  "path": "/requisitions/trigger_update/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "Trigger Requisition Update",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Recomputes a requisition's stock movements and re-posts its accounting journals. Use it to re-synchronise a requisition's stock and journal entries after related data has changed.\n\nThe requisition must be in an **Accepted** or **Modified** status; otherwise nothing is updated and the response is `{\"status\": false, \"errors\": [ ... ]}`. On success the response is `{\"status\": true}`. Both outcomes are returned with HTTP 200.",
+    "tags": [
+      "Endpoints/Inventory /Requsitions",
+      "Requisitions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The requisition id (digits only).",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The recompute result. Returns `{\"status\": true}` on success, or `{\"status\": false, \"errors\": [ ... ]}` when the requisition is not in an Accepted/Modified status. Both outcomes use HTTP 200.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "`true` when the recompute ran; `false` when the requisition's status does not allow it."
+                },
+                "errors": {
+                  "type": "array",
+                  "description": "Present only when `status` is `false`. Explains why the requisition was not updated (e.g. it is not in an Accepted/Modified status).",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__requisitions_trigger_update_id"
+  },
+  "blockers": []
+}

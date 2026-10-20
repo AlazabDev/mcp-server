@@ -1,0 +1,10 @@
+HTTP/2 200 
+content-type: application/json
+date: Tue, 22 Sep 2026 01:13:14 GMT
+access-control-expose-headers: Operation-Location,Location,Apim-Request-Id,x-agent-session-id,x-agent-invocation-id
+content-length: 2802
+apim-request-id: 1bb11d1e-d086-454b-ba65-9bddc010c4cc
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-ms-region: East US 2
+

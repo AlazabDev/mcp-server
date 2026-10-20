@@ -1,0 +1,4651 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra accounting",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://tenant.invalid/api2"
+    }
+  ],
+  "paths": {
+    "/journals/{id}{format}": {
+      "delete": {
+        "summary": "Delete Journals",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a journal entry. Automatically-generated journals linked to a source record, and journals dated inside a closed financial period, cannot be deleted.",
+        "tags": [
+          "Endpoints/Accounting/Journals",
+          "Journals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Journal id to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation message including the deleted journal number."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — the journal date falls within a closed financial period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found — missing journal, no delete permission, or an auto-generated journal that cannot be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Returned when the journal does not exist, the caller lacks delete permission, or the journal is an auto-generated entry that cannot be deleted."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error — the delete could not be completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__journals_id_format"
+      },
+      "put": {
+        "summary": "Edit Journals",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal entry and replaces its line items.\n\n**Amounts.** Send the line amounts as `currency_debit` / `currency_credit`, in the journal's currency. The base-currency `debit` / `credit` fields are derived by the server (`currency_* x currency_rate`) and anything sent in them is overwritten - a payload that carries only `debit` / `credit` has every line discarded and is rejected with `400`.\n\n**Line items are a full replacement.** The `JournalTransaction` array is the complete set: a line with `id` updates that line, a line without `id` is inserted, and any existing line missing from the array is deleted. A line `id` that belongs to a different journal is rejected with `400`.\n\n**Balance.** The sum of `currency_debit` must equal the sum of `currency_credit`; `total_debit` and `total_credit` on the journal are recomputed from the lines and cannot be set directly.\n\nThe `{id}` in the URL identifies the journal. `Journal.id` in the body is optional, but when present it must match the URL id.",
+        "tags": [
+          "Endpoints/Accounting/Journals",
+          "Journals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Journal REF # to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format, e.g. `.json`",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Journal": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Journal REF #. Optional - the `{id}` in the URL is authoritative. If you do send it, it must equal the URL id, otherwise the request is rejected with `400`."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Journal date. Must fall inside an open financial period, otherwise the request is rejected. Omit to keep the current date."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the journal"
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "description": "Currency of the entry. **Always send it** - every line item's `currency_code` is overwritten with this value, so omitting it blanks the currency on all lines."
+                      },
+                      "manual_currency_rate": {
+                        "type": "number",
+                        "description": "Explicit FX rate from `currency_code` to the site's base currency. Omit (or send `null`) to let the server resolve the rate for `date`. Do **not** send `0` or `\"\"`.",
+                        "default": null,
+                        "nullable": true
+                      },
+                      "draft": {
+                        "type": "string",
+                        "description": "`0` = posted, `1` = draft",
+                        "enum": [
+                          "0",
+                          "1"
+                        ]
+                      },
+                      "alter_description": {
+                        "type": "string",
+                        "description": "Overridden description, used for auto-generated journals. Ignored when it equals `description`.",
+                        "default": null,
+                        "nullable": true
+                      },
+                      "number": {
+                        "type": "string",
+                        "description": "Journal number. Auto-generated; send it only to override.",
+                        "default": null,
+                        "nullable": true
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "description": "Comma-separated file ids to keep attached. **Omitting it detaches the journal's existing attachments**, so send the current ids when you do not intend to change them.",
+                        "default": null,
+                        "nullable": true
+                      },
+                      "total_debit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "**Read only** - recomputed from the line items on every save. Anything sent here is ignored.",
+                        "readOnly": true
+                      },
+                      "total_credit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "**Read only** - recomputed from the line items on every save. Anything sent here is ignored.",
+                        "readOnly": true
+                      },
+                      "currency_debit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "**Read only** - total debit in the journal's currency, recomputed from the line items.",
+                        "readOnly": true
+                      },
+                      "currency_credit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "**Read only** - total credit in the journal's currency, recomputed from the line items.",
+                        "readOnly": true
+                      },
+                      "currency_rate": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "**Read only** - resolved by the server.",
+                        "readOnly": true
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "**Read only on edit** - the creating staff is preserved.",
+                        "readOnly": true
+                      },
+                      "entity_type": {
+                        "type": "string",
+                        "description": "**Read only** - set only for auto-generated journals.",
+                        "readOnly": true
+                      },
+                      "entity_id": {
+                        "type": "string",
+                        "description": "**Read only** - set only for auto-generated journals.",
+                        "readOnly": true
+                      },
+                      "is_automatic": {
+                        "type": "boolean",
+                        "description": "**Read only** - `1` when the journal was generated from another transaction.",
+                        "readOnly": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Time of creation for the journal",
+                        "readOnly": true
+                      },
+                      "modified": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Last time this journal was updated",
+                        "readOnly": true
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "currency_code"
+                    ]
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "The **complete** set of line items for this journal. This array replaces the existing set: a line carrying `id` is updated, a line without `id` is inserted, and **any existing line whose id is absent from the array is deleted**. At least two lines are required, and the sum of `currency_debit` must equal the sum of `currency_credit` (tolerance 0.001) or the request is rejected with `400`.",
+                    "minItems": 2,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Existing journal transaction REF #. Send it to **update** that line; omit it to **insert** a new line. The id must belong to this journal - a line id from another journal is rejected with `400`."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Journal Account REF # to post this line to. Get it from [GET Journal Accounts](/15115326e0). A line with no `journal_account_id` is discarded."
+                        },
+                        "currency_debit": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Debit amount **in the journal's currency**. This is the field the API reads for the debit side - not `debit`. Send `0` for a credit line."
+                        },
+                        "currency_credit": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Credit amount **in the journal's currency**. This is the field the API reads for the credit side - not `credit`. Send `0` for a debit line."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of the journal transaction"
+                        },
+                        "alter_description": {
+                          "type": "string",
+                          "description": "Overridden description, used for auto-generated journals. Ignored when it equals `description`.",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Tax applied to this line. Get it from [GET Taxes](/15115346e0). When set, the server splits the amount and generates an additional tax line for you.",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "debit": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Debit amount in the site's base currency. **Read only - derived as `currency_debit * currency_rate`.** Anything sent here is overwritten.",
+                          "readOnly": true
+                        },
+                        "credit": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Credit amount in the site's base currency. **Read only - derived as `currency_credit * currency_rate`.** Anything sent here is overwritten.",
+                          "readOnly": true
+                        },
+                        "currency_code": {
+                          "type": "string",
+                          "maxLength": 3,
+                          "description": "Currency Code. Read only in practice - every line is forced to `Journal.currency_code`.",
+                          "readOnly": true
+                        },
+                        "currency_rate": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "FX rate used for this line. **Read only** - resolved by the server from `Journal.date`, or from `Journal.manual_currency_rate` when supplied.",
+                          "readOnly": true
+                        },
+                        "subkey": {
+                          "type": "string",
+                          "description": "Transaction sub-key. **Read only** - set by the server for auto-generated lines (taxes, client/supplier postings).",
+                          "readOnly": true
+                        },
+                        "journal_id": {
+                          "type": "integer",
+                          "description": "Journal REF #. **Read only** - taken from the journal being edited.",
+                          "readOnly": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Time of creation for this transaction",
+                          "readOnly": true
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last time this transaction was updated",
+                          "readOnly": true
+                        }
+                      },
+                      "required": [
+                        "journal_account_id"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "Journal",
+                  "JournalTransaction"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__journals_id_format"
+      },
+      "get": {
+        "summary": "GET Single Journal",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single journal entry with its double-entry transaction lines.",
+        "tags": [
+          "Endpoints/Accounting/Journals",
+          "Journals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Journal id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Journal": {
+                          "type": "object",
+                          "description": "The full journal row. Key fields are listed below; additional stored columns may also be present.",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique identifier"
+                            },
+                            "number": {
+                              "type": "string",
+                              "description": "Journal number"
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Journal date"
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "Journal description"
+                            },
+                            "alter_description": {
+                              "type": "string",
+                              "description": "Alternate description",
+                              "nullable": true
+                            },
+                            "entity_type": {
+                              "type": "string",
+                              "description": "Source type that generated the journal; empty for manual journals",
+                              "nullable": true
+                            },
+                            "entity_id": {
+                              "type": "string",
+                              "description": "Id of the source record",
+                              "nullable": true
+                            },
+                            "draft": {
+                              "type": "integer",
+                              "description": "0 = issued, 1 = draft"
+                            },
+                            "is_automatic": {
+                              "type": "integer",
+                              "description": "1 when the journal was generated automatically"
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Staff id who created the journal; `0` means the account owner"
+                            },
+                            "total_debit": {
+                              "type": "number",
+                              "description": "Total debit (base currency), always equal to total credit"
+                            },
+                            "total_credit": {
+                              "type": "number",
+                              "description": "Total credit (base currency), always equal to total debit"
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "description": "Journal currency code"
+                            },
+                            "currency_rate": {
+                              "type": "number",
+                              "description": "Currency conversion rate applied to the journal"
+                            },
+                            "local_currency_code": {
+                              "type": "string",
+                              "description": "The account's default (base) currency code"
+                            },
+                            "show_loacal_currency": {
+                              "type": "boolean",
+                              "description": "Present and `true` only when the journal currency differs from the base currency. (The key spelling `loacal` matches the API response.)"
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Creation timestamp"
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Last update timestamp"
+                            },
+                            "JournalTransaction": {
+                              "type": "array",
+                              "description": "The double-entry transaction lines of this journal.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "description": "Unique identifier"
+                                  },
+                                  "journal_id": {
+                                    "type": "string",
+                                    "description": "Parent journal id"
+                                  },
+                                  "journal_account_id": {
+                                    "type": "string",
+                                    "description": "Journal account id for this line"
+                                  },
+                                  "debit": {
+                                    "type": "number",
+                                    "description": "Debit amount (base currency)"
+                                  },
+                                  "credit": {
+                                    "type": "number",
+                                    "description": "Credit amount (base currency)"
+                                  },
+                                  "currency_debit": {
+                                    "type": "number",
+                                    "description": "Debit amount in the journal currency"
+                                  },
+                                  "currency_credit": {
+                                    "type": "number",
+                                    "description": "Credit amount in the journal currency"
+                                  },
+                                  "description": {
+                                    "type": "string",
+                                    "description": "Line description",
+                                    "nullable": true
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journals_id_format"
+      }
+    },
+    "/journals{format}": {
+      "get": {
+        "summary": "GET All Journals",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of journal entries. Results are ordered by date (newest first) by default and can be narrowed with the filter parameters below. Non-owner staff see only the journals they are permitted to view.",
+        "tags": [
+          "Endpoints/Accounting/Journals",
+          "Journals"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items per page. Defaults to `20`, maximum `100`.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to return. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "Keyword search on the journal description (and alternate description). Multiple space-separated words are matched together.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "Filter by journal number (partial match).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "draft",
+            "in": "query",
+            "description": "Filter by status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Issued |\n| 1 | Draft |",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          {
+            "name": "entity_type",
+            "in": "query",
+            "description": "Filter by the source that generated the journal. Use `0` for manual journals. Common values: `invoice`, `refund_receipt`, `credit_note`, `purchase_order`, `purchase_refund`, `expense`, `income`, `invoice_payment`, `stock_transaction`, `treasury_transfer`, `asset`, `requisition`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "entity_id",
+            "in": "query",
+            "description": "Filter by the id of the source record. Use together with `entity_type`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "query",
+            "description": "Return journals dated on or after this date (`YYYY-MM-DD`).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "query",
+            "description": "Return journals dated on or before this date (`YYYY-MM-DD`).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_selector",
+            "in": "query",
+            "description": "Relative date shortcut for the journal date.\n\n| Value | Meaning |\n|---|---|\n| lastmonth | Journals from the last month |\n| lastyear | Journals from the last year |",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "lastmonth",
+                "lastyear"
+              ]
+            }
+          },
+          {
+            "name": "created_from",
+            "in": "query",
+            "description": "Return journals created on or after this date-time.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_to",
+            "in": "query",
+            "description": "Return journals created on or before this date-time.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "total_credit_from",
+            "in": "query",
+            "description": "Return journals whose total is greater than or equal to this amount.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "total_credit_to",
+            "in": "query",
+            "description": "Return journals whose total is less than or equal to this amount.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "journal_account_id",
+            "in": "query",
+            "description": "Return journals that contain a transaction on this journal account.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cost_center",
+            "in": "query",
+            "description": "Return journals with a transaction on this cost center. Use `-1` to return journals that have no cost center.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "added_by",
+            "in": "query",
+            "description": "Filter by the staff id who created the journal.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "recurring_profile",
+            "in": "query",
+            "description": "Return journals that belong to this recurring profile.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fy_id",
+            "in": "query",
+            "description": "Filter by financial year. Accepts a financial-year id; `-1` limits to journals with no financial year.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field to sort by.\n\n| Value | Meaning |\n|---|---|\n| date | Journal date (default) |\n| number | Journal number |\n| created | Creation date |",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "date",
+                "number",
+                "created"
+              ]
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "Sort direction.\n\n| Value | Meaning |\n|---|---|\n| asc | Ascending (default) |\n| desc | Descending |",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Journal": {
+                            "type": "object",
+                            "description": "The full journal row. Key fields are listed below; additional stored columns may also be present.",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique identifier"
+                              },
+                              "number": {
+                                "type": "string",
+                                "description": "Journal number"
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Journal date"
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "Journal description"
+                              },
+                              "alter_description": {
+                                "type": "string",
+                                "description": "Alternate description",
+                                "nullable": true
+                              },
+                              "entity_type": {
+                                "type": "string",
+                                "description": "Source type that generated the journal; empty for manual journals",
+                                "nullable": true
+                              },
+                              "entity_id": {
+                                "type": "string",
+                                "description": "Id of the source record",
+                                "nullable": true
+                              },
+                              "draft": {
+                                "type": "integer",
+                                "description": "0 = issued, 1 = draft"
+                              },
+                              "is_automatic": {
+                                "type": "integer",
+                                "description": "1 when the journal was generated automatically"
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "Staff id who created the journal; `0` means the account owner"
+                              },
+                              "total_debit": {
+                                "type": "number",
+                                "description": "Total debit (base currency), always equal to total credit"
+                              },
+                              "total_credit": {
+                                "type": "number",
+                                "description": "Total credit (base currency), always equal to total debit"
+                              },
+                              "currency_code": {
+                                "type": "string",
+                                "description": "Currency code"
+                              },
+                              "currency_rate": {
+                                "type": "number",
+                                "description": "Currency conversion rate applied to the journal"
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp"
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last update timestamp"
+                              },
+                              "JournalTransaction": {
+                                "type": "array",
+                                "description": "The double-entry transaction lines of this journal.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer",
+                                      "description": "Unique identifier"
+                                    },
+                                    "journal_id": {
+                                      "type": "string",
+                                      "description": "Parent journal id"
+                                    },
+                                    "journal_account_id": {
+                                      "type": "string",
+                                      "description": "Journal account id for this line"
+                                    },
+                                    "debit": {
+                                      "type": "number",
+                                      "description": "Debit amount (base currency)"
+                                    },
+                                    "credit": {
+                                      "type": "number",
+                                      "description": "Credit amount (base currency)"
+                                    },
+                                    "currency_debit": {
+                                      "type": "number",
+                                      "description": "Debit amount in the journal currency"
+                                    },
+                                    "currency_credit": {
+                                      "type": "number",
+                                      "description": "Credit amount in the journal currency"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "description": "Line description",
+                                      "nullable": true
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journals_format"
+      },
+      "post": {
+        "summary": "Add New Journal",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a manual journal entry. Send the `Journal` header fields and the `JournalTransaction[]` double-entry lines. The total debit of the lines must equal the total credit, and at least one line is required. Amounts are supplied per line via `currency_debit` / `currency_credit` (in the journal currency); the base-currency `debit`/`credit` and the journal totals are calculated automatically. The journal `date` must fall within an open financial period.",
+        "tags": [
+          "Endpoints/Accounting/Journals",
+          "Journals"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Journal": {
+                    "type": "object",
+                    "description": "Journal header. All fields are optional.",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Journal date (`YYYY-MM-DD`). Defaults to today. Must fall within an open financial period."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Journal description."
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "description": "Currency code. Defaults to the currency of the transaction lines, otherwise the account default currency."
+                      },
+                      "draft": {
+                        "type": "integer",
+                        "description": "Journal status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Issued |\n| 1 | Draft |",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "default": 0
+                      },
+                      "number": {
+                        "type": "string",
+                        "description": "Journal number. Auto-generated when omitted."
+                      },
+                      "manual_currency_rate": {
+                        "type": "number",
+                        "description": "Manual conversion rate for a foreign-currency journal. Only applied when the account's \"update journal entries currency rates\" setting is enabled."
+                      }
+                    }
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "The double-entry transaction lines. At least one line is required and the sum of `currency_debit` must equal the sum of `currency_credit`.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Journal account for this line. A line that carries an amount must reference an account."
+                        },
+                        "currency_debit": {
+                          "type": "number",
+                          "description": "Debit amount in the journal currency. Use `0` for a credit line."
+                        },
+                        "currency_credit": {
+                          "type": "number",
+                          "description": "Credit amount in the journal currency. Use `0` for a debit line."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Optional line description."
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Optional tax id; when set, matching tax lines are generated automatically."
+                        }
+                      },
+                      "required": [
+                        "journal_account_id"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "JournalTransaction"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the created journal"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — unbalanced entry, empty transactions, closed period, or other validation failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__journals_format"
+      }
+    },
+    "/journal_accounts{format}": {
+      "get": {
+        "summary": "GET All Journal Accounts",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of journal accounts (the chart-of-accounts leaf accounts). Requires the **Manage Journal Accounts** permission. Results are ordered by account code ascending.",
+        "tags": [
+          "Endpoints/Accounting/Journal Accounts",
+          "Journal Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "journal_cat_id",
+            "in": "query",
+            "description": "Filter to accounts belonging to a given journal category (chart-of-accounts folder).",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "has_cost_centers",
+            "in": "query",
+            "description": "Filter by cost-center linkage. `1` returns only accounts that have cost centers; `0` returns only accounts that do not.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The collection items limit.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection items page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "JournalAccount": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique identifier of the account."
+                              },
+                              "journal_cat_id": {
+                                "type": "integer",
+                                "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to."
+                              },
+                              "level": {
+                                "type": "integer",
+                                "description": "Depth of the account within the chart-of-accounts tree. Maintained automatically.",
+                                "nullable": true
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "Account code. Digits only; unique across all journal accounts and categories."
+                              },
+                              "type": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "ID of the staff member who created the account. `0` means the account was created by the site owner.",
+                                "nullable": true
+                              },
+                              "total_credit": {
+                                "type": "number",
+                                "description": "Total credit posted to the account."
+                              },
+                              "total_debit": {
+                                "type": "number",
+                                "description": "Total debit posted to the account."
+                              },
+                              "entity_type": {
+                                "type": "string",
+                                "description": "For system-managed accounts, the kind of entity this account is automatically linked to (e.g. a client, supplier, treasury, tax or category account). `null` for ordinary user-created accounts.",
+                                "nullable": true
+                              },
+                              "entity_id": {
+                                "type": "string",
+                                "description": "Identifier of the linked entity item when `entity_type` is set. `null` otherwise.",
+                                "nullable": true
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Account name."
+                              },
+                              "is_recalculated": {
+                                "type": "integer",
+                                "description": "Whether the account totals have been recalculated. `0` or `1`."
+                              },
+                              "last_transaction_update": {
+                                "type": "string",
+                                "description": "Timestamp of the last transaction affecting this account."
+                              },
+                              "parent_cat_ids": {
+                                "type": "string",
+                                "description": "Comma-separated list of all ancestor category IDs, from the immediate parent up to the root. Maintained automatically."
+                              },
+                              "is_hidden": {
+                                "type": "integer",
+                                "description": "Whether the account is hidden from account listings. `0` or `1`."
+                              },
+                              "disabled": {
+                                "type": "integer",
+                                "description": "Whether the account is disabled. `0` or `1`."
+                              },
+                              "created": {
+                                "type": "string",
+                                "description": "Time the account was created."
+                              },
+                              "modified": {
+                                "type": "string",
+                                "description": "Time the account was last updated."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journal_accounts_format"
+      },
+      "post": {
+        "summary": "Add New Journal Account",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new journal account under a journal category. Requires the **Manage Journal Accounts** permission. The account `code` must be numeric and unique across all accounts and categories. Server-managed fields (totals, timestamps, ancestor category chain) are set automatically.",
+        "tags": [
+          "Endpoints/Accounting/Journal Accounts",
+          "Journal Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "JournalAccount": {
+                    "type": "object",
+                    "properties": {
+                      "journal_cat_id": {
+                        "type": "integer",
+                        "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to. Get it from the Journal Categories API."
+                      },
+                      "code": {
+                        "type": "string",
+                        "description": "Account code. Digits only. Must be unique across all journal accounts and categories."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Account name."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                      },
+                      "entity_type": {
+                        "type": "string",
+                        "description": "Optional. Links the account to a system entity type (e.g. a client, supplier, treasury, tax or category account). Leave empty for an ordinary manual account."
+                      },
+                      "entity_id": {
+                        "type": "string",
+                        "description": "Optional. Identifier of the linked entity item, required only when `entity_type` is set."
+                      },
+                      "disabled": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Optional. `1` to create the account disabled. Defaults to `0`."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Optional. ID of the staff member the account is attributed to. Defaults to the current owner/staff."
+                      }
+                    },
+                    "required": [
+                      "journal_cat_id",
+                      "code",
+                      "name",
+                      "type"
+                    ]
+                  }
+                },
+                "required": [
+                  "JournalAccount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the newly created journal account."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__journal_accounts_format"
+      }
+    },
+    "/journal_accounts/{id}{format}": {
+      "get": {
+        "summary": "GET Single Journal Account",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single journal account by ID, with recalculated balances (`total_credit`, `total_debit`, `net`) and the `can_be_hidden` / `deletable` flags. Requires the **Manage Journal Accounts** permission.",
+        "tags": [
+          "Endpoints/Accounting/Journal Accounts",
+          "Journal Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the journal account.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "JournalAccount": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique identifier of the account."
+                            },
+                            "journal_cat_id": {
+                              "type": "integer",
+                              "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to."
+                            },
+                            "level": {
+                              "type": "integer",
+                              "description": "Depth of the account within the chart-of-accounts tree. Maintained automatically.",
+                              "nullable": true
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Account code. Digits only; unique across all journal accounts and categories."
+                            },
+                            "type": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "ID of the staff member who created the account. `0` means the account was created by the site owner.",
+                              "nullable": true
+                            },
+                            "total_credit": {
+                              "type": "number",
+                              "description": "Total credit posted to the account."
+                            },
+                            "total_debit": {
+                              "type": "number",
+                              "description": "Total debit posted to the account."
+                            },
+                            "entity_type": {
+                              "type": "string",
+                              "description": "For system-managed accounts, the kind of entity this account is automatically linked to (e.g. a client, supplier, treasury, tax or category account). `null` for ordinary user-created accounts.",
+                              "nullable": true
+                            },
+                            "entity_id": {
+                              "type": "string",
+                              "description": "Identifier of the linked entity item when `entity_type` is set. `null` otherwise.",
+                              "nullable": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Account name."
+                            },
+                            "is_recalculated": {
+                              "type": "integer",
+                              "description": "Whether the account totals have been recalculated. `0` or `1`."
+                            },
+                            "last_transaction_update": {
+                              "type": "string",
+                              "description": "Timestamp of the last transaction affecting this account."
+                            },
+                            "parent_cat_ids": {
+                              "type": "string",
+                              "description": "Comma-separated list of all ancestor category IDs, from the immediate parent up to the root. Maintained automatically."
+                            },
+                            "is_hidden": {
+                              "type": "integer",
+                              "description": "Whether the account is hidden from account listings. `0` or `1`."
+                            },
+                            "disabled": {
+                              "type": "integer",
+                              "description": "Whether the account is disabled. `0` or `1`."
+                            },
+                            "created": {
+                              "type": "string",
+                              "description": "Time the account was created."
+                            },
+                            "modified": {
+                              "type": "string",
+                              "description": "Time the account was last updated."
+                            },
+                            "net": {
+                              "type": "number",
+                              "description": "Net balance of the account for the current view (credit minus debit for credit accounts, debit minus credit for debit accounts)."
+                            },
+                            "can_be_hidden": {
+                              "type": "boolean",
+                              "description": "Whether the account may be hidden (it is not already hidden and has no dependents that block hiding)."
+                            },
+                            "deletable": {
+                              "type": "boolean",
+                              "description": "Whether the account can be deleted (it has no transactions or other dependents)."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journal_accounts_id_format"
+      },
+      "put": {
+        "summary": "Edit Journal Accounts",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal account. Requires the **Manage Journal Accounts** permission. `journal_cat_id`, `code` and `name` must be provided; `code` must be numeric and unique across all accounts and categories.",
+        "tags": [
+          "Endpoints/Accounting/Journal Accounts",
+          "Journal Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the journal account to update.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "JournalAccount": {
+                    "type": "object",
+                    "properties": {
+                      "journal_cat_id": {
+                        "type": "integer",
+                        "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to. Get it from the Journal Categories API."
+                      },
+                      "code": {
+                        "type": "string",
+                        "description": "Account code. Digits only. Must be unique across all journal accounts and categories."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Account name."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                      },
+                      "entity_type": {
+                        "type": "string",
+                        "description": "Optional. Links the account to a system entity type (e.g. a client, supplier, treasury, tax or category account). Leave empty for an ordinary manual account."
+                      },
+                      "entity_id": {
+                        "type": "string",
+                        "description": "Optional. Identifier of the linked entity item, required only when `entity_type` is set."
+                      },
+                      "disabled": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Optional. `1` to create the account disabled. Defaults to `0`."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Optional. ID of the staff member the account is attributed to. Defaults to the current owner/staff."
+                      }
+                    },
+                    "required": [
+                      "journal_cat_id",
+                      "code",
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "JournalAccount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__journal_accounts_id_format"
+      },
+      "delete": {
+        "summary": "Delete Journal Accounts",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a journal account by ID. Requires the **Manage Journal Accounts** permission. An account cannot be deleted while it has journal transactions or is linked to other records (routes, cheques, salary components, etc.).",
+        "tags": [
+          "Endpoints/Accounting/Journal Accounts",
+          "Journal Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the journal account to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable success message."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The account has transactions or dependent records and can't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__journal_accounts_id_format"
+      }
+    },
+    "/journal_cats{format}": {
+      "get": {
+        "summary": "GET All Journal Cats",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of journal categories (the category nodes of the chart of accounts). Requires the **Manage Journal Accounts** permission. Each item is wrapped under a `JournalCat` key.",
+        "tags": [
+          "Endpoints/Accounting/Journal Cats",
+          "Journal Cats"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The collection items limit.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection items page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "JournalCat": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique identifier of the journal category."
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "Category code. Digits only; unique across all journal categories and accounts."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Category name."
+                              },
+                              "type": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                              },
+                              "journal_cat_id": {
+                                "type": "integer",
+                                "description": "ID of the parent journal category. `-1` for a top-level (main) category."
+                              },
+                              "parent_cat_ids": {
+                                "type": "string",
+                                "description": "Comma-separated IDs of all ancestor categories. Maintained automatically.",
+                                "nullable": true
+                              },
+                              "level": {
+                                "type": "integer",
+                                "description": "Depth of the category within the chart-of-accounts tree. Maintained automatically.",
+                                "nullable": true
+                              },
+                              "entity_type": {
+                                "type": "string",
+                                "enum": [
+                                  "client",
+                                  "supplier",
+                                  "income_tax",
+                                  "outcome_tax",
+                                  "treasury",
+                                  "store",
+                                  "income_category",
+                                  "expense_category",
+                                  "asset",
+                                  "asset_deprecation",
+                                  "asset_deprecation_expense",
+                                  "staff_petty_cash",
+                                  ""
+                                ],
+                                "description": "For system-generated categories, the business entity this category is linked to (e.g. `client`, `supplier`, `treasury`, `store`, tax or category accounts). Empty for ordinary user-created categories.",
+                                "nullable": true
+                              },
+                              "entity_id": {
+                                "type": "integer",
+                                "description": "Identifier of the linked entity item when `entity_type` is set.",
+                                "nullable": true
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "ID of the staff member who created the category. `0` means the account owner.",
+                                "nullable": true
+                              },
+                              "branch_id": {
+                                "type": "integer",
+                                "description": "ID of the branch the category belongs to.",
+                                "nullable": true
+                              },
+                              "total_debit": {
+                                "type": "number",
+                                "description": "Total debit accumulated under this category."
+                              },
+                              "total_credit": {
+                                "type": "number",
+                                "description": "Total credit accumulated under this category."
+                              },
+                              "is_recalculated": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "Whether the category totals have been recalculated. `0` = no, `1` = yes."
+                              },
+                              "is_hidden": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "Whether the category is hidden from the chart of accounts. `0` = visible, `1` = hidden."
+                              },
+                              "disabled": {
+                                "type": "integer",
+                                "description": "Whether the category is disabled. `0` = active, `1` = disabled.",
+                                "nullable": true
+                              },
+                              "color": {
+                                "type": "string",
+                                "deprecated": true,
+                                "description": "Display color. Deprecated and no longer used."
+                              },
+                              "last_transaction_update": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Timestamp of the last transaction affecting this category.",
+                                "nullable": true
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp."
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last update timestamp."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journal_cats_format"
+      },
+      "post": {
+        "summary": "Add New Journal Cat",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create a journal category — a folder in the chart of accounts that groups other categories and posting accounts.\n\nThis endpoint creates **categories only**. To create a posting account that journal entries can be booked to, use *Add New Journal Account* instead; an `account_type` sent in this request is ignored.\n\n**Required:** `code` and `name`.\n\n`code` must be **numeric**, and it must not already be used by another category **or** by a journal account — codes are shared across both. Use *GET All Journal Cats* and *GET All Journal Accounts* to find a free code; by convention a child's code extends its parent's (a child of `5` is numbered `51`, `52`, …).\n\n> **A code that is already in use does not return an error.** The request answers with `302` and a `Location` header pointing at the chart-of-accounts page, and no JSON body — so check that the code is free before posting, and configure your client not to follow redirects for this call.\n\nOmit `journal_cat_id` to create a top-level category, or set it to the reference of the parent category to nest this one beneath it.\n\nOnly the `JournalCat` object is read from the request body; any other top-level object is ignored. `Content-Type` must be `application/json`; another content type, or a body that is not valid JSON, returns `500`.\n\n> **Do not send `id` when creating.** If it holds the reference of an existing category, that category is overwritten instead of a new one being created. Use the *Edit Journal Cats* endpoint to change an existing category.\n\nRequires the *Manage Journal Accounts* permission.\n\nOn success the endpoint responds with `202 Accepted` and the reference of the new category.",
+        "tags": [
+          "Endpoints/Accounting/Journal Cats",
+          "Journal Cats"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "JournalCat": {
+                    "type": "object",
+                    "description": "The journal category to create.",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "description": "Code of the category. **Numeric only.** Must not already be used by another category or by a journal account. By convention a child's code extends its parent's — a child of category `5` is numbered `51`, `52`, and so on. A code that is already in use makes the request answer with `302` rather than a validation error."
+                      },
+                      "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "description": "Name of the category, as it appears in the chart of accounts."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "default": 0,
+                        "description": "The normal balance side of the category — which side increases it. Defaults to `0` (Credit) when omitted, so set it explicitly: asset and expense categories are Debit, while liability, income and equity categories are Credit.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                      },
+                      "journal_cat_id": {
+                        "type": "integer",
+                        "default": -1,
+                        "description": "Reference of the parent category. Omit, or send `-1`, to create a top-level category. Take the value from *GET All Journal Cats* — this is the parent's reference, not its `code`."
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "description": "Branch the category belongs to. Defaults to your current branch when omitted. Must reference an active branch, otherwise the category is rejected. Only relevant when branches are enabled for your account."
+                      },
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "assets",
+                          "current_assets",
+                          "fixed_assets",
+                          "liabilities",
+                          "current_liabilities",
+                          "owner_equity",
+                          "capital_profit_loss",
+                          "incomes",
+                          "other_incomes",
+                          "expenses",
+                          "other_expenses",
+                          "treasuries",
+                          "banks",
+                          "stores",
+                          "clients",
+                          "suppliers",
+                          "petty_cash",
+                          "insurance_agents",
+                          "income_taxes",
+                          "payable_tax",
+                          "deprecation_types",
+                          "depreciation_expenses",
+                          "payment_fees",
+                          "advance_payments"
+                        ],
+                        "description": "Marks the category as one of the account tree's built-in categories. **Leave empty for a category you create yourself** — a category carrying this marker is treated as a system default and cannot be deleted. Values name the built-in groups of the chart of accounts (asset, liability, equity, income and expense groups, and the groups that hold treasuries, banks, stores, clients, suppliers, taxes and depreciation)."
+                      },
+                      "entity_id": {
+                        "type": "integer",
+                        "description": "Reference of the record identified by `entity_type`. Only meaningful when `entity_type` is also set."
+                      },
+                      "disabled": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "default": 0,
+                        "description": "Whether the category is disabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Active (default) |\n| 1 | Disabled |"
+                      },
+                      "color": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "No longer used. Stored empty.",
+                        "default": "",
+                        "deprecated": true
+                      },
+                      "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Reference of the category. **Omit when creating.** If you send the reference of an existing category, that category is overwritten instead of a new one being created. Returned in the response as `id`."
+                      },
+                      "parent_cat_ids": {
+                        "type": "string",
+                        "description": "Comma-separated references of every ancestor category, ending with the immediate parent. Derived from `journal_cat_id`; any value sent is overwritten.",
+                        "readOnly": true
+                      },
+                      "level": {
+                        "type": "integer",
+                        "description": "Depth of the category in the account tree. Recalculated automatically after the category is saved.",
+                        "readOnly": true,
+                        "nullable": true
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Staff member associated with the category. Not populated when a category is created through the API.",
+                        "readOnly": true,
+                        "nullable": true
+                      },
+                      "total_debit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Accumulated debit total of the category. Maintained automatically from the journal entries posted beneath it; any value sent is ignored.",
+                        "readOnly": true
+                      },
+                      "total_credit": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Accumulated credit total of the category. Maintained automatically from the journal entries posted beneath it; any value sent is ignored.",
+                        "readOnly": true
+                      },
+                      "is_recalculated": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Whether the category's totals are up to date. Maintained automatically.",
+                        "readOnly": true
+                      },
+                      "last_transaction_update": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When the category's totals were last recalculated. Maintained automatically.",
+                        "readOnly": true
+                      },
+                      "is_hidden": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "default": 0,
+                        "description": "Whether the category is hidden in the chart of accounts. Maintained automatically.\n\n| Value | Meaning |\n|---|---|\n| 0 | Visible |\n| 1 | Hidden |",
+                        "readOnly": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When the category was created.",
+                        "readOnly": true
+                      },
+                      "modified": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When the category was last updated.",
+                        "readOnly": true
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "JournalCat"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The journal category was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Reference of the created category."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "302": {
+            "description": "The `code` you sent is already used by another category or journal account. The response carries no body — only a `Location` header pointing at the chart-of-accounts page. Check the code is free before posting, and do not follow redirects for this call.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "required": true,
+                "description": "The chart-of-accounts page the request was redirected to.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The category was rejected. Common causes are a missing or non-numeric `code`, a missing `name`, a suspended `branch_id`, or — on accounts that require every category to be assigned to a branch — a missing branch selection. `message` is `null` on this path; the detail is in `validation_errors`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Empty unless the failure has a specific category.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Empty unless the failure supplies extra context.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Present only when at least one field-level error was produced, keyed by the field that failed.",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "`Required` when omitted, `Numbers Only` when not numeric."
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "branch_id": {
+                          "type": "string"
+                        },
+                        "group_id": {
+                          "type": "string",
+                          "description": "Returned when your account requires each category to be assigned to a branch."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Always present; `null` for this status.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Always present; `null` for this status.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the *Manage Journal Accounts* permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Always present; `null` for this status.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Always present; `null` for this status.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "The request did not match a known endpoint — check the path and the format suffix. Creating a category never returns a record-not-found error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Always present; `null` for this status.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Always present; `null` for this status.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "405": {
+            "description": "The credentials used are not permitted to call this endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Always present; `null` for this status.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Always present; `null` for this status.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The request could not be read: the body was not valid JSON (`Problem parsing JSON input`) or `Content-Type` was not `application/json` (`Invalid content type`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "description": "Error category. Empty unless the failure has a specific category.",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "description": "Additional context about the failure. Empty unless the failure supplies extra context.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__journal_cats_format"
+      }
+    },
+    "/journal_cats/{id}{format}": {
+      "get": {
+        "summary": "GET Single Journal Cat",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Retrieve a single journal category (a category node in the chart of accounts) by its ID. Requires the **Manage Journal Accounts** permission. The category is returned under the `JournalCat` key of `data`.",
+        "tags": [
+          "Endpoints/Accounting/Journal Cats",
+          "Journal Cats"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The journal category ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "JournalCat": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique identifier of the journal category."
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Category code. Digits only; unique across all journal categories and accounts."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Category name."
+                            },
+                            "type": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                            },
+                            "journal_cat_id": {
+                              "type": "integer",
+                              "description": "ID of the parent journal category. `-1` for a top-level (main) category."
+                            },
+                            "parent_cat_ids": {
+                              "type": "string",
+                              "description": "Comma-separated IDs of all ancestor categories. Maintained automatically.",
+                              "nullable": true
+                            },
+                            "level": {
+                              "type": "integer",
+                              "description": "Depth of the category within the chart-of-accounts tree. Maintained automatically.",
+                              "nullable": true
+                            },
+                            "entity_type": {
+                              "type": "string",
+                              "enum": [
+                                "client",
+                                "supplier",
+                                "income_tax",
+                                "outcome_tax",
+                                "treasury",
+                                "store",
+                                "income_category",
+                                "expense_category",
+                                "asset",
+                                "asset_deprecation",
+                                "asset_deprecation_expense",
+                                "staff_petty_cash",
+                                ""
+                              ],
+                              "description": "For system-generated categories, the business entity this category is linked to (e.g. `client`, `supplier`, `treasury`, `store`, tax or category accounts). Empty for ordinary user-created categories.",
+                              "nullable": true
+                            },
+                            "entity_id": {
+                              "type": "integer",
+                              "description": "Identifier of the linked entity item when `entity_type` is set.",
+                              "nullable": true
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "ID of the staff member who created the category. `0` means the account owner.",
+                              "nullable": true
+                            },
+                            "branch_id": {
+                              "type": "integer",
+                              "description": "ID of the branch the category belongs to.",
+                              "nullable": true
+                            },
+                            "total_debit": {
+                              "type": "number",
+                              "description": "Total debit accumulated under this category."
+                            },
+                            "total_credit": {
+                              "type": "number",
+                              "description": "Total credit accumulated under this category."
+                            },
+                            "is_recalculated": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "Whether the category totals have been recalculated. `0` = no, `1` = yes."
+                            },
+                            "is_hidden": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "Whether the category is hidden from the chart of accounts. `0` = visible, `1` = hidden."
+                            },
+                            "disabled": {
+                              "type": "integer",
+                              "description": "Whether the category is disabled. `0` = active, `1` = disabled.",
+                              "nullable": true
+                            },
+                            "color": {
+                              "type": "string",
+                              "deprecated": true,
+                              "description": "Display color. Deprecated and no longer used."
+                            },
+                            "last_transaction_update": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Timestamp of the last transaction affecting this category.",
+                              "nullable": true
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Creation timestamp."
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Last update timestamp."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__journal_cats_id_format"
+      },
+      "delete": {
+        "summary": "Delete Journal Cats",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a journal category identified by `id`. Requires the **Manage Journal Accounts** permission. A category can only be deleted when it is empty: it must have no child categories, no child accounts, no linked auto-account routes, and must not be a system default account.",
+        "tags": [
+          "Endpoints/Accounting/Journal Cats",
+          "Journal Cats"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The journal category ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable success message."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__journal_cats_id_format"
+      },
+      "put": {
+        "summary": "Edit Journal Cats",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing journal category identified by `id`. Requires the **Manage Journal Accounts** permission. A category cannot be set as its own parent, and none of its own descendant categories can be chosen as its parent. The `code` must remain numeric and unique across all journal categories and accounts.",
+        "tags": [
+          "Endpoints/Accounting/Journal Cats",
+          "Journal Cats"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The journal category ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "JournalCat": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Category code. Digits only. Must be unique across all journal categories and accounts."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Category name."
+                      },
+                      "journal_cat_id": {
+                        "type": "integer",
+                        "description": "ID of the parent journal category. Omit or send `-1` to create a top-level (main) category."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Optional. The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                      },
+                      "branch_id": {
+                        "type": "integer",
+                        "description": "Optional. ID of the branch the category belongs to. Defaults to the current branch."
+                      },
+                      "entity_type": {
+                        "type": "string",
+                        "description": "Optional. Links the category to a system entity type. Leave empty for an ordinary category."
+                      },
+                      "entity_id": {
+                        "type": "string",
+                        "description": "Optional. Identifier of the linked entity item, used only when `entity_type` is set."
+                      },
+                      "disabled": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Optional. `1` to create the category disabled. Defaults to `0`."
+                      },
+                      "is_hidden": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Optional. `1` to hide the category from the chart of accounts. Defaults to `0`."
+                      },
+                      "color": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated and no longer used."
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "JournalCat"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__journal_cats_id_format"
+      }
+    },
+    "/cost_center/list/1": {
+      "get": {
+        "summary": "Get All Cost Centers",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of cost centers for the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. On this endpoint the data level has no visible effect, so `/cost_center/list` and `/cost_center/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>]` | Filter by a field's value, e.g. `filter[code]=1` or `filter[is_primary]=1`. Filterable fields: `name`, `code`, `is_primary`, `cost_center_id`, `cost_center_ids`. |\n| `version` | Set to `2` to run each row through the listing formatter. For cost centers the formatted rows have the same fields as the default output. |\n\nThe response is a standard paginated envelope; each item in `data` is a flat cost-center record.\n\nEach record's `is_primary` flag is:\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) cost center |\n| 0 | Secondary (child) cost center |\n\n`cost_center_id` is the id of the parent cost center (`0` for a primary/root cost center), and `cost_center_ids` is the comma-separated ancestor path.",
+        "tags": [
+          "Endpoints/Accounting/Cost Centers"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[<field>]",
+            "in": "query",
+            "description": "Filter results by a field's value, e.g. `filter[code]=1`. Filterable fields: `name`, `code`, `is_primary`, `cost_center_id`, `cost_center_ids`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Set to `2` to run each row through the listing formatter. Same fields as the default output for this entity.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of cost centers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The cost centers on this page. Each item is a flat cost-center record.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Cost center id."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Cost center name."
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Cost center code. Unique across the account."
+                          },
+                          "is_primary": {
+                            "type": "integer",
+                            "description": "Whether this is a primary (root) cost center.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "cost_center_id": {
+                            "type": "integer",
+                            "description": "Id of the parent cost center. `0` for a primary/root cost center."
+                          },
+                          "cost_center_ids": {
+                            "type": "string",
+                            "description": "Comma-separated ancestor path of parent cost-center ids."
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Id of the branch the cost center belongs to.",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "code",
+                          "is_primary",
+                          "cost_center_id",
+                          "cost_center_ids",
+                          "created",
+                          "modified",
+                          "branch_id"
+                        ]
+                      }
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "per_page",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The list could not be produced.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Reason the list could not be produced."
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__cost_center_list",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/cost_center/{ID}/1": {
+      "get": {
+        "summary": "Get Single Cost Center",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single cost center by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag. For this endpoint it has no visible effect, so `/cost_center/{ID}` and `/cost_center/{ID}/1` return the same result.\n\nThe successful response is a **flat object** of the cost center's fields (it is not wrapped in a `data` envelope).\n\n`is_primary` is:\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) cost center |\n| 0 | Secondary (child) cost center |\n\n`cost_center_id` is the id of the parent cost center (`0` for a primary/root cost center), and `cost_center_ids` is the comma-separated ancestor path.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+        "tags": [
+          "Endpoints/Accounting/Cost Centers"
+        ],
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "description": "The id of the cost center to fetch.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The cost center, returned as a flat object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "A single cost-center record, returned flat (not wrapped).",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Cost center id."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Cost center name."
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Cost center code. Unique across the account."
+                    },
+                    "is_primary": {
+                      "type": "integer",
+                      "description": "Whether this is a primary (root) cost center.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                      "enum": [
+                        0,
+                        1
+                      ]
+                    },
+                    "cost_center_id": {
+                      "type": "integer",
+                      "description": "Id of the parent cost center. `0` for a primary/root cost center."
+                    },
+                    "cost_center_ids": {
+                      "type": "string",
+                      "description": "Comma-separated ancestor path of parent cost-center ids."
+                    },
+                    "created": {
+                      "type": "string",
+                      "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "modified": {
+                      "type": "string",
+                      "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                    },
+                    "branch_id": {
+                      "type": "integer",
+                      "description": "Id of the branch the cost center belongs to.",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "code",
+                    "is_primary",
+                    "cost_center_id",
+                    "cost_center_ids",
+                    "created",
+                    "modified",
+                    "branch_id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened`.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Plain-text body `error happened`. Currently returned when the requested id does not exist (rather than a 404)."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__cost_center_ID",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/cost_center": {
+      "post": {
+        "summary": "Add New Cost Center",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Adds a cost center. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe request body is a flat JSON object. The account layer applies **no field validation** here, so the only hard requirements are the two fields the database cannot default: `cost_center_id` and `cost_center_ids`. Omitting either fails with a `400`.\n\nIn practice you should always send `name` and `code` as well — if omitted they are silently stored as an empty name and an empty/`0` code, which is rarely useful. `code` must be **unique** across the account; a duplicate `code` fails with a `400`.\n\n`is_primary` marks a cost center as primary (root) or secondary (child):\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child); defaults to `0` when omitted |\n\n`cost_center_id` is the id of the parent cost center — send `0` for a primary/root cost center, or the parent's id for a child. `cost_center_ids` is the comma-separated ancestor path of parent ids; it **must be non-empty** (an empty string is rejected), and it is not maintained automatically, so the caller supplies it.\n\n`branch_id`, `status`, `id`, `created` and `modified` are assigned by the server and are not settable through this endpoint.\n\nOn success the response is `{ \"message\": \"...\", \"id\": <new id> }`. The message is localized to the caller's language (for example `Cost center Added Successfully` in English).",
+        "tags": [
+          "Endpoints/Accounting/Cost Centers"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cost_center_id": {
+                    "type": "integer",
+                    "description": "Required. Id of the parent cost center. Send `0` for a primary/root cost center, or the parent's id for a child."
+                  },
+                  "cost_center_ids": {
+                    "type": "string",
+                    "description": "Required, must be non-empty. Comma-separated ancestor path of parent cost-center ids (an empty string is rejected)."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Cost center name. Strongly recommended — stored as an empty string if omitted."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Cost center code. Strongly recommended and must be unique across the account (a duplicate is rejected); stored as `0`/empty if omitted."
+                  },
+                  "is_primary": {
+                    "type": "integer",
+                    "description": "Whether this is a primary (root) cost center. Defaults to `0` when omitted.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  }
+                },
+                "required": [
+                  "cost_center_id",
+                  "cost_center_ids"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The cost center was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the newly created cost center."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The cost center could not be saved — for example `cost_center_id` or `cost_center_ids` was missing, `cost_center_ids` was empty, or the `code` duplicates an existing one.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "description": "Error detail object (present for database-level failures)."
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Reason the record could not be saved — for example a required field (`cost_center_id` / `cost_center_ids`) was missing, `cost_center_ids` was empty, or the `code` already exists."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__cost_center",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/cost_center/{ID}": {
+      "put": {
+        "summary": "Edit Cost Center",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Edits an existing cost center. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe request body is a flat JSON object and the update is **partial** — only the fields you include are changed; omitted fields keep their current values.\n\n**The `id` in the request body is required and must match the id in the URL path.** It is what identifies the record to update: if the body `id` is omitted, the request is treated as a new-record create instead of an update (and typically fails on the unique `code` or a missing required field).\n\n`code` must remain **unique** across the account. `is_primary` is:\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) cost center |\n| 0 | Secondary (child) cost center |\n\n`cost_center_id` is the parent cost center id (`0` for a primary/root); `cost_center_ids` is the comma-separated ancestor path. `branch_id`, `status`, `created` and `modified` are managed by the server and are not settable through this endpoint.\n\nOn success the response is `{ \"message\": \"...\", \"id\": <id> }`. The message is localized to the caller's language (for example `Cost center Updated Successfully` in English).",
+        "tags": [
+          "Endpoints/Accounting/Cost Centers"
+        ],
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "description": "The id of the cost center to update. Send the same value in the request body `id`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Required. The id of the cost center to update; must match the id in the URL path. If omitted, the request creates a new record instead of updating."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "New cost center name."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "New cost center code. Must be unique across the account."
+                  },
+                  "is_primary": {
+                    "type": "integer",
+                    "description": "Whether this is a primary (root) cost center.\n\n| Value | Meaning |\n|---|---|\n| 1 | Primary (root) |\n| 0 | Secondary (child) |",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  },
+                  "cost_center_id": {
+                    "type": "integer",
+                    "description": "Id of the parent cost center. `0` for a primary/root cost center."
+                  },
+                  "cost_center_ids": {
+                    "type": "string",
+                    "description": "Comma-separated ancestor path of parent cost-center ids."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The cost center was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated cost center."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update failed. `{\"message\":\"Record not found\"}` when the URL id does not exist; `{e, message:\"Entity not saved\", error}` when the record could not be saved (for example the body `id` was omitted so a create was attempted, or the `code` duplicates an existing one).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "description": "Error detail object (present for database-level failures)."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "`Record not found` when the URL id does not exist, or `Entity not saved` when the record could not be saved."
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Reason the record could not be saved (present for save failures — for example a duplicate `code`)."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__cost_center_ID",
+        "servers": [
+          {
+            "url": "https://entity-base.invalid/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/delete/cost_center/{ID}": {
+      "delete": {
+        "summary": "Delete Cost Center",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. This endpoint let you delete Cost Center",
+        "tags": [
+          "Endpoints/Accounting/Cost Centers"
+        ],
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__delete_cost_center_ID"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

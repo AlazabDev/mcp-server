@@ -1,0 +1,211 @@
+{
+  "path": "/invoices/subscription{format}",
+  "method": "get",
+  "operation": {
+    "summary": "List Subscriptions",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of the account's **subscriptions** (recurring invoices), most recent first.\n\nThis is the recurring-invoice counterpart of **GET All Invoices** — the result is restricted to subscription documents only.\n\nThe list supports filtering through the query parameters below. Results are ordered by most recent and each item contains the subscription header and its client.\n\nRequires permission to view invoices. A user with only the \"view invoice details\" permission (and not \"view all invoices\") sees only their own subscriptions.",
+    "tags": [
+      "Endpoints/Sales /Subsciptions",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to return. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of records per page. Defaults to the list default (20).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "name",
+        "in": "query",
+        "description": "Keyword search across the client name, client number, client email, and the subscription number.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "in": "query",
+        "description": "Filter by client id.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "client_type",
+        "in": "query",
+        "description": "Filter by client type (individual or business).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_from",
+        "in": "query",
+        "description": "Next-invoice-date range start (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "date_to",
+        "in": "query",
+        "description": "Next-invoice-date range end (YYYY-MM-DD).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary_total_from",
+        "in": "query",
+        "description": "Return subscriptions whose total is at least this amount.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "summary_total_to",
+        "in": "query",
+        "description": "Return subscriptions whose total is at most this amount.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of subscriptions.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "Subscriptions (recurring invoices), most recent first. Each item carries an `Invoice` member with the subscription header and its client.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Invoice": {
+                        "type": "object",
+                        "description": "Subscription header. See GET Single Invoice for the full field reference.",
+                        "properties": {}
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "description": "URL of the previous page, or null on the first page.",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL of the next page, or null on the last page.",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "data",
+                "pagination"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view invoices.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoices_subscription_format"
+  },
+  "blockers": []
+}

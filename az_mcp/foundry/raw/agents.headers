@@ -1,0 +1,15 @@
+HTTP/2 200 
+content-type: application/json; charset=utf-8
+date: Tue, 22 Sep 2026 01:13:16 GMT
+server: istio-envoy
+access-control-expose-headers: Operation-Location,Location,Apim-Request-Id,x-agent-session-id,x-agent-invocation-id
+request-context: appId=
+x-ms-response-type: standard
+x-request-id: 95351c3bbf05a07b1b54e0dc8030a522
+api-supported-versions: 1.0,2025-05-15-preview,2025-11-15-preview
+azureml-served-by-cluster: hyena-eastus2-02
+apim-request-id: c77abb2b-6cef-404e-ac4b-92619b143750
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-ms-region: East US 2
+

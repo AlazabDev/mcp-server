@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/expenses{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1205,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:18:19.004386+00:00"
+}

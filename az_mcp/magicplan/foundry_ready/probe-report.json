@@ -1,0 +1,32 @@
+{
+  "workspace": {
+    "path": "/workspace",
+    "status": 200,
+    "passed": true
+  },
+  "projects": {
+    "path": "/projects",
+    "status": 200,
+    "passed": true
+  },
+  "project": {
+    "path": "/projects/{project_id}",
+    "status": 200,
+    "passed": true
+  },
+  "project_plan": {
+    "path": "/projects/{project_id}/plan",
+    "status": 200,
+    "passed": true
+  },
+  "project_files": {
+    "path": "/projects/{project_id}/files",
+    "status": 200,
+    "passed": true
+  },
+  "project_estimates": {
+    "path": "/projects/{project_id}/estimates",
+    "status": 200,
+    "passed": true
+  }
+}

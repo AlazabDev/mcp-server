@@ -1,0 +1,242 @@
+{
+  "path": "/estimates/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Estimate",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **estimate** (quote) identified by the `id` path parameter.\n\nThe request body has the same shape as **Add New Invoice** (an `Invoice` object plus optional `InvoiceItem`, `Payment`, etc.); an `Estimate` object is also accepted in place of `Invoice`. Send the fields you want to change. The id from the path is always applied.\n\nReturns `404` when no estimate matches the id. Requires permission to edit estimates (a non-owner may edit only estimates they created or are the sales person for, and only with the edit permission). See **Add New Invoice** for the full field reference.",
+    "tags": [
+      "Endpoints/Sales /Estimates",
+      "Estimates"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The estimate ID to update.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Estimate header fields to update. Same fields as the Add New Invoice header (the `Estimate` key is also accepted in place of `Invoice`).",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "The client this estimate is for."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Estimate date (YYYY-MM-DD).",
+                    "format": "date"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency code (for example, USD)."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Store / warehouse for line items."
+                  },
+                  "draft": {
+                    "type": "boolean",
+                    "description": "Whether the estimate is a draft."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free-text notes."
+                  }
+                }
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "Estimate line items. Same shape as Add New Invoice line items.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The estimate was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed, or a selected store/product is inactive or violates its minimum price.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to edit this estimate.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No estimate matches the given ID.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__estimates_id_format"
+  },
+  "blockers": []
+}

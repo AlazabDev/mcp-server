@@ -1,0 +1,2135 @@
+[
+  {
+    "amount": 5245,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-30",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 5245,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-01",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 3650,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-02",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 16360,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-03",
+    "note": "Saad Shokhba",
+    "staff_id": 0
+  },
+  {
+    "amount": 4500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-04",
+    "note": "sami salma",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-05",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 7000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2023-11-06",
+    "note": "amr markt",
+    "staff_id": 0
+  },
+  {
+    "amount": 12000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-07",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-08",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-09",
+    "note": "Mahmoud Saad alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "اللألتزمات الدئنه",
+    "date": "2023-11-10",
+    "note": "Asad smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-11",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 25000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-12",
+    "note": "Ahmed Gomaa",
+    "staff_id": 0
+  },
+  {
+    "amount": 3030,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-13",
+    "note": "Moafy Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 10015,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-14",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-15",
+    "note": "linda",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-16",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 9700,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-17",
+    "note": "Nadin",
+    "staff_id": 0
+  },
+  {
+    "amount": 6000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-18",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 117000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-19",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-20",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-20",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-21",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-22",
+    "note": "Maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-23",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2023-11-24",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2023-11-25",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2023-11-26",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-27",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 65000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-28",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 35000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-29",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 30000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-11-30",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 75000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-12-01",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 7000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2023-12-02",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 27000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-06",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-06",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 5045,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-08",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-08",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-09",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-10",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 4070,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-10",
+    "note": "Mohamed ICE",
+    "staff_id": 0
+  },
+  {
+    "amount": 7000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-10",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 620,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-10",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 6000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-11",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 6000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-13",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 13000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-13",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-13",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-14",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 15500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-14",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 2500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-14",
+    "note": "Nadin",
+    "staff_id": 0
+  },
+  {
+    "amount": 6500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-14",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 130000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-16",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 4000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 5075,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 580,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 3500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-18",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-20",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 23400,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-20",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 7120,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-21",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-22",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-22",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-22",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-22",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 122505,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-01-22",
+    "note": "TAX VAT",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-22",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-23",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 129000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 600,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-23",
+    "note": "Mohamed ICE",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-23",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 17700,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-24",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 2900,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-24",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-24",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-24",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-24",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 90000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-24",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-26",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-26",
+    "note": "maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 28000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 22000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 30750,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-28",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-28",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-29",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-29",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 30000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-29",
+    "note": "mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 1550,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-30",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 4900,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-30",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 1700,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-01-30",
+    "note": "hand",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-01-30",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-01",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-01",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 6000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-01",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 7100,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-01",
+    "note": "CEO",
+    "staff_id": 0
+  },
+  {
+    "amount": 21850,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-01",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 1100,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-03",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-03",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-03",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-03",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 21550,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-03",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 5300,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-03",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-03",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-04",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-04",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-04",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 30000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-04",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-05",
+    "note": "Mohamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 1900,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "maintenance",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 4500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 1600,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-05",
+    "note": "Mohamed ICE",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 10520,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 3650,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-06",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-06",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-06",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-09",
+    "note": "hand home",
+    "staff_id": 0
+  },
+  {
+    "amount": 3700,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-09",
+    "note": "Mohamed ICE",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-09",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 3500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-09",
+    "note": "Wadi Degla",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-10",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "Mahmoud Saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "Abo Azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "Magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 27750,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "smart lights",
+    "staff_id": 0
+  },
+  {
+    "amount": 12200,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "Mohamed Abas",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-02-11",
+    "note": "mahmoud hamed",
+    "staff_id": 0
+  },
+  {
+    "amount": 15000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "Riad Metal",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-02-11",
+    "note": "magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-23",
+    "note": "مصروفات التكسير وتجهيزات الموقع",
+    "staff_id": 0
+  },
+  {
+    "amount": 650,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-26",
+    "note": "supplier: alazab \n\nطلبات التجهيزات حسن ابوصالح",
+    "staff_id": 0
+  },
+  {
+    "amount": 1600,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-26",
+    "note": "supplier: alazab \n\nمصروفات التكسير",
+    "staff_id": 0
+  },
+  {
+    "amount": 550,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات اعمال خاصه",
+    "date": "2024-02-26",
+    "note": "supplier: Smart Lights  \n\nام ليندا",
+    "staff_id": 0
+  },
+  {
+    "amount": 500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-28",
+    "note": "طلبات تجهيز الموقع",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-28",
+    "note": "جمال سباك",
+    "staff_id": 0
+  },
+  {
+    "amount": 320,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-24",
+    "note": "supplier:  \n\nطلبات لتجهيز الكهرباء داخل الشقه",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-29",
+    "note": "supplier:  \n\nجمال سباك",
+    "staff_id": 0
+  },
+  {
+    "amount": 1000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-02-29",
+    "note": "supplier:  \n\nمصروفات عماله وموصلات",
+    "staff_id": 0
+  },
+  {
+    "amount": 3150,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-03-01",
+    "note": "خرطوم مياه للبناء 600\r\nغداء عمال 400\r\nسلم خشب 650\r\nمصنعيه البناء 700\r\nموصلات 300\r\nصاروخ 200\r\nاكرميات 300",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-03-18",
+    "note": "supplier: smart",
+    "staff_id": 0
+  },
+  {
+    "amount": 25000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات اعمال خاصه",
+    "date": "2024-03-21",
+    "note": "supplier: ابو عزب",
+    "staff_id": 0
+  },
+  {
+    "amount": 84863,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "اللألتزمات الدئنه",
+    "date": "2023-09-25",
+    "note": "mohassss",
+    "staff_id": 0
+  },
+  {
+    "amount": 285000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2023-02-28",
+    "note": "m auf",
+    "staff_id": 0
+  },
+  {
+    "amount": 460500,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2023-03-31",
+    "note": "electrc",
+    "staff_id": 0
+  },
+  {
+    "amount": 400000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مواد البناء للمشروعات",
+    "date": "2023-05-31",
+    "note": "maniiioj",
+    "staff_id": 0
+  },
+  {
+    "amount": 680000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-03-24",
+    "note": "صيانات وجناكليس",
+    "staff_id": 0
+  },
+  {
+    "amount": 600000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المقاولون الباطن",
+    "date": "2023-09-30",
+    "note": "صيانات + وتجهيزات",
+    "staff_id": 0
+  },
+  {
+    "amount": 600000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-03-24",
+    "note": "البطاش",
+    "staff_id": 0
+  },
+  {
+    "amount": 400000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المقاولون الباطن",
+    "date": "2024-02-29",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 75469,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات التوظيف والتدريب",
+    "date": "2024-03-24",
+    "note": "Alex",
+    "staff_id": 0
+  },
+  {
+    "amount": 31296,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-03-24",
+    "note": "mohassss",
+    "staff_id": 0
+  },
+  {
+    "amount": 120000,
+    "currency_code": "EGP",
+    "vendor": "VAT Tax",
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-03-28",
+    "note": "TAX VAT 2024",
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مواد البناء للمشروعات",
+    "date": "2024-03-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 60000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مواد البناء للمشروعات",
+    "date": "2024-03-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 28000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-03-28",
+    "note": "abo azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-03-28",
+    "note": "VAT",
+    "staff_id": 0
+  },
+  {
+    "amount": 120000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عام",
+    "date": "2024-03-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-03-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 752,
+    "currency_code": "EGP",
+    "vendor": "ةخ",
+    "category": "مصاريف الإدارة",
+    "date": "2024-03-29",
+    "note": "بلبي",
+    "staff_id": 0
+  },
+  {
+    "amount": 6.25,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات صيانات الفروع",
+    "date": "2024-03-29",
+    "note": "للل",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-03-30",
+    "note": "supplier:  \n\nmagdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-03-30",
+    "note": "supplier:  \n\ntoha",
+    "staff_id": 0
+  },
+  {
+    "amount": 8000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصاريف الإدارة",
+    "date": "2024-04-06",
+    "note": "تم الصرف . محمد سعد راتب شهر 3 ملحوظه سيتم خصم 5% من الراتب القادم وذالك لدفع ضريبه المرتب التي تبلغ 10% من قيمه الراتب فالشركه تتحمل النصفف لحين التعديلات الماليه القادمه .؟ شكراً وبتوفيق",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات صيانات الفروع",
+    "date": "2024-04-07",
+    "note": "ابو لبن طنطا سابق 2300",
+    "staff_id": 0
+  },
+  {
+    "amount": 2700,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات صيانات الفروع",
+    "date": "2024-04-07",
+    "note": "محمود الزقازيق اجمالي 6000",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-04-08",
+    "note": "supplier: smart",
+    "staff_id": 0
+  },
+  {
+    "amount": 19000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-01-28",
+    "note": "FT240282Q93M - Payee Name: m abas Payer Name: MOHA MED ABDELGHANY MOHA",
+    "staff_id": 0
+  },
+  {
+    "amount": 19000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-01-28",
+    "note": "FT240282Q93M - Payee Name: m abas Payer Name: MOHA MED ABDELGHANY MOHA",
+    "staff_id": 0
+  },
+  {
+    "amount": 19000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-01-28",
+    "note": "FT240282Q93M - Payee Name: m abas Payer Name: MOHA MED ABDELGHANY MOHA",
+    "staff_id": 0
+  },
+  {
+    "amount": 17000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-04-22",
+    "note": "5446بليقق",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات صيانات الفروع",
+    "date": "2024-04-25",
+    "note": "ابو عزب صيانات واحمد عوف",
+    "staff_id": 0
+  },
+  {
+    "amount": 68000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-03-31",
+    "note": "payroll payment Id #1",
+    "staff_id": -3
+  },
+  {
+    "amount": 40000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصاريف أخرى",
+    "date": "2024-04-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 30000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصاريف الدعايه والتسويق",
+    "date": "2024-04-28",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 35000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-04-29",
+    "note": "في درج المحل 30 تحويل مجدي 5",
+    "staff_id": 0
+  },
+  {
+    "amount": 3500,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-04-29",
+    "note": "مصروفات 3 زياره 700 + التكسير الاول 1200 + 600 البدء",
+    "staff_id": 0
+  },
+  {
+    "amount": 11400,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات اعمال خاصه",
+    "date": "2024-06-05",
+    "note": "supplier: Smart Lights  (145670)",
+    "staff_id": 0
+  },
+  {
+    "amount": 200000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-06-11",
+    "note": "اجمالي مسحوبات مجدي عزب",
+    "staff_id": 0
+  },
+  {
+    "amount": 60000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-06-11",
+    "note": "حساب تصنيع واكسسوارت النجاره",
+    "staff_id": 0
+  },
+  {
+    "amount": 800,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-04-23",
+    "note": "عم سالم / كهرباء 300 اول . كهرباء 300 ثاني . مرضيه 200 .",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-06-29",
+    "note": "مجدي اركان",
+    "staff_id": 0
+  },
+  {
+    "amount": 110000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-07-07",
+    "note": "دفعات من 352000 وصل مجدي",
+    "staff_id": 0
+  },
+  {
+    "amount": 11400,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات اعمال خاصه",
+    "date": "2024-06-05",
+    "note": "supplier: Smart Lights  (145670)",
+    "staff_id": 0
+  },
+  {
+    "amount": 200000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-07-25",
+    "note": "arkan",
+    "staff_id": 0
+  },
+  {
+    "amount": 57000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مواد البناء للمشروعات",
+    "date": "2024-07-25",
+    "note": "mohamed abbas",
+    "staff_id": 0
+  },
+  {
+    "amount": 57000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات صيانات الفروع",
+    "date": "2024-07-25",
+    "note": "magdy",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-07-25",
+    "note": "Mahmoud saad",
+    "staff_id": 0
+  },
+  {
+    "amount": 20000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2024-07-30",
+    "note": "Arkan moll magdy Nabaroh 28/7/2024",
+    "staff_id": 0
+  },
+  {
+    "amount": 68000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-08-07",
+    "note": "payroll payment Id #2",
+    "staff_id": -3
+  },
+  {
+    "amount": 396000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2024-09-13",
+    "note": "supplier: smart  \n\narkan",
+    "staff_id": 0
+  },
+  {
+    "amount": 69735,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-09-13",
+    "note": "supplier:",
+    "staff_id": 0
+  },
+  {
+    "amount": 60020,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-09-13",
+    "note": "supplier:",
+    "staff_id": 0
+  },
+  {
+    "amount": 149205,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-09-13",
+    "note": "supplier: اسمارت لايت \n\nشخصي \nايجار ومركبات\nموردين",
+    "staff_id": 0
+  },
+  {
+    "amount": 2000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-09-15",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 200000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "اللألتزمات الدئنه",
+    "date": "2024-10-24",
+    "note": "سامح ابوندي",
+    "staff_id": 0
+  },
+  {
+    "amount": 100000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2024-10-10",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مصاريف الإدارة",
+    "date": "2024-12-05",
+    "note": "تسويه الرصيد",
+    "staff_id": 0
+  },
+  {
+    "amount": 50000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات صيانات الفروع",
+    "date": "2025-01-05",
+    "note": "وصل مجدي 10+15+5+20 مع كارما مصروفات العمل شهر 12",
+    "staff_id": 0
+  },
+  {
+    "amount": 12000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "عام",
+    "date": "2024-12-25",
+    "note": "سحب هند من جمعيه هشام المصري",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-01-25",
+    "note": "عهدة مصروفات اعمال التاسيسات (طرف ابوعزب)",
+    "staff_id": 0
+  },
+  {
+    "amount": 3000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-01-27",
+    "note": "طلبات باقي خامات التاسيسات عهدة طرف ابوعزب",
+    "staff_id": 0
+  },
+  {
+    "amount": 2200,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-04-19",
+    "note": "supplier:  \n\nخشب شجرة م محمد سامي",
+    "staff_id": 0
+  },
+  {
+    "amount": 655,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-04-19",
+    "note": "supplier:  \n\nفاتوره دهانات م محمد سامي",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-04-19",
+    "note": "supplier:  \n\nابوعزب في شقه م محمد سامي",
+    "staff_id": 0
+  },
+  {
+    "amount": 1500,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات اعمال خاصه",
+    "date": "2025-04-19",
+    "note": "supplier: Smart Lights  \n\nمحل الحسيني",
+    "staff_id": 0
+  },
+  {
+    "amount": 5000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-04-26",
+    "note": "تكسير ونقل رتش",
+    "staff_id": 0
+  },
+  {
+    "amount": 23200,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-05-02",
+    "note": "supplier:  \n\nمصروفات طنطا",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-05-13",
+    "note": "supplier: محمد عبدة \n\nعربون رخام م/محمد سامي",
+    "staff_id": 0
+  },
+  {
+    "amount": 7000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-05-13",
+    "note": "supplier: صفًا لايت  \n\nسليندر وتراك م/سامي",
+    "staff_id": 0
+  },
+  {
+    "amount": 6000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-01-02",
+    "note": "payroll payment Id #3",
+    "staff_id": -3
+  },
+  {
+    "amount": 83200,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-03-31",
+    "note": "payroll payment Id #4",
+    "staff_id": -3
+  },
+  {
+    "amount": 650000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-05-15",
+    "note": "مجدي مصروفات المشروعات الحديثه",
+    "staff_id": 0
+  },
+  {
+    "amount": 350000,
+    "currency_code": "EGP",
+    "vendor": "magdy Azab",
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2025-05-15",
+    "note": "عهده طرف ابوعزب للمشروعات",
+    "staff_id": 0
+  },
+  {
+    "amount": 150000,
+    "currency_code": "EGP",
+    "vendor": "Mahamed Azab",
+    "category": "مواد البناء للمشروعات",
+    "date": "2025-05-15",
+    "note": null,
+    "staff_id": 0
+  },
+  {
+    "amount": 210000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "مصروفات المشروعات الحديثة",
+    "date": "2025-05-15",
+    "note": "مشروعات ابوعوف الدلتا 5 فروع",
+    "staff_id": 0
+  },
+  {
+    "amount": 10000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2025-05-16",
+    "note": "supplier: Smart Lights  \n\n Tanta abo azab",
+    "staff_id": 0
+  },
+  {
+    "amount": 1610,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2025-12-14",
+    "note": "supplier: hand \n\nhand tahlil",
+    "staff_id": 6
+  },
+  {
+    "amount": 200000,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عهدة مصروفات المقاولون",
+    "date": "2025-12-14",
+    "note": "supplier:  \n\nابوعزب اربيسك",
+    "staff_id": 6
+  },
+  {
+    "amount": 1410,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2026-02-01",
+    "note": "CARD PURCHASE 24/01/26 FawryPF*Cairo Card No: *0973 Authorization No: 749876",
+    "staff_id": 6
+  },
+  {
+    "amount": 1001,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2026-02-01",
+    "note": "IPN TRANSFER MOHAMED ABDELGHANY / MOHAMED MOHAMED A",
+    "staff_id": 6
+  },
+  {
+    "amount": 1301.3,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2026-02-01",
+    "note": "IPN TRANSFER MOHAMED ABDELGHANY / MOHAMED MOHAMED A",
+    "staff_id": 6
+  },
+  {
+    "amount": 5005,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2026-02-01",
+    "note": "IPN TRANSFER MOHAMED ABDELGHANY / MOHAMED MOHAMED A",
+    "staff_id": 6
+  },
+  {
+    "amount": 2541,
+    "currency_code": "EGP",
+    "vendor": null,
+    "category": "عام",
+    "date": "2026-04-03",
+    "note": null,
+    "staff_id": 6
+  },
+  {
+    "amount": 307373,
+    "currency_code": "EGP",
+    "vendor": "Supplier ID 30 - suppliers/view/30",
+    "category": "خامات الأخشاب",
+    "date": "2026-08-22",
+    "note": "فاتورة مورد/شراء - خامات الأخشاب بالكامل - مشروع أربيسك. الإجمالي: 307,373 جنيه مصري. البنود: 1) لوح أكرليك: 14 × 3,150 = 44,100. 2) لوح قشرة: 40 × 2,430 = 97,200. 3) لوح 6م دهور: 20 × 400 = 8,000. 4) لوح 18م أبواب: 8 × 670 = 5,360. 5) لوح كونتر 18م: 2 × 830 = 1,660. 6) شريط 18م: 11 × 1,433 = 15,763. 7) شريط 5 سم: 61 × 15 = 915. 8) لوح 3م كونتر فورمايك وشين: 20 × 4,000 = 80,000. 9) مقطع: 73 × 25 = 1,825. 10) فرخة خشب: 4 × 4,790 = 19,160. 11) فرمايك: 27 × 1,070 = 28,890. 12) سنفرة وتجميع: 1 × 4,500 = 4,500. فقط ثلاثمائة وسبعة آلاف وثلاثمائة وثلاثة وسبعون جنيهًا مصريًا لا غير.",
+    "staff_id": -3
+  }
+]

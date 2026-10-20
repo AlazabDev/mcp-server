@@ -1,0 +1,445 @@
+{
+  "path": "/department/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Departments",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/HR/Organizational Structure/Department"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "active": {
+                        "type": "integer"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "abbr": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "department_managers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "manager_id": {
+                              "type": "integer"
+                            },
+                            "department_id": {
+                              "type": "integer"
+                            },
+                            "manager_department": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "added_by": {
+                                  "type": "integer"
+                                },
+                                "role_id": {
+                                  "type": "integer"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "middle_name": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "last_name": {
+                                  "type": "string"
+                                },
+                                "full_name": {
+                                  "type": "string"
+                                },
+                                "photo": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "can_access_system": {
+                                  "type": "integer"
+                                },
+                                "home_phone": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "business_Phone": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "mobile": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "fax": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "country_code": {
+                                  "type": "string"
+                                },
+                                "address1": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "address2": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "city": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "state": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "postal_code": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "note": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "email_address": {
+                                  "type": "string"
+                                },
+                                "password": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "last_login": {
+                                  "type": "string"
+                                },
+                                "active": {
+                                  "type": "integer"
+                                },
+                                "deleted": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "created": {
+                                  "type": "string"
+                                },
+                                "deleted_at": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "follow_up_status": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "hourly_rate": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "hourly_rate_currency_code": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "default_store_id": {
+                                  "type": "integer",
+                                  "nullable": true
+                                },
+                                "default_treasury_id": {
+                                  "type": "integer",
+                                  "nullable": true
+                                },
+                                "maximum_general_discount": {
+                                  "type": "integer",
+                                  "nullable": true
+                                },
+                                "language_code": {
+                                  "type": "integer"
+                                },
+                                "branch_id": {
+                                  "type": "integer"
+                                },
+                                "default_account_id": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "attendance_restriction_id": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "auth_id": {
+                                  "type": "integer"
+                                },
+                                "citizenship_status": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "nationality": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "official_id": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "residence_expiry_date": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "modified": {
+                                  "type": "string"
+                                },
+                                "smtp_email_address_id": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                },
+                                "official_id_unique_check": {
+                                  "nullable": true,
+                                  "enum": [
+                                    null
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "added_by",
+                                "role_id",
+                                "code",
+                                "type",
+                                "name",
+                                "middle_name",
+                                "last_name",
+                                "full_name",
+                                "photo",
+                                "can_access_system",
+                                "home_phone",
+                                "business_Phone",
+                                "mobile",
+                                "fax",
+                                "country_code",
+                                "address1",
+                                "address2",
+                                "city",
+                                "state",
+                                "postal_code",
+                                "note",
+                                "email_address",
+                                "last_login",
+                                "active",
+                                "deleted",
+                                "created",
+                                "deleted_at",
+                                "follow_up_status",
+                                "hourly_rate",
+                                "hourly_rate_currency_code",
+                                "default_store_id",
+                                "default_treasury_id",
+                                "maximum_general_discount",
+                                "language_code",
+                                "branch_id",
+                                "default_account_id",
+                                "attendance_restriction_id",
+                                "auth_id",
+                                "citizenship_status",
+                                "nationality",
+                                "official_id",
+                                "residence_expiry_date",
+                                "modified",
+                                "smtp_email_address_id",
+                                "official_id_unique_check"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "manager_id",
+                            "department_id",
+                            "manager_department"
+                          ]
+                        },
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "description",
+                      "active",
+                      "created",
+                      "modified",
+                      "abbr",
+                      "department_managers"
+                    ]
+                  }
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "page": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "label",
+                      "page",
+                      "active"
+                    ]
+                  }
+                },
+                "next_page_url": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "prev_page_url": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "to": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "first_page_url",
+                "from",
+                "last_page",
+                "last_page_url",
+                "links",
+                "next_page_url",
+                "path",
+                "per_page",
+                "prev_page_url",
+                "to",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "$ref": "#/components/responses/Unauthorized",
+        "description": "Unauthorized"
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__department_list"
+  },
+  "blockers": []
+}

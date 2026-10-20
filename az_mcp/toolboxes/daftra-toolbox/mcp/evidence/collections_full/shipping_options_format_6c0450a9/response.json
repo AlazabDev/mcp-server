@@ -1,0 +1,32 @@
+[
+  {
+    "ShippingOption": {
+      "id": "1",
+      "name": "fast charging",
+      "fees": "50.0000000000",
+      "tax_id": "1",
+      "account_id": null,
+      "display_order": "102",
+      "status": "1",
+      "description": null,
+      "created": "2024-04-05 07:56:41",
+      "modified": "2024-04-05 07:56:41",
+      "deleted_at": null
+    }
+  },
+  {
+    "ShippingOption": {
+      "id": "2",
+      "name": "charging",
+      "fees": "25.0000000000",
+      "tax_id": "1",
+      "account_id": null,
+      "display_order": "103",
+      "status": "1",
+      "description": null,
+      "created": "2024-04-05 07:57:23",
+      "modified": "2024-04-05 07:57:23",
+      "deleted_at": null
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "data[].Treasury.id": [
+    "3",
+    "1",
+    "2"
+  ],
+  "data[].Treasury.staff_id": [
+    "0"
+  ],
+  "data[].Treasury.branch_id": [
+    "1"
+  ]
+}

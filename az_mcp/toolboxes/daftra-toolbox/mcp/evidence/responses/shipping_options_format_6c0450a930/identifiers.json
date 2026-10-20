@@ -1,0 +1,9 @@
+{
+  "data[].ShippingOption.id": [
+    "1",
+    "2"
+  ],
+  "data[].ShippingOption.tax_id": [
+    "1"
+  ]
+}

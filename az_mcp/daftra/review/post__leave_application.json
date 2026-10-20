@@ -1,0 +1,200 @@
+{
+  "path": "/leave_application",
+  "method": "post",
+  "operation": {
+    "summary": "Add Leave Application",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a leave application for a staff member. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The request body is a **flat JSON object** whose keys are the leave-application fields.\n\nAlways provide `staff_id`, `date_from`, `date_to` and `days`. The date range and day count must be consistent: `date_to` must equal `date_from + (days − 1)` (and be on or after `date_from`).\n\nWhich other fields are required depends on `type`:\n\n| `type` | Meaning | Additionally required |\n|---|---|---|\n| `leave` (default) | Leave | `leave_type_id` |\n| `half_leave` | Half (½) Leave | `leave_type_id` |\n| `delay` | Late Arrival | `late_time` (minutes) |\n| `early` | Early Leave | `early_time` (minutes) |\n\nDo **not** send `id` (assigned automatically), `status` (always starts as `pending`), `approved_by`, `created_by` (taken from the authenticated user) or the approval-cycle fields (resolved automatically). On success the endpoint returns the standard native-entity `{ message, id }` envelope with the new leave-application id.\n\n> Known issue (dev): the create pipeline currently faults and returns HTTP 500 `{\"message\":\"Server Error\"}` for this entity — see the audit report. The request contract below is the intended one.",
+    "tags": [
+      "Endpoints/HR/Leave Application "
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "staff_id": {
+                "type": "integer",
+                "description": "Required. Id of the staff member the leave is for. The caller must be allowed to apply leave for that staff member."
+              },
+              "date_from": {
+                "type": "string",
+                "description": "Required. First day of leave, `YYYY-MM-DD`."
+              },
+              "date_to": {
+                "type": "string",
+                "description": "Required. Last day of leave, `YYYY-MM-DD`. Must be on or after `date_from` and equal to `date_from + (days − 1)`."
+              },
+              "days": {
+                "type": "integer",
+                "description": "Required. Number of leave days requested."
+              },
+              "type": {
+                "type": "string",
+                "description": "Optional. Kind of application. Defaults to `leave`.\n\n| Value | Meaning |\n|---|---|\n| leave | Leave |\n| half_leave | Half (½) Leave |\n| delay | Late Arrival |\n| early | Early Leave |",
+                "enum": [
+                  "leave",
+                  "half_leave",
+                  "delay",
+                  "early"
+                ]
+              },
+              "leave_type_id": {
+                "type": "integer",
+                "description": "Required when `type` is `leave` or `half_leave`. The configured leave type to use."
+              },
+              "late_time": {
+                "type": "integer",
+                "description": "Required when `type` is `delay`. Minutes late (≥ 1)."
+              },
+              "early_time": {
+                "type": "integer",
+                "description": "Required when `type` is `early`. Minutes early (≥ 1)."
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional. Free-text note stored on the application."
+              },
+              "comment": {
+                "type": "string",
+                "description": "Optional. Additional comment."
+              },
+              "attachments": {
+                "type": "array",
+                "description": "Optional. Uploaded files attached to the application (max 5 MB each).",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "required": [
+              "staff_id",
+              "date_from",
+              "date_to",
+              "days"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The leave application was created; the standard native-entity `{ message, id }` envelope is returned with the new id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Success message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the created leave application."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The leave application could not be saved. On a validation failure the body is `{ \"message\": \"Entity not saved\", \"errors\": { … } }` with per-field messages in `errors` (a required field missing, or a field invalid for the chosen `type`); on a database save failure it is the `{ e, message, error }` envelope.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Failure summary — `Entity not saved` on a validation or save failure."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Present on a validation failure: per-field messages keyed by field name (e.g. a missing `staff_id`/`date_from`/`date_to`/`days`, or a `leave_type_id` omitted for a `leave`/`half_leave` application).",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "properties": {}
+                },
+                "e": {
+                  "description": "Present on a database save failure: error detail object (or empty array)."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Present on a database save failure: failure detail."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Currently returned by the create pipeline for this entity on dev (`{\"message\":\"Server Error\"}`); no record is inserted. Recorded as a known issue in the audit report.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__leave_application",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

@@ -1,0 +1,225 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra general_listing",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://tenant.invalid/api2"
+    }
+  ],
+  "paths": {
+    "/listing/{model}{format}": {
+      "get": {
+        "summary": "GET General Listing",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a lightweight reference list for one whitelisted model as a flat map of `id` → `title`. Handy for populating dropdowns and lookups.\n\n**Authentication:** this endpoint uses the `apikey` header only (send your account API key). The `Authorization: Bearer` token is not used here.\n\n**Response shape:** `data.Listing` is a flat object whose keys are record ids and whose values are the record titles (plain strings). There is no pagination, sorting, or free-text search.\n\n**Allowed `model` values** (case-sensitive):\n\n| Model | Returns |\n|---|---|\n| `Category` | Categories, `id` → name |\n| `InvoiceLayout` | Invoice layouts, `id` → name |\n| `GroupPrice` | Price lists, `id` → name |\n| `Role` | Staff roles, `id` → name |\n| `Timezone` | Time zones, `id` → label |\n| `Language` | Active languages, `id` → `Name (CODE)` |\n| `Project` | Active projects, `id` → name |\n| `TimeActivity` | Active time activities, `id` → name |\n| `DateFormats` | Available date-format strings |\n\nAny value outside this list returns `404 Invalid Endpoint`.\n\n**Optional filtering** (honored only by `Category`, `InvoiceLayout`, `GroupPrice`, and `Role`; ignored by the other models):\n\n- `fields` — an array of exactly two field names, `[keyField, valueField]`, that overrides which columns are used as the map key and value. Sending any number of elements other than two returns `400 Bad Request`.\n- `conditions` — a map of `field: value` filters applied to the query.",
+        "tags": [
+          "Endpoints/General Listing",
+          "General Listing"
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "path",
+            "description": "The reference model to list. Case-sensitive; must be one of the allowed values.\n\n| Value | Returns |\n|---|---|\n| `Category` | Categories |\n| `InvoiceLayout` | Invoice layouts |\n| `GroupPrice` | Price lists |\n| `Role` | Staff roles |\n| `Timezone` | Time zones |\n| `Language` | Active languages |\n| `Project` | Active projects |\n| `TimeActivity` | Active time activities |\n| `DateFormats` | Available date formats |",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format extension appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "debug",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Listing": {
+                          "type": "object",
+                          "description": "Flat map of record id (key) to record title (value).",
+                          "additionalProperties": {
+                            "type": "string",
+                            "description": "The record title."
+                          },
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Returned when the `fields` query parameter is present but does not contain exactly two elements.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string"
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Returned when the `apikey` header is missing or does not match the account API key. Note the envelope differs from other errors: it carries `success` and `message` only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Returned when `model` is not one of the allowed values (the request does not match a valid endpoint).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string"
+                    },
+                    "extra_data": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__listing_model_format"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "error": {
+    "code": "UserError",
+    "severity": null,
+    "message": "This operation requires the following opt-in preview feature(s): Insights=V1Preview. Include the 'Foundry-Features: Insights=V1Preview' header in your request.",
+    "messageFormat": "This operation requires the following opt-in preview feature(s): {missing_features}. Include the 'Foundry-Features: {required_features}' header in your request.",
+    "messageParameters": {
+      "missing_features": "Insights=V1Preview",
+      "required_features": "Insights=V1Preview"
+    },
+    "referenceCode": null,
+    "detailsUri": null,
+    "target": "Foundry-Features",
+    "details": [],
+    "innerError": {
+      "code": "PreviewFeatureRequired",
+      "innerError": null
+    },
+    "debugInfo": null,
+    "additionalInfo": null
+  },
+  "correlation": {
+    "operation": "bf9d89d800c33ad9028fedbbd72ec4bf",
+    "request": "aa24bde83e577669"
+  },
+  "environment": "eastus2",
+  "location": "eastus2",
+  "time": "2026-09-22T01:13:26.6595268+00:00",
+  "componentName": "raisvc",
+  "statusCode": 400
+}

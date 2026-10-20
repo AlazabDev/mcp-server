@@ -1,0 +1,52 @@
+{
+  "result": "successful",
+  "code": 200,
+  "data": {
+    "Site": {
+      "id": "3428849",
+      "business_name": "Alazab Construction",
+      "first_name": "Mohamed",
+      "last_name": "Azab",
+      "subdomain": "alazab-co.daftra.com",
+      "site_logo": "66e5d94e6ffda_aazz.png",
+      "invoice_logo": null,
+      "address1": "A8, Street 500, Maadi New",
+      "address2": "",
+      "city": "Cairo",
+      "state": "El-Basatin Sharkeya",
+      "postal_code": "4234570",
+      "phone1": "+201092750351",
+      "phone2": "+201004006620",
+      "country_code": "EG",
+      "timezone": "13",
+      "date_format": "DD-MM-YYYY",
+      "currency_code": "EGP",
+      "language_code": "7",
+      "email": "admin@alazab.com",
+      "expiry_date": "2027-02-09",
+      "package_id": "343",
+      "bn1": "218670",
+      "bn2": "577219804",
+      "tolerant": null,
+      "beta_version": "0",
+      "site_logo_full_path": "https://alazab-co.daftra.com/files/images/site-logos/66e5d94e6ffda_aazz.png",
+      "staff_id": -3,
+      "currencyFormat": "%s ج.م",
+      "currencies": {
+        "currencies_ar": "%s ج.م",
+        "currencies_en": "%s ج.م"
+      },
+      "numberFormat": [
+        2,
+        ".",
+        ","
+      ],
+      "SITE_HASH": "bb25d175",
+      "url": "https://alazab-co.daftra.com",
+      "is_beta": false,
+      "is_expired": false,
+      "moment_format": "DD-MM-YYYY",
+      "ALLOWED_LOYALTY_PLUGIN": true
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "path": "/journal_accounts/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Journal Account",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single journal account by ID, with recalculated balances (`total_credit`, `total_debit`, `net`) and the `can_be_hidden` / `deletable` flags. Requires the **Manage Journal Accounts** permission.",
+    "tags": [
+      "Endpoints/Accounting/Journal Accounts",
+      "Journal Accounts"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "ID of the journal account.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "JournalAccount": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique identifier of the account."
+                        },
+                        "journal_cat_id": {
+                          "type": "integer",
+                          "description": "ID of the parent journal category (chart-of-accounts folder) this account belongs to."
+                        },
+                        "level": {
+                          "type": "integer",
+                          "description": "Depth of the account within the chart-of-accounts tree. Maintained automatically.",
+                          "nullable": true
+                        },
+                        "code": {
+                          "type": "string",
+                          "description": "Account code. Digits only; unique across all journal accounts and categories."
+                        },
+                        "type": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "description": "The account nature.\n\n| Value | Meaning |\n|---|---|\n| 0 | Credit |\n| 1 | Debit |"
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "description": "ID of the staff member who created the account. `0` means the account was created by the site owner.",
+                          "nullable": true
+                        },
+                        "total_credit": {
+                          "type": "number",
+                          "description": "Total credit posted to the account."
+                        },
+                        "total_debit": {
+                          "type": "number",
+                          "description": "Total debit posted to the account."
+                        },
+                        "entity_type": {
+                          "type": "string",
+                          "description": "For system-managed accounts, the kind of entity this account is automatically linked to (e.g. a client, supplier, treasury, tax or category account). `null` for ordinary user-created accounts.",
+                          "nullable": true
+                        },
+                        "entity_id": {
+                          "type": "string",
+                          "description": "Identifier of the linked entity item when `entity_type` is set. `null` otherwise.",
+                          "nullable": true
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Account name."
+                        },
+                        "is_recalculated": {
+                          "type": "integer",
+                          "description": "Whether the account totals have been recalculated. `0` or `1`."
+                        },
+                        "last_transaction_update": {
+                          "type": "string",
+                          "description": "Timestamp of the last transaction affecting this account."
+                        },
+                        "parent_cat_ids": {
+                          "type": "string",
+                          "description": "Comma-separated list of all ancestor category IDs, from the immediate parent up to the root. Maintained automatically."
+                        },
+                        "is_hidden": {
+                          "type": "integer",
+                          "description": "Whether the account is hidden from account listings. `0` or `1`."
+                        },
+                        "disabled": {
+                          "type": "integer",
+                          "description": "Whether the account is disabled. `0` or `1`."
+                        },
+                        "created": {
+                          "type": "string",
+                          "description": "Time the account was created."
+                        },
+                        "modified": {
+                          "type": "string",
+                          "description": "Time the account was last updated."
+                        },
+                        "net": {
+                          "type": "number",
+                          "description": "Net balance of the account for the current view (credit minus debit for credit accounts, debit minus credit for debit accounts)."
+                        },
+                        "can_be_hidden": {
+                          "type": "boolean",
+                          "description": "Whether the account may be hidden (it is not already hidden and has no dependents that block hiding)."
+                        },
+                        "deletable": {
+                          "type": "boolean",
+                          "description": "Whether the account can be deleted (it has no transactions or other dependents)."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "NotFound",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__journal_accounts_id_format"
+  },
+  "blockers": []
+}

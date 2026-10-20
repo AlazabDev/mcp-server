@@ -1,0 +1,239 @@
+{
+  "path": "/work_orders/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Work Orders",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing work order.\n\nRequires permission to edit the work order (`Edit & remove all work orders`, or `Edit & remove his work orders` for one the staff created or is assigned to). The request body must be wrapped in a `WorkOrder` object; `title` and `start_date` are required.\n\nA **Closed** work order cannot be edited and returns `400`. As with create, `status` is server-controlled (Open, or Draft when `is_draft` is sent), `number` is generated when omitted, and the submitted `staff_id` assigns staff member(s) rather than changing the creator. The same operation is also reachable via `POST /work_orders/{id}`.",
+    "tags": [
+      "Endpoints/Work Orders/Work Orders",
+      "Work Orders"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The work order identifier.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "WorkOrder": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Work order title."
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date (YYYY-MM-DD)."
+                  },
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Identifier of the client this work order belongs to. The client must not be suspended."
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Work order number. Auto-generated when left empty."
+                  },
+                  "delivery_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Free-text description."
+                  },
+                  "budget": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Budget amount for this work order."
+                  },
+                  "budget_currency": {
+                    "type": "string",
+                    "description": "3-letter ISO 4217 currency code for the budget."
+                  },
+                  "follow_up_status_id": {
+                    "type": "integer",
+                    "description": "Follow-up status identifier."
+                  },
+                  "delivery_appointment_id": {
+                    "type": "integer",
+                    "description": "Linked appointment reference."
+                  },
+                  "staff_id": {
+                    "type": "integer",
+                    "description": "Staff member to assign to this work order. Does not change the recorded creator."
+                  },
+                  "is_draft": {
+                    "type": "integer",
+                    "description": "Set to `1` to save the work order as a Draft with relaxed validation. Defaults to `0`.",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  }
+                },
+                "required": [
+                  "title",
+                  "start_date"
+                ]
+              }
+            },
+            "required": [
+              "WorkOrder"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Set for the closed-work-order precondition (e.g. \"Work Order is closed, you can't edit\"); `null` on validation failures, where the detail is in `validation_errors`.",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field name → reason. Present when validation fails.",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__work_orders_id_format"
+  },
+  "blockers": []
+}

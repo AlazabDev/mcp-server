@@ -1,0 +1,89 @@
+{
+  "path": "/requisitions/{id}",
+  "method": "delete",
+  "operation": {
+    "summary": "Delete Requisitions",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a requisition (and its related stock movements) identified by its id.\n\nThis is a UI-oriented action and does **not** return a JSON body. To actually delete through the API you must pass `force=1` as a query parameter — without it the request returns the HTML delete-confirmation page and nothing is deleted.\n\nOn success the request is redirected (HTTP `302`) to the requisitions list. Pre-delete guards (closed accounting period, another branch, a pending order, a locked item, insufficient stock, tracking, or a linked manufacturing order) also surface as redirects with a flash message rather than a structured JSON error.\n\nTo delete a requisition and receive a machine-readable result, prefer the v2 entity API for the `requisition` entity.",
+    "tags": [
+      "Endpoints/Inventory /Requsitions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The requisition id to delete (digits only).",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "force",
+        "in": "query",
+        "description": "Set to `1` to perform the deletion. Without it the endpoint returns the HTML confirmation page and does not delete.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "When `force` is omitted, the HTML delete-confirmation page is returned and the requisition is not deleted.",
+        "content": {
+          "text/html": {
+            "schema": {}
+          }
+        },
+        "headers": {}
+      },
+      "302": {
+        "description": "The requisition was deleted (when `force=1`). The response is a redirect to the requisitions list with no body. Pre-delete validation failures also redirect, with the reason shown as a flash message.",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        },
+        "headers": {
+          "Location": {
+            "required": false,
+            "description": "Redirect target — the requisitions list.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__requisitions_id"
+  },
+  "blockers": []
+}

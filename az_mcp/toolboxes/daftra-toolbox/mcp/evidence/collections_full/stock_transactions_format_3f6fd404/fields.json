@@ -1,0 +1,147 @@
+{
+  "StockTransaction": [
+    "object"
+  ],
+  "StockTransaction.added_by": [
+    "string"
+  ],
+  "StockTransaction.avg": [
+    "string"
+  ],
+  "StockTransaction.balance_to_date": [
+    "string"
+  ],
+  "StockTransaction.branch_id": [
+    "string"
+  ],
+  "StockTransaction.cost": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.created": [
+    "string"
+  ],
+  "StockTransaction.currency_code": [
+    "string"
+  ],
+  "StockTransaction.currency_rate": [
+    "string"
+  ],
+  "StockTransaction.date": [
+    "string"
+  ],
+  "StockTransaction.discount": [
+    "string"
+  ],
+  "StockTransaction.extra_details": [
+    "null"
+  ],
+  "StockTransaction.fetch_from_raw": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.id": [
+    "string"
+  ],
+  "StockTransaction.ignored": [
+    "string"
+  ],
+  "StockTransaction.ignored_date": [
+    "null"
+  ],
+  "StockTransaction.is_calculated": [
+    "null"
+  ],
+  "StockTransaction.journal_account_id": [
+    "null"
+  ],
+  "StockTransaction.modified": [
+    "string"
+  ],
+  "StockTransaction.notes": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.order_id": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.price": [
+    "string"
+  ],
+  "StockTransaction.price_without_tax": [
+    "string"
+  ],
+  "StockTransaction.product_id": [
+    "string"
+  ],
+  "StockTransaction.purchase_order_ids": [
+    "null"
+  ],
+  "StockTransaction.purchase_price": [
+    "string"
+  ],
+  "StockTransaction.quantity": [
+    "string"
+  ],
+  "StockTransaction.quantity2": [
+    "null"
+  ],
+  "StockTransaction.received_date": [
+    "string"
+  ],
+  "StockTransaction.ref_id": [
+    "string"
+  ],
+  "StockTransaction.serials": [
+    "null"
+  ],
+  "StockTransaction.source_type": [
+    "string"
+  ],
+  "StockTransaction.status": [
+    "string"
+  ],
+  "StockTransaction.stock_after": [
+    "string"
+  ],
+  "StockTransaction.stock_transfer_id": [
+    "null"
+  ],
+  "StockTransaction.store_avg": [
+    "string"
+  ],
+  "StockTransaction.store_id": [
+    "string"
+  ],
+  "StockTransaction.store_stock_after": [
+    "string"
+  ],
+  "StockTransaction.tracking_number_id": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.transaction_category_id": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.transaction_type": [
+    "string"
+  ],
+  "StockTransaction.unit_factor": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.unit_factor_id": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.unit_name": [
+    "null",
+    "string"
+  ],
+  "StockTransaction.unit_small_name": [
+    "null",
+    "string"
+  ]
+}

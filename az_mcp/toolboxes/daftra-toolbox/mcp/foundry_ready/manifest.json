@@ -1,0 +1,455 @@
+{
+  "source": "/mnt/f/apps/mcp/toolboxes/daftra/mcp/daftra_openapi.json",
+  "server": "https://alazab-co.daftra.com/api2",
+  "mode": "read_only",
+  "categories": {
+    "sales": {
+      "file": "daftra-sales-verified.openapi.json",
+      "operations": 10
+    },
+    "crm": {
+      "file": "daftra-crm-verified.openapi.json",
+      "operations": 6
+    },
+    "operations": {
+      "file": "daftra-operations-verified.openapi.json",
+      "operations": 3
+    },
+    "inventory": {
+      "file": "daftra-inventory-verified.openapi.json",
+      "operations": 6
+    },
+    "accounting": {
+      "file": "daftra-accounting-verified.openapi.json",
+      "operations": 4
+    },
+    "finance": {
+      "file": "daftra-finance-verified.openapi.json",
+      "operations": 5
+    },
+    "purchases": {
+      "file": "daftra-purchases-verified.openapi.json",
+      "operations": 4
+    },
+    "hr": {
+      "file": "daftra-hr-verified.openapi.json",
+      "operations": 3
+    }
+  },
+  "verified_operations": [
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoices{format}",
+      "tool_path": "/invoices.json",
+      "operationId": "get_invoices_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 123,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoices/subscription{format}",
+      "tool_path": "/invoices/subscription.json",
+      "operationId": "get_invoices_subscription_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 0,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/estimates{format}",
+      "tool_path": "/estimates.json",
+      "operationId": "get_estimates_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 23,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoice_payments{format}",
+      "tool_path": "/invoice_payments.json",
+      "operationId": "get_invoice_payments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 60,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoice_appointments{format}",
+      "tool_path": "/invoice_appointments.json",
+      "operationId": "get_invoice_appointments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 1,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/estimate_appointments{format}",
+      "tool_path": "/estimate_appointments.json",
+      "operationId": "get_estimate_appointments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 0,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/shipping_options{format}",
+      "tool_path": "/shipping_options.json",
+      "operationId": "get_shipping_options_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 2,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoices/{id}{format}",
+      "tool_path": "/invoices/{id}.json",
+      "operationId": "get_invoices_by_id",
+      "evidence": "evidence/details/invoices/response.json",
+      "record_id": 332,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/estimates/{id}{format}",
+      "tool_path": "/estimates/{id}.json",
+      "operationId": "get_estimates_by_id",
+      "evidence": "evidence/details/estimates/response.json",
+      "record_id": 331,
+      "state": "verified"
+    },
+    {
+      "category": "sales",
+      "method": "GET",
+      "source_path": "/invoice_payments/{id}{format}",
+      "tool_path": "/invoice_payments/{id}.json",
+      "operationId": "get_invoice_payments_by_id",
+      "evidence": "evidence/details/invoice_payments/response.json",
+      "record_id": 287,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/clients{format}",
+      "tool_path": "/clients.json",
+      "operationId": "get_clients_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 64,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/client_appointments{format}",
+      "tool_path": "/client_appointments.json",
+      "operationId": "get_client_appointments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 0,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/client_payments{format}",
+      "tool_path": "/client_payments.json",
+      "operationId": "get_client_payments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 41,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/notes{format}",
+      "tool_path": "/notes.json",
+      "operationId": "get_notes_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 73,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/clients/{id}{format}",
+      "tool_path": "/clients/{id}.json",
+      "operationId": "get_clients_by_id",
+      "evidence": "evidence/details/clients/response.json",
+      "record_id": 48,
+      "state": "verified"
+    },
+    {
+      "category": "crm",
+      "method": "GET",
+      "source_path": "/client_payments/{id}{format}",
+      "tool_path": "/client_payments/{id}.json",
+      "operationId": "get_client_payments_by_id",
+      "evidence": "evidence/details/client_payments/response.json",
+      "record_id": 272,
+      "state": "verified"
+    },
+    {
+      "category": "operations",
+      "method": "GET",
+      "source_path": "/work_orders{format}",
+      "tool_path": "/work_orders.json",
+      "operationId": "get_work_orders_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 12,
+      "state": "verified"
+    },
+    {
+      "category": "operations",
+      "method": "GET",
+      "source_path": "/work_order_appointments{format}",
+      "tool_path": "/work_order_appointments.json",
+      "operationId": "get_work_order_appointments_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 16,
+      "state": "verified"
+    },
+    {
+      "category": "operations",
+      "method": "GET",
+      "source_path": "/work_orders/{id}{format}",
+      "tool_path": "/work_orders/{id}.json",
+      "operationId": "get_work_orders_by_id",
+      "evidence": "evidence/details/work_orders/response.json",
+      "record_id": 19,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/products{format}",
+      "tool_path": "/products.json",
+      "operationId": "get_products_list",
+      "evidence": "evidence/products_full/report.json",
+      "records": 3256,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/requisitions",
+      "tool_path": "/requisitions",
+      "operationId": "get_requisitions_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 47,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/product_categories{format}",
+      "tool_path": "/product_categories.json",
+      "operationId": "get_product_categories_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 30,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/stores{format}",
+      "tool_path": "/stores.json",
+      "operationId": "get_stores_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 3,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/stock_transactions{format}",
+      "tool_path": "/stock_transactions.json",
+      "operationId": "get_stock_transactions_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 496,
+      "state": "verified"
+    },
+    {
+      "category": "inventory",
+      "method": "GET",
+      "source_path": "/products/{id}{format}",
+      "tool_path": "/products/{id}.json",
+      "operationId": "get_products_by_id",
+      "evidence": "evidence/details/products/response.json",
+      "record_id": 267,
+      "state": "verified"
+    },
+    {
+      "category": "accounting",
+      "method": "GET",
+      "source_path": "/journals{format}",
+      "tool_path": "/journals.json",
+      "operationId": "get_journals_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 701,
+      "state": "verified"
+    },
+    {
+      "category": "accounting",
+      "method": "GET",
+      "source_path": "/journal_accounts{format}",
+      "tool_path": "/journal_accounts.json",
+      "operationId": "get_journal_accounts_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 188,
+      "state": "verified"
+    },
+    {
+      "category": "accounting",
+      "method": "GET",
+      "source_path": "/journal_cats{format}",
+      "tool_path": "/journal_cats.json",
+      "operationId": "get_journal_cats_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 43,
+      "state": "verified"
+    },
+    {
+      "category": "accounting",
+      "method": "GET",
+      "source_path": "/journal_accounts/{id}{format}",
+      "tool_path": "/journal_accounts/{id}.json",
+      "operationId": "get_journal_accounts_by_id",
+      "evidence": "evidence/details/journal_accounts/response.json",
+      "record_id": 381,
+      "state": "verified"
+    },
+    {
+      "category": "finance",
+      "method": "GET",
+      "source_path": "/incomes{format}",
+      "tool_path": "/incomes.json",
+      "operationId": "get_incomes_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 13,
+      "state": "verified"
+    },
+    {
+      "category": "finance",
+      "method": "GET",
+      "source_path": "/treasuries{format}",
+      "tool_path": "/treasuries.json",
+      "operationId": "get_treasuries_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 3,
+      "state": "verified"
+    },
+    {
+      "category": "finance",
+      "method": "GET",
+      "source_path": "/expenses{format}",
+      "tool_path": "/expenses.json",
+      "operationId": "get_expenses_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 242,
+      "state": "verified"
+    },
+    {
+      "category": "finance",
+      "method": "GET",
+      "source_path": "/taxes{format}",
+      "tool_path": "/taxes.json",
+      "operationId": "get_taxes_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 2,
+      "state": "verified"
+    },
+    {
+      "category": "finance",
+      "method": "GET",
+      "source_path": "/expenses/{id}{format}",
+      "tool_path": "/expenses/{id}.json",
+      "operationId": "get_expenses_by_id",
+      "evidence": "evidence/details/expenses/response.json",
+      "record_id": 1,
+      "state": "verified"
+    },
+    {
+      "category": "purchases",
+      "method": "GET",
+      "source_path": "/purchase_invoices{format}",
+      "tool_path": "/purchase_invoices.json",
+      "operationId": "get_purchase_invoices_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 62,
+      "state": "verified"
+    },
+    {
+      "category": "purchases",
+      "method": "GET",
+      "source_path": "/purchase_orders{format}",
+      "tool_path": "/purchase_orders.json",
+      "operationId": "get_purchase_orders_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 0,
+      "state": "verified"
+    },
+    {
+      "category": "purchases",
+      "method": "GET",
+      "source_path": "/suppliers{format}",
+      "tool_path": "/suppliers.json",
+      "operationId": "get_suppliers_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 29,
+      "state": "verified"
+    },
+    {
+      "category": "purchases",
+      "method": "GET",
+      "source_path": "/suppliers/{id}{format}",
+      "tool_path": "/suppliers/{id}.json",
+      "operationId": "get_suppliers_by_id",
+      "evidence": "evidence/details/suppliers/response.json",
+      "record_id": 13,
+      "state": "verified"
+    },
+    {
+      "category": "hr",
+      "method": "GET",
+      "source_path": "/staff{format}",
+      "tool_path": "/staff.json",
+      "operationId": "get_staff_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 5,
+      "state": "verified"
+    },
+    {
+      "category": "hr",
+      "method": "GET",
+      "source_path": "/time_tracking{format}",
+      "tool_path": "/time_tracking.json",
+      "operationId": "get_time_tracking_list",
+      "evidence": "evidence/collections_full/report.json",
+      "records": 1,
+      "state": "verified"
+    },
+    {
+      "category": "hr",
+      "method": "GET",
+      "source_path": "/staff/{id}{format}",
+      "tool_path": "/staff/{id}.json",
+      "operationId": "get_staff_by_id",
+      "evidence": "evidence/details/staff/response.json",
+      "record_id": 3,
+      "state": "verified"
+    }
+  ],
+  "excluded": [],
+  "total_verified_operations": 41,
+  "source_total_operations": 301,
+  "not_verified_operations": 260
+}

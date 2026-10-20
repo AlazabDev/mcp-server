@@ -1,0 +1,24 @@
+{
+  "id": "meta-whatsapp-toolbox",
+  "display_name": "Meta WhatsApp",
+  "description": "WhatsApp Cloud API and WhatsApp Business Management tools for Alazab.",
+  "openapi_specs": [
+    "meta/meta-whatsapp-messaging.openapi.json",
+    "meta/meta-whatsapp-templates.openapi.json",
+    "meta/meta-whatsapp-management.openapi.json"
+  ],
+  "asset_inventory": "meta/meta-whatsapp-assets.json",
+  "authentication": {
+    "type": "bearer",
+    "secret_name_suggestion": "META_WHATSAPP_ACCESS_TOKEN",
+    "note": "Store the token in Foundry/connection secrets; do not embed it in OpenAPI."
+  },
+  "recommended_agents": [
+    "az-agent-azabot",
+    "az-agent-auth",
+    "az-agent-maint",
+    "az-agent-payments",
+    "az-agent-project",
+    "az-agent-sol"
+  ]
+}

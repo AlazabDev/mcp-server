@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/purchase_orders{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1231,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:18:48.710319+00:00"
+}

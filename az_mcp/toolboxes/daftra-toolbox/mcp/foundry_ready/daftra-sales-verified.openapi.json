@@ -1,0 +1,391 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra Sales Read Tools",
+    "version": "1.0.0",
+    "description": "Evidence-gated live-verified read endpoints."
+  },
+  "servers": [
+    {
+      "url": "https://alazab-co.daftra.com/api2"
+    }
+  ],
+  "paths": {
+    "/invoices.json": {
+      "get": {
+        "summary": "GET All Invoices",
+        "description": "Live-read verified Daftra collection endpoint for invoices. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "recursive",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoices_list"
+      }
+    },
+    "/invoices/subscription.json": {
+      "get": {
+        "summary": "List Subscriptions",
+        "description": "Live-read verified Daftra collection endpoint for invoices/subscription. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoices_subscription_list"
+      }
+    },
+    "/estimates.json": {
+      "get": {
+        "summary": "GET All Estimates",
+        "description": "Live-read verified Daftra collection endpoint for estimates. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_estimates_list"
+      }
+    },
+    "/invoice_payments.json": {
+      "get": {
+        "summary": "GET All Invoice Payments",
+        "description": "Live-read verified Daftra collection endpoint for invoice_payments. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoice_payments_list"
+      }
+    },
+    "/invoice_appointments.json": {
+      "get": {
+        "summary": "GET All Invoice Appointments",
+        "description": "Live-read verified Daftra collection endpoint for invoice_appointments. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoice_appointments_list"
+      }
+    },
+    "/estimate_appointments.json": {
+      "get": {
+        "summary": "GET All Estimate Appointments",
+        "description": "Live-read verified Daftra collection endpoint for estimate_appointments. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_estimate_appointments_list"
+      }
+    },
+    "/shipping_options.json": {
+      "get": {
+        "summary": "List Shipping Options",
+        "description": "Live-read verified Daftra collection endpoint for shipping_options. Use identifiers from collection responses for detail lookups.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_shipping_options_list"
+      }
+    },
+    "/invoices/{id}.json": {
+      "get": {
+        "summary": "GET Single Invoice",
+        "description": "Live-read verified Daftra detail endpoint for invoices. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoices_by_id"
+      }
+    },
+    "/estimates/{id}.json": {
+      "get": {
+        "summary": "GET Single Estimate",
+        "description": "Live-read verified Daftra detail endpoint for estimates. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_estimates_by_id"
+      }
+    },
+    "/invoice_payments/{id}.json": {
+      "get": {
+        "summary": "GET Single Invoice Payment",
+        "description": "Live-read verified Daftra detail endpoint for invoice_payments. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_invoice_payments_by_id"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "DaftraApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraApiKey": []
+    }
+  ]
+}

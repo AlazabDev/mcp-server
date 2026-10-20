@@ -1,0 +1,108 @@
+{
+  "path": "/v2/api/apps-manager/{appId}/{entityKey}/{entityId}/{lock}",
+  "method": "get",
+  "operation": {
+    "summary": "Lock / Unlock Entity Record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Locks or unlocks an entity record on behalf of an installed app.\n\nIntended for third-party app integrations: an installed app can lock a specific record of any entity it has access to (preventing further edits) or unlock it again. Send `true` in the `lock` path segment to lock the record; any other value unlocks it.\n\nAuthenticated with an OAuth bearer token. The response is always HTTP `200` with a `{ status, msg }` object — inspect `status` to tell success from the two failure cases (the app is not installed/active for the site, or the record was not found).",
+    "tags": [
+      "Developers Portal/Developers Portal Endpoints"
+    ],
+    "parameters": [
+      {
+        "name": "appId",
+        "in": "path",
+        "description": "The installed app's id (the app performing the lock/unlock).",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key of the record to lock/unlock (e.g. `product`, `invoice`).",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "entityId",
+        "in": "path",
+        "description": "The id of the record within the entity.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "lock",
+        "in": "path",
+        "description": "Send `true` to lock the record; any other value unlocks it.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Lock/unlock outcome. Example bodies:\n\nLocked:\n```json\n{ \"status\": true, \"msg\": \"Record locked successfully\" }\n```\nUnlocked:\n```json\n{ \"status\": true, \"msg\": \"Record unlocked successfully\" }\n```\nApp not installed/inactive (still HTTP 200):\n```json\n{ \"status\": false, \"msg\": \"App is not installed or inactive\" }\n```\nRecord not found (still HTTP 200):\n```json\n{ \"status\": false, \"msg\": \"Record not found\" }\n```",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The lock/unlock outcome. Always returned with HTTP `200` — inspect `status` to distinguish success from the two failure cases.",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "description": "`true` when the record was locked/unlocked; `false` when the app is not installed/active for the site, or the record was not found."
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Localized, human-readable outcome message.\n\n| Value | Meaning |\n|---|---|\n| Record locked successfully | The record is now locked. |\n| Record unlocked successfully | The record is now unlocked. |\n| App is not installed or inactive | The app is not installed or not active for the current site. |\n| Record not found | No record matches the given entity/id. |"
+                }
+              },
+              "required": [
+                "status",
+                "msg"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed. `{ \"message\": \"Unauthenticated.\" }`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "Authentication failed or was missing (a valid OAuth bearer token is required).",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when no valid access token is supplied."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__v_api_apps-manager_appId_entityKey_entityId_lock"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

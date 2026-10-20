@@ -1,0 +1,24 @@
+{
+  "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai",
+  "location": "westeurope",
+  "managedBy": null,
+  "name": "azab-rg-ai",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": {
+    "CreatedBy": "admin",
+    "DeploymentName": "Engine-Agent-1782896984",
+    "SolutionSuffix": "engineagent5zclv",
+    "TemplateName": "MACAE",
+    "Type": "Non-WAF",
+    "az-cost-center": "alazab",
+    "az-criticality": "critical",
+    "az-domain": "ai",
+    "az-env": "prod",
+    "az-managed-by": "cli",
+    "az-owner": "azab",
+    "azd-env-name": "Engine-Agent"
+  },
+  "type": "Microsoft.Resources/resourceGroups"
+}

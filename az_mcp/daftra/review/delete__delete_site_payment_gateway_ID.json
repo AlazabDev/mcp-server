@@ -1,0 +1,105 @@
+{
+  "path": "/delete/site_payment_gateway/{ID}",
+  "method": "delete",
+  "operation": {
+    "summary": "Add Payment Method Copy",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Delete a payment method to the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.",
+    "tags": [
+      "Endpoints/Payment Gateways"
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The payment method was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized confirmation message."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created payment method."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The payment method could not be saved. The most common cause is a duplicate `payment_gateway` (which is unique within the account).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Underlying error detail. For a database-constraint failure this is an object with `errorInfo`, `connectionName`, and `readWriteType`."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Error detail string (a database error message for constraint failures)."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication or authorization failed. A missing, invalid, or expired Bearer token returns a plain `401` (no JSON body). An authenticated caller who lacks permission receives a JSON `{ \"error\": \"…\" }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "delete__delete_site_payment_gateway_ID",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

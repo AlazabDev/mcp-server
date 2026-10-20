@@ -1,0 +1,84 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "vs_UKxWQVCZOQUAhlOOLRnMrAZ4",
+      "object": "vector_store",
+      "name": "index_alazab_catalog_full",
+      "status": "completed",
+      "usage_bytes": 9599610,
+      "created_at": 1785958516,
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "total": 1
+      },
+      "metadata": {},
+      "expires_after": null,
+      "expires_at": null,
+      "last_active_at": 1785958516
+    },
+    {
+      "id": "vs_Jo2qjXwcUG44IKaJNVBt42lv",
+      "object": "vector_store",
+      "name": "index_salmon_lamp_uberfix",
+      "status": "completed",
+      "usage_bytes": 37728,
+      "created_at": 1782364710,
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 6,
+        "failed": 0,
+        "cancelled": 0,
+        "total": 6
+      },
+      "metadata": {},
+      "expires_after": null,
+      "expires_at": null,
+      "last_active_at": 1782364710
+    },
+    {
+      "id": "vs_wcTfhR96Rz5uy8BBjVDYap6U",
+      "object": "vector_store",
+      "name": "index_boring_shirt_v25g86swdb",
+      "status": "completed",
+      "usage_bytes": 28075,
+      "created_at": 1782305496,
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 4,
+        "failed": 0,
+        "cancelled": 0,
+        "total": 4
+      },
+      "metadata": {},
+      "expires_after": null,
+      "expires_at": null,
+      "last_active_at": 1782305496
+    },
+    {
+      "id": "vs_NtF3dnVoiLkcK7rSoGm8GnZ3",
+      "object": "vector_store",
+      "name": "index_great_guitar_fvb1x78rdm",
+      "status": "completed",
+      "usage_bytes": 140962,
+      "created_at": 1782044426,
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "total": 1
+      },
+      "metadata": {},
+      "expires_after": null,
+      "expires_at": null,
+      "last_active_at": 1782044426
+    }
+  ],
+  "first_id": "vs_UKxWQVCZOQUAhlOOLRnMrAZ4",
+  "last_id": "vs_NtF3dnVoiLkcK7rSoGm8GnZ3",
+  "has_more": false
+}

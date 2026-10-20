@@ -1,0 +1,904 @@
+{
+  "value": [
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-AJVp8XrbjB3Gn14raNHsGP/versions/1",
+      "name": "assistant-AJVp8XrbjB3Gn14raNHsGP",
+      "version": "1",
+      "displayName": "alazab_agent_knowledge_base_full.md",
+      "description": "alazab_agent_knowledge_base_full.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-2a8e8e50-c415-5de1-828e-d93b034fa42a/assistant-AJVp8XrbjB3Gn14raNHsGP",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-06T17:02:24.139238+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-06T17:02:26.4345108+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-UVV9JHPusMG39s5daKXDKu/versions/1",
+      "name": "assistant-UVV9JHPusMG39s5daKXDKu",
+      "version": "1",
+      "displayName": "alazab_catalog_full.json",
+      "description": "alazab_catalog_full.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-f17ccc2a-2148-5d92-9605-dca62e1ac9f3/assistant-UVV9JHPusMG39s5daKXDKu",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-05T19:35:07.077752+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-05T19:35:09.2159615+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-DhzxAY2XWcL8eorVMpN25N/versions/1",
+      "name": "assistant-DhzxAY2XWcL8eorVMpN25N",
+      "version": "1",
+      "displayName": "alazab_catalog_full.json",
+      "description": "alazab_catalog_full.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-0132108e-8965-5815-bafe-a1ac488a9830/assistant-DhzxAY2XWcL8eorVMpN25N",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-05T19:33:20.293206+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-05T19:33:23.7412817+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_195221_7950b_UTC/versions/1",
+      "name": "eval-data-2026-08-04_195221_7950b_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_195221_7950b_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-a4aacb10-d7d3-5ab2-86b0-af1c942f02fd",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:52:21.9631326+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:52:21.9631326+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_195126_26392_UTC/versions/1",
+      "name": "eval-data-2026-08-04_195126_26392_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_195126_26392_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-aba48d6f-f848-5d98-9f32-46b5ec933470",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:51:26.8411527+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:51:26.8411527+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_195047_1a48f_UTC/versions/1",
+      "name": "eval-data-2026-08-04_195047_1a48f_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_195047_1a48f_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-4c38636e-a660-5855-80e4-8598ef730aed",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:50:47.9734838+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:50:47.9734838+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_194945_12965_UTC/versions/1",
+      "name": "eval-data-2026-08-04_194945_12965_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_194945_12965_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-bb0e5892-2ab5-54d9-a62b-37ac81164f89",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:49:46.1628276+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:49:46.1628276+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_194904_c8aa9_UTC/versions/1",
+      "name": "eval-data-2026-08-04_194904_c8aa9_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_194904_c8aa9_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-1fdf42e2-a4b1-5c65-8344-bf907582b951",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:49:04.8409184+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:49:04.8409184+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_194727_efa76_UTC/versions/1",
+      "name": "eval-data-2026-08-04_194727_efa76_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_194727_efa76_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-10051b8e-d000-5f18-b0a1-6d4a13e4bd82",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:47:27.7601653+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:47:27.7601653+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-04_194635_e0b8d_UTC/versions/1",
+      "name": "eval-data-2026-08-04_194635_e0b8d_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-04_194635_e0b8d_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-534c5914-d10f-5f56-8ba5-40a5bce4aeaa",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-04T19:46:36.5399935+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-04T19:46:36.5399935+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175809_dd662_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175809_dd662_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175809_dd662_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-c98a7a84-ed9b-5dca-b623-09fe08895db9",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:58:10.8692266+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:58:10.8692266+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175658_fea2d_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175658_fea2d_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175658_fea2d_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-594fe63b-cfe9-59c5-9287-df637c3a30aa",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:56:58.6976417+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:56:58.6976417+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175628_ccad7_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175628_ccad7_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175628_ccad7_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-8d9c6fd4-b95a-5c28-b705-a812a96b195f",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:56:29.4241477+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:56:29.4241477+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175606_00b7e_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175606_00b7e_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175606_00b7e_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-02c6178d-33dd-5c5f-8d6e-5bcaa84db760",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:56:07.2985169+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:56:07.2985169+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175539_b4b88_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175539_b4b88_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175539_b4b88_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-67efa9eb-1655-5230-96bd-f2b825c1a74e",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:55:40.3256638+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:55:40.3256638+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175442_1db4d_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175442_1db4d_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175442_1db4d_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-7a814bb1-d907-5e61-9dae-bd55cda8d22e",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:54:43.4332369+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:54:43.4332369+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175416_65ea2_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175416_65ea2_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175416_65ea2_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-5d968924-becd-502c-b92a-717f86c356a7",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:54:17.0785654+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:54:17.0785654+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175348_a2a34_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175348_a2a34_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175348_a2a34_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-8046b6b3-837f-5a5c-b979-e786d111a9df",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:53:48.8330977+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:53:48.8330977+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175314_8ca0f_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175314_8ca0f_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175314_8ca0f_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-5b96fb66-8775-508a-a43d-4ef61674965e",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:53:15.6445705+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:53:15.6445705+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_175212_f0610_UTC/versions/1",
+      "name": "eval-data-2026-08-03_175212_f0610_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_175212_f0610_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-9a28128b-8d1e-5780-80a9-ab03cc7fdd3a",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:52:13.2707777+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:52:13.2707777+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/eval-data-2026-08-03_174734_a8dfc_UTC/versions/1",
+      "name": "eval-data-2026-08-03_174734_a8dfc_UTC",
+      "version": "1",
+      "displayName": "eval-data-2026-08-03_174734_a8dfc_UTC",
+      "description": "",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-f113518d-47a3-5f47-a1dc-6db53da3b96e",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-08-03T17:47:35.4719845+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-08-03T17:47:35.4719845+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/simpleqna_evaluation_vppnqk/versions/1.0",
+      "name": "simpleqna_evaluation_vppnqk",
+      "version": "1.0",
+      "displayName": "simpleqna_evaluation_vppnqk",
+      "description": "Dataset for eval data generation job: datagen-481c2dfbe1c44b5a8d262d45f869bdc3",
+      "tags": {
+        "data_generation_job_id": "datagen-481c2dfbe1c44b5a8d262d45f869bdc3"
+      },
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-63259510-c09b-5a36-a172-3681599fc031",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-30T11:32:10.0392415+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-30T11:32:10.0392415+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/sys-evalartifacts-az-eval-maint/versions/v1-858effff",
+      "name": "sys-evalartifacts-az-eval-maint",
+      "version": "v1-858effff",
+      "displayName": "sys-evalartifacts-az-eval-maint",
+      "description": "",
+      "tags": {
+        "evaluator_name": "az-eval-maint",
+        "run_id": "evaluatorgen-az-eval-maint-v1-858effff",
+        "artifact_kinds": "spec,tools,context",
+        "managed_by": "evaluator_generation"
+      },
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net:443/az-ai-reso-bf5a757d-7e5f-5bd4-affe-2d71c6131074",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-30T08:57:21.0309409+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-30T08:57:21.0309409+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/egj_d887b4/versions/1.0",
+      "name": "egj_d887b4",
+      "version": "1.0",
+      "displayName": "egj_d887b4",
+      "description": "Dataset for eval data generation job: datagen-78a025833a7f48b28c9a1102791dfa52",
+      "tags": {
+        "data_generation_job_id": "datagen-78a025833a7f48b28c9a1102791dfa52"
+      },
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-a4501d10-076c-51ff-ac4f-34cfe4ada6a5",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-30T08:55:23.3443341+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-30T08:55:23.3443341+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/skill_0121246c9d25d310123ee9e530912bb85ee378fb/versions/1",
+      "name": "skill_0121246c9d25d310123ee9e530912bb85ee378fb",
+      "version": "1",
+      "displayName": "skill_0121246c9d25d310123ee9e530912bb85ee378fb",
+      "description": "Skill package for uberfix-maintenance-intake v1",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net:443/az-ai-reso-0ac88de6-2f4e-5298-bec8-c6db7ff26e69",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T14:42:35.6899079+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T14:42:35.6899079+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/az_model_maint_db/versions/1.0",
+      "name": "az_model_maint_db",
+      "version": "1.0",
+      "displayName": "az_model_maint_db",
+      "description": "بيانات اعطال الوحدات السكنية والتجارية",
+      "tags": {
+        "eval_id": "eval_7d2aac12c725434dab6e81a5c3b4118c",
+        "eval_run_id": "evalrun_4406dbf0635441d99fbcfd5bafc91432",
+        "type": "SyntheticData"
+      },
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-11ed84aa-d986-555a-92af-a6fe48dbf872",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T14:25:12.3703667+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T14:25:12.3703667+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/az_model_maint_db_seed_1782396515524/versions/1",
+      "name": "az_model_maint_db_seed_1782396515524",
+      "version": "1",
+      "displayName": "az_model_maint_db_seed_1782396515524",
+      "description": "az_model_maint_db_seed_1782396515524",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net:443/az-ai-reso-13bc6841-9d17-55b2-8d9a-5873d30116a1",
+      "isSingleFile": false,
+      "connectionName": "",
+      "systemData": {
+        "createdAt": "2026-06-25T14:08:38.2337206+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T14:08:38.2337206+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/sys-evalartifacts-az-eval-model/versions/v1-cd8307e7",
+      "name": "sys-evalartifacts-az-eval-model",
+      "version": "v1-cd8307e7",
+      "displayName": "sys-evalartifacts-az-eval-model",
+      "description": "",
+      "tags": {
+        "evaluator_name": "az-eval-model",
+        "run_id": "evaluatorgen-az-eval-model-v1-cd8307e7",
+        "artifact_kinds": "spec,tools,context",
+        "managed_by": "evaluator_generation"
+      },
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net:443/az-ai-reso-ec887ef5-0863-5eab-abc9-2b93ed571d5e",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T14:00:16.8884203+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T14:00:16.8884203+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/rubric-context-az-eval-model-1782395923092/versions/1",
+      "name": "rubric-context-az-eval-model-1782395923092",
+      "version": "1",
+      "displayName": "rubric-context-az-eval-model-1782395923092",
+      "description": "Context file for rubric generation: 05_maintenance_gateway_openapi.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net:443/az-ai-reso-dee51be5-c118-5ca4-8929-41182ccd36a0",
+      "isSingleFile": false,
+      "connectionName": "",
+      "systemData": {
+        "createdAt": "2026-06-25T13:58:45.4606324+00:00",
+        "createdBy": "Mohamed Azab",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T13:58:45.4606324+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-HTpr84VgHGSK6zcrcShA8R/versions/1",
+      "name": "assistant-HTpr84VgHGSK6zcrcShA8R",
+      "version": "1",
+      "displayName": "06_maintenance_gateway_tool_rules.md",
+      "description": "06_maintenance_gateway_tool_rules.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-d3e96ae3-78ac-5f5b-926f-33acba448639/assistant-HTpr84VgHGSK6zcrcShA8R",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:12.207422+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:15.4809696+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-2BtXg6u5PQ2UL9deAY4eV5/versions/1",
+      "name": "assistant-2BtXg6u5PQ2UL9deAY4eV5",
+      "version": "1",
+      "displayName": "07_local_only_gateway_testing_commands_SANITIZED.md",
+      "description": "07_local_only_gateway_testing_commands_SANITIZED.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-8641e811-742b-5abe-856f-35dfddf58798/assistant-2BtXg6u5PQ2UL9deAY4eV5",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:04.19966+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:15.8825684+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-MsjFVmwK7NJe76TtjEcNuM/versions/1",
+      "name": "assistant-MsjFVmwK7NJe76TtjEcNuM",
+      "version": "1",
+      "displayName": "manifest.json",
+      "description": "manifest.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-04903226-6ac3-50e4-90e2-a5f0102a1b3a/assistant-MsjFVmwK7NJe76TtjEcNuM",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:04.191357+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:07.4186667+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-PmjkPqPtDXDmw8oKXUMAGt/versions/1",
+      "name": "assistant-PmjkPqPtDXDmw8oKXUMAGt",
+      "version": "1",
+      "displayName": "05_maintenance_gateway_openapi.json",
+      "description": "05_maintenance_gateway_openapi.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-8acc8fdb-fa9d-5b86-985d-17a89d496be2/assistant-PmjkPqPtDXDmw8oKXUMAGt",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:03.869077+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:12.7396226+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-GSTL7KqkKGzJV4ryLSGsRq/versions/1",
+      "name": "assistant-GSTL7KqkKGzJV4ryLSGsRq",
+      "version": "1",
+      "displayName": "03_uberfix_services_catalog_summary.md",
+      "description": "03_uberfix_services_catalog_summary.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-e1085078-b5df-5db0-a082-6d8c8fdd0925/assistant-GSTL7KqkKGzJV4ryLSGsRq",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:03.827116+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:13.065658+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-HCXt6VkfxmKoYGYUrQLgWu/versions/1",
+      "name": "assistant-HCXt6VkfxmKoYGYUrQLgWu",
+      "version": "1",
+      "displayName": "02_uberfix_operational_policy.md",
+      "description": "02_uberfix_operational_policy.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-c13c9ee5-dafd-563d-baf6-d96b7d199273/assistant-HCXt6VkfxmKoYGYUrQLgWu",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-25T05:18:03.826983+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-25T05:18:07.346033+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-XYRnEH7NKvZaXydUFortHT/versions/1",
+      "name": "assistant-XYRnEH7NKvZaXydUFortHT",
+      "version": "1",
+      "displayName": "voice_scripts_by_brand.json",
+      "description": "voice_scripts_by_brand.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-9afbe832-84ec-543e-8158-98ece90582f2/assistant-XYRnEH7NKvZaXydUFortHT",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-24T12:50:59.07482+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-24T12:51:18.0851587+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-2nt35pM3kpZKhWKuzudmfT/versions/1",
+      "name": "assistant-2nt35pM3kpZKhWKuzudmfT",
+      "version": "1",
+      "displayName": "voice_scripts_by_brand.txt",
+      "description": "voice_scripts_by_brand.txt",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-68c60575-419c-5024-bab8-42ea9a704acc/assistant-2nt35pM3kpZKhWKuzudmfT",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-24T12:50:58.975991+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-24T12:51:03.2554041+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-P2zwWMHQ6kvs8VBj3mj88a/versions/1",
+      "name": "assistant-P2zwWMHQ6kvs8VBj3mj88a",
+      "version": "1",
+      "displayName": "audio_assets_manifest.json",
+      "description": "audio_assets_manifest.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-1a662909-f61e-561e-a6a2-8fad6a8f7c97/assistant-P2zwWMHQ6kvs8VBj3mj88a",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-24T12:50:58.929727+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-24T12:51:07.7143791+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-3dRYhRdcmjkWVriYWkr3GK/versions/1",
+      "name": "assistant-3dRYhRdcmjkWVriYWkr3GK",
+      "version": "1",
+      "displayName": "arabic_voices_subset.json",
+      "description": "arabic_voices_subset.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-3a0577c3-9dab-5bd0-a6ba-1f173f02e7cc/assistant-3dRYhRdcmjkWVriYWkr3GK",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-24T12:50:58.897815+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-24T12:51:28.1111383+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-H6harEqG3kD5XfWpqkksyV/versions/1",
+      "name": "assistant-H6harEqG3kD5XfWpqkksyV",
+      "version": "1",
+      "displayName": "API_GATEWAY_TESTING_COMMANDS.md",
+      "description": "API_GATEWAY_TESTING_COMMANDS.md",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-253c6b64-2998-5825-a4c6-7bc40cff6bca/assistant-H6harEqG3kD5XfWpqkksyV",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-22T04:29:08.948072+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-22T04:29:13.0754908+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-JXVZ8VJ1pdvJAvUg5Cjh1y/versions/1",
+      "name": "assistant-JXVZ8VJ1pdvJAvUg5Cjh1y",
+      "version": "1",
+      "displayName": "uberfix_maintenance_gateway.openapi.json",
+      "description": "uberfix_maintenance_gateway.openapi.json",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-27bab224-4a20-502d-a073-52f815e49ff3/assistant-JXVZ8VJ1pdvJAvUg5Cjh1y",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-21T14:23:10.88122+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-21T14:23:14.6306846+00:00"
+      }
+    },
+    {
+      "id": "azureai://accounts/az-ai-resource/projects/az-ai-gateway/data/assistant-9CSNBgRjWGy9VEycMAMCWn/versions/1",
+      "name": "assistant-9CSNBgRjWGy9VEycMAMCWn",
+      "version": "1",
+      "displayName": "uf_db_v3.txt",
+      "description": "uf_db_v3.txt",
+      "tags": {},
+      "type": "uri_file",
+      "lifecycle": null,
+      "source": "Data",
+      "isReference": false,
+      "dataUri": "https://saz7f5fcv5zh2sc.blob.core.windows.net/az-ai-reso-b02fc66b-03b4-51b4-9b34-6ae122325e42/assistant-9CSNBgRjWGy9VEycMAMCWn",
+      "isSingleFile": false,
+      "connectionName": null,
+      "systemData": {
+        "createdAt": "2026-06-21T12:19:56.531074+00:00",
+        "createdBy": "779301c0-18b2-4cdc-801b-a0a3368fee0a",
+        "createdByType": null,
+        "lastModifiedAt": "2026-06-21T12:20:00.5380112+00:00"
+      }
+    }
+  ]
+}

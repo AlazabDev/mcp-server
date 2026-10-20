@@ -1,0 +1,122 @@
+{
+  "path": "/v2/api/entity/{entityKey}",
+  "method": "post",
+  "operation": {
+    "summary": "Create entity record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create a record for any entity, addressed by its `entityKey` (e.g. `client`, `cost_center`, `work_order`).\n\nThis is a generic, metadata-driven endpoint. The request body is a JSON object of the new record's field values; **which keys are accepted and which are required is defined by the entity's field metadata, so it differs per `entityKey`**. Use the entity schema/fields endpoints to discover an entity's fields and their requirements.\n\nOn success the response carries a confirmation `message` and the new record's `id`.\n\n**Authentication & authorization.** Requires an OAuth2 Bearer token and the entity's **create** permission; otherwise the request is rejected with `401`.",
+    "tags": [
+      "Endpoints/Entities",
+      "Entities"
+    ],
+    "parameters": [
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key to create a record for, e.g. `client`, `cost_center`, `work_order`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "The new record's field values. Keys and required-ness are defined by the entity's field metadata and vary per `entityKey`; the example below is for `cost_center`.",
+            "properties": {}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Record created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The entity's plugin is not active, a custom rule rejected the request, a resource-based check failed, or the record could not be saved.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The caller does not hold the entity's create permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "422": {
+        "description": "Validation failed against the entity's field rules.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Field name → list of error messages.",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__v_api_entity_entityKey"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

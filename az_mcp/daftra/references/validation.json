@@ -1,0 +1,10 @@
+{
+  "spec_files_validated": 42,
+  "tool_groups": 21,
+  "candidate_operations": 266,
+  "blocked_operations": 35,
+  "source_operations": 301,
+  "unique_operation_ids": true,
+  "live_api_tested": false,
+  "foundry_deployed": false
+}

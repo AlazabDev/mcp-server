@@ -1,0 +1,8 @@
+{
+  "path": "/invoice_payments{format}",
+  "complete": true,
+  "pages": 1,
+  "unique_records": 60,
+  "error": null,
+  "evidence": "evidence/collections_full/invoice_payments_format_2af5cbdf"
+}

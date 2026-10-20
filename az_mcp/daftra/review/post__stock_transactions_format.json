@@ -1,0 +1,246 @@
+{
+  "path": "/stock_transactions{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Stock Transaction",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a manual stock adjustment (a stock-in or stock-out transaction) for a product in a warehouse.\n\nThe request body is wrapped under a `StockTransaction` object. The target product must be **active** and **quantity-tracked** (products tracked by serial/lot use Requisitions instead).\n\nServer-controlled fields are set automatically and ignored if supplied: the source is fixed to *Manual*, the status to *Processed*, and `order_id`, `staff_id`, and `branch_id` are assigned by the server.\n\nOn success the endpoint responds with **202 Accepted** and the new transaction id.\n\nRequires the **Adjust Product Inventory** permission.",
+    "tags": [
+      "Endpoints/Inventory /Stock Transactions",
+      "Stock Transactions"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "StockTransaction": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "Id of the product to adjust. The product must be active and quantity-tracked."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Id of the warehouse. Must be an active warehouse."
+                  },
+                  "transaction_type": {
+                    "type": "integer",
+                    "description": "Direction of the adjustment.\n\n| Value | Meaning |\n|---|---|\n| 1 | Stock in (add) |\n| 2 | Stock out (remove) |",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "quantity": {
+                    "type": "number",
+                    "description": "Quantity to add or remove (positive number). The sign for stock-out is handled by the server."
+                  },
+                  "transaction_category_id": {
+                    "type": "array",
+                    "description": "Transaction category, sent as an array; the first element is used and is resolved by id or created by name.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency of the unit price. Recommended; combined with the account exchange rate."
+                  },
+                  "price": {
+                    "type": "number",
+                    "description": "Unit price. Defaults to the product's average price when omitted; for stock-out it may be set to the most recent purchase price."
+                  },
+                  "received_date": {
+                    "type": "string",
+                    "description": "Transaction date (account date format). Defaults to the current date/time when omitted. Must fall within an open financial period."
+                  },
+                  "journal_account_id": {
+                    "type": "integer",
+                    "description": "Optional journal account used when the Accounting plugin is active."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Optional free-text note."
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "Optional comma-separated list of uploaded image/file ids (a string, not an array)."
+                  },
+                  "fetch_from_raw": {
+                    "type": "boolean",
+                    "description": "Optional flag controlling bundle-component sourcing."
+                  },
+                  "unit_factor_id": {
+                    "type": "integer",
+                    "description": "Unit factor id. Only used when multi-units is enabled."
+                  },
+                  "unit_factor": {
+                    "type": "number",
+                    "description": "Unit factor value. Only used when multi-units is enabled."
+                  },
+                  "unit_name": {
+                    "type": "string",
+                    "description": "Unit name. Only used when multi-units is enabled."
+                  },
+                  "unit_small_name": {
+                    "type": "string",
+                    "description": "Unit short name. Only used when multi-units is enabled."
+                  }
+                },
+                "required": [
+                  "product_id",
+                  "store_id",
+                  "transaction_type",
+                  "quantity"
+                ]
+              }
+            },
+            "required": [
+              "StockTransaction"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "The stock transaction was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the newly created stock transaction."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Insufficient stock for a stock-out, an `attachment` sent as an array, or a validation failure (e.g. suspended warehouse/branch or a closed-period date).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field → list of error messages (present on validation failures).",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks the Adjust Product Inventory permission, or the product is not quantity-tracked.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "The product does not exist, or is not in an active state.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__stock_transactions_format"
+  },
+  "blockers": []
+}

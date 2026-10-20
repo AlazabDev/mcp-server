@@ -1,0 +1,234 @@
+{
+  "path": "/attendance_log/list/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get All Attendance Logs",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of attendance logs for the account. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. On this endpoint the data level has no visible effect, so `/attendance_log/list` and `/attendance_log/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter by a field (see the Filterable fields table below). |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`. |\n| `fields[]` | Restrict the returned columns. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>`. The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `staff_id` | integer (staff) | `filter[staff_id][equal]=1` |\n| `status` | enum | `filter[status][equal]=draft` |\n| `source_type` | enum (`machine`, `supervisor`, `file`, `self`) | `filter[source_type][equal]=self` |\n\nIn practice the endpoint accepts a filter on any existing column.\n\n**Sorting.** Sort with `sort[<field>]=asc|desc` (e.g. `sort[time]=desc`). No field is specifically flagged as sortable in the metadata, but the endpoint accepts a sort on any existing column; with no `sort`, results are returned newest-first.\n\nThe response is a standard paginated envelope; each item in `data` is a flat attendance-log record.\n\nEach record's `status` is one of:\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |\n\nand `source_type`, when present, is one of `machine`, `supervisor`, `file`, `self`.",
+    "tags": [
+      "Endpoints/HR/Attendance Logs"
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number. Defaults to 1.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "Items per page. Defaults to 20.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A paginated list of attendance logs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "current_page": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "array",
+                  "description": "The attendance logs on this page. Each item is an attendance-log record.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Attendance log id."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Id of the employee the log belongs to."
+                      },
+                      "time": {
+                        "type": "string",
+                        "description": "Log timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                      },
+                      "session_id": {
+                        "type": "integer",
+                        "description": "Id of the attendance session, when applicable.",
+                        "nullable": true
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Log status.\n\n| Value | Meaning |\n|---|---|\n| draft | Draft |\n| sign_in | Sign In |\n| sign_out | Sign Out |\n| repeated_sign_in | Repeated Sign In |\n| repeated_sign_out | Repeated Sign Out |\n| invalid | Invalid |\n| unknown_employee | Unknown Employee |",
+                        "enum": [
+                          "draft",
+                          "sign_in",
+                          "sign_out",
+                          "repeated_sign_in",
+                          "repeated_sign_out",
+                          "invalid",
+                          "unknown_employee"
+                        ]
+                      },
+                      "source_id": {
+                        "type": "integer",
+                        "description": "Id of the source that produced the log, when applicable.",
+                        "nullable": true
+                      },
+                      "source_name": {
+                        "type": "string",
+                        "description": "Name of the source, when applicable.",
+                        "nullable": true
+                      },
+                      "source_type": {
+                        "type": "string",
+                        "description": "Source of the log.\n\n| Value | Meaning |\n|---|---|\n| machine | Machine |\n| supervisor | Supervisor |\n| file | File |\n| self | Self |",
+                        "enum": [
+                          "machine",
+                          "supervisor",
+                          "file",
+                          "self"
+                        ],
+                        "nullable": true
+                      },
+                      "source_method": {
+                        "type": "string",
+                        "description": "How the source recorded the log, when applicable.",
+                        "nullable": true
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "description": "Soft-delete timestamp, or null.",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "description": "Creation timestamp."
+                      },
+                      "modified": {
+                        "type": "string",
+                        "description": "Last-modified timestamp."
+                      },
+                      "invalidity_reason": {
+                        "type": "string",
+                        "description": "Why the log is invalid, when applicable.\n\n| Value | Meaning |\n|---|---|\n| weekend | Weekend |\n| on_leave | On Leave |\n| no_shift | No Shift Assigned |\n| out_of_shift_boundaries | Out of Shift Boundaries |",
+                        "enum": [
+                          "weekend",
+                          "on_leave",
+                          "no_shift",
+                          "out_of_shift_boundaries"
+                        ],
+                        "nullable": true
+                      }
+                    }
+                  }
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": "integer"
+                },
+                "from": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "to": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "first_page_url": {
+                  "type": "string"
+                },
+                "last_page_url": {
+                  "type": "string"
+                },
+                "next_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "prev_page_url": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "path": {
+                  "type": "string"
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              },
+              "required": [
+                "current_page",
+                "data",
+                "per_page",
+                "total"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The list could not be produced — for example the attendance-log entity is unavailable for this account or the required plugin is inactive.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Reason the request failed (e.g. the attendance-log entity is unavailable for the account, or the required plugin is not active)."
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication or authorization failed. A missing, invalid, or expired Bearer token returns a plain `401` (no JSON body). An authenticated caller who lacks permission to view attendance logs receives `{ \"error\": \"You are not allowed to view this page\" }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__attendance_log_list",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

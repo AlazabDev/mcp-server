@@ -1,0 +1,261 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].InvoicePayment": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].InvoicePayment.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.invoice_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.client_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.payment_method": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.amount": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.transaction_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.email": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.notes": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.response_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.response_message": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.added_by": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.first_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.last_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.phone1": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.phone2": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.ip": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.transaction_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.processed": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.attachment": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.payment_work_order_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.receipt_notes": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.treasury_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.pos_shift_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.extra_details": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].InvoicePayment.source": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].InvoicePayment.code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

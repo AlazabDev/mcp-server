@@ -1,0 +1,166 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Note": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Note.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.item_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.item_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.body": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Note.follow_up_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Note.action_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Note.status_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Note.url": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Note.show_preview": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Note.user_permissions": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Note.client_permissions": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Note.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.partner_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.partner_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.share_with_partner": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Note.NoteAttachment": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

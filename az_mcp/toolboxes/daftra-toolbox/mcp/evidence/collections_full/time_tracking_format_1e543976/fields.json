@@ -1,0 +1,65 @@
+{
+  "TimeTracking": [
+    "object"
+  ],
+  "TimeTracking.activity_id": [
+    "string"
+  ],
+  "TimeTracking.branch_id": [
+    "string"
+  ],
+  "TimeTracking.cost": [
+    "string"
+  ],
+  "TimeTracking.created": [
+    "string"
+  ],
+  "TimeTracking.currency": [
+    "string"
+  ],
+  "TimeTracking.date": [
+    "string"
+  ],
+  "TimeTracking.id": [
+    "string"
+  ],
+  "TimeTracking.modified": [
+    "string"
+  ],
+  "TimeTracking.notes": [
+    "string"
+  ],
+  "TimeTracking.project_id": [
+    "string"
+  ],
+  "TimeTracking.site_id": [
+    "string"
+  ],
+  "TimeTracking.staff_id": [
+    "string"
+  ],
+  "TimeTracking.time": [
+    "string"
+  ],
+  "TimeTracking.time_formatted": [
+    "object"
+  ],
+  "TimeTracking.time_formatted.hours": [
+    "integer"
+  ],
+  "TimeTracking.time_formatted.minutes": [
+    "integer"
+  ],
+  "TimeTracking.time_formatted.seconds": [
+    "integer"
+  ],
+  "TimeTracking.time_formatted.string": [
+    "string"
+  ],
+  "TimeTracking.user_id": [
+    "string"
+  ],
+  "TimeTracking.work_order_id": [
+    "null"
+  ]
+}

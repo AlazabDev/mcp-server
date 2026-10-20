@@ -1,0 +1,306 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Requisition": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Requisition.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.store_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.to_store_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.status": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.notes": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.order_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.order_type": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.order_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.journal_account_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.parent_requisition_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.work_order_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Requisition.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.supplier_id": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Requisition.client_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.branch_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.journal_account_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].requisition_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].item": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].description": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].unit_price": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].quantity": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].quantity2": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].requested_quantity": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].subtotal": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].product_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].cost_center_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].cost_centers": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].account_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].display_order": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].unit_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].unit_small_name": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].unit_factor": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].unit_factor_id": {
+    "observed_types": [
+      "string",
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].serials": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].extra_details": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Requisition.RequisitionItem[].tracking_data": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "path": "/stores{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET All Stores",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of stores (warehouses). The result is limited to the stores the authenticated user is allowed to view. Requires the *Track Inventory* or *General Settings* permission.",
+    "tags": [
+      "Endpoints/Inventory /Stores",
+      "Stores"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 20
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Page number to retrieve.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Store": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "description": "Unique identifier of the store.",
+                            "readOnly": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "description": "Name of the store."
+                          },
+                          "shipping_address": {
+                            "type": "string",
+                            "description": "Shipping address of the store.",
+                            "default": null,
+                            "nullable": true
+                          },
+                          "primary": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ],
+                            "description": "Whether this is the primary (default) store.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |"
+                          },
+                          "active": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1,
+                              2
+                            ],
+                            "description": "Store status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |\n| 2 | Suspended |"
+                          },
+                          "branch_id": {
+                            "type": "integer",
+                            "description": "Branch the store belongs to."
+                          },
+                          "created": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the store was created.",
+                            "readOnly": true
+                          },
+                          "modified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Time the store was last updated.",
+                            "readOnly": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "prev": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "total_results": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden — the user lacks the Track Inventory / General Settings permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__stores_format"
+  },
+  "blockers": []
+}

@@ -1,0 +1,1 @@
+{"name":"alazab-mcp-ui-tests","private":true,"scripts":{"test":"node test_desk_ui.cjs"},"devDependencies":{"jquery":"3.7.1","jsdom":"26.1.0"}}

@@ -1,0 +1,17 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "skill_0121246c9d25d310123ee9e530912bb85ee378fb",
+      "name": "uberfix-maintenance-intake",
+      "description": "Reusable skill for UberFix agents to collect maintenance request details, classify service type, handle follow-up requests, and escalate complaints in Arabic Egyptian.",
+      "created_at": 1782398553,
+      "default_version": "1",
+      "latest_version": "1",
+      "object": "skill"
+    }
+  ],
+  "first_id": "skill_0121246c9d25d310123ee9e530912bb85ee378fb",
+  "last_id": "skill_0121246c9d25d310123ee9e530912bb85ee378fb",
+  "has_more": false
+}

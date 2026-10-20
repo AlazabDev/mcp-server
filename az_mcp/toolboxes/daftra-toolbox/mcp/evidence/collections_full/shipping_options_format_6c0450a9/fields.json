@@ -1,0 +1,38 @@
+{
+  "ShippingOption": [
+    "object"
+  ],
+  "ShippingOption.account_id": [
+    "null"
+  ],
+  "ShippingOption.created": [
+    "string"
+  ],
+  "ShippingOption.deleted_at": [
+    "null"
+  ],
+  "ShippingOption.description": [
+    "null"
+  ],
+  "ShippingOption.display_order": [
+    "string"
+  ],
+  "ShippingOption.fees": [
+    "string"
+  ],
+  "ShippingOption.id": [
+    "string"
+  ],
+  "ShippingOption.modified": [
+    "string"
+  ],
+  "ShippingOption.name": [
+    "string"
+  ],
+  "ShippingOption.status": [
+    "string"
+  ],
+  "ShippingOption.tax_id": [
+    "string"
+  ]
+}

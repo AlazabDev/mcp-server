@@ -1,0 +1,154 @@
+{
+  "path": "/branch",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Branch",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing branch. This posts to the same `/v2/api/entity/branch` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new branch is created instead.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. **Requires the Branches plugin to be enabled on the account.**\n\n**This is a partial merge, not a full overwrite.** Only the fields you include in the body are changed; any field you omit is left untouched. The updatable fields are `name`, `code`, and `status`. Only these fields can be updated — `id`, `name`, `status`, `created`, `modified`, and `code`. Other branch attributes (phone numbers, address, city, state, country, assigned staff, SMTP account, map location) are **not** available through this endpoint.\n\nOn success the response is `{ \"message\": <localized text>, \"id\": <id> }`. The success message is the same text returned by create, so it does not distinguish an update from an insert.\n\nThe `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `1` | Active |\n| `2` | Inactive |\n| `3` | Suspended |",
+    "tags": [
+      "Endpoints/Branches "
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the branch to update. Required — omitting it creates a new branch instead."
+              },
+              "name": {
+                "type": "string",
+                "description": "Branch name. Optional; only the fields you send are changed."
+              },
+              "code": {
+                "type": "string",
+                "description": "Branch code. Optional; only the fields you send are changed."
+              },
+              "status": {
+                "type": "integer",
+                "description": "Branch status. Optional; only the fields you send are changed.\n\n| Value | Meaning |\n|---|---|\n| 1 | Active |\n| 2 | Inactive |\n| 3 | Suspended |",
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The branch was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Localized success message (identical to the create message)."
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "Id of the updated branch."
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The update could not be saved (for example a database constraint was violated).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Human-readable failure reason."
+                }
+              },
+              "required": [
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the permission to manage branches.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__branch",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

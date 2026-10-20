@@ -1,0 +1,195 @@
+{
+  "path": "/stock_transactions/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Stock Transaction",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single stock transaction by its id.\n\nThe record is returned in `data` wrapped under a `StockTransaction` object holding its stored fields.\n\nRequires the **Track Inventory** permission.",
+    "tags": [
+      "Endpoints/Inventory /Stock Transactions",
+      "Stock Transactions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The stock transaction id.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested stock transaction.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "The stock transaction, wrapped under a `StockTransaction` object.",
+                  "properties": {
+                    "StockTransaction": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "product_id": {
+                          "type": "integer"
+                        },
+                        "store_id": {
+                          "type": "integer"
+                        },
+                        "order_id": {
+                          "type": "integer"
+                        },
+                        "source_type": {
+                          "type": "integer",
+                          "description": "Origin of the transaction. 1=Manual, 2=Invoice, 3=Purchase order, 4=Credit note, 5=Transfer, 6=Refund receipt, 7=Purchase refund, 8=Bundle, 9=Requisition, 14=Purchase debit note."
+                        },
+                        "transaction_type": {
+                          "type": "integer",
+                          "description": "1 = stock in, 2 = stock out."
+                        },
+                        "quantity": {
+                          "type": "number"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "purchase_price": {
+                          "type": "number"
+                        },
+                        "total_price": {
+                          "type": "number"
+                        },
+                        "currency_code": {
+                          "type": "string"
+                        },
+                        "currency_rate": {
+                          "type": "number"
+                        },
+                        "received_date": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer",
+                          "description": "1=Draft, 2=Pending, 4=Processed, 5=Transfer."
+                        },
+                        "transaction_category_id": {
+                          "type": "integer"
+                        },
+                        "tracking_number_id": {
+                          "type": "integer"
+                        },
+                        "branch_id": {
+                          "type": "integer"
+                        },
+                        "notes": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks the Track Inventory permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No stock transaction exists with the given id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__stock_transactions_id_format"
+  },
+  "blockers": []
+}

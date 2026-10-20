@@ -1,0 +1,243 @@
+{
+  "path": "/time_tracking/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Time Tracking",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single time-tracking entry by id. Requires an API key with the `time_tracking.read` scope. Callers without the *Edit all timesheets* permission can only retrieve their own entries.",
+    "tags": [
+      "Endpoints/Time Tracking",
+      "Time Tracking"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "TimeTracking": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Unique identifier.",
+                          "readOnly": true
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "The staff member the time is tracked for. `0` means the site owner. Look staff up via the GET Staff endpoint."
+                        },
+                        "project_id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "The project this time is tracked against. Look projects up via the GET General Listing endpoint with model `Project`."
+                        },
+                        "activity_id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "The activity for this entry. Look activities up via the GET General Listing endpoint with model `TimeActivity`."
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "The date the time is tracked on."
+                        },
+                        "time": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Tracked time in decimal hours (e.g. `8.5` = 8 hours 30 minutes). Returns `0` when unset. Use `time_formatted` for the `HH:MM` breakdown."
+                        },
+                        "time_formatted": {
+                          "type": "object",
+                          "description": "Human-readable breakdown of `time`. Returned on read; ignored on write.",
+                          "properties": {
+                            "hours": {
+                              "type": "integer",
+                              "description": "Whole hours."
+                            },
+                            "minutes": {
+                              "type": "integer",
+                              "description": "Minutes past the hour."
+                            },
+                            "seconds": {
+                              "type": "integer",
+                              "description": "Seconds."
+                            },
+                            "string": {
+                              "type": "string",
+                              "description": "Visual `HH:MM` representation."
+                            }
+                          },
+                          "readOnly": true
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Free-text notes for the entry.",
+                          "default": ""
+                        },
+                        "cost": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Cost of the entry, computed automatically from the staff hourly rate. Read-only.",
+                          "readOnly": true
+                        },
+                        "currency": {
+                          "type": "string",
+                          "maxLength": 10,
+                          "description": "3-letter ISO 4217 currency code of `cost`. Read-only.",
+                          "readOnly": true
+                        },
+                        "hourly_rate": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Hourly rate used to compute `cost`. Set automatically. Read-only.",
+                          "readOnly": true
+                        },
+                        "work_order_id": {
+                          "type": "integer",
+                          "description": "The related work order, when the Work Orders feature is enabled. Look work orders up via the GET Work Orders endpoint.",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "site_id": {
+                          "type": "integer",
+                          "description": "Owning site identifier. Set automatically. Read-only.",
+                          "readOnly": true
+                        },
+                        "branch_id": {
+                          "type": "integer",
+                          "description": "Branch the entry belongs to. Set automatically. Read-only.",
+                          "readOnly": true,
+                          "nullable": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Creation timestamp.",
+                          "readOnly": true
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last-update timestamp.",
+                          "readOnly": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__time_tracking_id_format"
+  },
+  "blockers": []
+}

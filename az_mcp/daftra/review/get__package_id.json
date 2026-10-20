@@ -1,0 +1,164 @@
+{
+  "path": "/package/{id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Package",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single package by its id, as a flat object (no wrapper).\n\n### Deleted packages\nA deleted package is still returned by this endpoint, with `deleted_at` set to the time it was deleted. The list endpoint hides such packages, so this is the only place a non-null `deleted_at` appears.\n\n### Branches\nNo branch restriction applies here — a package belonging to any branch can be fetched by its id.\n\n### Notes\n- The trailing `1` in the path is an optional data-detail level. It has no effect for packages, which are always returned as flat records; a non-numeric value is treated as `1`.\n- An unknown id does **not** return `404`. It returns `500` with the plain-text body `error happened`, so do not parse the failure body as JSON.",
+    "tags": [
+      "Endpoints/Points & Credits/Packages"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the package to return.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested package.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Package id."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Package name."
+                },
+                "price": {
+                  "type": "number",
+                  "description": "Package price. May contain decimals."
+                },
+                "period_value": {
+                  "type": "integer",
+                  "description": "How many `period_unit` intervals the package covers, e.g. `3` with `monthly` means three months."
+                },
+                "period_unit": {
+                  "type": "string",
+                  "description": "The unit the validity period is counted in.\n\n| Value | Meaning |\n|---|---|\n| `daily` | Days |\n| `weekly` | Weeks |\n| `monthly` | Months |\n| `yearly` | Years |\n| `not-expired` | Never expires |",
+                  "enum": [
+                    "daily",
+                    "weekly",
+                    "monthly",
+                    "yearly",
+                    "not-expired"
+                  ]
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "Whether the package can be sold.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |",
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "product_id": {
+                  "type": "integer",
+                  "description": "Id of the product this package is linked to, or `null` when it is not linked to one.",
+                  "nullable": true
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Free-text description, or `null`.",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp, `YYYY-MM-DD HH:MM:SS`."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modification timestamp, `YYYY-MM-DD HH:MM:SS`."
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "description": "When the package was deleted, `YYYY-MM-DD HH:MM:SS`, or `null` while it is active.",
+                  "nullable": true
+                },
+                "type": {
+                  "type": "string",
+                  "description": "What the package sells.\n\n| Value | Meaning |\n|---|---|\n| `credit_charge` | A bundle of credits |\n| `membership` | A membership subscription |",
+                  "enum": [
+                    "credit_charge",
+                    "membership"
+                  ]
+                },
+                "branch_id": {
+                  "type": "integer",
+                  "description": "Branch the package belongs to, or `null` when it is not assigned to one.",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "price",
+                "period_value",
+                "period_unit",
+                "status",
+                "product_id",
+                "description",
+                "created",
+                "modified",
+                "deleted_at",
+                "type",
+                "branch_id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication failed, or the caller may not view packages.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Returned when the access token is missing, expired or invalid."
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Returned instead of `message` when the account is authenticated but not permitted to view packages."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "The package could not be loaded — most commonly because no package has that id. The body is the plain text `error happened`, not JSON.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "description": "Plain-text body. Returned when the id does not exist, or the package could not be loaded."
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__package_id"
+  },
+  "blockers": []
+}

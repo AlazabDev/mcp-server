@@ -1,0 +1,132 @@
+{
+  "path": "/credit_usage/{id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Credit Usage ",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single credit usage record by id. A credit usage records that a client consumed an amount of a given credit type (the counterpart of a credit charge).\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. The trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number; on this endpoint it has no visible effect. The response is a flat credit-usage record.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Usage"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The credit usage id.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The credit usage record.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Credit usage id."
+                },
+                "client_id": {
+                  "type": "integer",
+                  "description": "Id of the client the usage belongs to."
+                },
+                "credit_type_id": {
+                  "type": "integer",
+                  "description": "Id of the credit type consumed."
+                },
+                "usage_date": {
+                  "type": "string",
+                  "description": "Date the credit was used (`YYYY-MM-DD`)."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Free-text note. May be null.",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "description": "Soft-delete timestamp, or null if not deleted.",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "client_id",
+                "credit_type_id",
+                "usage_date",
+                "description",
+                "created",
+                "modified",
+                "deleted_at"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to view credit usage.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_usage_id",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

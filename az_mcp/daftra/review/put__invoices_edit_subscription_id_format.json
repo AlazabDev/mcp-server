@@ -1,0 +1,227 @@
+{
+  "path": "/invoices/edit_subscription/{id}{format}",
+  "method": "put",
+  "operation": {
+    "summary": "Edit Subscription",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing **subscription** (recurring invoice generator) identified by the `id` path parameter.\n\nThe request body has the same shape as **Add New Invoice** (an `Invoice` object plus optional `InvoiceItem`, `Payment`, etc.), with the recurrence fields on the `Invoice` object:\n\n| Field | Meaning |\n|---|---|\n| `name` | **Required.** Subscription name |\n| `subscription_period` | **Required.** Interval count |\n| `subscription_unit` | **Required.** Interval unit: `days`, `weeks`, `months`, `years` |\n| `subscription_max_repeat` | Max invoices to generate (empty = unlimited) |\n| `subscription_issue_before` | Days before the next date to issue each invoice |\n| `active` | Whether the generator is active (`0`/`1`) |\n\nThe id must reference a subscription document; otherwise the request returns `404`. Requires permission to edit the subscription. See **Add New Invoice** for the full reference of the remaining header / item fields.",
+    "tags": [
+      "Endpoints/Sales /Subsciptions",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The subscription (recurring invoice generator) ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Subscription header to update. Carries the recurrence configuration plus the standard invoice header fields (see Add New Invoice for the full field reference).",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "**Required.** Subscription name."
+                  },
+                  "subscription_period": {
+                    "type": "integer",
+                    "description": "**Required.** How many units make up the interval between generated invoices."
+                  },
+                  "subscription_unit": {
+                    "type": "string",
+                    "description": "**Required.** The interval unit.\n\n| Value | Meaning |\n|---|---|\n| days | Days |\n| weeks | Weeks |\n| months | Months |\n| years | Years |",
+                    "enum": [
+                      "days",
+                      "weeks",
+                      "months",
+                      "years"
+                    ]
+                  },
+                  "subscription_max_repeat": {
+                    "type": "integer",
+                    "description": "Maximum number of invoices to generate. Leave empty for unlimited."
+                  },
+                  "subscription_issue_before": {
+                    "type": "integer",
+                    "description": "Number of days before the next date to issue each generated invoice."
+                  },
+                  "active": {
+                    "type": "integer",
+                    "description": "Whether the generator is active.",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Start / next-issue date (YYYY-MM-DD).",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name",
+                  "subscription_period",
+                  "subscription_unit"
+                ]
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "Line items for each generated invoice. Same shape as Add New Invoice line items.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The subscription was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed, the selected warehouse is suspended, or the subscription date falls within a closed financial period.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "Returned when no subscription matches the ID, when the authenticated user lacks permission to edit it, or when the subscription already has a created credit charge and cannot be edited.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__invoices_edit_subscription_id_format"
+  },
+  "blockers": []
+}

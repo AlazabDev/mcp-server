@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "object": "memory_store",
+      "id": "memstore_09f1051ee9bb265b00UmR0NjZT3hMf8HpDV8qz7VCOaARmCw5L",
+      "created_at": 1789814270,
+      "updated_at": 1789814270,
+      "name": "MemoryStore-stoic_boniato_wwq2jp4mqd",
+      "description": "",
+      "metadata": {},
+      "definition": {
+        "kind": "default",
+        "chat_model": "az-model-sol",
+        "embedding_model": "az-models-text",
+        "options": {
+          "user_profile_enabled": true,
+          "user_profile_details": "",
+          "chat_summary_enabled": true,
+          "default_ttl_seconds": 0
+        }
+      }
+    },
+    {
+      "object": "memory_store",
+      "id": "memstore_6dd795a4ba80674f00tRoPPSTeD8PqiR77IrR9Rp7j9eOdGv7E",
+      "created_at": 1782365428,
+      "updated_at": 1782365428,
+      "name": "MemoryStore-plum_neck_2z0xlv61b1",
+      "description": "",
+      "metadata": {},
+      "definition": {
+        "kind": "default",
+        "chat_model": "az-finance",
+        "embedding_model": "text-embedding-3-small",
+        "options": {
+          "user_profile_enabled": true,
+          "user_profile_details": "",
+          "chat_summary_enabled": true,
+          "default_ttl_seconds": 0
+        }
+      }
+    }
+  ],
+  "first_id": "memstore_09f1051ee9bb265b00UmR0NjZT3hMf8HpDV8qz7VCOaARmCw5L",
+  "last_id": "memstore_6dd795a4ba80674f00tRoPPSTeD8PqiR77IrR9Rp7j9eOdGv7E",
+  "has_more": false,
+  "object": "list"
+}

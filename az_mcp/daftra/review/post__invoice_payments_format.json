@@ -1,0 +1,243 @@
+{
+  "path": "/invoice_payments{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Invoice Payment",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Record a payment against an invoice.\n\nSend the payment under an `InvoicePayment` object. To create several payments in one call, send an **array** of payment objects under `InvoicePayment` instead.\n\n**Required:** `invoice_id`, `amount`, and `payment_method`. `payment_method` must be one of the account's active configured payment methods (e.g. `cash`, `bank`, `cheque`, or an enabled online gateway key).\n\nSeveral fields are set automatically and cannot be supplied by the caller: the payment `status` (new payments are marked Completed), the recording staff, the currency (taken from the invoice), and the payer contact details (name/address are copied from the invoice's client). Any such fields included in the request are ignored.\n\nOn success the endpoint responds with `202 Accepted` and the new payment `id`.",
+    "tags": [
+      "Endpoints/Sales /Invoice Payments",
+      "Invoice Payments"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format suffix appended to the path, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "InvoicePayment": {
+                "description": "A single payment object, or an array of payment objects to create several payments in one request.",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "invoice_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Reference of the invoice to apply the payment to."
+                      },
+                      "amount": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Amount paid. Must be numeric."
+                      },
+                      "payment_method": {
+                        "type": "string",
+                        "description": "Payment method. Must be one of the account's active configured methods (e.g. `cash`, `bank`, `cheque`, or an enabled online gateway key)."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Payment date, in the account's date format. Defaults to the invoice date (or today) when omitted."
+                      },
+                      "transaction_id": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "description": "Optional external / gateway transaction reference."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Optional treasury to deposit into. Chosen automatically from the payment method or your default treasury when omitted."
+                      },
+                      "pos_shift_id": {
+                        "type": "integer",
+                        "description": "Optional point-of-sale shift reference, for POS payments."
+                      }
+                    },
+                    "required": [
+                      "invoice_id",
+                      "amount",
+                      "payment_method"
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "description": "Create several payments in one request.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "invoice_id": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "Reference of the invoice to apply the payment to."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Amount paid. Must be numeric."
+                        },
+                        "payment_method": {
+                          "type": "string",
+                          "description": "Payment method. Must be one of the account's active configured methods."
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Payment date. Defaults to the invoice date (or today) when omitted."
+                        },
+                        "transaction_id": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "description": "Optional external / gateway transaction reference."
+                        },
+                        "treasury_id": {
+                          "type": "integer",
+                          "description": "Optional treasury to deposit into. Chosen automatically when omitted."
+                        },
+                        "pos_shift_id": {
+                          "type": "integer",
+                          "description": "Optional point-of-sale shift reference."
+                        }
+                      },
+                      "required": [
+                        "invoice_id",
+                        "amount",
+                        "payment_method"
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "InvoicePayment"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "The payment was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "Reference of the created payment."
+                },
+                "invoice_number": {
+                  "type": "string",
+                  "description": "Number of the invoice the payment was applied to."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The request failed validation (e.g. missing amount or an unsupported payment method).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Per-field error messages keyed by the attribute that failed.",
+                  "properties": {
+                    "amount": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to add invoice payments.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__invoice_payments_format"
+  },
+  "blockers": []
+}

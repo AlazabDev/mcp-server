@@ -1,0 +1,214 @@
+{
+  "path": "/invoices/assign_work_order/{id}{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Assign Work Order to Invoice",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Assigns a work order to an existing invoice (or clears the assignment).\n\nSend the target work order ID nested under the `Invoice` object as `work_order_id`. The invoice is identified by the `id` path parameter. To remove an existing assignment, send `work_order_id` as `0` or empty.\n\nThe `Invoice` object is required: if it is omitted the request is rejected with `403` and the message `Please send valid work order id`.\n\nRequires permission to edit the invoice. If the Accounting module is enabled, the invoice's date must not fall within a closed financial period, otherwise the request is rejected with `400`.\n\nWork orders are part of the Work Orders feature; assigning an ID is only meaningful when that feature is enabled for your account.",
+    "tags": [
+      "Endpoints/Sales /Invoices",
+      "Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The invoice ID to assign the work order to.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Wrapper object carrying the work order assignment.",
+                "properties": {
+                  "work_order_id": {
+                    "type": "integer",
+                    "description": "The ID of the work order to assign to the invoice. Send `0` (or an empty value) to clear the current assignment. The value is stored as-is, so it should reference an existing work order in your account."
+                  }
+                },
+                "required": [
+                  "work_order_id"
+                ]
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The work order was assigned to the invoice.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Optional human-readable message."
+                }
+              },
+              "required": [
+                "result",
+                "code"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The invoice date falls within a closed financial period, so it cannot be modified.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "array",
+                  "description": "Present only when field-level validation errors exist.",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Returned either when the authenticated user lacks permission to edit the invoice (message `Forbidden`), or when the request body is missing the `Invoice` object / work order ID (message `Please send valid work order id`).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "array",
+                  "description": "Present only when field-level validation errors exist.",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No invoice matches the given ID.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "array",
+                  "description": "Present only when field-level validation errors exist.",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__invoices_assign_work_order_id_format"
+  },
+  "blockers": []
+}

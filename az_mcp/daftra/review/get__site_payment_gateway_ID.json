@@ -1,0 +1,207 @@
+{
+  "path": "/site_payment_gateway/{ID}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Payment Method",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single payment method by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe record is returned **flat** (not wrapped in a `data` envelope) and embeds its related `branch` object and `treasury` (null when no treasury is linked). The fields `site_id`, `category`, and `credentials` are not returned.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not meaningful here, so `/site_payment_gateway/{ID}` and `/site_payment_gateway/{ID}/1` return the same result.\n\n> Requesting an id that does not exist currently returns HTTP `500` with the plain-text body `error happened` (not a `404`).",
+    "tags": [
+      "Endpoints/Payment Gateways"
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "Id of the payment method to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The payment method, returned as a flat object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A single payment-method record, returned flat (not wrapped).",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Payment method id."
+                },
+                "payment_gateway": {
+                  "type": "string",
+                  "description": "Gateway key/identifier for this payment method (unique within the account)."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Display label shown to users.",
+                  "nullable": true
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Gateway account username, when applicable.",
+                  "nullable": true
+                },
+                "option1": {
+                  "type": "string",
+                  "description": "Gateway-specific configuration value.",
+                  "nullable": true
+                },
+                "option2": {
+                  "type": "string",
+                  "description": "Gateway-specific configuration value.",
+                  "nullable": true
+                },
+                "option3": {
+                  "type": "string",
+                  "description": "Gateway-specific configuration value.",
+                  "nullable": true
+                },
+                "default": {
+                  "type": "integer",
+                  "description": "Whether this is the account's default payment method.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not the default |\n| 1 | Default |",
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "active": {
+                  "type": "integer",
+                  "description": "Whether the payment method is enabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Disabled |\n| 1 | Enabled |",
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "manually_added": {
+                  "type": "integer",
+                  "description": "Whether the method was added manually.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |",
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "nullable": true
+                },
+                "disable_for_client": {
+                  "type": "integer",
+                  "description": "Whether the method is hidden from the client portal.\n\n| Value | Meaning |\n|---|---|\n| 0 | Visible |\n| 1 | Hidden |",
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                },
+                "settings": {
+                  "type": "string",
+                  "description": "JSON-encoded gateway settings, or null.",
+                  "nullable": true
+                },
+                "treasury_id": {
+                  "type": "integer",
+                  "description": "Id of the linked treasury, or null.",
+                  "nullable": true
+                },
+                "branch_id": {
+                  "type": "integer",
+                  "description": "Id of the branch this method belongs to.",
+                  "nullable": true
+                },
+                "branch": {
+                  "type": "object",
+                  "description": "The branch this payment method belongs to.",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "modified": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  }
+                },
+                "treasury": {
+                  "type": "object",
+                  "description": "The linked treasury, or null when none is linked.",
+                  "properties": {},
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "payment_gateway"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication or authorization failed. A missing, invalid, or expired Bearer token returns a plain `401` (no JSON body). An authenticated caller who lacks permission receives `{ \"error\": \"You are not allowed to view this page\" }`.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened`.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "description": "Plain-text body `error happened`. Currently returned when the requested id does not exist (rather than a 404)."
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__site_payment_gateway_ID",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

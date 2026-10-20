@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "path": "/work_order_appointments{format}",
+  "http_status": 200,
+  "content_type": "application/json; charset=UTF-8",
+  "elapsed_ms": 1692,
+  "valid_json": true,
+  "body_truncated": false,
+  "error": null,
+  "observed_success": true,
+  "timestamp_utc": "2026-10-08T20:17:52.381085+00:00"
+}

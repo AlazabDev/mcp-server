@@ -1,0 +1,264 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data[]": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Supplier": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data[].Supplier.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.is_offline": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.supplier_number": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.site_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.staff_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.first_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.phone1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.phone2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.notes": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.active_secondary_address": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_name": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Supplier.secondary_address1": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_address2": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_city": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_state": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_postal_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.secondary_country_code": {
+    "observed_types": [
+      "null",
+      "string"
+    ]
+  },
+  "data[].Supplier.language_code": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Supplier.default_currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.last_login": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Supplier.suspend": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.last_ip": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Supplier.created": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.modified": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.follow_up_status": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data[].Supplier.bn1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.bn1_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.bn2_label": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.bn2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.branch_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data[].Supplier.unique_id": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "pagination.prev": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "pagination.next": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "pagination.page": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.page_count": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "pagination.total_results": {
+    "observed_types": [
+      "integer"
+    ]
+  }
+}

@@ -13,33 +13,11 @@ from mcp_server.utils import (
 )
 
 def handle_mcp_auth():
-    settings = get_mcp_settings()
-    if not settings.enabled:
-        frappe.throw(_("MCP Server is disabled"), frappe.PermissionError)
-
-    if settings.auth_mode == "Token":
-        token = frappe.request.headers.get("X-MCP-Token")
-        if not token:
-            # Fallback for clients sending "Authorization: token <token>"
-            auth_header = frappe.request.headers.get("Authorization", "")
-            if auth_header.startswith("token "):
-                token = auth_header.split(" ")[1]
-
-        if not token or token != settings.get_password("token_secret"):
-            frappe.throw(_("Invalid MCP Token"), frappe.AuthenticationError)
-        
-        # Impersonate MCP User
-        frappe.set_user(settings.mcp_user)
-    
-    elif settings.auth_mode == "API Key":
-        if frappe.session.user != settings.mcp_user:
-             frappe.throw(_("User {0} is not authorized for MCP access").format(frappe.session.user), frappe.PermissionError)
-
-    # Basic security checks & setup
-    frappe.local.mcp_request_id = frappe.generate_hash(length=10)
-    frappe.local.mcp_start_time = time.time()
-    frappe.local.mcp_user = settings.mcp_user
-    
+    from mcp_server.policy import authenticate
+    settings=authenticate()
+    frappe.local.mcp_request_id=frappe.generate_hash(length=12)
+    frappe.local.mcp_start_time=time.time()
+    frappe.local.mcp_user=frappe.session.user
     return settings
 
 def mcp_tool(func):
@@ -58,7 +36,7 @@ def mcp_tool(func):
             "response_summary": None,
             "error_trace": None,
             "diff": None,
-            "ip_address": frappe.local.request.remote_addr if frappe.local.request else None
+            "ip_address": getattr(getattr(frappe.local,"request",None),"remote_addr",None)
         }
         
         try:
@@ -210,6 +188,7 @@ def get_doc(doctype, name, fields=None):
     
     doc = frappe.get_doc(doctype, name)
     doc.check_permission("read")
+    doc.apply_fieldlevel_read_permissions()
     
     result = {}
     
@@ -259,9 +238,15 @@ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=2
     # Enforce Page Limits
     settings = get_mcp_settings()
     max_limit = allowlist_doc.max_page_length or settings.default_max_page_length or 20
+    if int(page_length)<1 or int(page_start)<0:
+        frappe.throw("قيم التصفح غير صالحة")
     if int(page_length) > int(max_limit):
         page_length = max_limit
         
+    if order_by:
+        import re
+        if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*(?: (?:asc|desc))?", order_by, re.I):frappe.throw("ترتيب غير صالح")
+        validate_fields(doctype,[order_by.split()[0]],"read",allowlist_doc=allowlist_doc)
     docs = frappe.get_list(doctype, 
         filters=filters, 
         fields=requested_fields, 
@@ -296,7 +281,9 @@ def create_doc(doctype, data):
     doc.insert()
     
     # Return snapshot (read permissions)
-    return doc.as_dict()
+    if not doc.has_permission("read"):return {"name":doc.name}
+    doc.apply_fieldlevel_read_permissions()
+    return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
 
 @frappe.whitelist(allow_guest=True)
 @mcp_tool
@@ -334,7 +321,9 @@ def update_doc(doctype, name, data):
     doc.update(clean_data)
     doc.save()
     
-    return doc.as_dict()
+    if not doc.has_permission("read"):return {"name":doc.name}
+    doc.apply_fieldlevel_read_permissions()
+    return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
 
 @frappe.whitelist(allow_guest=True)
 @mcp_tool
@@ -344,6 +333,6 @@ def delete_doc(doctype, name):
     if not frappe.db.exists(doctype, name):
         frappe.throw(f"Document {doctype} {name} not found", frappe.DoesNotExistError)
 
-    frappe.delete_doc(doctype, name, ignore_permissions=True)
+    frappe.delete_doc(doctype, name)
     
     return {"status": "deleted", "name": name}

@@ -1,0 +1,241 @@
+{
+  "path": "/estimates{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Estimate",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new **estimate** (quote).\n\nThe request body has the same shape as **Add New Invoice** (an `Invoice` object plus optional `InvoiceItem`, `Payment`, `Client`, etc.); the document type is set to estimate automatically. As a convenience an `Estimate` object is also accepted and its fields are merged into the `Invoice` object.\n\n`Invoice.client_id` is required. Estimate-specific notes: deposit, due-after, terms and issue-date are not applicable to estimates. See **Add New Invoice** for the full reference of the remaining header / item / payment fields and their defaulting.",
+    "tags": [
+      "Endpoints/Sales /Estimates",
+      "Estimates"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Estimate header. Same fields as the Add New Invoice header (the `Estimate` key is also accepted and merged into this object). The document type is set to estimate automatically.",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "**Required.** The client this estimate is for."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Estimate date (YYYY-MM-DD). Must fall within an open financial period.",
+                    "format": "date"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency code (for example, USD). Optional — defaults to the account currency."
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "description": "Store / warehouse for line items. Optional — defaults to the primary store."
+                  },
+                  "draft": {
+                    "type": "boolean",
+                    "description": "Create the estimate as a draft."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free-text notes."
+                  }
+                },
+                "required": [
+                  "client_id"
+                ]
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "Estimate line items. Same shape as Add New Invoice line items.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "The estimate was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The new estimate id."
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed, the client is suspended, a selected store/product is inactive, or a product's minimum price was violated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to create estimates.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__estimates_format"
+  },
+  "blockers": []
+}

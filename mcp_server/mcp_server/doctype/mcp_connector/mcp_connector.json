@@ -1,0 +1,183 @@
+{
+  "doctype": "DocType",
+  "name": "MCP Connector",
+  "module": "Mcp Server",
+  "engine": "InnoDB",
+  "autoname": "field:title",
+  "title_field": "title",
+  "field_order": [
+    "title",
+    "enabled",
+    "description",
+    "allowed_roles",
+    "connector_id",
+    "plugin",
+    "kind",
+    "base_url",
+    "auth_scheme",
+    "auth_header",
+    "credential",
+    "headers_json",
+    "default_params_json",
+    "allow_writes",
+    "timeout_seconds",
+    "provider",
+    "model",
+    "last_status",
+    "last_tested",
+    "test_capability",
+    "test_arguments_json"
+  ],
+  "fields": [
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "الاسم",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "مفعّل",
+      "default": "0",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "الوصف"
+    },
+    {
+      "fieldname": "allowed_roles",
+      "fieldtype": "Small Text",
+      "label": "الأدوار المسموح لها",
+      "description": "أسماء الأدوار، كل دور في سطر. فارغ = أدوار MCP الافتراضية."
+    },
+    {
+      "fieldname": "connector_id",
+      "fieldtype": "Data",
+      "label": "معرف الموصل",
+      "unique": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "plugin",
+      "fieldtype": "Link",
+      "label": "البلجن",
+      "options": "MCP Plugin",
+      "reqd": 1
+    },
+    {
+      "fieldname": "kind",
+      "fieldtype": "Select",
+      "label": "نوع الاتصال",
+      "options": "Frappe\nHTTP API\nRemote MCP\nAI\nLocal Backup",
+      "reqd": 1
+    },
+    {
+      "fieldname": "base_url",
+      "fieldtype": "Data",
+      "label": "عنوان الخدمة"
+    },
+    {
+      "fieldname": "auth_scheme",
+      "fieldtype": "Select",
+      "label": "نوع المصادقة",
+      "options": "None\nBearer\nAPI Key\nFrappe Token",
+      "default": "None"
+    },
+    {
+      "fieldname": "auth_header",
+      "fieldtype": "Data",
+      "label": "اسم هيدر المفتاح",
+      "default": "Authorization"
+    },
+    {
+      "fieldname": "credential",
+      "fieldtype": "Password",
+      "label": "مفتاح الاتصال"
+    },
+    {
+      "fieldname": "headers_json",
+      "fieldtype": "Code",
+      "label": "هيدرات إضافية",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "default_params_json",
+      "fieldtype": "Code",
+      "label": "معلمات المسار الافتراضية",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "allow_writes",
+      "fieldtype": "Check",
+      "label": "السماح بعمليات الكتابة",
+      "default": "0"
+    },
+    {
+      "fieldname": "timeout_seconds",
+      "fieldtype": "Int",
+      "label": "مهلة الاتصال بالثواني",
+      "default": "30"
+    },
+    {
+      "fieldname": "provider",
+      "fieldtype": "Select",
+      "label": "مزود الذكاء الاصطناعي",
+      "options": "\nOpenAI\nAnthropic\nGemini\nOpenAI Compatible\nAzure OpenAI"
+    },
+    {
+      "fieldname": "model",
+      "fieldtype": "Data",
+      "label": "معرف النموذج أو النشر"
+    },
+    {
+      "fieldname": "last_status",
+      "fieldtype": "Data",
+      "label": "نتيجة آخر اختبار",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "last_tested",
+      "fieldtype": "Datetime",
+      "label": "وقت آخر اختبار",
+      "read_only": 1
+    },
+    {
+      "fieldname": "test_capability",
+      "fieldtype": "Link",
+      "label": "قدرة فحص القراءة الاختيارية",
+      "options": "MCP Capability",
+      "description": "اختر قدرة قراءة من هذا الموصل عند الحاجة إلى POST للاستعلام، مثل UberFix get_status."
+    },
+    {
+      "fieldname": "test_arguments_json",
+      "fieldtype": "Code",
+      "label": "مدخلات فحص الاتصال",
+      "options": "JSON",
+      "default": "{}"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "MCP Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

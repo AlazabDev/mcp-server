@@ -1,0 +1,54 @@
+{
+  "Treasury": [
+    "object"
+  ],
+  "Treasury.active": [
+    "string"
+  ],
+  "Treasury.balance": [
+    "integer",
+    "number"
+  ],
+  "Treasury.branch_id": [
+    "string"
+  ],
+  "Treasury.created": [
+    "string"
+  ],
+  "Treasury.currency_code": [
+    "null",
+    "string"
+  ],
+  "Treasury.description": [
+    "string"
+  ],
+  "Treasury.id": [
+    "string"
+  ],
+  "Treasury.is_primary": [
+    "string"
+  ],
+  "Treasury.metainfo": [
+    "null"
+  ],
+  "Treasury.modified": [
+    "string"
+  ],
+  "Treasury.name": [
+    "string"
+  ],
+  "Treasury.staff_id": [
+    "string"
+  ],
+  "Treasury.type": [
+    "string"
+  ],
+  "Treasury.type_account_number": [
+    "null",
+    "string"
+  ],
+  "Treasury.type_name": [
+    "null",
+    "string"
+  ]
+}

@@ -1,0 +1,787 @@
+[
+  {
+    "etag": "\"ee57d866-0309-474c-8751-bdc23357cc54\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-maint",
+    "name": "az-model-maint",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 250,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.1",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2025-11-13"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Guardrails696",
+      "rateLimits": [
+        {
+          "count": 2500.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 250000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": "Default",
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 250,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-06-24T17:32:39.732819+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-08-05T21:36:49.773279+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"0064e5c4-2c8f-4649-9590-db8dc8a7b8ee\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-finance",
+    "name": "az-model-finance",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "chatCompletion": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 250,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "DeepSeek",
+        "name": "DeepSeek-V4-Pro",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-04-23"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 250.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 250000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 250,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-06-28T03:10:59.967654+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-06-28T03:10:59.967654+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"7ddd0950-8e1c-4a5f-a716-be4ca98e7b81\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-core",
+    "name": "az-model-core",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 500,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.5",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-04-24"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Guardrails696",
+      "rateLimits": [
+        {
+          "count": 500.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 500000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": "Priority",
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 500,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-06-28T03:58:06.345128+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-08-05T21:36:54.388852+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"d4b3e9a8-67c6-480c-99ae-2345eb6b0c72\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-models-text",
+    "name": "az-models-text",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "area": "US",
+        "embeddings": "true",
+        "embeddingsMaxInputs": "2048"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 532,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "text-embedding-3-small",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "1"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 532.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 10.0
+        },
+        {
+          "count": 532000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 532,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-06-30T20:20:03.985303+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-06-30T20:20:03.985303+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"f7a7a835-7a38-4679-a0c7-6d8fe1eb7a56\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-gpt",
+    "name": "az-model-gpt",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 2000,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.6-luna",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-07-09"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 2000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 2000000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 2000,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-07-22T06:34:19.961819+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-07-22T06:34:19.961819+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"45a8bc22-8c8c-47fd-86bc-99f58cfec5ef\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-mini",
+    "name": "az-model-mini",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 250,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.4-mini",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-03-17"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 250.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 250000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": "Priority",
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 250,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-08-03T04:16:12.559900+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-08-03T04:16:12.559900+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"8b92eed3-3874-40cc-a6eb-97e86deb5ad6\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-sol",
+    "name": "az-model-sol",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 2500,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.6-sol",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-07-09"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Guardrails696",
+      "rateLimits": [
+        {
+          "count": 2500.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 2500000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": "Default",
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "NoAutoUpgrade"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 2500,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-08-05T14:54:50.228024+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-08-05T21:36:57.616824+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"0bb63f16-d535-4bb5-97b9-38aabf3b12b2\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-sora",
+    "name": "az-model-sora",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "area": "US",
+        "videoGenerations": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 60,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "sora-2",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2025-12-08"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 60.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 60,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-08-14T18:36:21.135630+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-08-24T07:53:50.476718+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"d78aebf4-7297-4a9e-9554-5f03bd0b06fe\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/az-model-codex",
+    "name": "az-model-codex",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "chatCompletion": "false",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 10000,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.3-codex",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2026-02-24"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 100000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 10000000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceCurrentVersionExpired"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 10000,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-09-05T12:01:13.745271+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-09-05T12:01:13.745271+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"859f67b5-f75f-4aad-8b89-849b037e7619\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/gpt-4o",
+    "name": "gpt-4o",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "jsonSchemaResponse": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 250,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-4o",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2024-11-20"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.DefaultV2",
+      "rateLimits": [
+        {
+          "count": 250.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 10.0
+        },
+        {
+          "count": 250000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 250,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-09-12T11:59:45.476851+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-09-12T11:59:45.476851+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  },
+  {
+    "etag": "\"43e97cd2-7731-416a-aa76-66d0d65d469e\"",
+    "id": "/subscriptions/1363114a-a1d7-4abb-8042-dcdebf91e2c9/resourceGroups/azab-rg-ai/providers/Microsoft.CognitiveServices/accounts/az-ai-resource/deployments/gpt-5.1",
+    "name": "gpt-5.1",
+    "properties": {
+      "callRateLimit": null,
+      "capabilities": {
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "capacitySettings": null,
+      "currentCapacity": 300,
+      "deploymentState": "Running",
+      "dynamicThrottlingEnabled": null,
+      "model": {
+        "callRateLimit": null,
+        "format": "OpenAI",
+        "name": "gpt-5.1",
+        "publisher": null,
+        "source": null,
+        "sourceAccount": null,
+        "version": "2025-11-13"
+      },
+      "parentDeploymentName": null,
+      "provisioningState": "Succeeded",
+      "raiPolicyName": "Microsoft.Default",
+      "rateLimits": [
+        {
+          "count": 3000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "request",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        },
+        {
+          "count": 300000.0,
+          "dynamicThrottlingEnabled": null,
+          "key": "token",
+          "matchPatterns": null,
+          "minCount": null,
+          "renewalPeriod": 60.0
+        }
+      ],
+      "routing": null,
+      "scaleSettings": null,
+      "serviceTier": null,
+      "speculativeDecoding": null,
+      "spilloverDeploymentName": null,
+      "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+    },
+    "resourceGroup": "azab-rg-ai",
+    "sku": {
+      "capacity": 300,
+      "family": null,
+      "name": "GlobalStandard",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2026-09-15T21:05:21.344226+00:00",
+      "createdBy": "admin@alazabgo.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2026-09-16T14:29:14.176968+00:00",
+      "lastModifiedBy": "admin@alazabgo.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": null,
+    "type": "Microsoft.CognitiveServices/accounts/deployments"
+  }
+]

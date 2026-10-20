@@ -1,40 +1,11 @@
+"""Compatibility entry point for the original app's onboarding command."""
 import frappe
-from frappe import _
+from mcp_server.policy import require_manager
 
-def setup_mcp(user_email="mcp@example.com", create_user=True):
-    """
-    Onboarding script to setup MCP Server.
-    1. Creates MCP User if not exists.
-    2. Assigns minimal role (if needed).
-    3. Initializes MCP Server Settings.
-    """
-    if create_user:
-        if not frappe.db.exists("User", user_email):
-            user = frappe.new_doc("User")
-            user.email = user_email
-            user.first_name = "MCP"
-            user.last_name = "User"
-            user.send_welcome_email = 0
-            user.flags.ignore_password_policy = True
-            user.insert(ignore_permissions=True)
-            print(f"Created user {user_email}")
-        else:
-            print(f"User {user_email} already exists")
-            
-    # Settings
-    settings = frappe.get_single("MCP Server Settings")
-    settings.enabled = 1
-    settings.auth_mode = "Token"
-    settings.mcp_user = user_email
-    
-    if not settings.token_secret:
-        settings.token_secret = frappe.generate_hash(length=32)
-        print(f"Generated new Token Secret: {settings.token_secret}")
-    else:
-        print(f"Token Secret already set: {settings.token_secret}")
-        
-    settings.save(ignore_permissions=True)
-    print("MCP Server Settings configured.")
-
-    # Initialize Allowlist (Empty)
-    # Nothing to do, it's empty by default.
+def setup_mcp(user_email=None,create_user=False):
+    require_manager()
+    from mcp_server.install import seed_records,seed_allowlists
+    seed_records();seed_allowlists()
+    if create_user and user_email:
+        if not frappe.db.exists('User',user_email):frappe.get_doc({'doctype':'User','email':user_email,'first_name':'MCP','send_welcome_email':0,'user_type':'System User','roles':[{'role':'MCP Operator'}]}).insert(ignore_permissions=True)
+    return {'status':'ready','page':'/app/mcp-center','auth':'Native Frappe authentication'}

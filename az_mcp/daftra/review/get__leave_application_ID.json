@@ -1,0 +1,247 @@
+{
+  "path": "/leave_application/{ID}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Leave Applications ",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single leave application by id. This is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token.\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page or format flag.\n\nThe successful response is a **flat object** of the leave application's fields (it is not wrapped in a `data` envelope). It also embeds the `attachments` array and related records: the applicant staff (`staff_leave_application`), the leave type (`leave_application_type`), the creator staff (`leave_application_creator`), the approver staff (`leave_application_approver`), the linked attendance permission (`leave_application_attendance_permission`), and the approval-cycle configuration (`approval_cycle_configuration`). Related records are `null` when not applicable.\n\nNote: requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened` rather than a 404.",
+    "tags": [
+      "Endpoints/HR/Leave Application "
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "The id of the leave application to fetch.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The leave application, returned as a flat object with embedded relations.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "A single leave-application record, returned flat (not wrapped).",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Leave application id."
+                },
+                "staff_id": {
+                  "type": "integer",
+                  "description": "Id of the staff member the leave is for."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Leave type.\n\n| Value | Meaning |\n|---|---|\n| leave | Leave |\n| half_leave | Half (½) Leave |\n| delay | Late Arrival |\n| early | Early Leave |"
+                },
+                "leave_type_id": {
+                  "type": "integer",
+                  "description": "The configured leave type id (set for `leave` / `half_leave`).",
+                  "nullable": true
+                },
+                "date_from": {
+                  "type": "string",
+                  "description": "First day of leave (YYYY-MM-DD)."
+                },
+                "date_to": {
+                  "type": "string",
+                  "description": "Last day of leave (YYYY-MM-DD)."
+                },
+                "days": {
+                  "type": "integer",
+                  "description": "Number of leave days."
+                },
+                "late_time": {
+                  "type": "integer",
+                  "description": "Minutes late (set for `delay`).",
+                  "nullable": true
+                },
+                "early_time": {
+                  "type": "integer",
+                  "description": "Minutes early (set for `early`).",
+                  "nullable": true
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Approval status.\n\n| Value | Meaning |\n|---|---|\n| pending | Pending |\n| approved | Approved |\n| rejected | Rejected |"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Optional free-text note.",
+                  "nullable": true
+                },
+                "comment": {
+                  "type": "string",
+                  "description": "Optional comment.",
+                  "nullable": true
+                },
+                "approved_by": {
+                  "type": "integer",
+                  "description": "Id of the staff member who approved/rejected the application.",
+                  "nullable": true
+                },
+                "created_by": {
+                  "type": "integer",
+                  "description": "Id of the staff member who created the application."
+                },
+                "attendance_permission_id": {
+                  "type": "integer",
+                  "description": "Id of the attendance permission created when the leave is approved.",
+                  "nullable": true
+                },
+                "shift_type": {
+                  "type": "string",
+                  "description": "Shift the leave applies to, when applicable.",
+                  "nullable": true
+                },
+                "approval_data": {
+                  "type": "object",
+                  "description": "Multi-cycle approval state, when an approval cycle applies.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "approval_cycle_configuration_id": {
+                  "type": "integer",
+                  "description": "Id of the matched approval-cycle configuration, when applicable.",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp."
+                },
+                "attachments": {
+                  "type": "array",
+                  "description": "Files attached to the leave application.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "entity_key": {
+                        "type": "string"
+                      },
+                      "entity_id": {
+                        "type": "integer"
+                      },
+                      "file_id": {
+                        "type": "integer"
+                      },
+                      "deleted_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "staff_leave_application": {
+                  "type": "object",
+                  "description": "The applicant staff record.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "leave_application_type": {
+                  "type": "object",
+                  "description": "The configured leave type record.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "leave_application_creator": {
+                  "type": "object",
+                  "description": "The staff record that created the application.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "leave_application_approver": {
+                  "type": "object",
+                  "description": "The staff record that approved/rejected the application, or null.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "leave_application_attendance_permission": {
+                  "type": "object",
+                  "description": "The linked attendance permission, or null.",
+                  "properties": {},
+                  "nullable": true
+                },
+                "approval_cycle_configuration": {
+                  "type": "object",
+                  "description": "The matched approval-cycle configuration, or null.",
+                  "properties": {},
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "staff_id",
+                "type",
+                "date_from",
+                "date_to",
+                "days",
+                "status",
+                "created_by"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The Bearer token is missing, invalid, or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Requesting an id that does not exist currently returns HTTP 500 with the plain-text body `error happened`.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "description": "Plain-text body `error happened`. Currently returned when the requested id does not exist (rather than a 404)."
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__leave_application_ID",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

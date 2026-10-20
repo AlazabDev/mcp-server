@@ -1,0 +1,8 @@
+{
+  "resource": "products",
+  "method": "GET",
+  "record_id": 267,
+  "url": "https://alazab-co.daftra.com/api2/products/267.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:54:55.016095+00:00"
+}

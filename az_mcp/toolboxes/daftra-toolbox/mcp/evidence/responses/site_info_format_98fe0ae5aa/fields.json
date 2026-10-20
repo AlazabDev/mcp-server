@@ -1,0 +1,223 @@
+{
+  "result": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "code": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data.Site": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data.Site.id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.business_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.first_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.last_name": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.subdomain": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.site_logo": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.invoice_logo": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data.Site.address1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.address2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.city": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.state": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.postal_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.phone1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.phone2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.country_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.timezone": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.date_format": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.currency_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.language_code": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.email": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.expiry_date": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.package_id": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.bn1": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.bn2": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.tolerant": {
+    "observed_types": [
+      "null"
+    ]
+  },
+  "data.Site.beta_version": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.site_logo_full_path": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.staff_id": {
+    "observed_types": [
+      "integer"
+    ]
+  },
+  "data.Site.currencyFormat": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.currencies": {
+    "observed_types": [
+      "object"
+    ]
+  },
+  "data.Site.currencies.currencies_ar": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.currencies.currencies_en": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.numberFormat": {
+    "observed_types": [
+      "array"
+    ]
+  },
+  "data.Site.numberFormat[]": {
+    "observed_types": [
+      "integer",
+      "string"
+    ]
+  },
+  "data.Site.SITE_HASH": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.url": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.is_beta": {
+    "observed_types": [
+      "boolean"
+    ]
+  },
+  "data.Site.is_expired": {
+    "observed_types": [
+      "boolean"
+    ]
+  },
+  "data.Site.moment_format": {
+    "observed_types": [
+      "string"
+    ]
+  },
+  "data.Site.ALLOWED_LOYALTY_PLUGIN": {
+    "observed_types": [
+      "boolean"
+    ]
+  }
+}

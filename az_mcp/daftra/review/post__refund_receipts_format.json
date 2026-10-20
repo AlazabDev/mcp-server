@@ -1,0 +1,248 @@
+{
+  "path": "/refund_receipts{format}",
+  "method": "post",
+  "operation": {
+    "summary": "Add New Refund Receipt",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new **refund receipt** against an existing invoice.\n\nA refund receipt is always issued against a source invoice: set `Invoice.subscription_id` to that invoice's id (**required** — an empty/invalid value is rejected). The client, currency and related details are inherited from the source invoice. The request body otherwise has the same shape as **Add New Invoice** (an `Invoice` object plus optional `InvoiceItem`, `Payment`, etc.); a `RefundReceipt` object is also accepted in place of `Invoice`, and the document type is set to refund receipt automatically.\n\nSee **Add New Invoice** for the full reference of the remaining header / item / payment fields.",
+    "tags": [
+      "Endpoints/Sales /Refund Receipts",
+      "Refund Receipts"
+    ],
+    "parameters": [
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "Invoice": {
+                "type": "object",
+                "description": "Refund-receipt header. A `RefundReceipt` key is also accepted in place of `Invoice`. The document type is set to refund receipt automatically.",
+                "properties": {
+                  "subscription_id": {
+                    "type": "integer",
+                    "description": "**Required.** The id of the source invoice being refunded. Empty/invalid is rejected with `400 Invoice not found`."
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Refund-receipt date (YYYY-MM-DD). Must fall within an open financial period.",
+                    "format": "date"
+                  },
+                  "currency_code": {
+                    "type": "string",
+                    "description": "Currency code. Optional — inherited from the source invoice / account currency when omitted."
+                  }
+                },
+                "required": [
+                  "subscription_id"
+                ]
+              },
+              "InvoiceItem": {
+                "type": "array",
+                "description": "The lines/quantities being refunded. Same shape as Add New Invoice line items.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "type": "string"
+                    },
+                    "unit_price": {
+                      "type": "number"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "Payment": {
+                "type": "array",
+                "description": "Optional refund payments.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "payment_method": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "Invoice"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "The refund receipt was created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "integer",
+                  "description": "The new refund receipt id."
+                },
+                "invoice_number": {
+                  "type": "string",
+                  "description": "The generated refund-receipt number."
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The source invoice (`subscription_id`) is missing/not found, the client is suspended, a selected store/product is inactive, or validation failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                },
+                "validation_errors": {
+                  "type": "object",
+                  "description": "Field-level error messages, present when validation fails.",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "properties": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Authentication is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission to create refund receipts.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "result",
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__refund_receipts_format"
+  },
+  "blockers": []
+}

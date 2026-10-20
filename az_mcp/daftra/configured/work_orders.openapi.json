@@ -1,0 +1,2456 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra work_orders",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api2"
+    }
+  ],
+  "paths": {
+    "/work_orders.json": {
+      "get": {
+        "summary": "GET All Work Orders",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of work orders for the authenticated account.\n\nRequires the `View his work orders` or `View all work orders` permission. Staff who only hold `View his work orders` see only the work orders they created or are assigned to. Workflow-type entities are excluded — only classic work orders are returned.\n\n**Default status filter:** when no `status` filter is supplied, the list returns only **Open** work orders. Pass `status=-1` to return every status, or a specific status value to filter.\n\nEach item is returned under a `WorkOrder` key; related records (client, staff, follow-up status) are not embedded.",
+        "tags": [
+          "Endpoints/Work Orders/Work Orders",
+          "Work Orders"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The collection items limit (per page).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection items page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by work order status. When omitted, only Open work orders are returned. Pass `-1` to return all statuses.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |\n| -1 | All statuses |",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "WorkOrder": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique work order identifier.",
+                                "readOnly": true
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "ID of the staff member who created the work order. `0` indicates the account owner."
+                              },
+                              "client_id": {
+                                "type": "integer",
+                                "description": "Identifier of the client this work order belongs to.",
+                                "nullable": true
+                              },
+                              "number": {
+                                "type": "string",
+                                "description": "Work order number. Auto-generated when not supplied on creation."
+                              },
+                              "title": {
+                                "type": "string",
+                                "description": "Work order title."
+                              },
+                              "status": {
+                                "type": "integer",
+                                "description": "Work order status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |",
+                                "enum": [
+                                  1,
+                                  2,
+                                  3,
+                                  4
+                                ]
+                              },
+                              "start_date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Start date (YYYY-MM-DD)."
+                              },
+                              "delivery_date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date.",
+                                "nullable": true
+                              },
+                              "delivery_appointment_id": {
+                                "type": "integer",
+                                "description": "Linked appointment reference.",
+                                "nullable": true
+                              },
+                              "follow_up_status_id": {
+                                "type": "integer",
+                                "description": "Follow-up status identifier.",
+                                "default": null,
+                                "nullable": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "Free-text description.",
+                                "nullable": true
+                              },
+                              "budget": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Budget amount for this work order.",
+                                "nullable": true
+                              },
+                              "budget_currency": {
+                                "type": "string",
+                                "description": "3-letter ISO 4217 currency code for the budget.",
+                                "nullable": true
+                              },
+                              "client_data": {
+                                "type": "string",
+                                "description": "JSON snapshot of the client's details captured when the work order was saved.",
+                                "readOnly": true,
+                                "nullable": true
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp.",
+                                "readOnly": true
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last-modified timestamp.",
+                                "readOnly": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__work_orders_format"
+      },
+      "post": {
+        "summary": "Add New Work Order",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a new work order.\n\nRequires the `Add new work orders` permission. The request body must be wrapped in a `WorkOrder` object. Only `title` is required.\n\nSeveral fields are set automatically and cannot be controlled by the caller: the work order `number` is generated when omitted, `start_date` defaults to today when omitted, the creator is recorded as the authenticated user, and `status` is set to Open (or Draft when `is_draft` is sent). On success the new work order id is returned with HTTP 202.",
+        "tags": [
+          "Endpoints/Work Orders/Work Orders",
+          "Work Orders"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "WorkOrder": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "description": "Work order title."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Identifier of the client this work order belongs to. The client must not be suspended."
+                      },
+                      "number": {
+                        "type": "string",
+                        "description": "Work order number. Auto-generated when omitted; may be overridden with a unique value."
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Start date (YYYY-MM-DD). Optional — defaults to today when omitted."
+                      },
+                      "delivery_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text description."
+                      },
+                      "budget": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Budget amount for this work order."
+                      },
+                      "budget_currency": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code for the budget."
+                      },
+                      "follow_up_status_id": {
+                        "type": "integer",
+                        "description": "Follow-up status identifier."
+                      },
+                      "delivery_appointment_id": {
+                        "type": "integer",
+                        "description": "Linked appointment reference."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Staff member to assign to this work order. The creator is recorded automatically as the authenticated user."
+                      },
+                      "is_draft": {
+                        "type": "integer",
+                        "description": "Set to `1` to save the work order as a Draft with relaxed validation. Defaults to `0`.",
+                        "enum": [
+                          0,
+                          1
+                        ]
+                      }
+                    },
+                    "required": [
+                      "title"
+                    ]
+                  }
+                },
+                "required": [
+                  "WorkOrder"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Identifier of the newly created work order."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Field name → reason. Present when validation fails.",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__work_orders_format"
+      }
+    },
+    "/work_orders/{id}.json": {
+      "get": {
+        "summary": "GET Single Work Order",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single work order by its identifier.\n\nRequires permission to view the work order. Staff who only hold `View his work orders` may view a work order only if they created it or are assigned to it. The work order is returned under a `data.WorkOrder` key; related records (client, staff, follow-up status) are not embedded.\n\nThis endpoint serves classic work orders; workflow-type entities are handled separately.",
+        "tags": [
+          "Endpoints/Work Orders/Work Orders",
+          "Work Orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work order identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "WorkOrder": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique work order identifier.",
+                              "readOnly": true
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "ID of the staff member who created the work order. `0` indicates the account owner."
+                            },
+                            "client_id": {
+                              "type": "integer",
+                              "description": "Identifier of the client this work order belongs to.",
+                              "nullable": true
+                            },
+                            "number": {
+                              "type": "string",
+                              "description": "Work order number. Auto-generated when not supplied on creation."
+                            },
+                            "title": {
+                              "type": "string",
+                              "description": "Work order title."
+                            },
+                            "status": {
+                              "type": "integer",
+                              "description": "Work order status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |",
+                              "enum": [
+                                1,
+                                2,
+                                3,
+                                4
+                              ]
+                            },
+                            "start_date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Start date (YYYY-MM-DD)."
+                            },
+                            "delivery_date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date.",
+                              "nullable": true
+                            },
+                            "delivery_appointment_id": {
+                              "type": "integer",
+                              "description": "Linked appointment reference.",
+                              "nullable": true
+                            },
+                            "follow_up_status_id": {
+                              "type": "integer",
+                              "description": "Follow-up status identifier.",
+                              "default": null,
+                              "nullable": true
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "Free-text description.",
+                              "nullable": true
+                            },
+                            "budget": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "Budget amount for this work order.",
+                              "nullable": true
+                            },
+                            "budget_currency": {
+                              "type": "string",
+                              "description": "3-letter ISO 4217 currency code for the budget.",
+                              "nullable": true
+                            },
+                            "client_data": {
+                              "type": "string",
+                              "description": "JSON snapshot of the client's details captured when the work order was saved.",
+                              "readOnly": true,
+                              "nullable": true
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Creation timestamp.",
+                              "readOnly": true
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Last-modified timestamp.",
+                              "readOnly": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__work_orders_id_format"
+      },
+      "put": {
+        "summary": "Edit Work Orders",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing work order.\n\nRequires permission to edit the work order (`Edit & remove all work orders`, or `Edit & remove his work orders` for one the staff created or is assigned to). The request body must be wrapped in a `WorkOrder` object; `title` and `start_date` are required.\n\nA **Closed** work order cannot be edited and returns `400`. As with create, `status` is server-controlled (Open, or Draft when `is_draft` is sent), `number` is generated when omitted, and the submitted `staff_id` assigns staff member(s) rather than changing the creator. The same operation is also reachable via `POST /work_orders/{id}`.",
+        "tags": [
+          "Endpoints/Work Orders/Work Orders",
+          "Work Orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work order identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "WorkOrder": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "description": "Work order title."
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Start date (YYYY-MM-DD)."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Identifier of the client this work order belongs to. The client must not be suspended."
+                      },
+                      "number": {
+                        "type": "string",
+                        "description": "Work order number. Auto-generated when left empty."
+                      },
+                      "delivery_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date."
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text description."
+                      },
+                      "budget": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Budget amount for this work order."
+                      },
+                      "budget_currency": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code for the budget."
+                      },
+                      "follow_up_status_id": {
+                        "type": "integer",
+                        "description": "Follow-up status identifier."
+                      },
+                      "delivery_appointment_id": {
+                        "type": "integer",
+                        "description": "Linked appointment reference."
+                      },
+                      "staff_id": {
+                        "type": "integer",
+                        "description": "Staff member to assign to this work order. Does not change the recorded creator."
+                      },
+                      "is_draft": {
+                        "type": "integer",
+                        "description": "Set to `1` to save the work order as a Draft with relaxed validation. Defaults to `0`.",
+                        "enum": [
+                          0,
+                          1
+                        ]
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "start_date"
+                    ]
+                  }
+                },
+                "required": [
+                  "WorkOrder"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Set for the closed-work-order precondition (e.g. \"Work Order is closed, you can't edit\"); `null` on validation failures, where the detail is in `validation_errors`.",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Field name → reason. Present when validation fails.",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__work_orders_id_format"
+      },
+      "delete": {
+        "summary": "Delete Work Orders",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a work order by its identifier.\n\nRequires permission to edit/remove the work order, and the work order must have no blocking related transactions (invoices, credit notes, refunds, expenses, requisitions, purchase orders, etc.) — otherwise the request is rejected with `403`. Its start date must not fall within a closed financial period.\n\nFor API callers the deletion is confirmed automatically (no confirmation step). On success the deleted-confirmation message is returned with HTTP 200.",
+        "tags": [
+          "Endpoints/Work Orders/Work Orders",
+          "Work Orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work order identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation message."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Returned when the caller lacks permission or the work order has blocking related transactions."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__work_orders_id_format"
+      }
+    },
+    "/work_order_appointments.json": {
+      "get": {
+        "summary": "GET All Work Order Appointments",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of work-order appointments (follow-up appointments attached to work orders). Supports filtering by work order, partner, action, status and appointment id. Requires permission to view appointments/notes. Requires the Work Orders plugin to be enabled.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items per page (1–1000, default 20).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (default 1).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "description": "Filter by the related work order id (matches `item_id` or `partner_id`).",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "work_order_id",
+            "in": "query",
+            "description": "Filter by work order id (Work Orders plugin).",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "description": "Filter by the linked partner (client) id.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "action_id",
+            "in": "query",
+            "description": "Filter by follow-up action id.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Filter by a specific appointment id.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status_id",
+            "in": "query",
+            "description": "Filter by status (0 Scheduled, 1 Done, 2 Dismissed). Defaults to `0` (Scheduled) when omitted.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of work-order appointments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "WorkOrderAppointment": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique identifier. Server-assigned.",
+                                "readOnly": true
+                              },
+                              "item_type": {
+                                "type": "integer",
+                                "enum": [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11
+                                ],
+                                "readOnly": true,
+                                "description": "Type of record the appointment is attached to. For work-order appointments this is always `8`.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |\n| 2 | Invoice |\n| 3 | Estimate |\n| 4 | Purchase order |\n| 5 | Staff |\n| 6 | Supplier |\n| 7 | Product |\n| 8 | Work order |\n| 9 | Appointment |\n| 10 | Shift |\n| 11 | Booking |"
+                              },
+                              "item_id": {
+                                "type": "integer",
+                                "description": "Id of the related work order."
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "Id of the staff member who created the appointment. `0` means the account owner."
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Appointment start date/time."
+                              },
+                              "end_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Appointment end date/time.",
+                                "nullable": true
+                              },
+                              "body": {
+                                "type": "string",
+                                "description": "Free-text note for the appointment."
+                              },
+                              "action_id": {
+                                "type": "integer",
+                                "description": "Follow-up action id."
+                              },
+                              "status": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1,
+                                  2
+                                ],
+                                "default": 0,
+                                "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                              },
+                              "status_date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "When the status last changed.",
+                                "nullable": true
+                              },
+                              "post_id": {
+                                "type": "integer",
+                                "default": 0,
+                                "description": "Related note id; `0` when none."
+                              },
+                              "recurring_appointment_id": {
+                                "type": "integer",
+                                "description": "Id of the recurring series this appointment belongs to, if any.",
+                                "readOnly": true,
+                                "nullable": true
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp.",
+                                "readOnly": true
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last-update timestamp.",
+                                "readOnly": true
+                              },
+                              "partner_type": {
+                                "type": "integer",
+                                "enum": [
+                                  1
+                                ],
+                                "readOnly": true,
+                                "description": "Partner type. `1` = Client."
+                              },
+                              "partner_id": {
+                                "type": "integer",
+                                "readOnly": true,
+                                "description": "Id of the linked partner (the work order's client)."
+                              },
+                              "share_with_partner": {
+                                "type": "boolean",
+                                "default": false,
+                                "description": "Whether the appointment is shared with the linked partner."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__work_order_appointments_format"
+      },
+      "post": {
+        "summary": "Add New Work Order Appointment",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a work-order appointment (a follow-up appointment attached to a work order). The appointment fields are wrapped in a `WorkOrderAppointment` object; `item_id` (the work order id) and `date` are required. Optionally include a `RecurringAppointment` object (with `recurring` set to `1`) to create a repeating appointment. Requires permission to add appointments/notes. Returns `202` with the new appointment's `id`. Requires the Work Orders plugin to be enabled.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "WorkOrderAppointment": {
+                    "type": "object",
+                    "properties": {
+                      "item_id": {
+                        "type": "integer",
+                        "description": "The work order id to attach the appointment to. **Required.**"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment start date/time. **Required.** Must be earlier than `end_date`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment end date/time. Optional; computed from `duration` when omitted."
+                      },
+                      "duration": {
+                        "type": "string",
+                        "description": "Appointment length in hours (numeric) or as `HH:MM`. Optional; defaults to 1 hour and is used to compute `end_date` when `end_date` is not supplied."
+                      },
+                      "action_id": {
+                        "type": "integer",
+                        "description": "Follow-up action id."
+                      },
+                      "staff_id": {
+                        "description": "Id of the creating staff member, or an array of staff ids to assign. Defaults to the authenticated staff when omitted."
+                      },
+                      "body": {
+                        "type": "string",
+                        "maxLength": 1500,
+                        "description": "Free-text note (max 1500 characters)."
+                      },
+                      "status": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "default": 0,
+                        "description": "On creation the status is set to `0` (Scheduled) automatically."
+                      },
+                      "recurring": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Set to `1` to create a repeating appointment; supply the recurrence in the `RecurringAppointment` object."
+                      },
+                      "share_with_partner": {
+                        "type": "boolean",
+                        "description": "Share the appointment with the linked partner (the work order's client)."
+                      }
+                    },
+                    "required": [
+                      "item_id",
+                      "date"
+                    ]
+                  },
+                  "RecurringAppointment": {
+                    "type": "object",
+                    "description": "Recurrence settings; used when `recurring` is `1`.",
+                    "properties": {
+                      "period_unit": {
+                        "type": "integer",
+                        "description": "Repeat interval (number of `unit_name` units between occurrences)."
+                      },
+                      "unit_count": {
+                        "type": "integer",
+                        "description": "How many occurrences to generate."
+                      },
+                      "unit_name": {
+                        "type": "string",
+                        "description": "Recurrence unit, e.g. `day`, `week`, `month`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date to stop generating occurrences."
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "WorkOrderAppointment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The appointment was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The new appointment's identifier."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed; `validation_errors` lists the offending fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "The referenced work order does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__work_order_appointments_format"
+      }
+    },
+    "/work_order_appointments/{id}.json": {
+      "get": {
+        "summary": "GET Single Work Order Appointment",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single work-order appointment by id. Requires permission to view the appointment. The appointment object is returned under the `FollowUpReminder` key. Requires the Work Orders plugin to be enabled.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work-order appointment's identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested work-order appointment, returned under the `FollowUpReminder` key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "FollowUpReminder": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique identifier. Server-assigned.",
+                              "readOnly": true
+                            },
+                            "item_type": {
+                              "type": "integer",
+                              "enum": [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11
+                              ],
+                              "readOnly": true,
+                              "description": "Type of record the appointment is attached to. For work-order appointments this is always `8`.\n\n| Value | Meaning |\n|---|---|\n| 1 | Client |\n| 2 | Invoice |\n| 3 | Estimate |\n| 4 | Purchase order |\n| 5 | Staff |\n| 6 | Supplier |\n| 7 | Product |\n| 8 | Work order |\n| 9 | Appointment |\n| 10 | Shift |\n| 11 | Booking |"
+                            },
+                            "item_id": {
+                              "type": "integer",
+                              "description": "Id of the related work order."
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Id of the staff member who created the appointment. `0` means the account owner."
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Appointment start date/time."
+                            },
+                            "end_date": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Appointment end date/time.",
+                              "nullable": true
+                            },
+                            "body": {
+                              "type": "string",
+                              "description": "Free-text note for the appointment."
+                            },
+                            "action_id": {
+                              "type": "integer",
+                              "description": "Follow-up action id."
+                            },
+                            "status": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1,
+                                2
+                              ],
+                              "default": 0,
+                              "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                            },
+                            "status_date": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "When the status last changed.",
+                              "nullable": true
+                            },
+                            "post_id": {
+                              "type": "integer",
+                              "default": 0,
+                              "description": "Related note id; `0` when none."
+                            },
+                            "recurring_appointment_id": {
+                              "type": "integer",
+                              "description": "Id of the recurring series this appointment belongs to, if any.",
+                              "readOnly": true,
+                              "nullable": true
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Creation timestamp.",
+                              "readOnly": true
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Last-update timestamp.",
+                              "readOnly": true
+                            },
+                            "partner_type": {
+                              "type": "integer",
+                              "enum": [
+                                1
+                              ],
+                              "readOnly": true,
+                              "description": "Partner type. `1` = Client."
+                            },
+                            "partner_id": {
+                              "type": "integer",
+                              "readOnly": true,
+                              "description": "Id of the linked partner (the work order's client)."
+                            },
+                            "share_with_partner": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Whether the appointment is shared with the linked partner."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No work-order appointment matches the supplied id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__work_order_appointments_id_format"
+      },
+      "put": {
+        "summary": "Edit Work Order Appointments",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing work-order appointment. Send only the fields to change, wrapped in a `WorkOrderAppointment` object; omitted fields keep their current values. Requires permission to edit appointments/notes. Requires the Work Orders plugin to be enabled.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work-order appointment's identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "WorkOrderAppointment": {
+                    "type": "object",
+                    "properties": {
+                      "item_id": {
+                        "type": "integer",
+                        "description": "The work order id to attach the appointment to."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment start date/time. Must be earlier than `end_date`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment end date/time. Optional; computed from `duration` when omitted."
+                      },
+                      "duration": {
+                        "type": "string",
+                        "description": "Appointment length in hours (numeric) or as `HH:MM`. Optional; defaults to 1 hour and is used to compute `end_date` when `end_date` is not supplied."
+                      },
+                      "action_id": {
+                        "type": "integer",
+                        "description": "Follow-up action id."
+                      },
+                      "staff_id": {
+                        "description": "Id of the creating staff member, or an array of staff ids to assign. Defaults to the authenticated staff when omitted."
+                      },
+                      "body": {
+                        "type": "string",
+                        "maxLength": 1500,
+                        "description": "Free-text note (max 1500 characters)."
+                      },
+                      "status": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "default": 0,
+                        "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                      },
+                      "recurring": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Set to `1` to create a repeating appointment; supply the recurrence in the `RecurringAppointment` object."
+                      },
+                      "share_with_partner": {
+                        "type": "boolean",
+                        "description": "Share the appointment with the linked partner (the work order's client)."
+                      }
+                    }
+                  },
+                  "RecurringAppointment": {
+                    "type": "object",
+                    "description": "Recurrence settings; used when `recurring` is `1`.",
+                    "properties": {
+                      "period_unit": {
+                        "type": "integer",
+                        "description": "Repeat interval (number of `unit_name` units between occurrences)."
+                      },
+                      "unit_count": {
+                        "type": "integer",
+                        "description": "How many occurrences to generate."
+                      },
+                      "unit_name": {
+                        "type": "string",
+                        "description": "Recurrence unit, e.g. `day`, `week`, `month`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date to stop generating occurrences."
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "WorkOrderAppointment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed; `validation_errors` lists the offending fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No work-order appointment matches the supplied id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__work_order_appointments_id_format"
+      },
+      "delete": {
+        "summary": "Delete Work Order Appointments",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Permanently deletes a work-order appointment by id. This is a hard delete and cannot be undone. If the appointment was the last occurrence of a recurring series, the series is removed as well. Requires permission to edit/delete appointments. Requires the Work Orders plugin to be enabled.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work-order appointment's identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "No appointment matches the supplied id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The appointment could not be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__work_order_appointments_id_format"
+      },
+      "post": {
+        "summary": "Update Work Order Appointment (POST alias)",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing work-order appointment. Send only the fields to change, wrapped in a `WorkOrderAppointment` object; omitted fields keep their current values. Requires permission to edit appointments/notes. Requires the Work Orders plugin to be enabled. This `POST` route is an alias of the `PUT` update endpoint for the same path.",
+        "tags": [
+          "Endpoints/Work Orders/Work Order Appointments",
+          "Work Order Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The work-order appointment's identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "WorkOrderAppointment": {
+                    "type": "object",
+                    "properties": {
+                      "item_id": {
+                        "type": "integer",
+                        "description": "The work order id to attach the appointment to."
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment start date/time. Must be earlier than `end_date`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Appointment end date/time. Optional; computed from `duration` when omitted."
+                      },
+                      "duration": {
+                        "type": "string",
+                        "description": "Appointment length in hours (numeric) or as `HH:MM`. Optional; defaults to 1 hour and is used to compute `end_date` when `end_date` is not supplied."
+                      },
+                      "action_id": {
+                        "type": "integer",
+                        "description": "Follow-up action id."
+                      },
+                      "staff_id": {
+                        "description": "Id of the creating staff member, or an array of staff ids to assign. Defaults to the authenticated staff when omitted."
+                      },
+                      "body": {
+                        "type": "string",
+                        "maxLength": 1500,
+                        "description": "Free-text note (max 1500 characters)."
+                      },
+                      "status": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "default": 0,
+                        "description": "Appointment status.\n\n| Value | Meaning |\n|---|---|\n| 0 | Scheduled |\n| 1 | Done |\n| 2 | Dismissed |"
+                      },
+                      "recurring": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Set to `1` to create a repeating appointment; supply the recurrence in the `RecurringAppointment` object."
+                      },
+                      "share_with_partner": {
+                        "type": "boolean",
+                        "description": "Share the appointment with the linked partner (the work order's client)."
+                      }
+                    }
+                  },
+                  "RecurringAppointment": {
+                    "type": "object",
+                    "description": "Recurrence settings; used when `recurring` is `1`.",
+                    "properties": {
+                      "period_unit": {
+                        "type": "integer",
+                        "description": "Repeat interval (number of `unit_name` units between occurrences)."
+                      },
+                      "unit_count": {
+                        "type": "integer",
+                        "description": "How many occurrences to generate."
+                      },
+                      "unit_name": {
+                        "type": "string",
+                        "description": "Recurrence unit, e.g. `day`, `week`, `month`."
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date to stop generating occurrences."
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "WorkOrderAppointment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed; `validation_errors` lists the offending fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "properties": {
+                        "Attribute that caused the error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The caller lacks permission for this operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No work-order appointment matches the supplied id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__work_order_appointments_id_format"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

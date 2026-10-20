@@ -1,0 +1,131 @@
+{
+  "path": "/v2/api/entity/{entityKey}/{id}",
+  "method": "put",
+  "operation": {
+    "summary": "Update entity record",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update a record of any entity, addressed by its `entityKey` and primary key `id`.\n\nThis is a generic, metadata-driven endpoint. The request body is a JSON object of the field values to update; **which keys are accepted and which are required is defined by the entity's field metadata, so it differs per `entityKey`**. Use the entity schema/fields endpoints to discover an entity's fields.\n\nOn success the response carries a confirmation `message` and the record's `id`.\n\n**Authentication & authorization.** Requires an OAuth2 Bearer token and the entity's **update** permission; otherwise the request is rejected with `401`.\n\n_Note:_ the same operation also accepts `POST /v2/api/entity/{entityKey}/{id}` for web-client backward compatibility.",
+    "tags": [
+      "Endpoints/Entities",
+      "Entities"
+    ],
+    "parameters": [
+      {
+        "name": "entityKey",
+        "in": "path",
+        "description": "The entity key, e.g. `client`, `cost_center`, `work_order`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The record's primary key.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "The field values to update. Keys and required-ness are defined by the entity's field metadata and vary per `entityKey`; the example below is for `cost_center`.",
+            "properties": {}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Record updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "Validation failed (`{ message: \"Entity not saved\", errors: {…} }`), the record was not found (`{ message: \"Record not found\" }`), a resource-based check failed, or the record could not be saved.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "Field name → list of error messages (present on validation failure).",
+                  "properties": {}
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The caller does not hold the entity's update permission.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "The record could not be resolved during pre-load.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "put__v_api_entity_entityKey_id"
+  },
+  "blockers": [
+    "Confirm v2 server base; source applies /api2 globally to v2 paths"
+  ]
+}

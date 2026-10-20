@@ -1,0 +1,337 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra site",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api2"
+    }
+  ],
+  "paths": {
+    "/site_info.json": {
+      "get": {
+        "summary": "GET Site Info",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns information about the current site (account) and the authenticated principal: the business/owner profile, localization (currency, number and date formats), subscription status, and a few plugin/context flags. The payload is wrapped in a `Site` object under `data`.\n\nSome fields are conditional:\n- `is_super_admin` and `staff` are returned only when the request is authenticated as a staff member (`staff_id` > 0); `staff` is that staff member's record with the password removed.\n- `expensesIsMandatoryEnabled` is returned only when the request sends the header `x-app-name: EXP`.\n\nAuthenticate with an `apikey` header or a Bearer access token.",
+        "tags": [
+          "Endpoints/Site",
+          "Site"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Site": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Current site (account) id."
+                            },
+                            "business_name": {
+                              "type": "string",
+                              "description": "Business name of the owner."
+                            },
+                            "first_name": {
+                              "type": "string",
+                              "description": "Owner's first name."
+                            },
+                            "last_name": {
+                              "type": "string",
+                              "description": "Owner's last name."
+                            },
+                            "subdomain": {
+                              "type": "string",
+                              "description": "Site subdomain / host."
+                            },
+                            "site_logo": {
+                              "type": "string",
+                              "description": "Default site logo URL (empty when none).",
+                              "nullable": true
+                            },
+                            "invoice_logo": {
+                              "type": "string",
+                              "description": "Default invoice logo URL (null when none).",
+                              "nullable": true
+                            },
+                            "address1": {
+                              "type": "string",
+                              "description": "Owner address line 1."
+                            },
+                            "address2": {
+                              "type": "string",
+                              "description": "Owner address line 2."
+                            },
+                            "city": {
+                              "type": "string",
+                              "description": "Owner city."
+                            },
+                            "state": {
+                              "type": "string",
+                              "description": "Owner state / province."
+                            },
+                            "postal_code": {
+                              "type": "string",
+                              "description": "Owner postal code."
+                            },
+                            "phone1": {
+                              "type": "string",
+                              "description": "Primary phone number."
+                            },
+                            "phone2": {
+                              "type": "string",
+                              "description": "Secondary phone number."
+                            },
+                            "country_code": {
+                              "type": "string",
+                              "description": "Country ISO ALPHA-2 code."
+                            },
+                            "bn1": {
+                              "type": "string",
+                              "description": "Primary business / tax registration number."
+                            },
+                            "bn2": {
+                              "type": "string",
+                              "description": "Secondary business / tax registration number."
+                            },
+                            "timezone": {
+                              "type": "string",
+                              "description": "Timezone id. Resolve the label from the general listing (model `Timezone`)."
+                            },
+                            "date_format": {
+                              "type": "string",
+                              "description": "The site's date format as a **Moment.js** format string (not an id)."
+                            },
+                            "moment_format": {
+                              "type": "string",
+                              "description": "The site's date format as a Moment.js format string (same value as `date_format`)."
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "description": "Default currency code (ISO 4217)."
+                            },
+                            "currencyFormat": {
+                              "type": "string",
+                              "description": "Default currency display format (`%s` is the amount placeholder)."
+                            },
+                            "currencies": {
+                              "type": "object",
+                              "description": "Currency display formats per language.",
+                              "properties": {
+                                "currencies_ar": {
+                                  "type": "string",
+                                  "description": "Arabic currency format."
+                                },
+                                "currencies_en": {
+                                  "type": "string",
+                                  "description": "English currency format."
+                                }
+                              }
+                            },
+                            "numberFormat": {
+                              "type": "array",
+                              "description": "Default number format as `[decimals, decimal_point_symbol, thousands_separator_symbol]`.",
+                              "items": {}
+                            },
+                            "language_code": {
+                              "type": "string",
+                              "description": "Default interface language id. Resolve the label from the general listing (model `languageCodes`)."
+                            },
+                            "email": {
+                              "type": "string",
+                              "description": "Owner email address.",
+                              "format": "email"
+                            },
+                            "expiry_date": {
+                              "type": "string",
+                              "description": "Subscription expiry date (`YYYY-MM-DD`).",
+                              "format": "date"
+                            },
+                            "is_expired": {
+                              "type": "boolean",
+                              "description": "Whether the subscription has expired (past the expiry date plus any grace period)."
+                            },
+                            "package_id": {
+                              "type": "string",
+                              "description": "Subscription package id (null when none).",
+                              "nullable": true
+                            },
+                            "tolerant": {
+                              "type": "integer",
+                              "description": "Grace-period days allowed after the expiry date (null when none).",
+                              "nullable": true
+                            },
+                            "beta_version": {
+                              "type": "string",
+                              "description": "Whether the site runs on the beta stack.\n\n| Value | Meaning |\n|---|---|\n| 0 | Production stack |\n| 1 | Beta stack |"
+                            },
+                            "is_beta": {
+                              "type": "boolean",
+                              "description": "Boolean form of `beta_version`."
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "Absolute site URL.",
+                              "format": "uri"
+                            },
+                            "SITE_HASH": {
+                              "type": "string",
+                              "description": "Current site hash."
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Id of the authenticated staff member. A **negative** value indicates the request is authenticated cross-domain via APIKEY / by a system principal (no specific staff)."
+                            },
+                            "is_super_admin": {
+                              "type": "boolean",
+                              "description": "Whether the authenticated staff member is a super admin. Returned only when the request is authenticated as a staff member.",
+                              "nullable": true
+                            },
+                            "staff": {
+                              "type": "object",
+                              "additionalProperties": true,
+                              "description": "The authenticated staff member's record (with the password removed). Returned **only** when the principal is a staff member (`staff_id` > 0).",
+                              "properties": {}
+                            },
+                            "ALLOWED_LOYALTY_PLUGIN": {
+                              "type": "boolean",
+                              "description": "Whether the client-loyalty plugin is active for this site."
+                            }
+                          }
+                        },
+                        "expensesIsMandatoryEnabled": {
+                          "type": "boolean",
+                          "description": "Whether selecting an expense account is mandatory. Returned **only** when the request sends the header `x-app-name: EXP`."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__site_info_format"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

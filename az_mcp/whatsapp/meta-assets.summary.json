@@ -1,0 +1,14 @@
+{
+  "source_type": "asset_inventory_snapshot",
+  "application": "AzWA",
+  "business": {
+    "id": "314437023701205",
+    "name": "Mohamed Azab",
+    "verification_status": "verified",
+    "created_time": "2021-08-14T06:48:04+0000"
+  },
+  "waba_count": 10,
+  "phone_count": 12,
+  "template_count": 99,
+  "note": "This file is reference/configuration data, not an OpenAPI schema. Build a Meta Graph/WhatsApp OpenAPI tool separately before importing it as an OpenAPI tool."
+}

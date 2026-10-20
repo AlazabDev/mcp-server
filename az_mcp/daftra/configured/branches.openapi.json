@@ -1,0 +1,548 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra branches",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api2"
+    }
+  ],
+  "paths": {
+    "/branch/list/1": {
+      "get": {
+        "summary": "Get All Branches",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of branches for the account.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. **Requires the Branches plugin to be enabled on the account.**\n\nThe trailing path segment (`1`) is the **data level** — how deeply related records are loaded — not a page number. `/branch/list` and `/branch/list/1` return the same result. Pagination is controlled by the `page` and `per_page` query parameters.\n\n| Parameter | Purpose |\n|---|---|\n| `page` | Page number (default `1`). |\n| `per_page` | Items per page (default `20`). |\n| `filter[<field>][<operator>]` | Filter rows by a field's value, e.g. `filter[status][equal]=1`. |\n| `sort[<field>]` | Sort by a field, `asc` or `desc`, e.g. `sort[code]=asc`. |\n\n**Filterable fields.** Filter with `filter[<field>][<operator>]=<value>`. The fields intended for filtering:\n\n| Field | Type | Example |\n|---|---|---|\n| `code` | string | `filter[code][equal]=00001` |\n| `status` | integer (`1`, `2`, `3`) | `filter[status][equal]=1` |\n\n**Sorting.** Sort with `sort[<field>]=asc|desc`, e.g. `sort[code]=asc`. No field is specifically flagged for sorting; the list will in fact filter and sort on any existing column. When no `sort` is given the default ordering is newest first (`id` descending).\n\nThis API exposes six branch fields only — `id`, `name`, `status`, `created`, `modified`, and `code`. Other branch attributes (phone numbers, address, city, state, country, assigned staff, SMTP account, map location) are **not** available through this endpoint.\n\nThe `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `1` | Active |\n| `2` | Inactive |\n| `3` | Suspended |",
+        "tags": [
+          "Endpoints/Branches "
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number. Defaults to `1`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page. Defaults to `20`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "filter[<field>][<operator>]",
+            "in": "query",
+            "description": "Filter rows by a field's value, e.g. `filter[status][equal]=1` or `filter[code][equal]=00001`. Filterable fields intended for use: `code`, `status` (the API also accepts any other existing column).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort[<field>]",
+            "in": "query",
+            "description": "Sort by a field, `asc` or `desc`, e.g. `sort[code]=asc`. Default ordering is `id` descending.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of branches.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_page": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "The branches on this page. Each item is a flat branch record.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Branch id."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Branch name."
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "Branch status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Active |\n| 2 | Inactive |\n| 3 | Suspended |",
+                            "enum": [
+                              1,
+                              2,
+                              3
+                            ]
+                          },
+                          "created": {
+                            "type": "string",
+                            "description": "Creation timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "modified": {
+                            "type": "string",
+                            "description": "Last-modified timestamp (`YYYY-MM-DD HH:MM:SS`)."
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Branch code."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "status",
+                          "created",
+                          "modified",
+                          "code"
+                        ]
+                      }
+                    },
+                    "first_page_url": {
+                      "type": "string"
+                    },
+                    "from": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "last_page": {
+                      "type": "integer"
+                    },
+                    "last_page_url": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "label",
+                          "page",
+                          "active"
+                        ]
+                      }
+                    },
+                    "next_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "prev_page_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "to": {
+                      "type": "integer",
+                      "nullable": true
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the permission to manage branches.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__branch_list",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/branch": {
+      "post": {
+        "summary": "Edit Branch",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing branch. This posts to the same `/v2/api/entity/branch` path as create; the record to update is identified by the **`id` in the request body**. If `id` is omitted a new branch is created instead.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. **Requires the Branches plugin to be enabled on the account.**\n\n**This is a partial merge, not a full overwrite.** Only the fields you include in the body are changed; any field you omit is left untouched. The updatable fields are `name`, `code`, and `status`. Only these fields can be updated — `id`, `name`, `status`, `created`, `modified`, and `code`. Other branch attributes (phone numbers, address, city, state, country, assigned staff, SMTP account, map location) are **not** available through this endpoint.\n\nOn success the response is `{ \"message\": <localized text>, \"id\": <id> }`. The success message is the same text returned by create, so it does not distinguish an update from an insert.\n\nThe `status` value is one of:\n\n| Value | Meaning |\n|---|---|\n| `1` | Active |\n| `2` | Inactive |\n| `3` | Suspended |",
+        "tags": [
+          "Endpoints/Branches "
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Id of the branch to update. Required — omitting it creates a new branch instead."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Branch name. Optional; only the fields you send are changed."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Branch code. Optional; only the fields you send are changed."
+                  },
+                  "status": {
+                    "type": "integer",
+                    "description": "Branch status. Optional; only the fields you send are changed.\n\n| Value | Meaning |\n|---|---|\n| 1 | Active |\n| 2 | Inactive |\n| 3 | Suspended |",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The branch was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message (identical to the create message)."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Id of the updated branch."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The update could not be saved (for example a database constraint was violated).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "e": {
+                      "type": "object",
+                      "description": "Error detail. For a database-constraint failure: `{errorInfo, connectionName, readWriteType}`."
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Human-readable failure reason."
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the permission to manage branches.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__branch",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    },
+    "/delete/branch/{id}": {
+      "delete": {
+        "summary": "Delete Branch",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a branch by id.\n\nThis is a v2 native-entity endpoint served from the `/v2/api/entity` base and authenticated with a Bearer token. **Requires the Branches plugin to be enabled on the account.**\n\nThe branch id is given in the path. On success the response is `{ \"message\": <localized text> }`.",
+        "tags": [
+          "Endpoints/Branches "
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The branch id to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The branch was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Localized success message."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "The Bearer token is missing, invalid, or expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks the permission to manage branches.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__delete_branch_id",
+        "servers": [
+          {
+            "url": "https://example.com/v2/api/entity"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

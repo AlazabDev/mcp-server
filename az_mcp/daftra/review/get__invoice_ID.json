@@ -1,0 +1,1890 @@
+{
+  "path": "/invoice/{ID}/1",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Advance payment",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. ",
+    "tags": [
+      "Endpoints/Sales /Advance Payment Invoices"
+    ],
+    "parameters": [
+      {
+        "name": "ID",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "no": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "staff_id": {
+                  "type": "integer"
+                },
+                "subscription_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "store_id": {
+                  "type": "integer"
+                },
+                "type": {
+                  "type": "integer"
+                },
+                "po_number": {
+                  "type": "string"
+                },
+                "client_id": {
+                  "type": "integer"
+                },
+                "is_offline": {
+                  "type": "integer"
+                },
+                "currency_code": {
+                  "type": "string"
+                },
+                "client_business_name": {
+                  "type": "string"
+                },
+                "client_first_name": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_last_name": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_email": {
+                  "type": "string"
+                },
+                "client_address1": {
+                  "type": "string"
+                },
+                "client_address2": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_postal_code": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_city": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_state": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_country_code": {
+                  "type": "string"
+                },
+                "payment_status": {
+                  "type": "integer"
+                },
+                "draft": {
+                  "type": "integer"
+                },
+                "discount": {
+                  "type": "integer"
+                },
+                "due_after": {
+                  "type": "integer"
+                },
+                "issue_date": {
+                  "type": "string"
+                },
+                "summary_subtotal": {
+                  "type": "integer"
+                },
+                "summary_discount": {
+                  "type": "integer"
+                },
+                "summary_total": {
+                  "type": "integer"
+                },
+                "summary_paid": {
+                  "type": "integer"
+                },
+                "summary_unpaid": {
+                  "type": "integer"
+                },
+                "terms_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "html_notes": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "required_terms_file": {
+                  "type": "integer"
+                },
+                "last_sent": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "invoice_layout_id": {
+                  "type": "integer"
+                },
+                "estimate_id": {
+                  "type": "integer"
+                },
+                "shipping_option_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "summary_refund": {
+                  "type": "integer"
+                },
+                "client_active_secondary_address": {
+                  "type": "integer"
+                },
+                "client_secondary_name": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_secondary_address1": {
+                  "type": "string"
+                },
+                "client_secondary_address2": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_secondary_city": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_secondary_state": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_secondary_postal_code": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "client_secondary_country_code": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "follow_up_status": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "source_type": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "source_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "sales_person_id": {
+                  "type": "integer"
+                },
+                "extra_details": {
+                  "type": "string"
+                },
+                "discount_amount": {
+                  "type": "integer"
+                },
+                "shipping_amount": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "work_order_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "item_columns": {
+                  "type": "string"
+                },
+                "branch_id": {
+                  "type": "integer"
+                },
+                "requisition_delivery_status": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "item_discount_amount": {
+                  "type": "integer"
+                },
+                "pos_shift_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "requisitions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adjustment_label": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "adjustment_value": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "order_source_id": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "store": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "active"
+                  ]
+                },
+                "clients": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "group_price_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "is_offline": {
+                      "type": "integer"
+                    },
+                    "client_number": {
+                      "type": "string"
+                    },
+                    "staff_id": {
+                      "type": "integer"
+                    },
+                    "business_name": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "email": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "password": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "address1": {
+                      "type": "string"
+                    },
+                    "address2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "city": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "state": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "postal_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "phone1": {
+                      "type": "string"
+                    },
+                    "phone2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "country_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "notes": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "active_secondary_address": {
+                      "type": "integer"
+                    },
+                    "secondary_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_address1": {
+                      "type": "string"
+                    },
+                    "secondary_address2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_city": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_state": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_postal_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_country_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "language_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_currency_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_login": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "suspend": {
+                      "type": "integer"
+                    },
+                    "last_ip": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    },
+                    "follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "bn1": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn1_label": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn2_label": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "starting_balance": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "photo": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "birth_date": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "gender": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "map_location": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "type": {
+                      "type": "integer"
+                    },
+                    "credit_limit": {
+                      "type": "integer"
+                    },
+                    "credit_period": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "national_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "attachment": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "timezone": {
+                      "type": "integer"
+                    },
+                    "tags": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "assigned_users": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "group_price_id",
+                    "is_offline",
+                    "client_number",
+                    "staff_id",
+                    "business_name",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "password",
+                    "address1",
+                    "address2",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "phone1",
+                    "phone2",
+                    "country_code",
+                    "notes",
+                    "active_secondary_address",
+                    "secondary_name",
+                    "secondary_address1",
+                    "secondary_address2",
+                    "secondary_city",
+                    "secondary_state",
+                    "secondary_postal_code",
+                    "secondary_country_code",
+                    "language_code",
+                    "default_currency_code",
+                    "last_login",
+                    "suspend",
+                    "last_ip",
+                    "created",
+                    "modified",
+                    "follow_up_status",
+                    "category",
+                    "bn1",
+                    "bn1_label",
+                    "bn2_label",
+                    "bn2",
+                    "starting_balance",
+                    "photo",
+                    "birth_date",
+                    "gender",
+                    "map_location",
+                    "type",
+                    "credit_limit",
+                    "credit_period",
+                    "branch_id",
+                    "national_id",
+                    "attachment",
+                    "category_id",
+                    "secondary_follow_up_status",
+                    "timezone",
+                    "tags",
+                    "assigned_users"
+                  ]
+                },
+                "branch": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "status",
+                    "created",
+                    "modified"
+                  ]
+                },
+                "payment": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "invoice_id": {
+                        "type": "integer"
+                      },
+                      "client_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "payment_method": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "transaction_id": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "status": {
+                        "type": "integer"
+                      },
+                      "notes": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "response_code": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "response_message": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "currency_code": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "last_name": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "address1": {
+                        "type": "string"
+                      },
+                      "address2": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "city": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "state": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "postal_code": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "country_code": {
+                        "type": "string"
+                      },
+                      "phone1": {
+                        "type": "string"
+                      },
+                      "phone2": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "attachment": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "staff_id": {
+                        "type": "integer"
+                      },
+                      "payment_work_order_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "treasury_id": {
+                        "type": "integer"
+                      },
+                      "pos_shift_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "receipt_notes": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "extra_details": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "branch_id": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "added_by": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "invoice_item": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "invoice_id": {
+                        "type": "integer"
+                      },
+                      "item": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "unit_price": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "tax1": {
+                        "type": "integer"
+                      },
+                      "tax2": {
+                        "type": "integer"
+                      },
+                      "product_id": {
+                        "type": "integer"
+                      },
+                      "col_3": {
+                        "type": "string"
+                      },
+                      "col_4": {
+                        "type": "string"
+                      },
+                      "col_5": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "discount": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "discount_type": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "store_id": {
+                        "type": "integer"
+                      },
+                      "unit_factor": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "unit_small_name": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "unit_name": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "display_order": {
+                        "type": "integer"
+                      },
+                      "summary_tax1": {
+                        "type": "integer"
+                      },
+                      "summary_tax2": {
+                        "type": "integer"
+                      },
+                      "col_6": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "col_7": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "col_8": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "unit_factor_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "offer_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "tracking_data": {
+                        "type": "string"
+                      },
+                      "serials": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "extra_details": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "calculated_discount": {
+                        "type": "integer"
+                      },
+                      "subtotal": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "sales_account_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "cost_center_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "sales_person_id": {
+                        "nullable": true,
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  }
+                },
+                "invoice_documents": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "invoice_custom_fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "invoice_client": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "group_price_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "is_offline": {
+                      "type": "integer"
+                    },
+                    "client_number": {
+                      "type": "string"
+                    },
+                    "staff_id": {
+                      "type": "integer"
+                    },
+                    "business_name": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "email": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "password": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "address1": {
+                      "type": "string"
+                    },
+                    "address2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "city": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "state": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "postal_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "phone1": {
+                      "type": "string"
+                    },
+                    "phone2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "country_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "notes": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "active_secondary_address": {
+                      "type": "integer"
+                    },
+                    "secondary_name": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_address1": {
+                      "type": "string"
+                    },
+                    "secondary_address2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_city": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_state": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_postal_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_country_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "language_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_currency_code": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "last_login": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "suspend": {
+                      "type": "integer"
+                    },
+                    "last_ip": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "modified": {
+                      "type": "string"
+                    },
+                    "follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "bn1": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn1_label": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn2_label": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "bn2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "starting_balance": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "photo": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "birth_date": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "gender": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "map_location": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "type": {
+                      "type": "integer"
+                    },
+                    "credit_limit": {
+                      "type": "integer"
+                    },
+                    "credit_period": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "national_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "attachment": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "category_id": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "secondary_follow_up_status": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "timezone": {
+                      "type": "integer"
+                    },
+                    "tags": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "assigned_users": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "group_price_id",
+                    "is_offline",
+                    "client_number",
+                    "staff_id",
+                    "business_name",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "password",
+                    "address1",
+                    "address2",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "phone1",
+                    "phone2",
+                    "country_code",
+                    "notes",
+                    "active_secondary_address",
+                    "secondary_name",
+                    "secondary_address1",
+                    "secondary_address2",
+                    "secondary_city",
+                    "secondary_state",
+                    "secondary_postal_code",
+                    "secondary_country_code",
+                    "language_code",
+                    "default_currency_code",
+                    "last_login",
+                    "suspend",
+                    "last_ip",
+                    "created",
+                    "modified",
+                    "follow_up_status",
+                    "category",
+                    "bn1",
+                    "bn1_label",
+                    "bn2_label",
+                    "bn2",
+                    "starting_balance",
+                    "photo",
+                    "birth_date",
+                    "gender",
+                    "map_location",
+                    "type",
+                    "credit_limit",
+                    "credit_period",
+                    "branch_id",
+                    "national_id",
+                    "attachment",
+                    "category_id",
+                    "secondary_follow_up_status",
+                    "timezone",
+                    "tags",
+                    "assigned_users"
+                  ]
+                },
+                "invoice_layout": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "field1": {
+                      "type": "string"
+                    },
+                    "field2": {
+                      "type": "string"
+                    },
+                    "field3": {
+                      "type": "string"
+                    },
+                    "field4": {
+                      "type": "string"
+                    },
+                    "field5": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "staff_id": {
+                      "type": "integer"
+                    },
+                    "html": {
+                      "type": "string"
+                    },
+                    "invoice_title": {
+                      "type": "string"
+                    },
+                    "estimate_title": {
+                      "type": "string"
+                    },
+                    "creditnote_title": {
+                      "type": "string"
+                    },
+                    "business_info": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "type": "string"
+                    },
+                    "client_info": {
+                      "type": "string"
+                    },
+                    "label_invoice_no": {
+                      "type": "string"
+                    },
+                    "label_date": {
+                      "type": "string"
+                    },
+                    "label_po_no": {
+                      "type": "string"
+                    },
+                    "label_total": {
+                      "type": "string"
+                    },
+                    "label_status": {
+                      "type": "string"
+                    },
+                    "label_due_days": {
+                      "type": "string"
+                    },
+                    "label_due_date": {
+                      "type": "string"
+                    },
+                    "label_deposit": {
+                      "type": "string"
+                    },
+                    "label_paid_amount": {
+                      "type": "string"
+                    },
+                    "label_unpaid_amount": {
+                      "type": "string"
+                    },
+                    "label_subtotal": {
+                      "type": "string"
+                    },
+                    "label_description": {
+                      "type": "string"
+                    },
+                    "label_item": {
+                      "type": "string"
+                    },
+                    "label_tax1": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "label_tax2": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "label_quantity": {
+                      "type": "string"
+                    },
+                    "label_unit_price": {
+                      "type": "string"
+                    },
+                    "label_item_total": {
+                      "type": "string"
+                    },
+                    "label_from_date": {
+                      "type": "string"
+                    },
+                    "label_to_date": {
+                      "type": "string"
+                    },
+                    "label_discount": {
+                      "type": "string"
+                    },
+                    "items_list": {
+                      "type": "string"
+                    },
+                    "custom_fields": {
+                      "type": "string"
+                    },
+                    "template_id": {
+                      "type": "integer"
+                    },
+                    "footer": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "string"
+                    },
+                    "default": {
+                      "type": "integer"
+                    },
+                    "default_estimate": {
+                      "type": "integer"
+                    },
+                    "default_creditnote": {
+                      "type": "integer"
+                    },
+                    "default_refundreceipt": {
+                      "type": "integer"
+                    },
+                    "simple_item_currency": {
+                      "type": "integer"
+                    },
+                    "show_balance_due": {
+                      "type": "integer"
+                    },
+                    "show_ship": {
+                      "type": "integer"
+                    },
+                    "label_ship": {
+                      "type": "string"
+                    },
+                    "ship_info": {
+                      "type": "string"
+                    },
+                    "language_id": {
+                      "type": "integer"
+                    },
+                    "label_shipping": {
+                      "type": "string"
+                    },
+                    "item_columns": {
+                      "type": "string"
+                    },
+                    "footer_html": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "css_style": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "view_style": {
+                      "type": "string"
+                    },
+                    "label_creditnote_no": {
+                      "type": "string"
+                    },
+                    "label_creditnote_to": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "label_creditnote_date": {
+                      "type": "string"
+                    },
+                    "label_estimate_no": {
+                      "type": "string"
+                    },
+                    "label_estimate_date": {
+                      "type": "string"
+                    },
+                    "refundreceipt_title": {
+                      "type": "string"
+                    },
+                    "quantity_price": {
+                      "type": "string"
+                    },
+                    "label_refundreceipt_no": {
+                      "type": "string"
+                    },
+                    "label_refundreceipt_date": {
+                      "type": "string"
+                    },
+                    "label_to": {
+                      "type": "string"
+                    },
+                    "label_refunded": {
+                      "type": "string"
+                    },
+                    "alt_template": {
+                      "type": "integer"
+                    },
+                    "layout_type": {
+                      "type": "integer"
+                    },
+                    "sticky_footer": {
+                      "type": "string"
+                    },
+                    "sticky_header": {
+                      "type": "string"
+                    },
+                    "default_purchase_refund": {
+                      "type": "integer"
+                    },
+                    "default_purchase_order": {
+                      "type": "integer"
+                    },
+                    "branch_id": {
+                      "type": "integer"
+                    },
+                    "purchase_order_title": {
+                      "nullable": true,
+                      "enum": [
+                        null
+                      ]
+                    },
+                    "default_width": {
+                      "type": "integer"
+                    },
+                    "default_height": {
+                      "type": "integer"
+                    },
+                    "min_width": {
+                      "type": "integer"
+                    },
+                    "min_height": {
+                      "type": "integer"
+                    },
+                    "max_width": {
+                      "type": "integer"
+                    },
+                    "max_height": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "field1",
+                    "field2",
+                    "field3",
+                    "field4",
+                    "field5",
+                    "image",
+                    "staff_id",
+                    "html",
+                    "invoice_title",
+                    "estimate_title",
+                    "creditnote_title",
+                    "business_info",
+                    "logo",
+                    "client_info",
+                    "label_invoice_no",
+                    "label_date",
+                    "label_po_no",
+                    "label_total",
+                    "label_status",
+                    "label_due_days",
+                    "label_due_date",
+                    "label_deposit",
+                    "label_paid_amount",
+                    "label_unpaid_amount",
+                    "label_subtotal",
+                    "label_description",
+                    "label_item",
+                    "label_tax1",
+                    "label_tax2",
+                    "label_quantity",
+                    "label_unit_price",
+                    "label_item_total",
+                    "label_from_date",
+                    "label_to_date",
+                    "label_discount",
+                    "items_list",
+                    "custom_fields",
+                    "template_id",
+                    "footer",
+                    "created",
+                    "default",
+                    "default_estimate",
+                    "default_creditnote",
+                    "default_refundreceipt",
+                    "simple_item_currency",
+                    "show_balance_due",
+                    "show_ship",
+                    "label_ship",
+                    "ship_info",
+                    "language_id",
+                    "label_shipping",
+                    "item_columns",
+                    "footer_html",
+                    "css_style",
+                    "view_style",
+                    "label_creditnote_no",
+                    "label_creditnote_to",
+                    "label_creditnote_date",
+                    "label_estimate_no",
+                    "label_estimate_date",
+                    "refundreceipt_title",
+                    "quantity_price",
+                    "label_refundreceipt_no",
+                    "label_refundreceipt_date",
+                    "label_to",
+                    "label_refunded",
+                    "alt_template",
+                    "layout_type",
+                    "sticky_footer",
+                    "sticky_header",
+                    "default_purchase_refund",
+                    "default_purchase_order",
+                    "branch_id",
+                    "purchase_order_title",
+                    "default_width",
+                    "default_height",
+                    "min_width",
+                    "min_height",
+                    "max_width",
+                    "max_height",
+                    "name"
+                  ]
+                },
+                "invoice_installment_agreements": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "invoice_requisitions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "journal_account_route": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "invoice_appointments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "staff": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "work_orders": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "pos_shifts": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "invoice_source_order": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                },
+                "custom_data": {
+                  "nullable": true,
+                  "enum": [
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "no",
+                "date",
+                "staff_id",
+                "subscription_id",
+                "store_id",
+                "type",
+                "po_number",
+                "client_id",
+                "is_offline",
+                "currency_code",
+                "client_business_name",
+                "client_first_name",
+                "client_last_name",
+                "client_email",
+                "client_address1",
+                "client_address2",
+                "client_postal_code",
+                "client_city",
+                "client_state",
+                "client_country_code",
+                "payment_status",
+                "draft",
+                "discount",
+                "due_after",
+                "issue_date",
+                "summary_subtotal",
+                "summary_discount",
+                "summary_total",
+                "summary_paid",
+                "summary_unpaid",
+                "terms_id",
+                "html_notes",
+                "created",
+                "modified",
+                "required_terms_file",
+                "last_sent",
+                "invoice_layout_id",
+                "estimate_id",
+                "shipping_option_id",
+                "summary_refund",
+                "client_active_secondary_address",
+                "client_secondary_name",
+                "client_secondary_address1",
+                "client_secondary_address2",
+                "client_secondary_city",
+                "client_secondary_state",
+                "client_secondary_postal_code",
+                "client_secondary_country_code",
+                "follow_up_status",
+                "source_type",
+                "source_id",
+                "sales_person_id",
+                "extra_details",
+                "discount_amount",
+                "shipping_amount",
+                "work_order_id",
+                "item_columns",
+                "branch_id",
+                "requisition_delivery_status",
+                "item_discount_amount",
+                "pos_shift_id",
+                "requisitions",
+                "adjustment_label",
+                "adjustment_value",
+                "order_source_id",
+                "store",
+                "clients",
+                "branch",
+                "payment",
+                "invoice_item",
+                "invoice_documents",
+                "invoice_custom_fields",
+                "invoice_client",
+                "invoice_layout",
+                "invoice_installment_agreements",
+                "invoice_requisitions",
+                "journal_account_route",
+                "invoice_appointments",
+                "staff",
+                "work_orders",
+                "pos_shifts",
+                "invoice_source_order",
+                "custom_data"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__invoice_ID"
+  },
+  "blockers": []
+}

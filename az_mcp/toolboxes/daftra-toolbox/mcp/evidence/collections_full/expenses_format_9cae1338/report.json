@@ -1,0 +1,8 @@
+{
+  "path": "/expenses{format}",
+  "complete": true,
+  "pages": 3,
+  "unique_records": 242,
+  "error": null,
+  "evidence": "evidence/collections_full/expenses_format_9cae1338"
+}

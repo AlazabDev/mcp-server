@@ -1,0 +1,23 @@
+{
+  "data[].InvoiceAppointment.id": [
+    "104"
+  ],
+  "data[].InvoiceAppointment.item_id": [
+    "313"
+  ],
+  "data[].InvoiceAppointment.staff_id": [
+    "6"
+  ],
+  "data[].InvoiceAppointment.action_id": [
+    "59"
+  ],
+  "data[].InvoiceAppointment.post_id": [
+    "0"
+  ],
+  "data[].InvoiceAppointment.partner_id": [
+    "11"
+  ],
+  "data[].InvoiceAppointment.branch_id": [
+    "1"
+  ]
+}

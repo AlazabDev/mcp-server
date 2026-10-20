@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra Accounting Read Tools",
+    "version": "1.0.0",
+    "description": "Evidence-gated live-verified read endpoints."
+  },
+  "servers": [
+    {
+      "url": "https://alazab-co.daftra.com/api2"
+    }
+  ],
+  "paths": {
+    "/journals.json": {
+      "get": {
+        "summary": "GET All Journals",
+        "description": "Live-read verified Daftra collection endpoint for journals. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "DaftraApiKey": []
+          }
+        ],
+        "operationId": "get_journals_list"
+      }
+    },
+    "/journal_accounts.json": {
+      "get": {
+        "summary": "GET All Journal Accounts",
+        "description": "Live-read verified Daftra collection endpoint for journal_accounts. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "DaftraApiKey": []
+          }
+        ],
+        "operationId": "get_journal_accounts_list"
+      }
+    },
+    "/journal_cats.json": {
+      "get": {
+        "summary": "GET All Journal Cats",
+        "description": "Live-read verified Daftra collection endpoint for journal_cats. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "DaftraApiKey": []
+          }
+        ],
+        "operationId": "get_journal_cats_list"
+      }
+    },
+    "/journal_accounts/{id}.json": {
+      "get": {
+        "summary": "GET Single Journal Account",
+        "description": "Live-read verified Daftra detail endpoint for journal_accounts. Use identifiers from collection responses for detail lookups.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response; actual response samples are stored in evidence files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "DaftraApiKey": []
+          }
+        ],
+        "operationId": "get_journal_accounts_by_id"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "DaftraApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey"
+      }
+    }
+  }
+}

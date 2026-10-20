@@ -1,0 +1,123 @@
+{
+  "path": "/credit_type/{Id}/1",
+  "method": "get",
+  "operation": {
+    "summary": "Get Single Credit type ",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single **credit type** by id.\n\nA credit type defines a kind of credit/points balance (e.g. loyalty points). The record id is supplied in the path; the response is the flat record (`id`, `name`, `allow_decimal`, `status`, `unit`, `description`, `created`, `modified`, `deleted_at`) — not wrapped in an envelope.\n\nThe trailing path segment (e.g. `/credit_type/{id}/1`) sets the data-detail level; it is optional for this entity and does not change the returned record.\n\nIf the id does not exist, the endpoint currently responds with HTTP `500` and a plain-text `error happened` body (not JSON). Confirm the id exists (e.g. via the list endpoint) before fetching.",
+    "tags": [
+      "Endpoints/Points & Credits/Credit Types"
+    ],
+    "parameters": [
+      {
+        "name": "Id",
+        "in": "path",
+        "description": "",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requested credit type.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "allow_decimal": {
+                  "type": "integer",
+                  "description": "Whether fractional amounts are allowed.\n\n| Value | Meaning |\n|---|---|\n| 0 | No |\n| 1 | Yes |"
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "Whether the credit type is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                },
+                "unit": {
+                  "type": "string",
+                  "description": "Unit label for the credit; null when not set.",
+                  "nullable": true
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Free-text description; null when not set.",
+                  "nullable": true
+                },
+                "created": {
+                  "type": "string",
+                  "description": "Creation timestamp."
+                },
+                "modified": {
+                  "type": "string",
+                  "description": "Last-modified timestamp."
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "description": "Soft-delete timestamp; null when the record is active.",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "allow_decimal",
+                "status",
+                "unit",
+                "description",
+                "created",
+                "modified",
+                "deleted_at"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "The access token is missing, invalid, or expired. A caller who is authenticated but lacks view permission for this entity also receives a `401` with a message stating access is not allowed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Currently returned when the id does not exist or cannot be loaded — a plain-text `error happened` body. Check the id exists (e.g. via the list endpoint) before fetching.",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__credit_type_Id"
+  },
+  "blockers": []
+}

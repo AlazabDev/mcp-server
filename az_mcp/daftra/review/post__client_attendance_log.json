@@ -1,0 +1,139 @@
+{
+  "path": "/client_attendance_log",
+  "method": "post",
+  "operation": {
+    "summary": "Edit Client Attendance Log",
+    "deprecated": false,
+    "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing client attendance entry (v2 native-entity).\n\nThe update is decided by the **`id` in the request body** — include `id` to update that record. (A request without `id` creates a new record instead.) The body is a flat JSON object; send only the fields you want to change.\n\nServed from the `/v2/api/entity` base with a Bearer token. Requires the Client Attendance feature to be enabled.",
+    "tags": [
+      "Endpoints/Clients /Client Attendance Log",
+      "Client Attendance Log"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Id of the attendance entry to update. **Required** — it is authoritative for update-vs-insert."
+              },
+              "client_id": {
+                "type": "integer",
+                "description": "Id of the client. Optional."
+              },
+              "added_by": {
+                "type": "integer",
+                "description": "Id of the recording staff member. Optional."
+              },
+              "time": {
+                "type": "string",
+                "description": "Attendance date and time. Optional. Format `YYYY-MM-DD HH:MM:SS`."
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "The attendance entry was updated.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "message",
+                "id"
+              ]
+            }
+          }
+        },
+        "headers": {}
+      },
+      "400": {
+        "description": "The entry could not be saved.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "e": {
+                  "type": "object",
+                  "description": "Error detail (DB error info when a save fails).",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Failure detail."
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid Bearer token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The user lacks update permission, or the Client Attendance feature is not enabled.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "post__client_attendance_log",
+    "servers": [
+      {
+        "url": "https://entity-base.invalid/v2/api/entity"
+      }
+    ]
+  },
+  "blockers": []
+}

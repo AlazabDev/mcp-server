@@ -1,130 +1,157 @@
 {
- "actions": [],
- "creation": "2025-01-20 20:00:00.000000",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "enabled",
-  "auth_section",
-  "auth_mode",
-  "token_secret",
-  "mcp_user",
-  "config_section",
-  "default_max_page_length",
-  "default_max_filter_depth",
-  "max_request_rate",
-  "log_section",
-  "enable_diff_logging",
-  "log_retention_days",
-  "exclude_doctypes_section",
-  "exclude_doctypes_default"
- ],
- "fields": [
-  {
-   "fieldname": "enabled",
-   "fieldtype": "Check",
-   "label": "Enabled",
-   "default": "1"
-  },
-  {
-   "fieldname": "auth_section",
-   "fieldtype": "Section Break",
-   "label": "Authentication"
-  },
-  {
-   "fieldname": "auth_mode",
-   "fieldtype": "Select",
-   "label": "Auth Mode",
-   "options": "Token\nAPI Key",
-   "default": "Token",
-   "reqd": 1
-  },
-  {
-   "fieldname": "token_secret",
-   "fieldtype": "Password",
-   "label": "Token Secret",
-   "depends_on": "eval:doc.auth_mode=='Token'"
-  },
-  {
-   "fieldname": "mcp_user",
-   "fieldtype": "Link",
-   "label": "MCP User",
-   "options": "User",
-   "reqd": 1,
-   "description": "User to impersonate for MCP operations"
-  },
-  {
-   "fieldname": "config_section",
-   "fieldtype": "Section Break",
-   "label": "Configuration"
-  },
-   {
-   "fieldname": "default_max_page_length",
-   "fieldtype": "Int",
-   "label": "Default Max Page Length",
-   "default": 20
-  },
-  {
-   "fieldname": "default_max_filter_depth",
-   "fieldtype": "Int",
-   "label": "Default Max Filter Depth",
-   "default": 3
-  },
-  {
-   "fieldname": "max_request_rate",
-   "fieldtype": "Int",
-   "label": "Max Request Rate (per minute)",
-   "default": 60
-  },
-  {
-   "fieldname": "log_section",
-   "fieldtype": "Section Break",
-   "label": "Logging"
-  },
-  {
-   "fieldname": "enable_diff_logging",
-   "fieldtype": "Check",
-   "label": "Enable Diff Logging",
-   "default": "1"
-  },
-  {
-   "fieldname": "log_retention_days",
-   "fieldtype": "Int",
-   "label": "Log Retention (Days)",
-   "default": 30
-  },
-  {
-    "fieldname": "exclude_doctypes_section",
-    "fieldtype": "Section Break",
-    "label": "Security Exclusions"
-  },
-  {
-    "fieldname": "exclude_doctypes_default",
-    "fieldtype": "Table",
-    "label": "Excluded DocTypes (Denylist)",
-    "options": "MCP Doctype Exclude Item"
-  }
- ],
- "issingle": 1,
- "links": [],
- "modified": "2025-01-20 20:00:00.000000",
- "modified_by": "Administrator",
- "module": "Mcp Server",
- "name": "MCP Server Settings",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+  "actions": [],
+  "creation": "2025-01-20 20:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "enabled",
+    "auth_section",
+    "auth_mode",
+    "token_secret",
+    "mcp_user",
+    "config_section",
+    "default_max_page_length",
+    "default_max_filter_depth",
+    "max_request_rate",
+    "log_section",
+    "enable_diff_logging",
+    "log_retention_days",
+    "exclude_doctypes_section",
+    "exclude_doctypes_default",
+    "public_url",
+    "expose_writes",
+    "max_response_bytes"
+  ],
+  "fields": [
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "مفعّل",
+      "default": "1"
+    },
+    {
+      "fieldname": "auth_section",
+      "fieldtype": "Section Break",
+      "label": "المصادقة"
+    },
+    {
+      "fieldname": "auth_mode",
+      "fieldtype": "Select",
+      "label": "نمط المصادقة",
+      "options": "Native\nToken\nAPI Key",
+      "default": "Native",
+      "reqd": 1
+    },
+    {
+      "fieldname": "token_secret",
+      "fieldtype": "Password",
+      "label": "مفتاح التوكن القديم",
+      "depends_on": "eval:doc.auth_mode=='Token'"
+    },
+    {
+      "fieldname": "mcp_user",
+      "fieldtype": "Link",
+      "label": "مستخدم التوكن القديم",
+      "options": "User",
+      "reqd": 0,
+      "description": "User to impersonate for MCP operations"
+    },
+    {
+      "fieldname": "config_section",
+      "fieldtype": "Section Break",
+      "label": "الإعدادات"
+    },
+    {
+      "fieldname": "default_max_page_length",
+      "fieldtype": "Int",
+      "label": "أقصى عدد سجلات في الصفحة",
+      "default": 20
+    },
+    {
+      "fieldname": "default_max_filter_depth",
+      "fieldtype": "Int",
+      "label": "عمق الفلاتر القديم",
+      "default": 3,
+      "hidden": 1
+    },
+    {
+      "fieldname": "max_request_rate",
+      "fieldtype": "Int",
+      "label": "أقصى طلبات في الدقيقة",
+      "default": 60
+    },
+    {
+      "fieldname": "log_section",
+      "fieldtype": "Section Break",
+      "label": "السجلات"
+    },
+    {
+      "fieldname": "enable_diff_logging",
+      "fieldtype": "Check",
+      "label": "تسجيل فروق الحقول المصرح بها",
+      "default": "1"
+    },
+    {
+      "fieldname": "log_retention_days",
+      "fieldtype": "Int",
+      "label": "الاحتفاظ بالسجلات بالأيام",
+      "default": 30
+    },
+    {
+      "fieldname": "exclude_doctypes_section",
+      "fieldtype": "Section Break",
+      "label": "المستندات المستبعدة"
+    },
+    {
+      "fieldname": "exclude_doctypes_default",
+      "fieldtype": "Table",
+      "label": "قائمة الاستبعاد",
+      "options": "MCP Doctype Exclude Item"
+    },
+    {
+      "fieldname": "public_url",
+      "fieldtype": "Data",
+      "label": "رابط الموقع المنشور",
+      "description": "مثال: https://erp.alazab.com"
+    },
+    {
+      "fieldname": "expose_writes",
+      "fieldtype": "Check",
+      "label": "إظهار أدوات الكتابة لـMCP",
+      "default": "0"
+    },
+    {
+      "fieldname": "max_response_bytes",
+      "fieldtype": "Int",
+      "label": "أقصى حجم للنتيجة",
+      "default": "2000000"
+    }
+  ],
+  "issingle": 1,
+  "links": [],
+  "modified": "2025-01-20 20:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Mcp Server",
+  "name": "MCP Server Settings",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "MCP Manager",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
 }

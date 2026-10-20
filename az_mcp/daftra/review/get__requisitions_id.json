@@ -1,0 +1,206 @@
+{
+  "path": "/requisitions/{id}",
+  "method": "get",
+  "operation": {
+    "summary": "GET single Requisition",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single requisition as JSON, identified by its id.\n\nThe requisition's line items are nested inside the `data.Requisition` object as `RequisitionItem`. Other related records are not included.\n\nAccess is denied (403) when the requisition's warehouse is inactive or the authenticated user is not allowed to view it.",
+    "tags": [
+      "Endpoints/Inventory /Requsitions"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The requisition id (digits only).",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The requisition.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "Requisition": {
+                      "type": "object",
+                      "description": "The requisition record, with its line items nested as `RequisitionItem`.",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "string",
+                          "description": "Requisition number."
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Stock effect. `1` Inbound, `2` Outbound, `3` Manual Transfer (no effect)."
+                        },
+                        "order_type": {
+                          "type": "string",
+                          "description": "Origin of the requisition (e.g. `1` Inbound, `2` Outbound, `8` Manual Transfer, `25` Sales Order). See the create endpoint for the full list."
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "`1` Under Delivery, `3` Accepted, `4` Rejected."
+                        },
+                        "store_id": {
+                          "type": "string",
+                          "description": "Source warehouse id."
+                        },
+                        "to_store_id": {
+                          "type": "string",
+                          "description": "Destination warehouse id (transfer requisitions only); otherwise null."
+                        },
+                        "currency_code": {
+                          "type": "string"
+                        },
+                        "staff_id": {
+                          "type": "string",
+                          "description": "Id of the staff member who created the requisition."
+                        },
+                        "journal_account_id": {
+                          "type": "string"
+                        },
+                        "order_id": {
+                          "type": "string",
+                          "description": "Id of the source document (invoice, purchase order, …); `0` for manual requisitions."
+                        },
+                        "branch_id": {
+                          "type": "string"
+                        },
+                        "notes": {
+                          "type": "string"
+                        },
+                        "created": {
+                          "type": "string"
+                        },
+                        "modified": {
+                          "type": "string"
+                        },
+                        "RequisitionItem": {
+                          "type": "array",
+                          "description": "Line items.",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "Missing or invalid access token.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "The authenticated user lacks permission, or the requisition's warehouse is inactive / not viewable.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "No requisition with this id exists.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error_type": {
+                  "type": "string"
+                },
+                "extra_data": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__requisitions_id"
+  },
+  "blockers": []
+}

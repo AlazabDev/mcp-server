@@ -1,0 +1,225 @@
+{
+  "path": "/work_orders/{id}{format}",
+  "method": "get",
+  "operation": {
+    "summary": "GET Single Work Order",
+    "deprecated": false,
+    "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single work order by its identifier.\n\nRequires permission to view the work order. Staff who only hold `View his work orders` may view a work order only if they created it or are assigned to it. The work order is returned under a `data.WorkOrder` key; related records (client, staff, follow-up status) are not embedded.\n\nThis endpoint serves classic work orders; workflow-type entities are handled separately.",
+    "tags": [
+      "Endpoints/Work Orders/Work Orders",
+      "Work Orders"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The work order identifier.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "format",
+        "in": "path",
+        "description": "Response format extension, e.g. `.json`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "WorkOrder": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Unique work order identifier.",
+                          "readOnly": true
+                        },
+                        "staff_id": {
+                          "type": "integer",
+                          "description": "ID of the staff member who created the work order. `0` indicates the account owner."
+                        },
+                        "client_id": {
+                          "type": "integer",
+                          "description": "Identifier of the client this work order belongs to.",
+                          "nullable": true
+                        },
+                        "number": {
+                          "type": "string",
+                          "description": "Work order number. Auto-generated when not supplied on creation."
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Work order title."
+                        },
+                        "status": {
+                          "type": "integer",
+                          "description": "Work order status.\n\n| Value | Meaning |\n|---|---|\n| 1 | Open |\n| 2 | Closed |\n| 3 | Cancelled |\n| 4 | Draft |",
+                          "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                          ]
+                        },
+                        "start_date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Start date (YYYY-MM-DD)."
+                        },
+                        "delivery_date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Expected delivery / finish date (YYYY-MM-DD). Must be on or after the start date.",
+                          "nullable": true
+                        },
+                        "delivery_appointment_id": {
+                          "type": "integer",
+                          "description": "Linked appointment reference.",
+                          "nullable": true
+                        },
+                        "follow_up_status_id": {
+                          "type": "integer",
+                          "description": "Follow-up status identifier.",
+                          "default": null,
+                          "nullable": true
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Free-text description.",
+                          "nullable": true
+                        },
+                        "budget": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Budget amount for this work order.",
+                          "nullable": true
+                        },
+                        "budget_currency": {
+                          "type": "string",
+                          "description": "3-letter ISO 4217 currency code for the budget.",
+                          "nullable": true
+                        },
+                        "client_data": {
+                          "type": "string",
+                          "description": "JSON snapshot of the client's details captured when the work order was saved.",
+                          "readOnly": true,
+                          "nullable": true
+                        },
+                        "created": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Creation timestamp.",
+                          "readOnly": true
+                        },
+                        "modified": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last-modified timestamp.",
+                          "readOnly": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "401": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "404": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "security": [
+      {
+        "DaftraConnection": []
+      }
+    ],
+    "operationId": "get__work_orders_id_format"
+  },
+  "blockers": []
+}

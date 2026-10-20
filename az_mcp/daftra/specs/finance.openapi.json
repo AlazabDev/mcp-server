@@ -1,0 +1,4427 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alazab Daftra finance",
+    "version": "1.0.0",
+    "description": "Derived from supplied API export; tenant and runtime validation required."
+  },
+  "servers": [
+    {
+      "url": "https://tenant.invalid/api2"
+    }
+  ],
+  "paths": {
+    "/incomes{format}": {
+      "get": {
+        "summary": "GET All Incomes",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. List incomes, most recent first.\n\nReturns a paginated array under `data[]`, each entry wrapped in an `Income` object, plus a `pagination` summary. Only income records are returned (expense records are served by the separate expenses endpoints).\n\nResults can be narrowed with the query filters below and ordered with `sort`/`direction`. Some filters depend on the account's configuration or enabled plugins, as noted per parameter.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Incomes*, *Add New Incomes*, or *Edit/Delete His Own Incomes* permissions. Staff without *View All Incomes* or *Edit/Delete All Incomes* see only incomes they recorded.",
+        "tags": [
+          "Endpoints/Finance/Incomes",
+          "Incomes"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items per page (1–1000). Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to retrieve. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field to order the results by (e.g. `date`, `amount`, `id`).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "Sort direction: `asc` or `desc`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Filter by exact income id.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "expense_number",
+            "in": "query",
+            "description": "Filter by income number / reference code (partial match).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "query",
+            "description": "Start of the income-date range (inclusive), in the account's date format.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "query",
+            "description": "End of the income-date range (inclusive), in the account's date format.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_from",
+            "in": "query",
+            "description": "Start of the created-date range (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_to",
+            "in": "query",
+            "description": "End of the created-date range (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount_from",
+            "in": "query",
+            "description": "Minimum amount (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "amount_to",
+            "in": "query",
+            "description": "Maximum amount (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "note",
+            "in": "query",
+            "description": "Filter by words in the description / note (partial match; multiple words all must match).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expense_category_id",
+            "in": "query",
+            "description": "Filter by income category reference.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Filter by exact vendor name. Available only when the account has recorded vendors.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "Filter to a single client. Available when the account is not configured to hide the client field on incomes.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "journal_account_id",
+            "in": "query",
+            "description": "Filter by journal (chart-of-accounts) account. Matches the income's account or any of its per-line accounts. Available when the account is configured to hide the client field on incomes.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "work_order_id",
+            "in": "query",
+            "description": "Filter to incomes linked to a specific work order.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "recurring_expense_id",
+            "in": "query",
+            "description": "Filter to incomes generated from a specific recurring income.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "creation_method",
+            "in": "query",
+            "description": "Filter by how the income was created.\n\n| Value | Meaning |\n|---|---|\n| ai | Only AI-generated incomes |\n| (other) | Only incomes that were not AI-generated |",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "staff_id",
+            "in": "query",
+            "description": "Filter by the staff member who recorded the income. Available only when the Staff plugin is enabled and the caller holds the *View All Incomes* permission; otherwise ignored.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "is_mileage",
+            "in": "query",
+            "description": "Filter by record type. Available only when the Mileage plugin is enabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Regular income |\n| 1 | Mileage |",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of incomes.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Income": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique income identifier."
+                              },
+                              "amount": {
+                                "type": "number",
+                                "description": "Income amount (before taxes)."
+                              },
+                              "currency_code": {
+                                "type": "string",
+                                "description": "3-letter ISO 4217 currency code."
+                              },
+                              "vendor": {
+                                "type": "string",
+                                "description": "Vendor name. May be empty."
+                              },
+                              "category": {
+                                "type": "string",
+                                "description": "Category name. May be empty."
+                              },
+                              "date": {
+                                "type": "string",
+                                "description": "Date of the income (YYYY-MM-DD)."
+                              },
+                              "file": {
+                                "type": "string",
+                                "description": "Legacy single-file attachment reference. May be empty."
+                              },
+                              "note": {
+                                "type": "string",
+                                "description": "Free-text notes / description."
+                              },
+                              "client_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked client, when applicable. May be null."
+                              },
+                              "supplier_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked supplier, when applicable. May be null."
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "Staff member who recorded the income; `0` indicates the account owner."
+                              },
+                              "site_id": {
+                                "type": "integer",
+                                "description": "Internal account reference."
+                              },
+                              "recurring_expense_id": {
+                                "type": "integer",
+                                "description": "Reference of the recurring income this record was generated from; `0` if none."
+                              },
+                              "created": {
+                                "type": "string",
+                                "description": "Time the income was created."
+                              },
+                              "modified": {
+                                "type": "string",
+                                "description": "Time the income was last updated."
+                              },
+                              "tax1_id": {
+                                "type": "integer",
+                                "description": "First tax reference. May be null."
+                              },
+                              "tax1_name": {
+                                "type": "string",
+                                "description": "First tax name."
+                              },
+                              "tax1_value": {
+                                "type": "number",
+                                "description": "First tax rate (percentage)."
+                              },
+                              "tax1_amount": {
+                                "type": "number",
+                                "description": "First tax amount."
+                              },
+                              "tax1_included": {
+                                "type": "integer",
+                                "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                              },
+                              "tax2_id": {
+                                "type": "integer",
+                                "description": "Second tax reference. May be null."
+                              },
+                              "tax2_name": {
+                                "type": "string",
+                                "description": "Second tax name."
+                              },
+                              "tax2_value": {
+                                "type": "number",
+                                "description": "Second tax rate (percentage)."
+                              },
+                              "tax2_amount": {
+                                "type": "number",
+                                "description": "Second tax amount."
+                              },
+                              "tax2_included": {
+                                "type": "integer",
+                                "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                              },
+                              "total": {
+                                "type": "number",
+                                "description": "Income total including taxes."
+                              },
+                              "is_income": {
+                                "type": "integer",
+                                "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Income |\n| 1 | Income |"
+                              },
+                              "treasury_id": {
+                                "type": "integer",
+                                "description": "Treasury the amount was deposited into."
+                              },
+                              "work_order_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked work order, when applicable. May be null."
+                              },
+                              "source_id": {
+                                "type": "integer",
+                                "description": "Reference of the originating record, when the income was generated from another entity. May be null."
+                              },
+                              "source_type": {
+                                "type": "string",
+                                "description": "Type of the originating record, when generated from another entity. May be null."
+                              },
+                              "expense_category_id": {
+                                "type": "integer",
+                                "description": "Reference of the income category; `0` if uncategorised."
+                              },
+                              "journal_account_id": {
+                                "type": "integer",
+                                "description": "Journal (chart-of-accounts) account reference. May be null."
+                              },
+                              "branch_id": {
+                                "type": "integer",
+                                "description": "Branch the income belongs to."
+                              },
+                              "expense_number": {
+                                "type": "string",
+                                "description": "Income number / reference code."
+                              },
+                              "accounts_data": {
+                                "type": "string",
+                                "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                              },
+                              "external_source": {
+                                "type": "string",
+                                "description": "Origin of the record (e.g. `web`, `mobile`)."
+                              },
+                              "last_update_external_source": {
+                                "type": "string",
+                                "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "draft",
+                                  "issued"
+                                ],
+                                "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                              },
+                              "extra_details": {
+                                "type": "string",
+                                "description": "Additional processing metadata, as a JSON-encoded string."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "description": "URL of the previous page, or null on the first page.",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "description": "URL of the next page, or null on the last page.",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer",
+                          "description": "Current page number."
+                        },
+                        "page_count": {
+                          "type": "integer",
+                          "description": "Total number of pages."
+                        },
+                        "total_results": {
+                          "type": "integer",
+                          "description": "Total number of matching incomes."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view incomes.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__incomes_format"
+      },
+      "post": {
+        "summary": "Add New Income",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create an income.\n\nThe request body wraps the income fields in an `Income` object. Optionally include a `JournalTransaction` array to split the amount across chart-of-accounts accounts, a `CostCenterTransaction` array for cost-center allocation, and a `RecurringExpense` object to set up recurrence.\n\nOnly `amount` and `date` are required. Most other fields are optional and are defaulted automatically when omitted (see each field). Server-managed fields such as the record type, the recording staff member, and the status are set automatically and cannot be assigned from the request.\n\n**Idempotency:** pass a unique `unique_id` to safely retry. If a previous request with the same `unique_id` already created an income, the response echoes that income (`result` = `duplicated`) instead of creating a duplicate.\n\n**Access:** requires the account owner, or staff holding the *Add New Incomes* (or *Draft*) permission.",
+        "tags": [
+          "Endpoints/Finance/Incomes",
+          "Incomes"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Income": {
+                    "type": "object",
+                    "description": "The income fields.",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "description": "**Required.** Income amount. Must be non-zero. Treated as gross of any taxes supplied."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "**Required.** Income date, in the account's date format (e.g. `YYYY-MM-DD`). Must fall within an open financial period."
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code. Defaults to the account currency when omitted."
+                      },
+                      "vendor": {
+                        "type": "string",
+                        "description": "Vendor name."
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                      },
+                      "expense_category_id": {
+                        "type": "integer",
+                        "description": "Existing income-category reference (alternative to `category`)."
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Free-text description / notes."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Linked client reference."
+                      },
+                      "supplier_id": {
+                        "type": "integer",
+                        "description": "Linked supplier reference. A suspended supplier is rejected."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Treasury to deposit into. Defaults to the primary treasury when omitted."
+                      },
+                      "journal_account_id": {
+                        "type": "integer",
+                        "description": "Journal (chart-of-accounts) account. Optional unless the account is configured to make account selection mandatory and no account is supplied via `JournalTransaction`."
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Linked work-order reference."
+                      },
+                      "unit_id": {
+                        "type": "integer",
+                        "description": "Rental-unit reference; sets the income source to that unit."
+                      },
+                      "expense_number": {
+                        "type": "string",
+                        "description": "Income number / reference code. Generated automatically when omitted."
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "description": "Comma-separated list of previously uploaded file ids to attach. Must be a string; an array is rejected with 400."
+                      },
+                      "unique_id": {
+                        "type": "string",
+                        "description": "Client-supplied idempotency key. Reusing a key returns the original income instead of creating a duplicate."
+                      },
+                      "tax1_id": {
+                        "type": "integer",
+                        "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                      },
+                      "tax1_value": {
+                        "type": "number",
+                        "description": "First tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax1_included": {
+                        "type": "integer",
+                        "description": "Whether the first tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                      },
+                      "tax2_id": {
+                        "type": "integer",
+                        "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                      },
+                      "tax2_value": {
+                        "type": "number",
+                        "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax2_included": {
+                        "type": "integer",
+                        "description": "Whether the second tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                      },
+                      "file": {
+                        "type": "string",
+                        "description": "Legacy single-file attachment reference."
+                      },
+                      "clone_id": {
+                        "type": "integer",
+                        "description": "Reference of an existing income to record this one as a clone of (for audit linkage)."
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "date"
+                    ]
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "Optional. Splits the income across chart-of-accounts accounts. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Income.amount`.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "description": "Portion of the income allocated to this account."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Target account. Alternatively identify the account by `entity_type` + `entity_id`."
+                        },
+                        "entity_type": {
+                          "type": "string",
+                          "description": "Resolve the account automatically from a related entity (used instead of `journal_account_id`)."
+                        },
+                        "entity_id": {
+                          "type": "integer",
+                          "description": "Reference of the entity named by `entity_type`."
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Tax applied to this line."
+                        },
+                        "percent": {
+                          "type": "number",
+                          "description": "Tax rate (percentage) for this line."
+                        },
+                        "included": {
+                          "type": "integer",
+                          "description": "Whether the line tax is included in the line amount (0/1)."
+                        }
+                      }
+                    }
+                  },
+                  "CostCenterTransaction": {
+                    "type": "array",
+                    "description": "Optional. Cost-center allocations for the income. Each entry allocates part of the amount to a cost center.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "cost_center_id": {
+                          "type": "integer",
+                          "description": "Target cost center."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "description": "Amount allocated to this cost center."
+                        }
+                      }
+                    }
+                  },
+                  "RecurringExpense": {
+                    "type": "object",
+                    "description": "Optional. Recurrence settings to repeat this income on a schedule.",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "Income"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "The income was created. When an idempotency `unique_id` matches a previous request, `result` is `duplicated` and the fields identify the already-existing income.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "enum": [
+                        "successful",
+                        "duplicated"
+                      ],
+                      "description": "`successful` for a new income, `duplicated` when an idempotent retry matched an existing one."
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Reference of the created (or existing) income."
+                    },
+                    "expense_number": {
+                      "type": "string",
+                      "description": "Income number / reference code."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed (e.g. missing `amount`/`date`, zero amount, date in a closed period, or a non-string `attachment`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Map of field name to error message.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to add incomes.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The request body was not valid JSON or the content type was not accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__incomes_format"
+      }
+    },
+    "/incomes/{id}{format}": {
+      "get": {
+        "summary": "GET Single Income",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Retrieve a single income by id.\n\nReturns the income wrapped in an `Income` object under `data`.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Incomes*, *Add New Incomes*, or *Edit/Delete His Own Incomes* permissions. Staff without *View All Incomes* or *Edit/Delete All Incomes* can only read incomes they recorded.",
+        "tags": [
+          "Endpoints/Finance/Incomes",
+          "Incomes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Reference of the income to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested income.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Income": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique income identifier."
+                            },
+                            "amount": {
+                              "type": "number",
+                              "description": "Income amount (before taxes)."
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "description": "3-letter ISO 4217 currency code."
+                            },
+                            "vendor": {
+                              "type": "string",
+                              "description": "Vendor name. May be empty."
+                            },
+                            "category": {
+                              "type": "string",
+                              "description": "Category name. May be empty."
+                            },
+                            "date": {
+                              "type": "string",
+                              "description": "Date of the income (YYYY-MM-DD)."
+                            },
+                            "file": {
+                              "type": "string",
+                              "description": "Legacy single-file attachment reference. May be empty."
+                            },
+                            "note": {
+                              "type": "string",
+                              "description": "Free-text notes / description."
+                            },
+                            "client_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked client, when applicable. May be null."
+                            },
+                            "supplier_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked supplier, when applicable. May be null."
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Staff member who recorded the income; `0` indicates the account owner."
+                            },
+                            "site_id": {
+                              "type": "integer",
+                              "description": "Internal account reference."
+                            },
+                            "recurring_expense_id": {
+                              "type": "integer",
+                              "description": "Reference of the recurring income this record was generated from; `0` if none."
+                            },
+                            "created": {
+                              "type": "string",
+                              "description": "Time the income was created."
+                            },
+                            "modified": {
+                              "type": "string",
+                              "description": "Time the income was last updated."
+                            },
+                            "tax1_id": {
+                              "type": "integer",
+                              "description": "First tax reference. May be null."
+                            },
+                            "tax1_name": {
+                              "type": "string",
+                              "description": "First tax name."
+                            },
+                            "tax1_value": {
+                              "type": "number",
+                              "description": "First tax rate (percentage)."
+                            },
+                            "tax1_amount": {
+                              "type": "number",
+                              "description": "First tax amount."
+                            },
+                            "tax1_included": {
+                              "type": "integer",
+                              "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                            },
+                            "tax2_id": {
+                              "type": "integer",
+                              "description": "Second tax reference. May be null."
+                            },
+                            "tax2_name": {
+                              "type": "string",
+                              "description": "Second tax name."
+                            },
+                            "tax2_value": {
+                              "type": "number",
+                              "description": "Second tax rate (percentage)."
+                            },
+                            "tax2_amount": {
+                              "type": "number",
+                              "description": "Second tax amount."
+                            },
+                            "tax2_included": {
+                              "type": "integer",
+                              "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                            },
+                            "total": {
+                              "type": "number",
+                              "description": "Income total including taxes."
+                            },
+                            "is_income": {
+                              "type": "integer",
+                              "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Income |\n| 1 | Income |"
+                            },
+                            "treasury_id": {
+                              "type": "integer",
+                              "description": "Treasury the amount was deposited into."
+                            },
+                            "work_order_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked work order, when applicable. May be null."
+                            },
+                            "source_id": {
+                              "type": "integer",
+                              "description": "Reference of the originating record, when generated from another entity. May be null."
+                            },
+                            "source_type": {
+                              "type": "string",
+                              "description": "Type of the originating record, when generated from another entity. May be null."
+                            },
+                            "expense_category_id": {
+                              "type": "integer",
+                              "description": "Reference of the income category; `0` if uncategorised."
+                            },
+                            "journal_account_id": {
+                              "type": "integer",
+                              "description": "Journal (chart-of-accounts) account reference. May be null."
+                            },
+                            "branch_id": {
+                              "type": "integer",
+                              "description": "Branch the income belongs to."
+                            },
+                            "expense_number": {
+                              "type": "string",
+                              "description": "Income number / reference code."
+                            },
+                            "accounts_data": {
+                              "type": "string",
+                              "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                            },
+                            "external_source": {
+                              "type": "string",
+                              "description": "Origin of the record (e.g. `web`, `mobile`)."
+                            },
+                            "last_update_external_source": {
+                              "type": "string",
+                              "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "draft",
+                                "issued"
+                              ],
+                              "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                            },
+                            "extra_details": {
+                              "type": "string",
+                              "description": "Additional processing metadata, as a JSON-encoded string."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view this income.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No income with the given id exists (or it is outside the caller's access scope).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__incomes_id_format"
+      },
+      "put": {
+        "summary": "Edit Incomes",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update an existing income.\n\nThis is a partial update — send only the `Income` fields you want to change. Any field validated on create keeps its rule when supplied (e.g. a supplied `amount` must be non-zero, a supplied `date` must fall in an open period). The income id is taken from the path; any `id` in the body is ignored.\n\nOptionally include `JournalTransaction` / `CostCenterTransaction` arrays to replace the account and cost-center allocation, or a `RecurringExpense` object.\n\nThe same operation is also reachable via `POST /incomes/{id}`.\n\nAn income that is locked to another record (e.g. generated from another entity) or already used in an income-distribution transaction cannot be edited.\n\n**Access:** requires the account owner, or staff with *Edit/Delete All Incomes*, or *Edit/Delete His Own Incomes* (for their own records), or *Draft* (for their own draft records).",
+        "tags": [
+          "Endpoints/Finance/Incomes",
+          "Incomes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Income": {
+                    "type": "object",
+                    "description": "The income fields to change. Provide only the fields you want to update.",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "description": "Income amount. Must be non-zero when supplied."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Income date, in the account's date format. Must fall within an open financial period when supplied."
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code."
+                      },
+                      "vendor": {
+                        "type": "string",
+                        "description": "Vendor name."
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                      },
+                      "expense_category_id": {
+                        "type": "integer",
+                        "description": "Existing income-category reference (alternative to `category`)."
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Free-text description / notes."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Linked client reference."
+                      },
+                      "supplier_id": {
+                        "type": "integer",
+                        "description": "Linked supplier reference."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Treasury to deposit into."
+                      },
+                      "journal_account_id": {
+                        "type": "integer",
+                        "description": "Journal (chart-of-accounts) account."
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Linked work-order reference."
+                      },
+                      "unit_id": {
+                        "type": "integer",
+                        "description": "Rental-unit reference; sets the income source to that unit."
+                      },
+                      "expense_number": {
+                        "type": "string",
+                        "description": "Income number / reference code."
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "description": "Comma-separated list of previously uploaded file ids. Must be a string; an array is rejected with 400."
+                      },
+                      "unique_id": {
+                        "type": "string",
+                        "description": "Client-supplied idempotency key."
+                      },
+                      "tax1_id": {
+                        "type": "integer",
+                        "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                      },
+                      "tax1_value": {
+                        "type": "number",
+                        "description": "First tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax1_included": {
+                        "type": "integer",
+                        "description": "Whether the first tax is included in `amount` (0/1)."
+                      },
+                      "tax2_id": {
+                        "type": "integer",
+                        "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                      },
+                      "tax2_value": {
+                        "type": "number",
+                        "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax2_included": {
+                        "type": "integer",
+                        "description": "Whether the second tax is included in `amount` (0/1)."
+                      },
+                      "file": {
+                        "type": "string",
+                        "description": "Legacy single-file attachment reference."
+                      }
+                    }
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "Optional. Replaces the chart-of-accounts allocation. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Income.amount`.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "description": "Portion of the income allocated to this account."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Target account. Alternatively identify it by `entity_type` + `entity_id`."
+                        },
+                        "entity_type": {
+                          "type": "string",
+                          "description": "Resolve the account automatically from a related entity."
+                        },
+                        "entity_id": {
+                          "type": "integer",
+                          "description": "Reference of the entity named by `entity_type`."
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Tax applied to this line."
+                        },
+                        "percent": {
+                          "type": "number",
+                          "description": "Tax rate (percentage) for this line."
+                        },
+                        "included": {
+                          "type": "integer",
+                          "description": "Whether the line tax is included in the line amount (0/1)."
+                        }
+                      }
+                    }
+                  },
+                  "CostCenterTransaction": {
+                    "type": "array",
+                    "description": "Optional. Replaces the cost-center allocation for the income.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "cost_center_id": {
+                          "type": "integer",
+                          "description": "Target cost center."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "description": "Amount allocated to this cost center."
+                        }
+                      }
+                    }
+                  },
+                  "RecurringExpense": {
+                    "type": "object",
+                    "description": "Optional. Recurrence settings.",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "Income"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The income was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed (e.g. zero amount, date in a closed period, or a non-string `attachment`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Map of field name to error message.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to edit this income, or a mobile request tried to edit a record last updated from the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No income with the given id exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__incomes_id_format"
+      },
+      "delete": {
+        "summary": "Delete Incomes",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Delete an income by id.\n\nDeleting an income also removes its related accounting journal and attachments.\n\nAn income cannot be deleted while it is linked to another record (e.g. generated from another entity), already used in an income-distribution transaction, or dated in a closed financial period.\n\n**Access:** requires the account owner, or staff with *Edit/Delete All Incomes* or *Edit/Delete His Own Incomes* (for their own records).",
+        "tags": [
+          "Endpoints/Finance/Incomes",
+          "Incomes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Reference of the income to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The income was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable confirmation."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The request is invalid — the id is missing, or the income cannot be deleted because it is linked to another record or has related transactions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to delete this income.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No income with the given id exists (or it is outside the caller's access scope).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The income could not be deleted due to a server-side error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__incomes_id_format"
+      }
+    },
+    "/treasuries{format}": {
+      "get": {
+        "summary": "GET All Treasuries",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a paginated list of treasuries and bank accounts. The result is limited to the treasuries the authenticated user is allowed to view: a staff member sees only treasuries they hold a withdraw or deposit permission on, while an account owner or admin sees all. Requires a treasury permission or the *General Settings* permission. Each item includes a computed `balance`.",
+        "tags": [
+          "Endpoints/Finance/Treasuries",
+          "Treasuries"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items per page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to retrieve.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Treasury": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "description": "Unique identifier of the treasury.",
+                                "readOnly": true
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "Owner staff id, or `0` for the account owner."
+                              },
+                              "name": {
+                                "type": "string",
+                                "maxLength": 255,
+                                "description": "Name of the treasury or bank account."
+                              },
+                              "type": {
+                                "type": "integer",
+                                "enum": [
+                                  1,
+                                  2,
+                                  3
+                                ],
+                                "description": "Kind of account.\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                              },
+                              "type_name": {
+                                "type": "string",
+                                "description": "Bank/account label (used for bank accounts).",
+                                "nullable": true
+                              },
+                              "type_account_number": {
+                                "type": "string",
+                                "description": "Bank account number (used for bank accounts).",
+                                "nullable": true
+                              },
+                              "active": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "Whether the treasury is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                              },
+                              "is_primary": {
+                                "type": "integer",
+                                "enum": [
+                                  0,
+                                  1
+                                ],
+                                "description": "Whether this is the primary (default) treasury.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |"
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "Free-text description."
+                              },
+                              "currency_code": {
+                                "type": "string",
+                                "maxLength": 3,
+                                "description": "ISO currency code (set for bank accounts; treasuries default to the account currency).",
+                                "nullable": true
+                              },
+                              "metainfo": {
+                                "type": "object",
+                                "description": "Bank reconciliation metadata (bank accounts only).",
+                                "properties": {},
+                                "nullable": true
+                              },
+                              "balance": {
+                                "type": "number",
+                                "description": "Current balance of the treasury, computed at read time.",
+                                "readOnly": true
+                              },
+                              "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time the treasury was created.",
+                                "readOnly": true
+                              },
+                              "modified": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time the treasury was last updated.",
+                                "readOnly": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer"
+                        },
+                        "page_count": {
+                          "type": "integer"
+                        },
+                        "total_results": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden — the user has no treasury permission and lacks the General Settings permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__treasuries_format"
+      },
+      "post": {
+        "summary": "Add New Treasury",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Creates a treasury (cash account) or bank account. The request body is wrapped in a `Treasury` object. Only `name` is required; `type` defaults to Treasury and `active` defaults to inactive when omitted. Setting `is_primary` to `1` makes this the default treasury (and activates it). Requires the *General Settings* or *Manage Journal Accounts* permission.",
+        "tags": [
+          "Endpoints/Finance/Treasuries",
+          "Treasuries"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Treasury": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "description": "Name of the treasury or bank account. Required."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "description": "Kind of account. Optional; defaults to `3` (Treasury).\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                      },
+                      "is_primary": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Whether this is the primary (default) treasury. Optional; defaults to `0`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |\n\nSetting `1` also activates this treasury and clears the primary flag on all others."
+                      },
+                      "active": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Whether the treasury is active. Optional; defaults to `0` (Inactive) when omitted.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "description": "Bank/account label. Optional; used for bank accounts.",
+                        "nullable": true
+                      },
+                      "type_account_number": {
+                        "type": "string",
+                        "description": "Bank account number. Optional; used for bank accounts.",
+                        "nullable": true
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "description": "ISO currency code. Optional; used for bank accounts. Treasuries use the account currency.",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text description. Optional."
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "Treasury"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted — the treasury was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Identifier of the newly created treasury."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — validation failed; see `validation_errors`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "error_type": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "extra_data": {
+                      "type": "object",
+                      "nullable": true
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Field-keyed validation messages.",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "402": {
+            "description": "Payment Required — the plan's treasury/bank limit has been reached. This response uses a distinct envelope and does not include the `result` field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "upgrade_url": {
+                      "type": "string",
+                      "description": "Link to upgrade the plan."
+                    },
+                    "upgrade_btn_title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden — the user lacks the General Settings / Manage Journal Accounts permission.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__treasuries_format"
+      }
+    },
+    "/treasuries/{id}{format}": {
+      "get": {
+        "summary": "GET Single Treasury",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Returns a single treasury or bank account by id. Requires one of the treasury-related permissions (assigned-treasury view, change default treasury, view all journals, manage journal accounts) or the *General Settings* permission; staff additionally must hold a withdraw or deposit permission on the requested treasury.",
+        "tags": [
+          "Endpoints/Finance/Treasuries",
+          "Treasuries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier of the treasury to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Treasury": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "format": "int64",
+                              "description": "Unique identifier of the treasury.",
+                              "readOnly": true
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Owner staff id, or `0` for the account owner."
+                            },
+                            "name": {
+                              "type": "string",
+                              "maxLength": 255,
+                              "description": "Name of the treasury or bank account."
+                            },
+                            "type": {
+                              "type": "integer",
+                              "enum": [
+                                1,
+                                2,
+                                3
+                              ],
+                              "description": "Kind of account.\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                            },
+                            "type_name": {
+                              "type": "string",
+                              "description": "Bank/account label (used for bank accounts).",
+                              "nullable": true
+                            },
+                            "type_account_number": {
+                              "type": "string",
+                              "description": "Bank account number (used for bank accounts).",
+                              "nullable": true
+                            },
+                            "active": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "Whether the treasury is active.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                            },
+                            "is_primary": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ],
+                              "description": "Whether this is the primary (default) treasury.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |"
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "Free-text description."
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "maxLength": 3,
+                              "description": "ISO currency code (set for bank accounts; treasuries default to the account currency).",
+                              "nullable": true
+                            },
+                            "metainfo": {
+                              "type": "object",
+                              "description": "Bank reconciliation metadata (bank accounts only), returned as a decoded object.",
+                              "properties": {},
+                              "nullable": true
+                            },
+                            "created": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Time the treasury was created.",
+                              "readOnly": true
+                            },
+                            "modified": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Time the treasury was last updated.",
+                              "readOnly": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden — the user lacks a treasury-related permission and General Settings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not found — no treasury with this id is accessible to the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__treasuries_id_format"
+      },
+      "put": {
+        "summary": "Edit Treasuries",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Updates an existing treasury or bank account by id. The request body is wrapped in a `Treasury` object; the id is taken from the path. Setting `active` to `0` also clears the primary flag, and a bank account's `currency_code` cannot be changed once it has transactions. Requires one of the treasury-related permissions or the *General Settings* / *Manage Journal Accounts* permission. (A `POST /treasuries/{id}` request is accepted as an alias for this update.)",
+        "tags": [
+          "Endpoints/Finance/Treasuries",
+          "Treasuries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier of the treasury to update.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Treasury": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "description": "Name of the treasury or bank account."
+                      },
+                      "type": {
+                        "type": "integer",
+                        "enum": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "description": "Kind of account.\n\n| Value | Meaning |\n|---|---|\n| 1 | Bank account |\n| 2 | Personal (legacy) |\n| 3 | Treasury (cash) |"
+                      },
+                      "is_primary": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Whether this is the primary (default) treasury.\n\n| Value | Meaning |\n|---|---|\n| 0 | Not primary |\n| 1 | Primary |\n\nSetting `1` also activates this treasury and clears the primary flag on all others."
+                      },
+                      "active": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "Whether the treasury is active. Setting `0` also clears the primary flag.\n\n| Value | Meaning |\n|---|---|\n| 0 | Inactive |\n| 1 | Active |"
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "description": "Bank/account label (bank accounts).",
+                        "nullable": true
+                      },
+                      "type_account_number": {
+                        "type": "string",
+                        "description": "Bank account number (bank accounts).",
+                        "nullable": true
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "description": "ISO currency code (bank accounts). Cannot be changed once the bank has transactions.",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Free-text description."
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "Treasury"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK — the treasury was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "402": {
+            "description": "Payment Required — returned only when activating a previously-inactive treasury and the plan's treasury/bank limit has been reached. This response uses a distinct envelope and does not include the `result` field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "upgrade_url": {
+                      "type": "string",
+                      "description": "Link to upgrade the plan."
+                    },
+                    "upgrade_btn_title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden — the user lacks a treasury-related permission and General Settings / Manage Journal Accounts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not found — no treasury with this id is accessible to the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__treasuries_id_format"
+      },
+      "delete": {
+        "summary": "Delete Treasuries",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Deletes a treasury or bank account by id. Deletion is only allowed when the treasury is not in use: it must not be the primary treasury and must have no loans, pay-run / sales / purchase payments, bank or journal transactions, treasury transfers, cheque books, or staff using it as their default. A treasury that is in use can be deactivated instead. Requires one of the treasury-related permissions or the *General Settings* / *Manage Journal Accounts* permission.",
+        "tags": [
+          "Endpoints/Finance/Treasuries",
+          "Treasuries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier of the treasury to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK — the treasury was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Confirmation message, e.g. `<name> has been deleted`."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request — the treasury is in use and cannot be deleted; deactivate it instead.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Reason the treasury cannot be deleted. It can be deactivated instead. Possible values:\n\n| Message |\n|---|\n| You can't delete primary treasury |\n| This treasury has loan, you can make it inactive |\n| This treasury has pay run payments, you can make it inactive |\n| This treasury has sales payments, you can make it inactive |\n| This treasury has purchase payments, you can make it inactive |\n| This treasury has existing transactions, you can make it inactive |\n| This bank has existing transactions, you can make it inactive. |"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid access token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden — the user lacks a treasury-related permission and General Settings / Manage Journal Accounts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not found — no treasury with this id is accessible to the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__treasuries_id_format"
+      }
+    },
+    "/expenses{format}": {
+      "get": {
+        "summary": "GET All Expenses",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. List expenses, most recent first.\n\nReturns a paginated array under `data[]`, each entry wrapped in an `Expense` object, plus a `pagination` summary. Only expense records are returned (income records are served by the separate incomes endpoints).\n\nResults can be narrowed with the query filters below and ordered with `sort`/`direction`. Some filters depend on the account's configuration or enabled plugins, as noted per parameter.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Expenses*, *Add New Expenses*, or *Edit/Delete His Own Expenses* permissions. Staff without *View All Expenses* or *Edit/Delete All Expenses* see only expenses they recorded.",
+        "tags": [
+          "Endpoints/Finance/Expenses",
+          "Expenses"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items per page (1–1000). Defaults to 20.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 20
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to retrieve. Defaults to 1.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field to order the results by (e.g. `date`, `amount`, `id`).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "Sort direction: `asc` or `desc`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Filter by exact expense id.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "expense_number",
+            "in": "query",
+            "description": "Filter by expense number / reference code (partial match).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "query",
+            "description": "Start of the expense-date range (inclusive), in the account's date format.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "query",
+            "description": "End of the expense-date range (inclusive), in the account's date format.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_from",
+            "in": "query",
+            "description": "Start of the created-date range (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "created_to",
+            "in": "query",
+            "description": "End of the created-date range (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount_from",
+            "in": "query",
+            "description": "Minimum amount (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "amount_to",
+            "in": "query",
+            "description": "Maximum amount (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "note",
+            "in": "query",
+            "description": "Filter by words in the description / note (partial match; multiple words all must match).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expense_category_id",
+            "in": "query",
+            "description": "Filter by expense category reference.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Filter by exact vendor name. Available only when the account has recorded vendors.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "Filter to a single client. Available when the account is not configured to hide the client field on expenses.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "journal_account_id",
+            "in": "query",
+            "description": "Filter by journal (chart-of-accounts) account. Matches the expense's account or any of its per-line accounts. Available when the account is configured to hide the client field on expenses.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "work_order_id",
+            "in": "query",
+            "description": "Filter to expenses linked to a specific work order.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "recurring_expense_id",
+            "in": "query",
+            "description": "Filter to expenses generated from a specific recurring expense.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "creation_method",
+            "in": "query",
+            "description": "Filter by how the expense was created.\n\n| Value | Meaning |\n|---|---|\n| ai | Only AI-generated expenses |\n| (other) | Only expenses that were not AI-generated |",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "staff_id",
+            "in": "query",
+            "description": "Filter by the staff member who recorded the expense. Available only when the Staff plugin is enabled and the caller holds the *View All Expenses* permission; otherwise ignored.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "is_mileage",
+            "in": "query",
+            "description": "Filter by record type. Available only when the Mileage plugin is enabled.\n\n| Value | Meaning |\n|---|---|\n| 0 | Regular expense |\n| 1 | Mileage |",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of expenses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Expense": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Unique expense identifier."
+                              },
+                              "amount": {
+                                "type": "number",
+                                "description": "Expense amount (before taxes)."
+                              },
+                              "currency_code": {
+                                "type": "string",
+                                "description": "3-letter ISO 4217 currency code."
+                              },
+                              "vendor": {
+                                "type": "string",
+                                "description": "Vendor name. May be empty."
+                              },
+                              "category": {
+                                "type": "string",
+                                "description": "Category name. May be empty."
+                              },
+                              "date": {
+                                "type": "string",
+                                "description": "Date of the expense (YYYY-MM-DD)."
+                              },
+                              "file": {
+                                "type": "string",
+                                "description": "Legacy single-file attachment reference. May be empty."
+                              },
+                              "note": {
+                                "type": "string",
+                                "description": "Free-text notes / description."
+                              },
+                              "client_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked client, when applicable. May be null."
+                              },
+                              "supplier_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked supplier, when applicable. May be null."
+                              },
+                              "staff_id": {
+                                "type": "integer",
+                                "description": "Staff member who recorded the expense; `0` indicates the account owner."
+                              },
+                              "site_id": {
+                                "type": "integer",
+                                "description": "Internal account reference."
+                              },
+                              "recurring_expense_id": {
+                                "type": "integer",
+                                "description": "Reference of the recurring expense this record was generated from; `0` if none."
+                              },
+                              "created": {
+                                "type": "string",
+                                "description": "Time the expense was created."
+                              },
+                              "modified": {
+                                "type": "string",
+                                "description": "Time the expense was last updated."
+                              },
+                              "tax1_id": {
+                                "type": "integer",
+                                "description": "First tax reference. May be null."
+                              },
+                              "tax1_name": {
+                                "type": "string",
+                                "description": "First tax name."
+                              },
+                              "tax1_value": {
+                                "type": "number",
+                                "description": "First tax rate (percentage)."
+                              },
+                              "tax1_amount": {
+                                "type": "number",
+                                "description": "First tax amount."
+                              },
+                              "tax1_included": {
+                                "type": "integer",
+                                "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                              },
+                              "tax2_id": {
+                                "type": "integer",
+                                "description": "Second tax reference. May be null."
+                              },
+                              "tax2_name": {
+                                "type": "string",
+                                "description": "Second tax name."
+                              },
+                              "tax2_value": {
+                                "type": "number",
+                                "description": "Second tax rate (percentage)."
+                              },
+                              "tax2_amount": {
+                                "type": "number",
+                                "description": "Second tax amount."
+                              },
+                              "tax2_included": {
+                                "type": "integer",
+                                "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                              },
+                              "total": {
+                                "type": "number",
+                                "description": "Expense total including taxes."
+                              },
+                              "is_income": {
+                                "type": "integer",
+                                "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Expense |\n| 1 | Income |"
+                              },
+                              "treasury_id": {
+                                "type": "integer",
+                                "description": "Treasury the amount was withdrawn from."
+                              },
+                              "work_order_id": {
+                                "type": "integer",
+                                "description": "Reference of the linked work order, when applicable. May be null."
+                              },
+                              "source_id": {
+                                "type": "integer",
+                                "description": "Reference of the originating record, when the expense was generated from another entity. May be null."
+                              },
+                              "source_type": {
+                                "type": "string",
+                                "description": "Type of the originating record, when generated from another entity. May be null."
+                              },
+                              "expense_category_id": {
+                                "type": "integer",
+                                "description": "Reference of the expense category; `0` if uncategorised."
+                              },
+                              "journal_account_id": {
+                                "type": "integer",
+                                "description": "Journal (chart-of-accounts) account reference. May be null."
+                              },
+                              "branch_id": {
+                                "type": "integer",
+                                "description": "Branch the expense belongs to."
+                              },
+                              "expense_number": {
+                                "type": "string",
+                                "description": "Expense number / reference code."
+                              },
+                              "accounts_data": {
+                                "type": "string",
+                                "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                              },
+                              "external_source": {
+                                "type": "string",
+                                "description": "Origin of the record (e.g. `web`, `mobile`)."
+                              },
+                              "last_update_external_source": {
+                                "type": "string",
+                                "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "draft",
+                                  "issued"
+                                ],
+                                "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                              },
+                              "extra_details": {
+                                "type": "string",
+                                "description": "Additional processing metadata, as a JSON-encoded string."
+                              },
+                              "attachments": {
+                                "type": "array",
+                                "description": "List of attachment file URLs associated with the expense.",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "prev": {
+                          "type": "string",
+                          "description": "URL of the previous page, or null on the first page.",
+                          "nullable": true
+                        },
+                        "next": {
+                          "type": "string",
+                          "description": "URL of the next page, or null on the last page.",
+                          "nullable": true
+                        },
+                        "page": {
+                          "type": "integer",
+                          "description": "Current page number."
+                        },
+                        "page_count": {
+                          "type": "integer",
+                          "description": "Total number of pages."
+                        },
+                        "total_results": {
+                          "type": "integer",
+                          "description": "Total number of matching expenses."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view expenses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__expenses_format"
+      },
+      "post": {
+        "summary": "Add New Expens",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Create an expense.\n\nThe request body wraps the expense fields in an `Expense` object. Optionally include a `JournalTransaction` array to split the amount across chart-of-accounts accounts, a `CostCenterTransaction` array for cost-center allocation, and a `RecurringExpense` object to set up recurrence.\n\nOnly `amount` and `date` are required. Most other fields are optional and are defaulted automatically when omitted (see each field). Server-managed fields such as the record type, the recording staff member, and the status are set automatically and cannot be assigned from the request.\n\n**Idempotency:** pass a unique `unique_id` to safely retry. If a previous request with the same `unique_id` already created an expense, the response echoes that expense (`result` = `duplicated`) instead of creating a duplicate.\n\n**Access:** requires the account owner, or staff holding the *Add New Expenses* (or *Draft*) permission.",
+        "tags": [
+          "Endpoints/Finance/Expenses",
+          "Expenses"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Expense": {
+                    "type": "object",
+                    "description": "The expense fields.",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "description": "**Required.** Expense amount. Must be non-zero. Treated as gross of any taxes supplied."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "**Required.** Expense date, in the account's date format (e.g. `YYYY-MM-DD`). Must fall within an open financial period."
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code. Defaults to the account currency when omitted."
+                      },
+                      "vendor": {
+                        "type": "string",
+                        "description": "Vendor name."
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                      },
+                      "expense_category_id": {
+                        "type": "integer",
+                        "description": "Existing expense-category reference (alternative to `category`)."
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Free-text description / notes."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Linked client reference."
+                      },
+                      "supplier_id": {
+                        "type": "integer",
+                        "description": "Linked supplier reference. A suspended supplier is rejected."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Treasury to withdraw from. Defaults to the primary treasury when omitted."
+                      },
+                      "journal_account_id": {
+                        "type": "integer",
+                        "description": "Journal (chart-of-accounts) account. Optional unless the account is configured to make account selection mandatory and no account is supplied via `JournalTransaction`."
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Linked work-order reference."
+                      },
+                      "unit_id": {
+                        "type": "integer",
+                        "description": "Rental-unit reference; sets the expense source to that unit."
+                      },
+                      "expense_number": {
+                        "type": "string",
+                        "description": "Expense number / reference code. Generated automatically when omitted."
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "description": "Comma-separated list of previously uploaded file ids to attach. Must be a string; an array is rejected with 400."
+                      },
+                      "unique_id": {
+                        "type": "string",
+                        "description": "Client-supplied idempotency key. Reusing a key returns the original expense instead of creating a duplicate."
+                      },
+                      "tax1_id": {
+                        "type": "integer",
+                        "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                      },
+                      "tax1_value": {
+                        "type": "number",
+                        "description": "First tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax1_included": {
+                        "type": "integer",
+                        "description": "Whether the first tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                      },
+                      "tax2_id": {
+                        "type": "integer",
+                        "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                      },
+                      "tax2_value": {
+                        "type": "number",
+                        "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax2_included": {
+                        "type": "integer",
+                        "description": "Whether the second tax is included in `amount`.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                      },
+                      "file": {
+                        "type": "string",
+                        "description": "Legacy single-file attachment reference."
+                      },
+                      "clone_id": {
+                        "type": "integer",
+                        "description": "Reference of an existing expense to record this one as a clone of (for audit linkage)."
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "date"
+                    ]
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "Optional. Splits the expense across chart-of-accounts accounts. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Expense.amount`.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "description": "Portion of the expense allocated to this account."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Target account. Alternatively identify the account by `entity_type` + `entity_id`."
+                        },
+                        "entity_type": {
+                          "type": "string",
+                          "description": "Resolve the account automatically from a related entity (used instead of `journal_account_id`)."
+                        },
+                        "entity_id": {
+                          "type": "integer",
+                          "description": "Reference of the entity named by `entity_type`."
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Tax applied to this line."
+                        },
+                        "percent": {
+                          "type": "number",
+                          "description": "Tax rate (percentage) for this line."
+                        },
+                        "included": {
+                          "type": "integer",
+                          "description": "Whether the line tax is included in the line amount (0/1)."
+                        }
+                      }
+                    }
+                  },
+                  "CostCenterTransaction": {
+                    "type": "array",
+                    "description": "Optional. Cost-center allocations for the expense. Each entry allocates part of the amount to a cost center.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "cost_center_id": {
+                          "type": "integer",
+                          "description": "Target cost center."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "description": "Amount allocated to this cost center."
+                        }
+                      }
+                    }
+                  },
+                  "RecurringExpense": {
+                    "type": "object",
+                    "description": "Optional. Recurrence settings to repeat this expense on a schedule.",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "Expense"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "The expense was created. When an idempotency `unique_id` matches a previous request, `result` is `duplicated` and the fields identify the already-existing expense.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "enum": [
+                        "successful",
+                        "duplicated"
+                      ],
+                      "description": "`successful` for a new expense, `duplicated` when an idempotent retry matched an existing one."
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Reference of the created (or existing) expense."
+                    },
+                    "expense_number": {
+                      "type": "string",
+                      "description": "Expense number / reference code."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed (e.g. missing `amount`/`date`, zero amount, date in a closed period, or a non-string `attachment`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Map of field name to error message.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to add expenses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The request body was not valid JSON or the content type was not accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "post__expenses_format"
+      }
+    },
+    "/expenses/{id}{format}": {
+      "get": {
+        "summary": "GET Single Expens",
+        "deprecated": false,
+        "description": "Read operation. Retrieve all required pages before reporting complete totals. Retrieve a single expense by id.\n\nReturns the expense wrapped in an `Expense` object under `data`.\n\n**Access:** available to the account owner, or to staff holding any of the *View His Own Expenses*, *Add New Expenses*, or *Edit/Delete His Own Expenses* permissions. Staff without *View All Expenses* or *Edit/Delete All Expenses* can only read expenses they recorded.",
+        "tags": [
+          "Endpoints/Finance/Expenses",
+          "Expenses"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Reference of the expense to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested expense.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "Expense": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Unique expense identifier."
+                            },
+                            "amount": {
+                              "type": "number",
+                              "description": "Expense amount (before taxes)."
+                            },
+                            "currency_code": {
+                              "type": "string",
+                              "description": "3-letter ISO 4217 currency code."
+                            },
+                            "vendor": {
+                              "type": "string",
+                              "description": "Vendor name. May be empty."
+                            },
+                            "category": {
+                              "type": "string",
+                              "description": "Category name. May be empty."
+                            },
+                            "date": {
+                              "type": "string",
+                              "description": "Date of the expense (YYYY-MM-DD)."
+                            },
+                            "file": {
+                              "type": "string",
+                              "description": "Legacy single-file attachment reference. May be empty."
+                            },
+                            "note": {
+                              "type": "string",
+                              "description": "Free-text notes / description."
+                            },
+                            "client_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked client, when applicable. May be null."
+                            },
+                            "supplier_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked supplier, when applicable. May be null."
+                            },
+                            "staff_id": {
+                              "type": "integer",
+                              "description": "Staff member who recorded the expense; `0` indicates the account owner."
+                            },
+                            "site_id": {
+                              "type": "integer",
+                              "description": "Internal account reference."
+                            },
+                            "recurring_expense_id": {
+                              "type": "integer",
+                              "description": "Reference of the recurring expense this record was generated from; `0` if none."
+                            },
+                            "created": {
+                              "type": "string",
+                              "description": "Time the expense was created."
+                            },
+                            "modified": {
+                              "type": "string",
+                              "description": "Time the expense was last updated."
+                            },
+                            "tax1_id": {
+                              "type": "integer",
+                              "description": "First tax reference. May be null."
+                            },
+                            "tax1_name": {
+                              "type": "string",
+                              "description": "First tax name."
+                            },
+                            "tax1_value": {
+                              "type": "number",
+                              "description": "First tax rate (percentage)."
+                            },
+                            "tax1_amount": {
+                              "type": "number",
+                              "description": "First tax amount."
+                            },
+                            "tax1_included": {
+                              "type": "integer",
+                              "description": "Whether the first tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                            },
+                            "tax2_id": {
+                              "type": "integer",
+                              "description": "Second tax reference. May be null."
+                            },
+                            "tax2_name": {
+                              "type": "string",
+                              "description": "Second tax name."
+                            },
+                            "tax2_value": {
+                              "type": "number",
+                              "description": "Second tax rate (percentage)."
+                            },
+                            "tax2_amount": {
+                              "type": "number",
+                              "description": "Second tax amount."
+                            },
+                            "tax2_included": {
+                              "type": "integer",
+                              "description": "Whether the second tax is included in the amount.\n\n| Value | Meaning |\n|---|---|\n| 0 | Added on top |\n| 1 | Included |"
+                            },
+                            "total": {
+                              "type": "number",
+                              "description": "Expense total including taxes."
+                            },
+                            "is_income": {
+                              "type": "integer",
+                              "description": "Record type.\n\n| Value | Meaning |\n|---|---|\n| 0 | Expense |\n| 1 | Income |"
+                            },
+                            "treasury_id": {
+                              "type": "integer",
+                              "description": "Treasury the amount was withdrawn from."
+                            },
+                            "work_order_id": {
+                              "type": "integer",
+                              "description": "Reference of the linked work order, when applicable. May be null."
+                            },
+                            "source_id": {
+                              "type": "integer",
+                              "description": "Reference of the originating record, when generated from another entity. May be null."
+                            },
+                            "source_type": {
+                              "type": "string",
+                              "description": "Type of the originating record, when generated from another entity. May be null."
+                            },
+                            "expense_category_id": {
+                              "type": "integer",
+                              "description": "Reference of the expense category; `0` if uncategorised."
+                            },
+                            "journal_account_id": {
+                              "type": "integer",
+                              "description": "Journal (chart-of-accounts) account reference. May be null."
+                            },
+                            "branch_id": {
+                              "type": "integer",
+                              "description": "Branch the expense belongs to."
+                            },
+                            "expense_number": {
+                              "type": "string",
+                              "description": "Expense number / reference code."
+                            },
+                            "accounts_data": {
+                              "type": "string",
+                              "description": "Per-line account allocation, as a JSON-encoded string. Populated for draft records."
+                            },
+                            "external_source": {
+                              "type": "string",
+                              "description": "Origin of the record (e.g. `web`, `mobile`)."
+                            },
+                            "last_update_external_source": {
+                              "type": "string",
+                              "description": "Origin of the last update (e.g. `web`, `mobile`)."
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "draft",
+                                "issued"
+                              ],
+                              "description": "Record status.\n\n| Value | Meaning |\n|---|---|\n| issued | Issued (posted) |\n| draft | Draft |"
+                            },
+                            "extra_details": {
+                              "type": "string",
+                              "description": "Additional processing metadata, as a JSON-encoded string."
+                            },
+                            "attachmnets": {
+                              "type": "array",
+                              "description": "List of attachment file URLs associated with the expense. Note: on this single-expense endpoint the key is spelled `attachmnets` (the list endpoint uses `attachments`).",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to view this expense.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No expense with the given id exists (or it is outside the caller's access scope).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "get__expenses_id_format"
+      },
+      "put": {
+        "summary": "Edit Expenses",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Update an existing expense.\n\nThis is a partial update — send only the `Expense` fields you want to change. Any field validated on create keeps its rule when supplied (e.g. a supplied `amount` must be non-zero, a supplied `date` must fall in an open period). The expense id is taken from the path; any `id` in the body is ignored.\n\nOptionally include `JournalTransaction` / `CostCenterTransaction` arrays to replace the account and cost-center allocation, or a `RecurringExpense` object.\n\nThe same operation is also reachable via `POST /expenses/{id}`.\n\nAn expense that is locked to another record (e.g. generated from another entity) or already used in an expense-distribution transaction cannot be edited.\n\n**Access:** requires the account owner, or staff with *Edit/Delete All Expenses*, or *Edit/Delete His Own Expenses* (for their own records), or *Draft* (for their own draft records).",
+        "tags": [
+          "Endpoints/Finance/Expenses",
+          "Expenses"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Expense": {
+                    "type": "object",
+                    "description": "The expense fields to change. Provide only the fields you want to update.",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "description": "Expense amount. Must be non-zero when supplied."
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "Expense date, in the account's date format. Must fall within an open financial period when supplied."
+                      },
+                      "currency_code": {
+                        "type": "string",
+                        "description": "3-letter ISO 4217 currency code."
+                      },
+                      "vendor": {
+                        "type": "string",
+                        "description": "Vendor name."
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "Category name. Created automatically if it does not exist. Alternatively pass `expense_category_id`."
+                      },
+                      "expense_category_id": {
+                        "type": "integer",
+                        "description": "Existing expense-category reference (alternative to `category`)."
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Free-text description / notes."
+                      },
+                      "client_id": {
+                        "type": "integer",
+                        "description": "Linked client reference."
+                      },
+                      "supplier_id": {
+                        "type": "integer",
+                        "description": "Linked supplier reference."
+                      },
+                      "treasury_id": {
+                        "type": "integer",
+                        "description": "Treasury to withdraw from."
+                      },
+                      "journal_account_id": {
+                        "type": "integer",
+                        "description": "Journal (chart-of-accounts) account."
+                      },
+                      "work_order_id": {
+                        "type": "integer",
+                        "description": "Linked work-order reference."
+                      },
+                      "unit_id": {
+                        "type": "integer",
+                        "description": "Rental-unit reference; sets the expense source to that unit."
+                      },
+                      "expense_number": {
+                        "type": "string",
+                        "description": "Expense number / reference code."
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "description": "Comma-separated list of previously uploaded file ids. Must be a string; an array is rejected with 400."
+                      },
+                      "unique_id": {
+                        "type": "string",
+                        "description": "Client-supplied idempotency key."
+                      },
+                      "tax1_id": {
+                        "type": "integer",
+                        "description": "First tax reference. When omitted, all first-tax fields are cleared."
+                      },
+                      "tax1_value": {
+                        "type": "number",
+                        "description": "First tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax1_included": {
+                        "type": "integer",
+                        "description": "Whether the first tax is included in `amount` (0/1)."
+                      },
+                      "tax2_id": {
+                        "type": "integer",
+                        "description": "Second tax reference. When omitted, all second-tax fields are cleared."
+                      },
+                      "tax2_value": {
+                        "type": "number",
+                        "description": "Second tax rate (percentage). The tax amount is computed automatically."
+                      },
+                      "tax2_included": {
+                        "type": "integer",
+                        "description": "Whether the second tax is included in `amount` (0/1)."
+                      },
+                      "file": {
+                        "type": "string",
+                        "description": "Legacy single-file attachment reference."
+                      }
+                    }
+                  },
+                  "JournalTransaction": {
+                    "type": "array",
+                    "description": "Optional. Replaces the chart-of-accounts allocation. Entries with an empty `amount` are ignored, and the sum of the remaining amounts must equal `Expense.amount`.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "description": "Portion of the expense allocated to this account."
+                        },
+                        "journal_account_id": {
+                          "type": "integer",
+                          "description": "Target account. Alternatively identify it by `entity_type` + `entity_id`."
+                        },
+                        "entity_type": {
+                          "type": "string",
+                          "description": "Resolve the account automatically from a related entity."
+                        },
+                        "entity_id": {
+                          "type": "integer",
+                          "description": "Reference of the entity named by `entity_type`."
+                        },
+                        "tax_id": {
+                          "type": "integer",
+                          "description": "Tax applied to this line."
+                        },
+                        "percent": {
+                          "type": "number",
+                          "description": "Tax rate (percentage) for this line."
+                        },
+                        "included": {
+                          "type": "integer",
+                          "description": "Whether the line tax is included in the line amount (0/1)."
+                        }
+                      }
+                    }
+                  },
+                  "CostCenterTransaction": {
+                    "type": "array",
+                    "description": "Optional. Replaces the cost-center allocation for the expense.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "cost_center_id": {
+                          "type": "integer",
+                          "description": "Target cost center."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "description": "Amount allocated to this cost center."
+                        }
+                      }
+                    }
+                  },
+                  "RecurringExpense": {
+                    "type": "object",
+                    "description": "Optional. Recurrence settings.",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "Expense"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The expense was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Validation failed (e.g. zero amount, date in a closed period, or a non-string `attachment`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "validation_errors": {
+                      "type": "object",
+                      "description": "Map of field name to error message.",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to edit this expense, or a mobile request tried to edit a record last updated from the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No expense with the given id exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "put__expenses_id_format"
+      },
+      "delete": {
+        "summary": "Delete Expenses",
+        "deprecated": false,
+        "description": "MUTATING operation. Verify target and authorized intent; reconcile outcome before retry. Delete an expense by id.\n\nDeleting an expense also removes its related accounting journal and attachments.\n\nAn expense cannot be deleted while it is linked to another record (e.g. generated from another entity), already used in an expense-distribution transaction, or dated in a closed financial period.\n\n**Access:** requires the account owner, or staff with *Edit/Delete All Expenses* or *Edit/Delete His Own Expenses* (for their own records).",
+        "tags": [
+          "Endpoints/Finance/Expenses",
+          "Expenses"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Reference of the expense to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Response format suffix appended to the path, e.g. `.json`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The expense was deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable confirmation."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The request is invalid — the id is missing, or the expense cannot be deleted because it is linked to another record or has related transactions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Authentication is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "The authenticated user lacks permission to delete this expense.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No expense with the given id exists (or it is outside the caller's access scope).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "The expense could not be deleted due to a server-side error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "DaftraConnection": []
+          }
+        ],
+        "operationId": "delete__expenses_id_format"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "Record Not Found": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "DaftraConnection": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "security": [
+    {
+      "DaftraConnection": []
+    }
+  ]
+}

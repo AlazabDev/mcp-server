@@ -1,0 +1,8 @@
+{
+  "resource": "staff",
+  "method": "GET",
+  "record_id": 3,
+  "url": "https://alazab-co.daftra.com/api2/staff/3.json",
+  "http_status": 200,
+  "timestamp": "2026-10-08T21:55:02.944121+00:00"
+}
