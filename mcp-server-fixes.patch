@@ -1,0 +1,353 @@
+From 33846ac6e7ba10ff1fa1650fc5e8b9a67fb74409 Mon Sep 17 00:00:00 2001
+From: AzabAi <dev@alazab.com>
+Date: Sat, 24 Oct 2026 20:51:33 +0000
+Subject: [PATCH] fix: harden legacy API and MCP endpoint for Frappe 16
+
+- legacy writes (create/update/delete_doc) accept POST only; reads GET/POST
+- persist audit rows of failed authenticated direct calls (rollback first, never for unauthenticated)
+- throttle failed authentication on mcp_server.transport.handle (30/min/IP)
+- cast pagination values (strings on GET)
+- remove dead whitelist-registry code in mcp_tool
+- add regression tests, CI validator workflow, production notes
+- bump version to 1.0.1
+---
+ .github/workflows/validate.yml     | 17 +++++++
+ .gitignore                         |  3 ++
+ README_AR.md                       |  6 +++
+ mcp_server/__init__.py             |  2 +-
+ mcp_server/api.py                  | 49 ++++++++++--------
+ mcp_server/policy.py               |  9 ++++
+ mcp_server/tests/test_hardening.py | 82 ++++++++++++++++++++++++++++++
+ mcp_server/transport.py            |  6 ++-
+ 8 files changed, 150 insertions(+), 24 deletions(-)
+ create mode 100644 .github/workflows/validate.yml
+ create mode 100644 mcp_server/tests/test_hardening.py
+
+diff --git a/.github/workflows/validate.yml b/.github/workflows/validate.yml
+new file mode 100644
+index 0000000..ded22ca
+--- /dev/null
++++ b/.github/workflows/validate.yml
+@@ -0,0 +1,17 @@
++name: validate
++on:
++  push:
++  pull_request:
++jobs:
++  checkout-checks:
++    runs-on: ubuntu-24.04
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.14"
++      - uses: actions/setup-node@v4
++        with:
++          node-version: "24"
++      - name: Checkout, syntax and metadata checks (no Frappe, no credentials)
++        run: PYTHONPATH=. python tests/check_checkout.py
+diff --git a/.gitignore b/.gitignore
+index 772ec5d..fb48ae2 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -10,3 +10,6 @@ dist/
+ .env.*
+ env.production
+ state/
++# third-party pre-signed S3 URLs (embed an AWS key id); keep local, never commit
++az_mcp/magicplan/evidence/sidi-gaber.json
++az_mcp/magicplan/magicplan-downloads/*/manifest.json
+diff --git a/README_AR.md b/README_AR.md
+index 98bbdbd..5d87c6f 100644
+--- a/README_AR.md
++++ b/README_AR.md
+@@ -90,6 +90,12 @@ PYTHONPATH=. python -m pytest tests/test_catalog_http.py -q
+ - اتصال ChatGPT: https://developers.openai.com/plugins/build/auth
+ - المصدر المرفق لكل قدرة ظاهر في سجلها وفي mcp_server/assets/source_inventory.json.
+ 
++## ملاحظات الإنتاج
++
++- اضبط `public_url` في MCP Server Settings (أو `host_name` في site_config) وإلا تظهر عناوين MCP وOAuth بمضيف أو منفذ خاطئ.
++- نقاط `mcp_server.api.*` القديمة: الكتابة (`create_doc` و`update_doc` و`delete_doc`) عبر POST فقط، والقراءة GET أو POST. يحفظ سجل التدقيق الاستدعاءات الفاشلة للمستخدم المصادَق فقط.
++- المصادقة الفاشلة على `mcp_server.transport.handle` محدودة بـ30 محاولة في الدقيقة لكل عنوان IP، ويؤخذ العنوان من `X-Forwarded-For` فتأكد أن nginx يمرره.
++
+ ## بوابة Git قبل البناء الآلي
+ 
+ الملف `.github/workflows/validate.yml` يفحص كل Push وPull Request دون مفاتيح اتصال: تثبيت Editable من المصدر، سلامة ملفات التطبيق، بناء توزيعات Python، عقود الموصلات والواجهة العربية. يجب جعل نجاح `source-build` شرطًا لدمج التغييرات في فرع النشر. لا ينشر هذا الفحص إلى السيرفر.
+diff --git a/mcp_server/__init__.py b/mcp_server/__init__.py
+index 5becc17..5c4105c 100644
+--- a/mcp_server/__init__.py
++++ b/mcp_server/__init__.py
+@@ -1 +1 @@
+-__version__ = "1.0.0"
++__version__ = "1.0.1"
+diff --git a/mcp_server/api.py b/mcp_server/api.py
+index 11adb82..581827b 100644
+--- a/mcp_server/api.py
++++ b/mcp_server/api.py
+@@ -12,6 +12,10 @@ from mcp_server.utils import (
+     SENSITIVE_FIELDS
+ )
+ 
++READ_METHODS = ["GET", "POST"]
++WRITE_METHODS = ["POST"]  # state-changing endpoints must never be reachable through GET
++
++
+ def handle_mcp_auth():
+     from mcp_server.policy import authenticate
+     settings=authenticate()
+@@ -73,7 +77,16 @@ def mcp_tool(func):
+             else:
+                  execution_data["http_status"] = 500
+                  
+-            log_mcp_audit(execution_data)
++            via_engine = bool(getattr(frappe.local, 'mcp_execution_request_id', None))
++            if execution_data["mcp_user"] and not via_engine:
++                # Direct HTTP call: Frappe rolls the request back on error, which would also erase the
++                # audit row. Drop the failed partial writes first, then persist only the failure record.
++                # Unauthenticated failures are deliberately NOT stored (log-flooding vector).
++                frappe.db.rollback()
++                log_mcp_audit(execution_data)
++                frappe.db.commit()
++            else:
++                log_mcp_audit(execution_data)
+             raise e
+             
+         finally:
+@@ -82,22 +95,14 @@ def mcp_tool(func):
+                  execution_data["latency_ms"] = int((time.time() - start_time) * 1000)
+                  log_mcp_audit(execution_data)
+     
+-    # Register wrapper in frappe's whitelist registry (same as @frappe.whitelist() does)
+-    if func in frappe.whitelisted:
+-        frappe.whitelisted.append(wrapper)
+-    if func in frappe.guest_methods:
+-        frappe.guest_methods.append(wrapper)
+-    if func in frappe.allowed_http_methods_for_whitelisted_func:
+-        frappe.allowed_http_methods_for_whitelisted_func[wrapper] = frappe.allowed_http_methods_for_whitelisted_func[func]
+-                 
+     return wrapper
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ def ping_simple():
+     """Simple ping for connectivity test - no MCP auth required."""
+     return {"message": "pong", "site": frappe.local.site}
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ @mcp_tool
+ def ping():
+     return {
+@@ -107,7 +112,7 @@ def ping():
+         "user": frappe.session.user
+     }
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ @mcp_tool
+ def list_allowed_doctypes():
+     settings = get_mcp_settings()
+@@ -127,7 +132,7 @@ def list_allowed_doctypes():
+             
+     return valid
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ @mcp_tool
+ def get_meta(doctype):
+     check_doctype_allowlist(doctype, 'meta')
+@@ -167,7 +172,7 @@ def get_meta(doctype):
+         "istable": meta.istable
+     }
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ @mcp_tool
+ def get_doc(doctype, name, fields=None):
+     allowlist_doc = check_doctype_allowlist(doctype, 'read')
+@@ -212,7 +217,7 @@ def get_doc(doctype, name, fields=None):
+             
+     return result
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
+ @mcp_tool
+ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=20, page_start=0):
+     allowlist_doc = check_doctype_allowlist(doctype, 'read')
+@@ -238,10 +243,12 @@ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=2
+     # Enforce Page Limits
+     settings = get_mcp_settings()
+     max_limit = allowlist_doc.max_page_length or settings.default_max_page_length or 20
+-    if int(page_length)<1 or int(page_start)<0:
++    try:page_length=int(page_length);page_start=int(page_start)
++    except (TypeError,ValueError):frappe.throw("قيم التصفح غير صالحة")
++    if page_length<1 or page_start<0:
+         frappe.throw("قيم التصفح غير صالحة")
+-    if int(page_length) > int(max_limit):
+-        page_length = max_limit
++    if page_length > int(max_limit):
++        page_length = int(max_limit)
+         
+     if order_by:
+         import re
+@@ -258,7 +265,7 @@ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=2
+     
+     return docs
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
+ @mcp_tool
+ def create_doc(doctype, data):
+     allowlist_doc = check_doctype_allowlist(doctype, 'create')
+@@ -285,7 +292,7 @@ def create_doc(doctype, data):
+     doc.apply_fieldlevel_read_permissions()
+     return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
+ @mcp_tool
+ def update_doc(doctype, name, data):
+     allowlist_doc = check_doctype_allowlist(doctype, 'update')
+@@ -325,7 +332,7 @@ def update_doc(doctype, name, data):
+     doc.apply_fieldlevel_read_permissions()
+     return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
+ 
+-@frappe.whitelist(allow_guest=True)
++@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
+ @mcp_tool
+ def delete_doc(doctype, name):
+     check_doctype_allowlist(doctype, 'delete')
+diff --git a/mcp_server/policy.py b/mcp_server/policy.py
+index 87225c8..6ef2691 100644
+--- a/mcp_server/policy.py
++++ b/mcp_server/policy.py
+@@ -42,3 +42,12 @@ def rate_allowed(settings):
+     pipe=frappe.cache.pipeline();pipe.incr(key);pipe.expire(key,120)
+     count,_=pipe.execute()
+     return count<=max(limit,1)
++
++AUTH_FAILURE_LIMIT=30  # failed authentications per client IP per minute
++def _auth_failure_key():
++    import time
++    return frappe.cache.make_key('mcp:authfail:'+str(getattr(frappe.local,'request_ip',None) or '-')+':'+str(int(time.time()//60)))
++def auth_failures_exceeded():
++    return int(frappe.cache.get(_auth_failure_key()) or 0)>=AUTH_FAILURE_LIMIT
++def note_auth_failure():
++    key=_auth_failure_key();pipe=frappe.cache.pipeline();pipe.incr(key);pipe.expire(key,120);pipe.execute()
+diff --git a/mcp_server/tests/test_hardening.py b/mcp_server/tests/test_hardening.py
+new file mode 100644
+index 0000000..c71e5cd
+--- /dev/null
++++ b/mcp_server/tests/test_hardening.py
+@@ -0,0 +1,82 @@
++"""Regression tests for the HTTP hardening (methods, failure audit, auth throttle).
++
++Run on a dedicated test site: bench --site SITE run-tests --app mcp_server
++"""
++import frappe
++from frappe.tests import IntegrationTestCase
++
++from mcp_server import api, policy
++
++
++class TestHardening(IntegrationTestCase):
++	def setUp(self):
++		super().setUp()
++		frappe.set_user("Administrator")
++		settings = frappe.get_single("MCP Server Settings")
++		settings.enabled = 1
++		settings.auth_mode = "Native"
++		settings.save()
++		frappe.db.commit()
++		self.addCleanup(frappe.set_user, "Administrator")
++
++	def test_write_endpoints_are_post_only(self):
++		for fn in (api.create_doc, api.update_doc, api.delete_doc):
++			self.assertEqual(frappe.allowed_http_methods_for_whitelisted_func[fn], ["POST"], fn.__name__)
++
++	def test_read_endpoints_allow_get_and_post(self):
++		for fn in (api.ping, api.get_doc, api.search_docs, api.get_meta, api.list_allowed_doctypes):
++			self.assertEqual(
++				sorted(frappe.allowed_http_methods_for_whitelisted_func[fn]), ["GET", "POST"], fn.__name__
++			)
++
++	def test_pagination_accepts_numeric_strings_and_rejects_garbage(self):
++		allow = frappe.get_doc("MCP Doctype Allowlist", {"doctype_ref": "ToDo"})
++		allow.allow_read = 1
++		allow.save()
++		self.assertIsInstance(api.search_docs("ToDo", page_length="2", page_start="0"), list)
++		with self.assertRaises(frappe.ValidationError):
++			api.search_docs("ToDo", page_length="abc")
++
++	def test_auth_failure_throttle(self):
++		frappe.local.request_ip = "203.0.113.77"
++		self.addCleanup(frappe.cache.delete, policy._auth_failure_key())
++		self.assertFalse(policy.auth_failures_exceeded())
++		for _ in range(policy.AUTH_FAILURE_LIMIT):
++			policy.note_auth_failure()
++		self.assertTrue(policy.auth_failures_exceeded())
++		frappe.local.request_ip = "203.0.113.78"  # another client is not affected
++		self.assertFalse(policy.auth_failures_exceeded())
++
++	def test_failed_direct_call_is_audited_and_persisted(self):
++		doctype = "Letter Head"
++		self.assertFalse(frappe.db.exists("MCP Doctype Allowlist", {"doctype_ref": doctype}))
++		frappe.db.delete("MCP Audit Log", {"tool_name": "search_docs", "ref_doctype": doctype})
++		frappe.db.commit()
++		self.addCleanup(self._cleanup_audit, doctype)
++
++		with self.assertRaises(frappe.PermissionError):
++			api.search_docs(doctype=doctype)  # HTTP passes keyword args, which the audit reads
++
++		# the failed call already rolled back + committed its own audit row
++		row = frappe.db.get_value(
++			"MCP Audit Log",
++			{"tool_name": "search_docs", "ref_doctype": doctype},
++			["status", "mcp_user"],
++			as_dict=True,
++		)
++		self.assertIsNotNone(row)
++		self.assertEqual(row.status, "Fail")
++		self.assertEqual(row.mcp_user, "Administrator")
++
++	def test_unauthenticated_failure_is_not_stored(self):
++		frappe.set_user("Guest")
++		before = frappe.db.count("MCP Audit Log")
++		with self.assertRaises(frappe.PermissionError):
++			api.ping()
++		frappe.db.rollback()  # what Frappe does on error
++		self.assertEqual(frappe.db.count("MCP Audit Log"), before)
++
++	@staticmethod
++	def _cleanup_audit(doctype):
++		frappe.db.delete("MCP Audit Log", {"tool_name": "search_docs", "ref_doctype": doctype})
++		frappe.db.commit()
+diff --git a/mcp_server/transport.py b/mcp_server/transport.py
+index faafd79..aeac70f 100644
+--- a/mcp_server/transport.py
++++ b/mcp_server/transport.py
+@@ -2,7 +2,7 @@
+ import json
+ import frappe
+ from werkzeug.wrappers import Response
+-from mcp_server.policy import authenticate,permitted,rate_allowed
++from mcp_server.policy import authenticate,permitted,rate_allowed,auth_failures_exceeded,note_auth_failure
+ from mcp_server.engine import active_capabilities,active_skills,execute,public_skill
+ 
+ ENDPOINT='/api/method/mcp_server.transport.handle'
+@@ -29,8 +29,10 @@ def after_request(response):
+ 
+ @frappe.whitelist(allow_guest=True,methods=['POST','GET','DELETE'])
+ def handle(**kwargs):
++    if auth_failures_exceeded():return json_response({'error':'too_many_auth_failures'},429,{'Retry-After':'60'})
+     try:settings=authenticate()
+-    except (frappe.PermissionError,frappe.AuthenticationError):return json_response({'error':'unauthorized'},401,{'WWW-Authenticate':auth_header()})
++    except (frappe.PermissionError,frappe.AuthenticationError):
++        note_auth_failure();return json_response({'error':'unauthorized'},401,{'WWW-Authenticate':auth_header()})
+     if not rate_allowed(settings):return json_response({'error':'rate_limit_exceeded'},429,{'Retry-After':'60'})
+     if frappe.request.method!='POST':return json_response({'error':'Stateless JSON MCP: POST only'},405,{'Allow':'POST'})
+     if len(frappe.request.get_data())>1048576:return json_response({'error':'request_too_large'},413)
+-- 
+2.43.0
+

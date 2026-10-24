@@ -1,0 +1,265 @@
+"""
+Exposes the Jotform Workflow MCP server over SSE, for connectors that
+reach it over HTTP (ChatGPT custom connectors, remote MCP clients) rather
+than spawning it as a local stdio subprocess (Claude Desktop's mode).
+
+Why this file looks nothing like the one it replaces: that version was
+written against the mcp package's older, low-level Server API
+(manually wiring SseServerTransport + InitializationOptions and calling
+server.run(read_stream, write_stream, init_options)). The mcp 2.0 SDK
+actually installed here uses a different top-level class, MCPServer,
+with no InitializationOptions step and no get_capabilities() call needed
+— it builds a ready-made ASGI app for you. Confirmed against the
+installed package directly (inspect.signature), not assumed from an
+older tutorial or an LLM's memory of an earlier SDK version:
+
+    MCPServer.sse_app(sse_path="/sse", message_path="/messages/", ...) -> Starlette
+
+That's the whole integration. CORS is added to the returned Starlette
+app the same way you'd add it to any Starlette/FastAPI app.
+
+Run:
+    python api.py
+Then tunnel port 8000 and point the connector's Server URL at
+<tunnel>/mcp. The historical /sse URL remains available as an alias.
+"""
+import os
+
+import uvicorn
+from mcp.server.transport_security import TransportSecuritySettings
+from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+
+from mcp_server.audit_log import write_event
+from mcp_server.http_assets import register_workflow_ui_asset_routes
+from mcp_server.server import mcp
+
+# sse_app(), given no explicit `host`, defaults that parameter to "127.0.0.1"
+# — and when it sees that, it silently auto-enables DNS rebinding protection
+# with an allowlist of only localhost/127.0.0.1 (mcp/server/mcpserver/server.py,
+# the "Auto-enable DNS rebinding protection for localhost" branch in sse_app).
+# That allowlist rejects every request that arrives through a tunnel, since
+# the tunnel's Host header is never localhost — confirmed directly (421,
+# "Request validation failed") and reproduced in isolation against the SDK's
+# own TransportSecurityMiddleware.validate_request.
+#
+# localhost.run hands out a fresh random subdomain on every run
+# (917975b230634d.lhr.life, then 46df2caf8920c9.lhr.life, ...), so hardcoding
+# one allowed host doesn't survive a restart. Disabling the check is the
+# correct tradeoff for this dev/tunnel setup specifically — same category of
+# decision as allow_origins=["*"] below. Before this server has a stable
+# domain (a real deployment, not a throwaway tunnel), replace this with an
+# explicit TransportSecuritySettings(allowed_hosts=[...]) naming that domain.
+# Modern MCP SDKs support Streamable HTTP transport via streamable_http_app.
+# Claude.ai web connectors use Streamable HTTP (sending JSON-RPC messages over POST /sse).
+# Using streamable_http_app handles both GET and POST /sse natively, executing
+# JSON-RPC messages instead of returning static text.
+app = mcp.streamable_http_app(
+    streamable_http_path="/sse",
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+)
+
+# Route the canonical /mcp path and root / to the same Streamable HTTP handler
+# as the historical /sse endpoint. This keeps existing Claude connections
+# working while matching ChatGPT's documented remote MCP URL shape.
+from starlette.routing import Route  # noqa: E402
+sse_endpoint = app.routes[0].endpoint
+app.routes.append(Route("/", endpoint=sse_endpoint, methods=["GET", "POST", "OPTIONS", "HEAD"]))
+app.routes.append(Route("/mcp", endpoint=sse_endpoint, methods=["GET", "POST", "OPTIONS", "HEAD"]))
+
+
+import time
+import uuid
+from starlette.responses import JSONResponse
+from mcp_server.telemetry_context import bind_context, new_id
+
+# Dynamic session tracker
+_GLOBAL_LAST_REQUEST_TIME: float = time.time()
+_CURRENT_GLOBAL_SESSION_ID: str = uuid.uuid4().hex
+SESSION_INACTIVITY_TIMEOUT_SEC: float = 300.0  # 5 minutes
+
+
+def resolve_session_id(request) -> str:
+    global _GLOBAL_LAST_REQUEST_TIME, _CURRENT_GLOBAL_SESSION_ID
+
+    query = dict(request.query_params)
+    headers = dict(request.headers)
+
+    # 1. Explicit query param (e.g. ?session_id=..., ?chat_id=..., ?conversation_id=...)
+    for key in ("session_id", "chat_id", "conversation_id", "sessionId", "session"):
+        if query.get(key):
+            return str(query[key]).strip()
+
+    # 2. Explicit header (e.g. x-session-id, session-id, mcp-session-id, etc.)
+    for key in ("x-session-id", "session-id", "mcp-session-id", "chat-id", "conversation-id", "x-conversation-id"):
+        if headers.get(key):
+            return str(headers[key]).strip()
+
+    now = time.time()
+    # 3. New SSE handshake on GET /sse typically starts a new client stream
+    if request.method == "GET" and request.url.path in ("/sse", "/"):
+        _CURRENT_GLOBAL_SESSION_ID = uuid.uuid4().hex
+        _GLOBAL_LAST_REQUEST_TIME = now
+        return _CURRENT_GLOBAL_SESSION_ID
+
+    # 4. Inactivity timeout: if > 5 minutes passed since last request, auto-rotate session
+    if (now - _GLOBAL_LAST_REQUEST_TIME) > SESSION_INACTIVITY_TIMEOUT_SEC:
+        _CURRENT_GLOBAL_SESSION_ID = uuid.uuid4().hex
+
+    _GLOBAL_LAST_REQUEST_TIME = now
+    return _CURRENT_GLOBAL_SESSION_ID
+
+
+class AuditHTTPMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        session_id = resolve_session_id(request)
+        body = await request.body()
+        headers = dict(request.headers)
+        query = dict(request.query_params)
+        ua = (headers.get("user-agent") or "").lower()
+        origin = (headers.get("origin") or "").lower()
+        q_plat = (query.get("platform") or query.get("client") or "").lower()
+
+        provider = None
+        model = None
+        if q_plat == "claude" or "claude" in ua or "anthropic" in ua or "claude.ai" in origin:
+            provider = "anthropic"
+            model = "Claude Web / Connector"
+        elif q_plat in ("gpt", "openai", "chatgpt") or "chatgpt" in ua or "openai" in ua or "chatgpt.com" in origin or "openai.com" in origin:
+            provider = "openai"
+            model = "ChatGPT Developer Connector"
+
+        trace_id = headers.get("x-trace-id") or headers.get("trace-id") or headers.get("traceparent") or headers.get("b3") or uuid.uuid4().hex
+        parent_span_id = headers.get("x-span-id") or headers.get("span-id")
+        span_id = uuid.uuid4().hex
+
+        with bind_context(session_id=session_id, provider=provider, model=model, trace_id=trace_id, span_id=span_id, parent_span_id=parent_span_id):
+            write_event(
+                "mcp.http.request",
+                method=request.method,
+                path=request.url.path,
+                query=query,
+                client=request.client.host if request.client else None,
+                headers=headers,
+                provider=provider,
+                model=model,
+                trace_id=trace_id,
+                span_id=span_id,
+                parent_span_id=parent_span_id,
+                body=body.decode("utf-8", errors="replace") if body else "",
+            )
+            response = await call_next(request)
+            write_event(
+                "mcp.http.response",
+                method=request.method,
+                path=request.url.path,
+                status_code=response.status_code,
+                provider=provider,
+                model=model,
+                trace_id=trace_id,
+                span_id=span_id,
+            )
+            response.headers["X-Session-ID"] = session_id
+            response.headers["X-Trace-Id"] = trace_id
+            if provider:
+                response.headers["X-Provider"] = provider
+            return response
+
+
+async def reset_session_endpoint(request):
+    global _CURRENT_GLOBAL_SESSION_ID, _GLOBAL_LAST_REQUEST_TIME
+    _CURRENT_GLOBAL_SESSION_ID = uuid.uuid4().hex
+    _GLOBAL_LAST_REQUEST_TIME = time.time()
+    return JSONResponse({"status": "ok", "new_session_id": _CURRENT_GLOBAL_SESSION_ID})
+
+
+app.routes.append(Route("/session/reset", endpoint=reset_session_endpoint, methods=["GET", "POST"]))
+app.routes.append(Route("/session/new", endpoint=reset_session_endpoint, methods=["GET", "POST"]))
+register_workflow_ui_asset_routes(app)
+app.add_middleware(AuditHTTPMiddleware)
+
+# ChatGPT and Claude connectors need to reach this from different origins —
+# permissive CORS is what makes that possible. Tighten allow_origins to
+# your actual connector-facing domain before this goes anywhere near
+# production; "*" is fine for a local tunnel during development only.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# --- Claude & Remote MCP Client Compatibility Routes ---
+# Claude.ai web connectors enforce an OAuth handshake (even when unauthenticated).
+# These endpoints automatically fulfill the OAuth discovery, authorization,
+# and token exchange requests so Claude connects seamlessly without needing an
+# external OAuth provider or manual sign-in step.
+
+async def mock_register(request):
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    redirect_uris = body.get("redirect_uris", ["https://claude.ai/api/mcp/auth_callback"])
+    return JSONResponse(
+        {
+            "client_id": "mock_client_id",
+            "client_secret": "mock_client_secret",
+            "client_id_issued_at": 1700000000,
+            "client_secret_expires_at": 0,
+            "redirect_uris": redirect_uris,
+            "grant_types": ["authorization_code"],
+            "response_types": ["code"],
+            "token_endpoint_auth_method": "none",
+        },
+        status_code=201,
+    )
+
+async def mock_authorize(request):
+    redirect_uri = request.query_params.get("redirect_uri")
+    state = request.query_params.get("state")
+    if redirect_uri:
+        delim = "&" if "?" in redirect_uri else "?"
+        target = f"{redirect_uri}{delim}code=mock_code"
+        if state:
+            target += f"&state={state}"
+        return RedirectResponse(url=target)
+    return Response("OK", status_code=200)
+
+async def mock_token(request):
+    return JSONResponse({
+        "access_token": "mock_token",
+        "token_type": "bearer",
+        "expires_in": 86400,
+    })
+
+async def oauth_meta(request):
+    base_url = str(request.base_url).rstrip("/")
+    return JSONResponse({
+        "issuer": base_url,
+        "authorization_endpoint": f"{base_url}/authorize",
+        "token_endpoint": f"{base_url}/token",
+        "registration_endpoint": f"{base_url}/register",
+        "response_types_supported": ["code"],
+        "grant_types_supported": ["authorization_code"],
+        "code_challenge_methods_supported": ["S256", "plain"],
+        "resource": base_url,
+    })
+
+from starlette.responses import RedirectResponse, JSONResponse, Response  # noqa: E402
+
+app.add_route("/register", mock_register, methods=["POST", "GET"])
+app.add_route("/authorize", mock_authorize, methods=["GET", "POST"])
+app.add_route("/token", mock_token, methods=["GET", "POST"])
+app.add_route("/.well-known/oauth-authorization-server", oauth_meta, methods=["GET"])
+app.add_route("/.well-known/oauth-protected-resource", oauth_meta, methods=["GET"])
+app.add_route("/.well-known/oauth-protected-resource/", oauth_meta, methods=["GET"])
+app.add_route("/.well-known/oauth-protected-resource/sse", oauth_meta, methods=["GET"])
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", "8000"))
+    print(f"MCP HTTP server starting on http://0.0.0.0:{port}/mcp")
+    uvicorn.run(app, host="0.0.0.0", port=port)
