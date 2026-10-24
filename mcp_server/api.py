@@ -12,6 +12,10 @@ from mcp_server.utils import (
     SENSITIVE_FIELDS
 )
 
+READ_METHODS = ["GET", "POST"]
+WRITE_METHODS = ["POST"]  # state-changing endpoints must never be reachable through GET
+
+
 def handle_mcp_auth():
     from mcp_server.policy import authenticate
     settings=authenticate()
@@ -73,7 +77,16 @@ def mcp_tool(func):
             else:
                  execution_data["http_status"] = 500
                  
-            log_mcp_audit(execution_data)
+            via_engine = bool(getattr(frappe.local, 'mcp_execution_request_id', None))
+            if execution_data["mcp_user"] and not via_engine:
+                # Direct HTTP call: Frappe rolls the request back on error, which would also erase the
+                # audit row. Drop the failed partial writes first, then persist only the failure record.
+                # Unauthenticated failures are deliberately NOT stored (log-flooding vector).
+                frappe.db.rollback()
+                log_mcp_audit(execution_data)
+                frappe.db.commit()
+            else:
+                log_mcp_audit(execution_data)
             raise e
             
         finally:
@@ -82,22 +95,14 @@ def mcp_tool(func):
                  execution_data["latency_ms"] = int((time.time() - start_time) * 1000)
                  log_mcp_audit(execution_data)
     
-    # Register wrapper in frappe's whitelist registry (same as @frappe.whitelist() does)
-    if func in frappe.whitelisted:
-        frappe.whitelisted.append(wrapper)
-    if func in frappe.guest_methods:
-        frappe.guest_methods.append(wrapper)
-    if func in frappe.allowed_http_methods_for_whitelisted_func:
-        frappe.allowed_http_methods_for_whitelisted_func[wrapper] = frappe.allowed_http_methods_for_whitelisted_func[func]
-                 
     return wrapper
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 def ping_simple():
     """Simple ping for connectivity test - no MCP auth required."""
     return {"message": "pong", "site": frappe.local.site}
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 @mcp_tool
 def ping():
     return {
@@ -107,7 +112,7 @@ def ping():
         "user": frappe.session.user
     }
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 @mcp_tool
 def list_allowed_doctypes():
     settings = get_mcp_settings()
@@ -127,7 +132,7 @@ def list_allowed_doctypes():
             
     return valid
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 @mcp_tool
 def get_meta(doctype):
     check_doctype_allowlist(doctype, 'meta')
@@ -167,7 +172,7 @@ def get_meta(doctype):
         "istable": meta.istable
     }
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 @mcp_tool
 def get_doc(doctype, name, fields=None):
     allowlist_doc = check_doctype_allowlist(doctype, 'read')
@@ -212,7 +217,7 @@ def get_doc(doctype, name, fields=None):
             
     return result
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=READ_METHODS)
 @mcp_tool
 def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=20, page_start=0):
     allowlist_doc = check_doctype_allowlist(doctype, 'read')
@@ -238,10 +243,12 @@ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=2
     # Enforce Page Limits
     settings = get_mcp_settings()
     max_limit = allowlist_doc.max_page_length or settings.default_max_page_length or 20
-    if int(page_length)<1 or int(page_start)<0:
+    try:page_length=int(page_length);page_start=int(page_start)
+    except (TypeError,ValueError):frappe.throw("قيم التصفح غير صالحة")
+    if page_length<1 or page_start<0:
         frappe.throw("قيم التصفح غير صالحة")
-    if int(page_length) > int(max_limit):
-        page_length = max_limit
+    if page_length > int(max_limit):
+        page_length = int(max_limit)
         
     if order_by:
         import re
@@ -258,7 +265,7 @@ def search_docs(doctype, filters=None, fields=None, order_by=None, page_length=2
     
     return docs
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
 @mcp_tool
 def create_doc(doctype, data):
     allowlist_doc = check_doctype_allowlist(doctype, 'create')
@@ -285,7 +292,7 @@ def create_doc(doctype, data):
     doc.apply_fieldlevel_read_permissions()
     return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
 @mcp_tool
 def update_doc(doctype, name, data):
     allowlist_doc = check_doctype_allowlist(doctype, 'update')
@@ -325,7 +332,7 @@ def update_doc(doctype, name, data):
     doc.apply_fieldlevel_read_permissions()
     return {f:doc.get(f) for f in validate_fields(doctype,["*"],"read",allowlist_doc=allowlist_doc)}
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=WRITE_METHODS)
 @mcp_tool
 def delete_doc(doctype, name):
     check_doctype_allowlist(doctype, 'delete')

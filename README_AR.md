@@ -90,6 +90,12 @@ PYTHONPATH=. python -m pytest tests/test_catalog_http.py -q
 - اتصال ChatGPT: https://developers.openai.com/plugins/build/auth
 - المصدر المرفق لكل قدرة ظاهر في سجلها وفي mcp_server/assets/source_inventory.json.
 
+## ملاحظات الإنتاج
+
+- اضبط `public_url` في MCP Server Settings (أو `host_name` في site_config) وإلا تظهر عناوين MCP وOAuth بمضيف أو منفذ خاطئ.
+- نقاط `mcp_server.api.*` القديمة: الكتابة (`create_doc` و`update_doc` و`delete_doc`) عبر POST فقط، والقراءة GET أو POST. يحفظ سجل التدقيق الاستدعاءات الفاشلة للمستخدم المصادَق فقط.
+- المصادقة الفاشلة على `mcp_server.transport.handle` محدودة بـ30 محاولة في الدقيقة لكل عنوان IP، ويؤخذ العنوان من `X-Forwarded-For` فتأكد أن nginx يمرره.
+
 ## بوابة Git قبل البناء الآلي
 
 الملف `.github/workflows/validate.yml` يفحص كل Push وPull Request دون مفاتيح اتصال: تثبيت Editable من المصدر، سلامة ملفات التطبيق، بناء توزيعات Python، عقود الموصلات والواجهة العربية. يجب جعل نجاح `source-build` شرطًا لدمج التغييرات في فرع النشر. لا ينشر هذا الفحص إلى السيرفر.

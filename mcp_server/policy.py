@@ -42,3 +42,12 @@ def rate_allowed(settings):
     pipe=frappe.cache.pipeline();pipe.incr(key);pipe.expire(key,120)
     count,_=pipe.execute()
     return count<=max(limit,1)
+
+AUTH_FAILURE_LIMIT=30  # failed authentications per client IP per minute
+def _auth_failure_key():
+    import time
+    return frappe.cache.make_key('mcp:authfail:'+str(getattr(frappe.local,'request_ip',None) or '-')+':'+str(int(time.time()//60)))
+def auth_failures_exceeded():
+    return int(frappe.cache.get(_auth_failure_key()) or 0)>=AUTH_FAILURE_LIMIT
+def note_auth_failure():
+    key=_auth_failure_key();pipe=frappe.cache.pipeline();pipe.incr(key);pipe.expire(key,120);pipe.execute()

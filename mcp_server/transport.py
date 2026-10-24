@@ -2,7 +2,7 @@
 import json
 import frappe
 from werkzeug.wrappers import Response
-from mcp_server.policy import authenticate,permitted,rate_allowed
+from mcp_server.policy import authenticate,permitted,rate_allowed,auth_failures_exceeded,note_auth_failure
 from mcp_server.engine import active_capabilities,active_skills,execute,public_skill
 
 ENDPOINT='/api/method/mcp_server.transport.handle'
@@ -29,8 +29,10 @@ def after_request(response):
 
 @frappe.whitelist(allow_guest=True,methods=['POST','GET','DELETE'])
 def handle(**kwargs):
+    if auth_failures_exceeded():return json_response({'error':'too_many_auth_failures'},429,{'Retry-After':'60'})
     try:settings=authenticate()
-    except (frappe.PermissionError,frappe.AuthenticationError):return json_response({'error':'unauthorized'},401,{'WWW-Authenticate':auth_header()})
+    except (frappe.PermissionError,frappe.AuthenticationError):
+        note_auth_failure();return json_response({'error':'unauthorized'},401,{'WWW-Authenticate':auth_header()})
     if not rate_allowed(settings):return json_response({'error':'rate_limit_exceeded'},429,{'Retry-After':'60'})
     if frappe.request.method!='POST':return json_response({'error':'Stateless JSON MCP: POST only'},405,{'Allow':'POST'})
     if len(frappe.request.get_data())>1048576:return json_response({'error':'request_too_large'},413)

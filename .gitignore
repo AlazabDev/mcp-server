@@ -10,3 +10,6 @@ dist/
 .env.*
 env.production
 state/
+# third-party pre-signed S3 URLs (embed an AWS key id); keep local, never commit
+az_mcp/magicplan/evidence/sidi-gaber.json
+az_mcp/magicplan/magicplan-downloads/*/manifest.json
